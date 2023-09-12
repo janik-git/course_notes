@@ -1,0 +1,85 @@
+\chapter{Laplace Equation}
+Laplace's equation is given by : 
+\begin{align*}
+  \triangle u = \frac{\partial ^2 u}{\partial x_1^2}  +  \ldots  + \frac{\partial ^2 u}{\partial x_n^2}  = 0
+.\end{align*}
+The corresponding inhomogenous PDE is called Poisson's equation : 
+\begin{align*}
+  - \triangle u = f
+.\end{align*}
+In phyisics they describe for example the potential of an electric field in the vacuum with some distribution of charges f.\\[1ex]
+Goal of this post is to outline solutions to Laplace's equation , and analyzing the solution space on uniqueness and shape of solution.
+This can be split into the following steps : 
+\begin{enumerate}
+  \item Fundamental Solutions
+  \item Properties of Harmonic Functions 
+  \item Dirichlet Problem
+  \item Mean Value Property $\to $ Maximums Principle
+\end{enumerate}
+Fundamental Solutions  $\Phi $ are solutions that obey : 
+\begin{align*}
+  -\triangle F_{\Phi } = \delta  
+.\end{align*}
+These fundamental solutions are of interest to us as every solution to Poisson's equation $-\triangle u = f$ obeys : 
+\begin{align*}
+  u(x) = \Phi  \star  f = \int_{\mathbb{R}^{n } } \Phi(y) f(x-y) d^{n }y 
+.\end{align*}
+\begin{definition}[Translation Invariance]
+  Let $L : U \to  U$ be a linear (differential) operator and 
+  \begin{align*}
+    Lu = 0 \tag{1}
+  .\end{align*}
+  then we say L is translation invariant if for any $u \in  U$ that solves (1) 
+  $u(\cdot - g)$ for $g \in  \mathbb{R}^{n} $  also solves (1)
+\end{definition}
+\begin{lemma}[Translation Invariance of Laplace Equation and Rotational Invariance]
+  Laplace's equation is invariant in respect to translations of $\mathbb{R}^{n} $  and Rotations
+\end{lemma}
+\begin{proof}[Proof]
+  L is given by : 
+  \begin{align*}
+    L u = \triangle u  = \frac{\partial ^2 u}{\partial x_1^2} + \ldots + \frac{\partial ^2 u}{\partial x_n^2}
+  .\end{align*}
+  Lets denote the translation by $g \cdot u = u(x-g)$ for $g \in  (\mathbb{R}^{n},+) $.
+  Suppose u is a solution to 
+  \begin{align*}
+    L u = 0
+  .\end{align*}
+  Then consider $v(x) \coloneqq  u(x - g) $ and : 
+  \begin{align*}
+    \triangle v =  \sum_{i=1}^{n} \frac{\partial^2 v(x)}{\partial x_i}   =  \sum_{i=1}^{n} \frac{\partial^2 u(x-g)}{\partial x_i} * \underbrace{\frac{d(x-g)}{dx}}_{=1} = 0
+  .\end{align*}
+  For rotations consider a general n-dimensional Rotation Matrix R then R is orthogonoal : 
+  \begin{align*}
+    (Rx)_i  = \sum_{j=1}^{n }R_{i,j}x_j  
+  .\end{align*}
+  Such that : 
+  \begin{align*}
+    \frac{\partial u(Rx)}{\partial x_i} = \frac{\partial u  }{\partial Rx} * \frac{\partial Rx}{x_i} &= \triangledown u * R_{,i}\\
+                                                                                                     &= \sum_{j=1}^{n} \frac{\partial u}{\partial x_j} * R_{j,i}  
+  .\end{align*}
+  Then : 
+  \begin{align*}
+    \frac{\partial ^2 v}{\partial x_i ^2} &= \frac{\partial }{\partial x_i}   \sum_{j=1}^{n} \frac{\partial u}{\partial x_j} * R_{j,i}  \\
+                                          &=  \sum_{j=1}^{n} \frac{\partial }{\partial x_i} (\frac{\partial u}{\partial x_j} * R_{j,i})  \\
+                                          &= \sum_{j,k}^{n} \frac{\partial ^2 u}{\partial x_k \partial x_j} * R_{k,i}*R_{j,i} \\
+  .\end{align*}
+  Now summing over i : 
+  \begin{align*}
+    \triangle v = \sum_{i=1}^{n} \frac{\partial^2 v}{\partial x_{i}^2} &=  \sum_{i=1}^{n}  \sum_{j,k}^{n} \frac{\partial ^2 u}{\partial x_k \partial x_j} * R_{k,i}*R_{j,i} \\
+                                                                       &=   \sum_{j,k}^{n}\frac{\partial ^2 u}{\partial x_k \partial x_j} \sum_{i=1}^{n} R_{k,i}*R_{j,i}\\
+                                                                       &=    \sum_{j,k}^{n}\frac{\partial ^2 u}{\partial x_k \partial x_j} \sum_{i=1}^{n} R_{k,i}*(R^{T})_{i,j} \\
+                                                                       &\myS{Orth.}{=}  \sum_{j,k}^{n}\frac{\partial ^2 u}{\partial x_k \partial x_j} \sum_{i=1}^{n} R_{k,i}*(R^{T})_{i,j} \\
+                                                                       &= \sum_{j=1}^{n}  \frac{\partial ^2  u}{\partial x_j^2} * \underbrace{\sum_{i=1}^{n} R_{j,i}*(R^{T})_{i,j}}_{(RR^{T})_{j,j} = 1} + \sum_{i\neq k } \frac{\partial ^2  u}{\partial x_i \partial x_k} * \underbrace{\sum_{i=1}^{n} R_{k,i}*(R^{T})_{i,j}}_{(RR^{T})_{k,j} = 0}
+  .\end{align*}
+  Which is just the normal Laplace Equation , as every rotation matrix is orthogonoal the above holds for any Rotation Matrix as well.
+\end{proof}
+Thus lets first determine solutions that are also invariant to translations and rotations (Note that not all solutions will be invariant to such translations and rotations), 
+functions u that are invariant only depend on the length of the vector x such that $u(x) = v(r) = v(\sqrt{x*x} )$ : 
+\begin{align*}
+  \triangledown_x u(x) = v'(\sqrt{x*x} )\triangledown_x r = v'(\sqrt{x*x} ) \frac{2x}{2r}
+.\end{align*}
+We thus get an ODE : 
+\begin{align*}
+  \triangle u = \triangledown * \triangledown u =  v''(r) \frac{x^2}{r^2} + v'(r) \frac{n}{r} - v'(r)\frac{x^2}{r^2r} = v''(r) + \frac{n-1}{r}v'(r) = 0 
+.\end{align*}

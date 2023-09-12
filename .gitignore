@@ -5,7 +5,7 @@ target/
 
 books/
 tasks/
-lectures/
+Lectures/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

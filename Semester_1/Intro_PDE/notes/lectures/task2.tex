@@ -1,0 +1,217 @@
+\section{Sheet 2}
+%xsim
+\begin{question}[subtitle=Inhomogeneous Transport Equation (a)]
+	Find a solution $u : \mathbb{R} \to  \mathbb{R}$:
+  \begin{align*}
+    \frac{du}{dt} = f(t)
+  .\end{align*}
+\end{question}
+\begin{solution}
+  Integrating gives : 
+  \begin{align*}
+    u(t) = u(0) + \int_0^{t} f(t) dt 
+  .\end{align*}
+\end{solution}
+\begin{question}[subtitle=Inhomogeneous Transport Equation (b)]
+  Show that for every c the solution to the PDE with initial value $u(0) = c$ is unique
+\end{question}
+\begin{solution}
+  Let $u,v \in  \mathcal{C}(\mathbb{R};\mathbb{R})$ be two solutions to the IVP then  $u-v$ is a solution to the homogeneous PDE
+ \begin{align*}
+  \frac{dh}{dt} = 0
+ .\end{align*} 
+  Meaning $u-v$ is a constant function and since both solve the IVP $u(0)=v(0)=c$  and the functions are equal. 
+\end{solution}
+
+\begin{question}[subtitle=Inhomogeneous Transport Equation (c)]
+	Show that the integral term itself solves the Inhomogeneous transport equation. What
+	initial value problem does it solve
+\end{question}
+\begin{solution}
+	Taking both derivatives of the Integral part :
+	\begin{align*}
+		\frac{\partial u(x,t)}{\partial t} & = \frac{\partial }{\partial t}  \int_0^t f(x+(s-t)b,s)ds                          \\
+		                                   & = f(x+(s-t)b,s) \vert_{s=t}  + \int_0^t \frac{\partial f(x+(s-t)b,s)}{\partial t} \\
+		                                   & = f(x,t) + \int_0^t -b \triangledown f(x+(s-t)b,s)                                \\
+		.\end{align*}
+	Derivative is a result of chain rule and fundamental theorem of calculus (derivative of upper bound gives back original function at that value)
+	And :
+	\begin{align*}
+		\triangledown u \coloneqq \frac{\partial u(x,t)}{\partial x} & = \frac{\partial }{\partial x}  \int_0^t f(x+(s-t)b,s)ds \\
+		                                                             & = \int_0^t \triangledown f(x+(s-t)b,s) ds
+		.\end{align*}
+	Plugging into the PDE :
+	\begin{align*}
+		\frac{\partial u(x,t)}{\partial t} + b* \triangledown u =  \underbrace{f(x,t) + \int_0^t -b \triangledown f(x+(s-t)b,s)}_{= \frac{\partial u}{\partial t} }  + \underbrace{b*\int_0^t \triangledown f(x+(s-t)b,s) ds}_{=b*\triangledown u} = f(x,t)
+		.\end{align*}
+  Set $u(x,t) = \int_0^t f(x+(s-t)b,s) ds$ then : 
+  \begin{align*}
+    u(x,0) =  \int_0^0 f ds =  0
+  .\end{align*}
+  The Integral solves the initial value problem prob also not wrong \\[1ex]
+	\begin{align*}
+		\frac{\partial u_s}{\partial t} + b*\triangledown u_s & = 0      \\
+		u_s(x,\tau=0)                                         & = f(x,s)
+		.\end{align*}
+	Where $\tau = t-s$ is a time translation to get an initial value problem (see ODE), alternatively the Cauchy Problem:
+	\begin{align*}
+		\frac{\partial u_s}{\partial t} + b*\triangledown u_s & = 0      \\
+		u_s(x,\tau=0)                                         & = f(x,s)
+		.\end{align*}
+
+\end{solution}
+\begin{question}[subtitle=Inhomogeneous Transport Equation (d)]
+	Prove  that the solution to the initial value problem is unique. (You may assume that the solution to the homogeneous version is unique)
+\end{question}
+% \begin{solution}
+% 	With the result from (c) we know that $f(x+(s-t)b,s)$ is the solution to the homogeneous problem as in (c), which by assumption is unique,
+% 	and at $s=t \implies \tau = 0$ :
+% 	\begin{align*}
+% 		\frac{\partial u_0}{\partial t} + b*\triangledown u_0 & = 0             \\
+% 		u_s(x,0)                                              & = f(x,0) = g(x)
+% 		.\end{align*}
+%     Has the unique solution $u(x,t) = g(x-tb)$, such that the solution to Inhomogeneous initial value problem is unique ?
+% \end{solution}
+\begin{solution}
+  Given two solutions $u_1,u_2$ to the Inhomogeneous transport equation the difference between them : $u_1-u_2$ is a solution to the homogeneous transport equation with initial value 0,
+  which by assumption is unique (compare ODE)
+\end{solution}
+\begin{question}[subtitle=Method of characteristics for an Inhomogeneous PDE]
+ Use the method of characteristics to solve the following Inhomogeneous PDE : 
+ \begin{align*}
+  x \frac{\partial u}{\partial x} + y \frac{\partial u}{\partial y} = 2u  
+ .\end{align*}
+ for $(x,y) \in \mathbb{R}^{>0}\times \mathbb{R} $ with initial condition $u(1,y) = y$.
+\end{question}
+\begin{solution}
+ Let $z(s) = \ln (u(x(s),y(s)))$ then : 
+ \begin{align*}
+   z'(s) = \underbrace{\frac{1}{u}}_{\text{outer}}* \underbrace{\left( x \frac{\partial u}{\partial x} + y \frac{\partial u}{\partial y} \right) }_{\text{inner}}
+ .\end{align*}
+ This means  : 
+ \begin{align*}
+   x'(s) &= x(s)\\
+  y'(s) &= y(s)
+ .\end{align*}
+ Such that :
+ \begin{align*}
+   x(s) &= x_0*e^s\\
+   y(s) &=y_0*e^s
+ .\end{align*}
+ Which means :
+ \begin{align*}
+  z'(s) = 2
+ .\end{align*}
+ Now given the initial condition $u(1,y) = y$ we want :
+ \begin{align*}
+  z(0) = \ln(u(1,y)) = \ln(y_0) \implies x_0=1 
+ .\end{align*}
+  Integrating $z'$ : 
+  \begin{align*}
+    z(t) = z(0) + \int_0^t z'(s) ds = \ln(y_0) + \int_0^t 2 ds = \ln(y_0)*2t
+  .\end{align*}
+  Such that : 
+  \begin{align*}
+    u(x(s),y(s)) = \exp(z(s)) = y_0*e^{2s}  
+  .\end{align*}
+  Given any point $(\hat{x},\hat{y}) \in  \mathbb{R}^{>0} \times  \mathbb{R} $ we can determine the value $u(\hat{x},\hat{y} )$ by determining
+  the characteristic it lies on and the value of s and checking $z(s)$, using our above  : 
+  \begin{align*}
+    x(s) = \hat{x}  \implies s = \ln(\hat{x}) 
+  .\end{align*}
+  and : 
+  \begin{align*}
+    y(\ln(x)) = y_0*\hat{x}  \implies y_0 = \frac{\hat{y} }{\hat{x} }  
+  .\end{align*}
+  such that for any $(\hat{x},\hat{y}  )$ the value of u is given by 
+  \begin{align*}
+    u(x(s),y(s)) =  y_0*e^{2s} = \frac{\hat{y} }{\hat{x} }*(\hat{x} )^2 = \hat{y}\hat{x}    
+  .\end{align*}
+  Disregarding the characteristics : 
+  \begin{align*}
+    u(x,y) = xy
+  .\end{align*}
+  Which indeed solves the PDE. \\[1ex]
+  The solution is unique as the characteristics for different $(x,y)$ cannot cross as every point in the domain belongs to exactly one characteristic as seen by the above relations
+\end{solution}
+\begin{question}[subtitle=Duhamel's Principle (1)]
+  Consider an Inhomogeneous PDE on $\mathbb{R}^{n} \times  \mathbb{R} $ of the following form : 
+  \begin{align*}
+    \frac{\partial u}{\partial t}  - Lu = f(x,t), \quad u(x,0) = 0
+  .\end{align*}
+  where L is a linear differential operator on $\mathbb{R}^{n} $ with constant coefficients.\\
+  Show that if $u_s$ is a solution to the following homogeneous equation : 
+  \begin{align*}
+    \frac{\partial u_s}{\partial t}  - Lu_s = 0 , \quad u_s(x,s) = f(x,s)
+  .\end{align*}
+  Then : 
+  \begin{align*}
+    u(x,t) = \int_0^t u_s(x,t) ds 
+  .\end{align*}
+  solves the Inhomogeneous problem
+\end{question}
+\begin{solution}
+ Let the homogeneous problem be given as : 
+  \begin{align*}
+    \frac{\partial u_s}{\partial t}  - Lu_s = 0 , \quad u_s(x,s) = f(x,s)
+  .\end{align*}
+ and define : 
+ \begin{align*}
+  u(x,t) = \int_0^t u_s(x,t) ds
+ .\end{align*}
+ Such that : 
+ \begin{align*}
+   \frac{\partial u}{\partial t}  &= \frac{\partial }{\partial t}  \int_0^t u_s(x,t) ds\\ 
+                                  &\myS{Leib.}{=} u_s(x,t)\vert_{s=t} + \int_0^t \frac{\partial u_s}{\partial t} ds  \\
+                                  &= \underbrace{f(x,t)}_{=u_t(x,t)} + \int_0^t  \frac{\partial u_s}{\partial t} ds 
+ .\end{align*}
+And : 
+\begin{align*}
+  L u_s =  L \int_0^t u_s(x,t) ds  \myS{Descr.}{=} \int_0^t L u_s(x,t) ds
+.\end{align*}
+Together : 
+\begin{align*}
+  \frac{\partial u_s}{\partial t} + L u_s =  f(x,t) + \int_0^t \underbrace{\frac{\partial u_s}{\partial t} ds + L u_s{x,t}}_{=0} =  f(x,t)
+.\end{align*}
+Which shows $u(x,t) = \int_0^t u_s(x,t) ds$ is a solution to the Inhomogeneous PDE
+\end{solution}
+\begin{question}[subtitle=Duhamel's Principle (2)]
+Use the method to solve the Inhomogeneous Transport equation
+\end{question}
+\begin{solution}
+  Let the homogeneous pde be given as : 
+  \begin{align*}
+    \frac{\partial u_s}{\partial t}  + b \triangledown u_s  = 0  ,\quad u_s(x,s) =f(x,s) 
+  .\end{align*}
+  With initial value at $s$, then the following time translation : 
+  \begin{align*}
+    v_s(x,\tau ) = u_s(x,\tau +s) \implies v(x,0) = f(x,s)
+  .\end{align*}
+  leads to a initial value problem at 0. \\
+  Solving by characteristics, let $z(\tau ) = v(x(\tau ),\tau )$:
+  \begin{align*}
+    z' = \frac{\partial v}{\partial x} x' + \frac{\partial v}{\partial t} 
+  .\end{align*}
+  Choosing $x'(\tau ) = b \implies x(\tau ) = b*\tau +x_0$: 
+  \begin{align*}
+    z' = 0
+  .\end{align*}
+  Meaning $z$ is constant i.e $v_s(x,\tau )$ is constant along the characteristics with value :
+  \begin{align*}
+    z(0) = v_s(x_0,0) = f(x_0,s)
+  .\end{align*}
+  Now for any $(x,\tau ) \in  \mathbb{R}^{n}\times \mathbb{R} $ we get $v_s(x,\tau )$ by determining the characteristics it lies on (i.e determine $x_0$):
+  \begin{align*}
+    x = x_0 + \tau *b \implies x_0 = x - \tau *b
+  .\end{align*}
+  meaning : 
+  \begin{align*}
+    v_s(x,\tau ) = f(x-\tau *b)  \implies u_s(x,t) = f(x-(t-s)b,s)
+  .\end{align*}
+  Then : 
+  \begin{align*}
+    u(x,t) = \int_0^t f(x+(s-t)b,s) ds 
+  .\end{align*}
+  solves the Inhomogeneous transport equation with initial value 0 (4 .c )
+\end{solution}
+

@@ -1,0 +1,158 @@
+\chapter{Laplace Equation}
+The Laplace equation is given by : 
+\begin{align*}
+  \triangle u = \frac{\partial ^2 u}{\partial x_1^2} + \ldots  + \frac{\partial ^2 u}{\partial x_n^2}  = 0
+.\end{align*}
+With the corresponding inhomogeneous PDE (Poissons equation) : 
+\begin{align*}
+  - \triangle u = f
+.\end{align*}
+Note :
+\begin{align*}
+  \triangle u = \triangledown \cdot \triangledown u  
+.\end{align*}
+\begin{definition}[Harmonic Functions]
+  A function is called harmonic if it solves the Laplace equation 
+\end{definition}
+They describe the potential of an electric field in vacuum (with some distribution of charges f)
+\section{Fundamental Solution } % (fold)
+\label{sec:Fundamental Solution }
+The Laplace equation is invariant with respect to all rotations and translations of the Euclidean space $\mathbb{R}^{n } $
+\begin{comment}
+ This means that for coordinate translations : 
+ \begin{align*}
+  x \mapsto x+a \coloneqq x'
+ .\end{align*}
+ or rotation : 
+ \begin{align*}
+ x \mapsto R x \coloneqq  x'
+ .\end{align*}
+ Where R is a rotation matrix it holds that : 
+ \begin{align*}
+   \triangle u_x  = \triangle u_{x'}
+ .\end{align*}
+ For translation it is trivial as  a vanishes , and rotation matrices have determinant 1 i.e all eigenvalues are 1
+\end{comment}
+This means that any harmonic function must be invariant to translations and rotations and only depends on the length of the vector : 
+\begin{align*}
+  u(x) = v(r) = v(\sqrt{x*x} )
+.\end{align*}
+Taking the derivative  
+\begin{align*}
+  \triangledown_x u(x) = v'(\sqrt{x*x} )\triangledown r =  v'(\sqrt{x*x} ) \frac{2x}{2r}
+.\end{align*}
+Such that the Laplace Equation simplifies to an ODE : 
+\begin{align*}
+  \triangle u(x) =  \triangledown * \triangledown u = v(r)^{''}\frac{x^2}{r^2} + v'(r)\frac{n}{r} - v'(r)\frac{x^2}{r^2r} = v^{''}(r)+\frac{n-1}{r}v'(r)  = 0 
+.\end{align*}
+We can solve this ODE by : 
+\begin{align*}
+  v^{''}(r)  = - \frac{n-1}{r} v'(r)  \quad \implies \quad \frac{v^{''} }{v'} = \frac{1-n}{r} 
+.\end{align*}
+Using the ln trick : 
+\begin{align*}
+  \frac{v^{''} }{v'} = \frac{1-n}{r}  \implies \frac{d}{dr} \ln(v'(r)) = \frac{d}{dr} \frac{1-n}{r}
+.\end{align*}
+Integrating : 
+\begin{align*}
+  \ln(v'(r)) = (1-n)\ln(r) + C \implies v(r) = \begin{cases}
+    C'\ln(r) + C^{''} , &\text{ if }n=2 \\
+    \frac{C'}{r^{n-2} } + C^{''} &\text{ if }n\ge 3
+  \end{cases}
+.\end{align*}
+Calculating is just $\exp((1-n)\ln(r) ) = \exp(\ln(r))^{1-n} $ \\ [1ex]
+Meaning we get a two dimensional solution space ($C',C^{''} $)
+\begin{definition}[Fundamental Solutions]
+  Let $\Phi(x)$ be the following solutions of the Laplace equation  : 
+  \begin{align*}
+    \Phi(x) = \begin{cases}
+      -\frac{1 }{2\pi }\ln \abs{x }, &\text{ if }n=2\\
+      \frac{1}{n(n-2)\omega_n \abs{x }^{n-2 } } &\text{ if } n\ge 3
+    \end{cases}
+  .\end{align*}
+  Where $\omega_n$ denotes the volume of the unit ball $B(0,1)$ in Euclidean space $\mathbb{R}^{n} $.
+\end{definition}
+Choosing $C^{''} =0$ shows this solution lies in the space of symmetric solutions.\\
+Where as $C'$ is chosen such that the following holds : 
+\begin{theorem} 
+  For $f \in  \mathcal{C}^{2}_0(\mathbb{R}^{n} ) $ a solution of Poisson's equations $- \triangle u = f$ is given by 
+  \begin{align*}
+    u(x) = \Phi \star f  = \int_{\mathbb{R}^{n } } \Phi(y)f(x-y) d^{n }y 
+  .\end{align*}
+  The distribution corresponding to the fundamental solution obeys $- \triangle F_{\Phi } = \delta $
+\end{theorem}
+\begin{proof}[Proof ]
+  Differentiating u twice , noting that integral and Differentiating can be switched as A , f has compact support 
+  it vanishes on the boundary and it converges as it can be decomposed into a finite sum of bounded integrals.\\[1ex]
+  Next step is splitting the integral at the singularity of $\Phi $ in terms of $\epsilon -$balls around it.
+  The two integrals are shown to both converge to 0 for $\epsilon  \to  0$ by upper bounding them (first take max norm as a constant, then limit the integral of $\Phi $ which includes an epsilon term)\\[1ex]
+  Distribution step works by using the gradient operation : 
+  \begin{align*}
+    (\triangle F_{\Phi })(\phi ) = F_{\Phi }(\triangle \phi ) 
+  .\end{align*}
+  This is the same as setting $\phi(y) = f(0-y)$ such that $-\triangle F_{\Phi }(\phi ) = \phi(0)$ which is the definition of the delta distribution
+\end{proof}
+\begin{comment}
+  In general, a fundamental solution of a constant coefficient linear PDE $Lu = f$ has the property that 
+  $L \Phi  = \delta $ in the sense of distribution. : 
+  \begin{align*}
+    L(\Phi \star  f)  = (L \Phi) \star  f = \delta \star  f = f
+  .\end{align*}
+\end{comment}
+% section Fundamental Solution  (end)
+\section{Mean Value Property } % (fold)
+\label{sec:Mean Value Property }
+Mean value property shows that any harmonic function u is equal to its mean on any ball given the ball is part of the domain by : 
+\begin{align*}
+  u(x) = M(u,x,r)
+.\end{align*}
+for any r , this allows us to prove the Maximum principle which says that any harmonic function if it takes a maximum does so on its boundary 
+which gives an easy way to show that solutions to the dirichtlet problem are unique by $max(-v) = - min(v) = 0$ where $v = u_1-u_2$ for two solutions.\\[1ex]
+Goal is to prove that for any harmonic functions on an open domain $\Omega  \subset  \mathbb{R}^{n } $ the following holds : 
+\begin{definition}[Mean Value Property]
+  If u is a harmonic function on an open domain $\Omega  \subset  \mathbb{R}^{n } $ then the value  $u(x)$  at the center of any ball 
+  $B(x,r)$ with compact closure in $\Omega $ is equal to the mean of u on the boundary of the ball. And the opposite 
+  if this holds for all balls with compact closure then u is harmonic.
+\end{definition}
+\begin{definition}
+  Given a function u the spherical mean is given by : 
+  \begin{align*}
+    S[u](x,r) \coloneqq  \frac{1}{n \omega_n r^{n-1 } }\int_{\partial B(x,r)} u(y) d\sigma(y) =  \frac{1}{n\omega_n} \int_{\partial B(0,1)} u(x+rz)d\sigma(z)
+  .\end{align*}
+  Where $\omega_n$ denotes the volume of the unit ball in $\mathbb{R}^{n } $
+\end{definition}
+The mean of $u$ on the Ball $B(x,r)$ is the mean over $r' \in  [0,r]$ of the spherical means of $u$ on $\partial B(x,r')$ (basically taking the ball and unfolding it into $\abs{[0,r]}$ many lines and integrating over it and taking the mean 
+this is similar to integrating two dimensional shapes , remember video , https://www.youtube.com/watch?v=jNpKKDekS6k). 
+\begin{align*}
+  \int_{B(x,r)} u d\mu  = \int_0^r (\int_{\partial B(x,s)} u d \sigma ) ds
+.\end{align*}
+\begin{corollary}
+  Spherical mean and means have several nice properties, the normalisation constant in $S[u]$ ensures that : 
+  \begin{align*}
+    S[c] = c
+  .\end{align*}
+  for any constant function c , and the linearity of the integral gives 
+  \begin{align*}
+    S[au + bv] = a S[u] + bS[v]
+  .\end{align*}
+  And : 
+  \begin{align*}
+    u \le  v \implies S[u] \le S[v]
+  .\end{align*}
+\end{corollary}
+\begin{lemma}
+  If u is a continuous function then $\lim_{r \downarrow 0 } S[u](x,r) = u(x)$ 
+\end{lemma}
+\begin{proof}[Proof]
+  Just using the constant properties and continuous nature : 
+  \begin{align*}
+    \abs{S[u] - u(x)} = \abs{S[u]-S[u(x)]} = \abs{S[u-u(x)]} \le S[\abs{u-u(x)}] < S[\epsilon ] = \epsilon 
+  .\end{align*}
+  Which proves the statement.
+\end{proof}
+We get the following property using the divergence theorem : 
+\begin{align*}
+  \frac{\partial }{\partial r} S(r) &= \frac{1}{n \omega_n} \int_{\partial B(0,1)} \frac{d}{dr} u(x+rz) d\sigma(z) = \frac{1}{n \omega_n} \int_{\partial B(0,1)} \triangledown u (x+rz)*z d\sigma(z) \\ 
+                                    &= \frac{1}{n \omega_n r^{n-1 } } \int_{\partial B(x,r)} \triangledown u(y) * N d\sigma(y) = \frac{1}{n \omega_n r^{n-1 } }\int_{B(x,r)} \triangle u d\mu 
+.\end{align*}
+% section Mean Value Property  (end)

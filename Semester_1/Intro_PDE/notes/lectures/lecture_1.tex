@@ -1,0 +1,525 @@
+\chapter{Firt Order PDES}
+\setcounter{section}{-1}
+\section{Homogenous Transport Equation}
+\begin{definition}[Partial differential equation of order k]
+A partial differential equation of order k, u is unknown F is given
+\begin{align*}
+  F(D^ku(x),D^{k-1}u(x),\ldots ,Du(x),u(x),x)=0
+.\end{align*}
+\begin{align*}
+  D^k u(x) = \begin{pmatrix} \frac{\partial^k u}{\partial^k x_1},\ldots  \frac{\partial^k u}{\partial^k x_n} \end{pmatrix} 
+.\end{align*}
+\end{definition}
+\begin{definition}[Multi-Index]
+A multi-index $\gamma \in \N_0^n$ of length $\abs{\gamma } = \sum_{i} \gamma_i$
+for example $\gamma  = (0,2,1) \in \N^3_0$  can be used to denote partial derivatives of higher order as such : 
+\begin{align*}
+  \partial^{\gamma } = \prod_i (\frac{\partial}{\partial x_i})^{\gamma_i}
+.\end{align*}
+Only sensible cause partial derivatives commuter as otherwise the index would be ambiguous.
+\end{definition}
+\begin{definition}[Multi-Dimensional Chain Rule]
+Let $f : U \subset X \to Y$ be differentiable at $x_0 \in U$ and $g : V \subset Y \to Z$ be differentiable at $f(x_0) \in f[U] \subset  V$.
+Then $g \circ f$ is differentiable at $x_0$ and : 
+\begin{align*}
+  (g \circ f)'(x_0) = g'(f(x_0)) \circ f'(x_0)
+.\end{align*}
+Note the definition uses composition as the derivative of a function : 
+\begin{align*}
+  f : R^n \to  R^m \quad f' = 
+  \begin{pmatrix} 
+    \frac{\partial f_1}{\partial x_1} & \ldots &  \frac{\partial f_1}{\partial x_n}  \\ 
+    \frac{\partial f_2}{\partial x_1} & \ldots &  \frac{\partial f_2}{\partial x_n}  \\ 
+    \vdots & \ddots &  \vdots  \\ 
+    \frac{\partial f_m}{\partial x_1} & \ldots &  \frac{\partial f_m}{\partial x_n}  
+  \end{pmatrix} 
+.\end{align*}
+As such composition is used to , and in practice is matrix multiplication.
+\end{definition}
+Simple pde is the transport equation :
+\begin{align*}
+\dot{u} + b* \triangledown u = 0
+.\end{align*}
+$u : \R^n \times \R \to \mathbb{R}$ , $b \in \mathbb{R}^n$. 
+\subsection{Method of Characteristic intuition}
+The idea is to reduce the PDE to a system of ODEs by assuming a solution exists
+and then observing how the solution would change on a (characteristic) curve as follows \\[1ex]
+Let $u(x,t)$ be the solution to in this examlpe the transport equation. 
+We pick a curve by letting $(x,t)$ depend on $s \in \mathbb{R}$ : 
+\begin{align*}
+(x,t) = (x(s),t(s))
+.\end{align*}
+this leads us to : 
+\begin{align*}
+z(s) = u(x(s),t(s)) \myS{Specific}{=} u(x_0+s*b,t_0+s)
+.\end{align*}
+How the curve should look is often determined by further analysis of the pde.\\
+By taking the derivative of z in respect to s we get an ode : 
+\begin{align*}
+z'(s) = u(x(s),t(s))' =  \frac{\partial u}{\partial x} \frac{\partial x}{\partial s} + \frac{\partial u}{\partial t} \frac{\partial t}{\partial s}
+.\end{align*}
+for our concrete pick : 
+\begin{align*}
+z'(s) = \underbrace{\triangledown u(x_0 + s*b)}_{\frac{\partial u}{\partial x}} \underbrace{b}_{\frac{\partial x}{\partial s}} + \dot{u} \myS{pde}{=} 0
+.\end{align*}
+which means u is constant along all parallel straight lines in direction of (b,1) and is completely determined by the values on all these parallel straight lines.
+\section{Inhomogenous Transport Equation}
+Extend the Simple transport equation to an arbitrary function $f : \mathbb{R} \times  \mathbb{R} \to  \mathbb{R}$ which is given : 
+\begin{align*}
+ \dot{u}  + b * \triangledown u = f 
+.\end{align*}
+$b \in \mathbb{R}^n$ and u unknown real function. \\[1ex]
+When given an initial value $g: \mathbb{R}^n \to  \mathbb{R}$ : 
+\begin{align*} 
+ \dot{u}  + b * \triangledown u = f  \qquad u(x,0) = g(x)
+.\end{align*}
+and once again using a curve to observe the solution on that curve we can solve it : 
+\begin{align*}
+  z'(s) = b \triangledown u(x_0 +sb,s) + \dot{u}(x_0+sb,s) \myS{cond.}{=} f(x_0+sb,s)
+.\end{align*}
+as the right hand side is only a function of s and $z(0) = u(x_0,0) = g(x_0)$ we can integrate to determine z(s) :
+\begin{align*}
+  z(t)= z(0) + \int_{0}^t z'(s) ds &= g(x_0) + \int_{0}^t f(x_0 + sb,s) ds \\
+                                   &\myS{subs.}{=} g(x-tb) + \int_0^t f(x+(s-t)b,s) ds
+.\end{align*}
+\section{Scalar Conservation Laws}
+As the PDE s so far have been (quasi) linear in nature we picked lines as our characteristics, when faced with a non linear pde, our curve cannot be linear and we need to decide
+how to determine $x(s),t(s)$.
+\begin{definition}[Scalar conservation law]
+  For a smooth function $f : \mathbb{R}\to \mathbb{R}$ and $\mathbb{R} \times  \mathbb{R} \to  \mathbb{R}$ :
+  \begin{align*}
+    \dot{u}(x,t) + \frac{\partial f(u(x,t))}{\partial x} = \dot{u}(x,t) + f'(u(x,t))*\frac{\partial u(x,t)}{\partial x}   = 0
+  .\end{align*}
+  this non-linear first oder PDE is called scalar conservation law
+\end{definition}
+\begin{corollary}
+  The meaning of conservation law, is that the change of the integral of $u(\cdot,t)$ over $[a,b]$ is  equal to the 'flux' of $f(u(x,t))$ through the boundary $\{a,b\}  $
+  \begin{align*}
+    \frac{d}{dt} \int_a^b u(x,t) dx = \int_a^b \dot{u}(x,t) dx = - \int_a^b \frac{\partial f(u(x,t))}{\partial x} dx = f(u(a,t)) - f(u(b,t)) 
+  .\end{align*}
+\end{corollary}
+Assuming u exists and considering arbitrary characteristic curve $z(s) = u(x(s),s)$ we can get an idea of the shape of the curve by taking the derivative 
+\begin{align*}
+  z'(s) = \frac{\partial u(x(s),s)}{\partial x}\frac{\partial x(s)}{\partial s} + \dot{u}(x(s),s)  
+.\end{align*}
+Comparing to our PDE 
+\begin{align*}
+  \dot{u}(x,t) + f'(u(x,t))*\frac{\partial u(x,t)}{\partial x}  
+.\end{align*}
+it is immediate that for the choice $x'(s) = f'(u(x(s),s))$  :
+\begin{align*}
+  z'(s) = \frac{\partial u(x(s),s)}{\partial x}\frac{\partial x(s)}{\partial s} + \dot{u}(x(s),s)  = \frac{\partial u(x(s),s)}{\partial x}f'(u(x(s),s)) + \dot{u}(x(s),s)=0
+.\end{align*}
+Such that z is constant along these curves. \\[1ex]
+\textbf{Question ?}
+\begin{enumerate}
+  \item  Does a curve $x(s)$ with the above property exists 
+  \item What is the value of z
+\end{enumerate}
+Assuming our characteristic curve begins at $(x_0,0)$ and the initial value problem : 
+\begin{align*}
+  z(0) = u(x(0),0) = g(x_0)
+.\end{align*}
+since z is constant along this curve it follows : 
+\begin{align*}
+  z(s) = g(x_0)
+.\end{align*}
+from this it also follows that $x(s)$ is constant and equal to : 
+\begin{align*}
+  x'(s) = f'(u(x(s),s)) = f'(z(s)) = f'(g(x_0))
+.\end{align*}
+and the curve is given as : 
+\begin{align*}
+  x(s) -x_0 = \int_0^s x'(t) dt = \int_0^s f'(g(x_0)) dt = f'(g(x_0)) * s\\
+.\end{align*}
+it follows : $x(s) = x_0+s*f'(g(x_0))$\\[1ex]
+\begin{comment}[Crossing characteristics] 
+  Looking at all curves and picking two, determined by initial points $x_1,x_2\in \mathbb{R}^n$ such that the initial values are different $g(x_1) \neq  g(x_2)$
+  if the curves associated with this initial value problem cross then the solution to the PDEs IVP is not unique, the above method implies :
+  \begin{align*}
+    g(x_1) = u(x_1+tf'(g(x_1)),t) = u(x_2+t f'(g(x_2)),t) = g(x_2)
+  .\end{align*}
+  which is impossible. When two curves intersect the solution cannot be uniquely determined at those points as it is ambiguous which value the point takes on.
+\end{comment}
+\begin{example}[Burgers equation]
+For n=1 and $f(u)=\frac{1}{2}u^2$ burgers equation is given as : 
+\begin{align*}
+  \dot{u}(x,t) + \underbrace{u(x,t)}_{f'}\frac{\partial u(x,t)}{\partial x}  = 0
+.\end{align*}
+The corresponding characteristic equation is given by $x(t) = x_0 + g(x_0)t$ and therefore the solution is : 
+\begin{align*}
+  u(x+tg(x),t)=g(x)
+.\end{align*}
+If g is continuously differentiable and monotonic increasing (unique), then there is a unique $\mathcal{C}^1 $ solution
+\end{example}
+\begin{comment}
+ Burgers equation has no solution if either $g$ is not continuously differentiable, or monotonic increasing. 
+\end{comment}
+\newpage
+\section{Noncharacterstic Hypersurfaces}
+\begin{definition}[General first order PDE]
+Given a real function  $F : W \subset \mathbb{R}^n \times  \mathbb{R} \times  \Omega \to \mathbb{R}$ with an unknown function $u : \Omega  \subset  \mathbb{R}^n \to \mathbb{R}$
+and boundary condition $u(y) = g(y) $ for $y \in \Sigma \coloneqq \{x \in \Omega  | \phi(x) = \phi(x_0)\}  $ a general first oder PDE is given by : 
+\begin{align*}
+  F(\triangledown u(x),u(x),x) = 0
+.\end{align*}
+\end{definition}
+\begin{comment}
+ A cauchy problem can be a initial value problem or a boundary value problem 
+\end{comment}
+Given a Cauchy problem, we can transform the problem into the following form : 
+\begin{align*}
+  u(y) = g(y) \text{ for all } y \in  \Omega \cap H \text{ with } H = \{x \in  \mathbb{R}^n | x*e_n = x_0*e_n\}  
+.\end{align*}
+Where $e_n$ is the nth element of the canonical basis and H the unique hyperplane (one dimension less than its ambient space)
+through $x_0 \in  \Omega $ orthogonal to $e_n$. 
+\begin{figure}[h]
+  \begin{center}
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[tdplot_main_coords,scale=0.8,line join=round]
+\draw[-stealth] (0,0,0) -- (2,0,0) node[below]{$e_1$};
+\draw[-stealth] (0,0,0) -- (0,2,0) node[below]{$e_2$};
+\draw[-stealth] (0,0,0) -- (0,0,2) node[left]{$e_3$};
+\fill[blue,opacity=0.5] (0,0,0) -- (2,0,0) -- (2,2,0) -- (0,2,0) -- cycle;
+\draw[blue,dashed] (1,0,0) -- (1,1,0) -- (0,1,0);
+\draw[red,very thick] (1,1,0) circle[radius=2pt];
+\end{tikzpicture}
+  \end{center}
+  \caption{Hyperplane}
+  \label{fig:}
+\end{figure}
+\begin{theorem}[Inverse Function]
+ A continuously differentiable function $ f: \mathbb{R}^n \supset A \to  \mathbb{R}^n $ and 
+ $f'(a)$ is invertible at a point $a \in  A$ (i.e non zero determinant of the Jacobian ) then there exist neighborhoods U of a in A and V of $b=f(a)$ such that $f(U) \subset  V$ and $f : U \to  V$ is bijective.
+\end{theorem}
+\begin{corollary}
+ Using the Inverse Function Theorem it can be shown that the system of n equations $y_{i}=f_i(x_1,\ldots ,x_n)$ where $f=(f_1,\ldots ,f_n)$  has a unique solution for $x$ in terms of $y$ when $x \in  U , y \in  V$
+\end{corollary}
+Now if $\triangledown \phi(x_0) \neq 0$ we can assume that $\frac{\partial \phi }{\partial x_n}(x_0) \neq 0 $ and apply the inverse function theorem to : 
+\begin{align*}
+  x \mapsto \Phi(x) = (x_1,\ldots ,x_{n-1},\phi(x)) 
+.\end{align*}
+to get a continuously differentiable coordinate transformation (because it is bijective,continuous and differentiable by definition) in a neighbourhood of $x_0$.
+This is called "to straighten the boundary at $x_0$" as $\phi(x) = \phi(x_0)$ if and only if $y*e_n = y_n = \phi(x_0)$.\\[1ex]
+Using all this we can transform the PDE such that $u = v \circ \Phi $ for a function $v : \Omega' \to  \mathbb{R}$ : 
+\begin{align*}
+  \triangledown u(x) = \triangledown_{y} v(\underbrace{\Phi(x)}_{\coloneqq y})*J \Phi(x) = \triangledown v(y) * J \Phi(\Phi^{-1}(y))
+.\end{align*}
+Note : for v we get a gradient as $v : \mathbb{R}^n \to  \mathbb{R}$ and for $\Phi $ we get the Jacobian as $\Phi : \mathbb{R}^n \to  \mathbb{R}^n$\\
+$J \Phi$ referring to the Jacobian Matrix. THis means that u solves the PDE :
+\begin{align*}
+  F(\triangledown u(x),u(x),x) = 0
+.\end{align*}
+if and only if $v$ solves the PDE : 
+\begin{align*}
+  G(\triangledown v(y),v(y),y) := F(\triangledown v(y)*J \Phi(\Phi^{-1}(y)),v(y)\Phi^{-1}(y)) 0
+.\end{align*}
+\\[1ex]
+\textbf{Question?} Can we determine anything about u on the hypersurface given the value of u on the hypersurface H.
+I.e does a solution exist or the value of its derivative.
+We can compute the partial derivatives in most directions at $x_0 \in  H$
+\begin{align*}
+  \frac{\partial u(x_0)}{\partial x_1} = \lim_{h \to 0}   \frac{u(x_0+h*e_1)-u(x_0)}{h} =  \lim_{h \to 0}   \frac{g(x_0+h*e_1)-g(x_0)}{h} = \frac{\partial g(x_0)}{\partial x_1}
+.\end{align*}
+as $u(x_0)=g(x_0)$ we can substitute g for u in limit. Inserting this into the PDE : 
+\begin{align*}
+  F(\triangledown u(x_0),u(x_0),x_0) = F((\frac{\partial g(x_0)}{\partial x_1},\ldots , \frac{\partial g(x_0)}{\partial x_{n-1}}),p_n,g(x_0),x_0) = 0
+.\end{align*}
+meaning a solution exists depending on F ensuring we can solve the PDE in a neighborhood of $x_0$. 
+\begin{definition}[non-characteristic]
+ The Hyperplane $H = \{x_n = 0\}  $  is called non-characteristic at $x_0$ if : 
+ \begin{align*}
+  \frac{\partial F}{\partial p_n}(p_0,z_0,x_0) \neq 0
+ .\end{align*}
+ Where $(p_0,z_0,x_0)$ solves $F(p,z,x) = 0$.
+\end{definition}
+Can be used as a criterion for invertibility  of F in $p_n$ and be used 
+to construct a solution through implicit function theorem (i.e 0 at $(x,p_{0,n})$) and $\frac{\partial F}{\partial p_{0,n}}$ invertierbar
+\begin{example}
+  Consider : 
+  \begin{align*}
+    \frac{\partial u}{\partial x_1} = 0 , \qquad u(x_1,0) = g(x_1) 
+  .\end{align*}
+ Then $F(p_1,p_2,z,x_1,x_2) = p_1 \coloneqq  \frac{\partial g}{\partial x_1}$  (ka ob das stimmt)
+\end{example}
+\begin{lemma}
+ Let $F : W \to  \mathbb{R}$  and $g : H \to  \mathbb{R}$ be continuously differentiable, $x_0 \in  \Omega \cap H$ , 
+ $z_0 = g(x_0)$ and $p_{0,1} = \frac{\partial g(x_0)}{\partial x_1},\ldots p_{0,n-1} = \frac{\partial g(x_0)}{\partial x_{n-1}} $. If there exists $p_{0,n}$ with $F(p_0,z_0,x_0)=0$
+ and H is non-characteristic at $x_0$ then on an open neighborhood of $x_0 \in  \Omega \cap H$ there exists a unique solution q of : 
+ \begin{align*}
+   F(q(x),g(x),x) = 0,\quad q_i(x)=\frac{\partial g(x)}{\partial x_i} \quad \text{ and } \quad q(x_0) = p_0
+ .\end{align*}
+\end{lemma}
+\section{Method of Characteristics}
+Generalization of the earlier method of characteristics. 
+\begin{enumerate}
+  \item Idea : Obtain solution for PDE by observing how a solution $u$ would behave along a curve 
+  \item Method : Plug in arbitrary curve $z(s) = u(x(s))$
+  \item Determine optimal choice for $x(s)$ such that the PDE reduces to a system of ODE's
+\end{enumerate}
+\begin{example}
+ Given a PDE : 
+ \begin{align*}
+  F(\triangledown u(x),u(x),x) = 0
+ .\end{align*}
+ Let $z(s) = u(x(s))$ this leads to altered notation : 
+ \begin{align*}
+  F(p(s),z(s),x(s))
+ .\end{align*}
+ where $p(s) = \triangledown u(x(s))$ : 
+ \begin{align*}
+  \frac{dp_i(s)}{ds} = \frac{d}{ds} \frac{\partial u(x(s))}{\partial x_i}= \sum_{j=1}^{n}\frac{\partial^2 u(x(s))}{\partial x_j \partial x_i} x'_j(s)   
+ .\end{align*}
+ Which is attained by applying the chain rule (take derivative of each component of x for s , which leads to the outer derivative in respect to x)\\ 
+ Taking the derivative of $F(\triangledown u(x),u(x),x)=0$ in respect to fixed $x_{i}$ gives : 
+ \begin{align*}
+   \frac{d F}{d x_i} = \sum_{j=1}^n \frac{\partial F(\triangledown u(x),u(x),x)}{\partial p_j} \frac{\partial^2 u(x)}{\partial x_j \partial x_i}+ \frac{\partial F}{\partial u(x)}  \frac{\partial u(x)}{\partial x_i} + \frac{\partial F}{\partial x_i}
+ .\end{align*}
+ \textbf{Goal} eliminate dependence on u from all equations, as such we choose the curve as follows : 
+ \begin{align*}
+  x_j'(s) = \frac{\partial F(p(s),z(s),x(s))}{\partial p_j} 
+ .\end{align*}
+ Plugging into our first derivative and combining with the derivative of F in respect to $x_{i}$
+  \begin{align*}
+    \frac{dp_i(s)}{ds} = \frac{d}{ds} \frac{\partial u(x(s))}{\partial x_i}= \sum_{j=1}^{n}\frac{\partial^2 u(x(s))}{\partial x_j \partial x_i} \frac{\partial F(p(s),z(s),x(s))}{\partial p_j}    =  - \frac{\partial F(p(s),z(s),x(s))}{\partial z} p_{i}(s) -\frac{\partial F(p(s),z(s),x(s))}{\partial x_i}  
+ .\end{align*}
+ Differentiating z : 
+ \begin{align*}
+   z'(s) = \frac{d}{ds}u(x(s)) \sum_{j=1}^n \frac{\partial u(x(s))}{\partial x_j} x_j'(s) = \sum_{j=1}^h p_j(s) \frac{\partial F(p(s),z(s),x(s))}{\partial p_j} 
+ .\end{align*}
+Obtaining the $2n+1$ system of first order ODEs : 
+\begin{align*}
+  x_{i}'(s) &=   \frac{\partial F(p(s),z(s),x(s))}{\partial p_i} \\
+  p_{i}'(s) &=   \frac{\partial F(p(s),z(s),x(s))}{\partial x_i} -  \frac{\partial F(p(s),z(s),x(s))}{\partial z}p_i(s)\\
+  z'(s) &=   \sum_{j=1}^n \frac{\partial F(p(s),z(s),x(s))}{\partial p_j} p_j(s) \\
+.\end{align*}
+\end{example}
+\begin{corollary}
+ The above system is closed as in it only depends on these 2n+1 functions and no other information about u 
+\end{corollary}
+Formally : 
+\begin{theorem}
+  Let F be a real differentiable function on an open subset $W \subset  \mathbb{R}^{n}\times \mathbb{R}\times \mathbb{R}^{n} $ 
+  and $u \colon  \Omega \to \R $ a twice differentiable solution on an open subset $\Omega  \subset  \mathbb{R}^{n} $ of the first order PDE 
+  $F(\triangledown u(x),u(x),x)=0$. For every solution $s \mapsto x(s)$ of the ODE 
+  \begin{align*}
+    x_i'(s) = \frac{\partial F(\triangledown p(s),z(s),x(s)}{\partial p_i} 
+  .\end{align*}
+  the functions $p(s)=\triangledown u(x(s))$ and $z(s)=u(x(s))$ solve the ODEs
+  \begin{align*}
+    p_i'(s) &= - \frac{\partial F(p(s),z(s),x(s))}{\partial x_{i}} - \frac{\partial F(p(s),z(s),x(s))}{\partial z} p_i(s)    \\
+    z'(s) &= \sum_{j=1}^{n}  \frac{\partial F(p(s),z(s),x(s))}{\partial p_{j}}p_j(s) 
+  .\end{align*}
+\end{theorem}
+\begin{comment}
+  Note that the order of the theorem is $\text{Solution to pde } \implies \text{ Solution to ode}$ 
+\end{comment}
+This is idea is extended in the following Theorem where it is shown that a solution to the ODEs locally solves the PDE
+\begin{theorem}
+  Let $F \colon  W \to \R  $ and $g \colon  H \to \R $ be three times differentiable functions.
+  Suppose we have a point $(p_0,z_0,x_0) \in  W$ with 
+  \begin{align*}
+    F(p_0,z_0,x_0) = 0 , \quad z_0=g(x_0) , \quad p_{0,1} = \frac{\partial g(x_0)}{\partial x_1},\ldots ,p_{0,n-1} = \frac{\partial g(x_0)}{\partial x_{n-1}} 
+  .\end{align*}
+ Furthermore, assume that H is non-characteristic at $x_0$  :
+ \begin{align*}
+   \frac{\partial F(p_0,z_0,x_0)}{\partial p_{0,n}}  \neq 0
+ .\end{align*}
+ Then in a neighborhood $\Omega_{x_0} \subset  \Omega $ of $x_0$ there exists a unique solution of the Cauchy problem 
+ \begin{align*}
+   F(\triangledown u(x),u(x),x) = 0 \text{  for  } x \in \Omega_{x_0} \text{  and  } u(y) = g(y) \text{  for  } y \in \Omega_{x_0} \cap H
+ .\end{align*}
+\end{theorem}
+\begin{proof}
+ The proof relies on solving the ODE and showing that it solves the PDE, 
+ the initial conditions of the PDE can be translated to the initial conditions of the ODEs. 
+ By a previous Lemma we know that there exists a solution $q$ on an open neighborhood of $x_0$ in H of the following : 
+ \begin{align*}
+   F(q(y),g(y),y)=0 ,\quad q_i(y) = \frac{\partial g(y)}{\partial x_{i}} \text{ for } i=1,\ldots ,n-1 \text{  and  } q(x_0)  = p_0
+ .\end{align*}
+ This relied on H being non-characteristic and then using the implicit function theorem to define the solution.
+ As F is twice and g thrice differentiable we know that solution above is twice differentiable. \\
+ By Picard-Lindelöf (Right side Lipschitz) the following initial value problems have for all $y \in  H \cap \Omega_{x_0}$  a unique solotuion : 
+  \begin{align*}
+    x_i'(s) &= \frac{\partial F(\triangledown p(s),z(s),x(s)}{\partial p_i} \\
+    p_i'(s) &= - \frac{\partial F(p(s),z(s),x(s))}{\partial x_{i}} - \frac{\partial F(p(s),z(s),x(s))}{\partial z} p_i(s)    \\
+    z'(s) &= \sum_{j=1}^{n}  \frac{\partial F(p(s),z(s),x(s))}{\partial p_{j}}p_j(s) 
+  .\end{align*}
+  with initial conditions : 
+  \begin{align*}
+    x(0) &= y \\
+    p(0) &= q(y) \\
+    z(0) &= g(y) \\
+  .\end{align*}
+  We get for every y a solution such that we get a family of solutions : 
+  \begin{align*}
+    (x(y,s),p(y,s),z(y,s))
+  .\end{align*}
+  By the theorem on the dependence of solutions of ODEs on initial values the function : 
+  \begin{align*}
+    (y,s) \mapsto (x(y,s),p(y,s),z(y,s))
+  .\end{align*}
+  is for some $\epsilon >0$ on $(\Omega \cap H) \times (-\epsilon ,\epsilon )$ continuous and even differentiable.
+  The function $v : (y,s) \mapsto x(y,s)$ which maps initial values to characteristic curves has the Jacobian :
+  \begin{align*}
+    \frac{d v}{dy}  = \begin{pmatrix}
+1 & 0 & 0 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 1 & \cdots & 0 \\
+\end{pmatrix}
+  .\end{align*}
+  and 
+  \begin{align*}
+    \frac{dv}{ds} \myS{Def}{=} \begin{pmatrix} \frac{\partial F(p_0,z_0,x_0)}{\partial p_1} \\ \vdots \\   \frac{\partial F(p_0,z_0,x_0)}{\partial p_{n-1}} \\  \frac{\partial F(p_0,z_0,x_0)}{\partial p_n} \end{pmatrix}
+  .\end{align*}
+  Since H is non characteristic we know that $ \frac{\partial F(p_0,z_0,x_0)}{\partial p_n} \neq 0$ and the combined Jacobian is thus invertible.\\[1ex]
+  We can thus use the inverse function theorem which implies the bijection of the inverse and the continuouity  such that we get a differentiable homeomorphism ("isomorph").
+  Thus a function $u : \Omega  \to  \mathbb{R}$ defined implicit by :
+  \begin{align*}
+    u(x(y,s)) = z(y,s) 
+  .\end{align*}
+is well defined and satisfies the initial conditions of the PDE.\\
+It remains to show that u solves the PDE. The ODEs imply : 
+\begin{align*}
+  \frac{d}{ds} F(p(y,s),z(y,s),x(y,s)) = \frac{\partial F}{\partial p}\frac{\partial p(y,s)}{\partial s} +    \frac{\partial F}{\partial z}\frac{\partial z(y,s)}{\partial s} + \frac{\partial F}{\partial x}\frac{\partial x(y,s)}{\partial s} = 0
+.\end{align*}
+Inserting the system of ODEs and noting that $\frac{\partial F}{\partial p} $ is a row vector and $\frac{\partial p}{\partial s} $ is a column vector (same for x ) 
+\begin{align*}
+  0 = \sum_{i=1}^n \frac{\partial F}{\partial p_i}*(-\frac{\partial F}{\partial x_i}-\frac{\partial F}{\partial z}p_i) + \sum_{i=1}^n  \frac{\partial F}{\partial z}  \frac{\partial F}{\partial p_i}p_i + \sum_{i=1}^n \frac{\partial F}{\partial x_{i}}\frac{\partial F}{\partial p_i}   
+.\end{align*}
+Hence it suffices to show that $p(y,s) = \triangledown u(x(y,s))$ for all $(y,s) \in  (\Omega \times H) \times  (-\epsilon ,\epsilon )$ for u to solve the PDE,
+Noting that : 
+\begin{align*}
+  \frac{\partial z(y,s)}{\partial s} =  \sum_{i=1}^n p_j(y,s)\frac{\partial x_j(y,s)}{\partial s}  \text{  and  } \frac{\partial z(y,s)}{\partial s} =  \sum_{i=1}^n p_j(y,s)\frac{\partial x_j(y,s)}{\partial y_i}
+.\end{align*}
+The first follows from the ODE ($z(y,s)=u(x(y,s)) $  gives the gradient $p$),
+and the second from the initial conditions for $s=0$. For $s>0$
+Showing that : 
+\begin{align*}
+  v(y,s) = \frac{\partial z(y,s)}{\partial s} -  \sum_{i=1}^n p_j(y,s)\frac{\partial x_j(y,s)}{\partial y_i}
+.\end{align*}
+is 0 proves the second. Quite lenghty and mostly transformations while remembering the original PDE.\\[1ex]
+Given the two equalities and note $\triangledown u(x(y,s))  = (\frac{\partial u}{\partial x_1},\ldots  )$
+\begin{align*}
+  \frac{\partial u}{\partial x_j} &= \frac{\partial z}{\partial s}\frac{\partial s}{\partial x_j} + \sum_{i=1}^{n-1}  \frac{\partial z}{\partial y_{i}}\frac{\partial y_{i}}{\partial x_{j}} =  (\sum_{k=1}^n p_k \frac{\partial x_k}{\partial s} )\frac{\partial s}{\partial x_j} +     \sum_{i=1}^{n-1}  (\sum_{k=1}^n p_j(y,s)\frac{\partial x_j(y,s)}{\partial y_i})\frac{\partial y_{i}}{\partial x_{j}}\\
+                                  &= \sum_{k=1}^n p_k (\frac{\partial x_k}{\partial s}\frac{\partial s}{\partial x_j} + \sum_{i=1}^{n-1} \frac{\partial x_k}{\partial y_{i}}\frac{\partial y_{i}}{\partial x_{j}}    ) \\
+                                  &= \sum_{k=1}^{n} p_k \frac{\partial x_k}{\partial x_j}  = p_j
+.\end{align*}
+Notice in the last its just the derivative of $\frac{\partial x(y,s)}{\partial x_j} $, and $=p_j$ because the derivatives are 0 except for $k=j \implies 1$ \\[1ex]
+The uniqueness follows from Lindelöf as the ODE solutions are unique
+\end{proof}
+\section{Weak Solutions}
+Generally Weak Solutions refer to solutions that are almost a solution but might deviate from some requirements,
+in our context of pde's a weak solution refers to one that has restricted differentiability on our domain.
+\begin{definition}[Rankine Hugnoit Condition]
+  Let the PDE problem be given by conserved integrals : 
+  \begin{align*}
+    \frac{d}{dt} \int_a^b u(x,t) dx = f(u(a,t)) - f(u(b,t))
+  .\end{align*}
+  then a function u with discontinuities along the graph $\{(x,t) | x=y(t)\}  $ for $y \in  \mathcal{C}^1$,
+  splitting the interval $[a,b]$ into $[a,b] = [a,y(t)] \cup [y(t),b]$ we can calculate the derivative : 
+  \begin{align*}
+    \frac{d}{dt} \int_{a}^b u(x,t) dx &= \frac{d}{dt} \int_a^{y(t)} u(x,t) dx + \frac{d}{dt} \int_{y(t)}^b u(x,t) dx \\
+                                      &= \dot{y}(t) \lim_{x \uparrow y(t)} u(x,t) + \int_a^{y(t)} \dot{u}(x,t) dx - \dot{y}(t) \lim_{x \downarrow y(t)} u(x,t) + \int_{y(t)}^{b} \dot{u}(x,t)\\
+  .\end{align*}
+  Letting $u^l(y(t),t) = \lim_{x \uparrow y(t)} u(x,t)$ and $u^r$ analog, and assume that on both sides of the graph of y the function u is a solution of the conservation law : 
+  \begin{align*}
+    \frac{d}{dt} \int_{a}^b u(x,t) dx &= \dot(y)(u^l - u^r) - \int_{a}^{y(t)} \frac{d}{dx} f(u(x,t)) dx - \int_{y(t)}^b \frac{d}{dx} f(u(x,t)) dx \\
+                                      &=  \dot(y)(u^l - u^r) + \underbrace{f(u(a,t)) - f(u(b,t))}_{= \frac{d}{dt} \int_a^b u(x,t) dx} +f(u^{r} (y(t),t)) - f(u^{l}(y(t),t))
+  .\end{align*}
+  the $\frac{d}{dx} f$ comes from the scalar conversation pdf : 
+  \begin{align*}
+    \dot{u} + \frac{df(u(x,t))}{du}* \frac{\partial u(x,t)}{\partial x}  = 0
+  .\end{align*}
+  Solving for $\dot{y}(t)$ gives the Rankine-Hugonoit condition: 
+  \begin{align*}
+    \dot{y}(t) = \frac{f(u^{r}(y,t))-f(u^{l}(y,t) )}{u^{r}(y,t)- u^{l}(y,t)}
+  .\end{align*}
+\end{definition}
+\begin{corollary}
+  The condition says that the conservation law still holds for a piecewise solution $u^{r},u^{l}  $  and $y$ if the condition is true. \\[1ex]
+  Basically if the "derivative" of $y$ matches the rate of change at the discontinuity.
+\end{corollary}
+\begin{example}
+ Burgers equation : 
+ \begin{align*}
+   \dot{u} + u \frac{\partial u}{\partial x}  = 0
+ .\end{align*}
+ for $(x,t) \in  \mathbb{R} \times  \mathbb{R}^{n} $ with $u(x,0) = g(x)$ and : 
+ \begin{align*}
+  g(x) = \begin{cases}
+    1, &\text{ if } x\le 0\\
+    1-x, &\text{ if } 0 \le x < 1\\
+    0, &\text{ if } 1\le x\\ 
+  \end{cases}
+ .\end{align*}
+ We know the solutions to the characteristic problem is $x(t)=x_0+g(x_0)t$ , such that we get crossing characteristics for $t=1$
+ \begin{align*}
+  x + tg(x) = \begin{cases}
+    x+t, &\text{ if } x\le 0\\
+    x+t(1-x), &\text{ if } 0 \le x < 1\\
+    x, &\text{ if } 1\le x\\ 
+  \end{cases}
+ .\end{align*}
+ For $t<1$ it is a  homeomorphism from $\mathbb{R} \to  \mathbb{R}$ with inverse : 
+ \begin{align*} 
+  x = \begin{cases}
+    x-t, &\text{ if } x\le 0\\
+    \frac{x-1}{t-1}, &\text{ if } 0 \le x < 1\\
+    0, &\text{ if } 1\le x\\ 
+  \end{cases}
+ .\end{align*}
+ such that the solution at $0<t<1$ is  : 
+ \begin{align*}
+  u(x,t) = \begin{cases}
+    1, &\text{ if }x<t\\
+    \frac{x-1}{t-1}, &\text{ if }t<x<1\\
+    0, &\text{ if }1\le x\\
+  \end{cases}
+ .\end{align*}
+ For $t=1$ we need a solution that is 1 on $(-\infty,y(t))$ and 0 on $(y(t),\infty)$ \\[1ex]
+ We get that : 
+ \begin{align*}
+   \dot{u} + u \frac{\partial u}{\partial x}  = 0 \leftrightarrow  \dot{u} + f'(u) \frac{\partial u}{\partial x}  = 0
+ .\end{align*}
+With $f'(u) = u \implies f(u) = \frac{1}{2} u^2$ : 
+\begin{align*}
+  \dot{y} = \frac{1}{2} \frac{u_{r}^2- u_l^2 }{u_r-u_l} = \frac{1}{2} u_r-u_l =  \frac{1}{2}
+.\end{align*}
+We can determine $y$ now by considering that it starts at $(x,t) = (1,1)$
+\begin{align*}
+  y(t) = 1 + \frac{t-1}{2}
+.\end{align*}
+\end{example}
+Condition for uniqueness of weak solutions for scalar conversation law
+\begin{definition}[Lax Entropy condition]
+  A discontinuity of a weak solution along a $\mathcal{C}^1$ path $y(t)$ satisfies the Lax entropy condition, if 
+  along the path the following inequality is fulfilled : 
+  \begin{align*}
+    f'(u^{l}(y,t) )> \dot{y}(t) > f'(u^{r}(y,t) )
+  .\end{align*}
+  A weak solution with discontinuities along $\mathcal{C}^{1} $ paths is called an admissible solution if along the path 
+  both the Rankine-Hugonoit condition and the Lax Entropy condition are satisfied
+\end{definition}
+In the case of scalar Conservation laws a crossing of characteristics only occurs if $f'(g(x_1))>f'(g(x_2))$ for $x_1<x_2$,
+basically if one curve catches up to the other i guess.
+\begin{theorem}
+  Let $f \in  \mathcal{C}^1(\mathbb{R},\mathbb{R})$ be convex and $u$ and $v$ be two admissible solutions of L
+  \begin{align*}
+    \dot{u}  + f'(u) \frac{\partial u}{\partial x} = 0
+  .\end{align*}
+  in $L^1(\mathbb{R})$. Then $t \mapsto \|u(\cdot,t) - v(\cdot,t)\|_{L^1(\mathbb{R})}$ is monotonically decreasing.
+\end{theorem}
+\begin{comment}
+ This condition implies admissible solution are unique if they exist. Why ? Maybe difference of solution is again a solution , L1 norm is just integral  
+ we can drop the absolute value if we guarantee u>v or v>u either holds , and then differentiate : 
+ \begin{align*}
+   \frac{d}{dt} \|u(\cdot,t) - v(\cdot,t)\|_{L^1(\mathbb{R})} = \frac{d}{dt} \int_{a(t)}^{b(t)} (u(x,t)-v(x,t)) dx
+ .\end{align*}
+ if we unravel this using the conservation law : 
+ \begin{align*} 
+   \frac{d}{dt} \|u(\cdot,t) - v(\cdot,t)\|_{L^1(\mathbb{R})} = \frac{d}{dt} \int_{a(t)}^{b(t)} (u(x,t)-v(x,t)) dx = f(v(b,t))-f(u(b,t))+\dot{b}(t)(u(b,t)-v(b,t))  + f(u(a,t))-f(v(a,t))+\dot{b}(t)(v(a,t)-u(a,t))
+ .\end{align*}
+ Now the goal is just to show that some terms vanish and lead to them being the same 
+\end{comment}

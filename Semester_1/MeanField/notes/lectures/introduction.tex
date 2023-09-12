@@ -1,0 +1,94 @@
+\chapter{Introduction}
+Mean Field Particle Systems is about the study of particles which are represented by (stochastic) differential equations.
+This course in particular is concerned with the behaviour of the system as the size grows to infinity:
+\begin{definition}[Toy Mean Field Particle System]
+ Let $N \in  \mathbb{N}$ then a Mean Field Particle System of first order is given by : 
+ \begin{align*}
+   x_1(t),\ldots ,x_n(t) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d } )  \qquad x_i(0) = c_i
+ .\end{align*}
+ Where each particle satisfies 
+ \begin{align*}
+   d x_i = \frac{1}{N} \sum_{j=1}^{N} K(x_i,x_j) dt + \sigma dB_i(t)
+ .\end{align*}
+ Where $B_i$ is a Brownian motion; For $\sigma  = 0$ the system is called deterministic.
+\end{definition}
+\begin{comment}
+  The term mean comes from the symmetric way the particles interact with each other.
+\end{comment}
+\begin{example}
+ Example choices for K are : 
+ \begin{align*}
+  K(x_{i},x_{j}) = \triangledown(\abs{x_i - x_j}^2)
+ .\end{align*}
+ or : 
+ \begin{align*}
+   o \gamma  = \frac{x_i-x_j}{\abs{x_i - x_j}^{d } }
+ .\end{align*}
+\end{example}
+\hspace{0mm}\\
+Goal is to study what happens at $N \to \infty$, to do so we consider how the measure of a system converges  
+\begin{definition}[(Empirical) Measure of a System]
+  Consider the point measure for every $x_i : \delta_{x_{i}(t)}$ , then the measure of the System of order N is : 
+ \begin{align*}
+   \mu_N(t) = \frac{1}{N} \sum_{i=1}^{N} \delta_{x_{i}(t)}
+ .\end{align*}
+\end{definition}
+\begin{assumption}
+  For initial data the empirical measure of a system converges $\mu_N(0) \to \mu(0)$ where $\mu $ is absolutely continuous with respect to the Lebesgue Measure
+\end{assumption}
+\begin{corollary}
+  By Radon Nikodym 
+ \begin{align*}
+  d\mu  = \rho_0 dx \quad \rho_0 \in  L^{1}(\mathbb{R}^{d} ) 
+ .\end{align*}
+\end{corollary}
+\hspace{0mm}\\
+It can be shown that $\mu $ solves a PDE, to do so we compute the derivative of $\mu $ using test functions
+\begin{align*}
+  \forall \phi \in  C_0^{\infty}(\mathbb{R}^{d} ) 
+.\end{align*}
+\begin{align*}
+  \frac{d}{dt} <\mu_{N}(t),\phi> = \frac{d}{dt} \int_{\mathbb{R}^{d} } \phi(x) d\mu_{N}(t)(x) &= \frac{d}{dt} \int \frac{1}{N} \sum_{i=1}^{N} \phi(x) d \delta_{x_i(t)} \\
+                                                                                              &= \frac{1}{N} \sum_{i=1}^{N} \frac{d}{dt} \phi(x_i(t)) \\
+                                                                                              &\myS{Chain.}{=} \frac{1}{N} \sum_{i=1}^{N}  \triangledown \phi(x_{i}(t)) \frac{d}{dt} x_i(t)\\
+                                                                                              &= \frac{1}{N} \sum_{i=1}^{N} \triangledown_x \phi(x_i(t)) * \underbrace{\frac{1}{N} \sum_{j=1}^{N} K(x_i(t),x_j(t))}_{\text{Def.}}   \\
+                                                                                              &=  \frac{1}{N} \sum_{i=1}^{N} \triangledown_x \phi(x_i(t))* \frac{1}{N} \sum_{j=1}^{N} \int_{\mathbb{R}^{d } }K_(x_i(t),y) d\delta_{x_j(t)}(y) \\
+                                                                                              &=  \frac{1}{N} \sum_{i=1}^{N} \triangledown_x \phi(x_i(t))*  \int_{\mathbb{R}^{d } }K_(x_i(t),y) d\mu_{N}(t) \\
+                                                                                              &= \int_{\mathbb{R}^{d} } \triangledown \phi(x) \int_{\mathbb{R}^{d } } K(x,y) d\mu_{N}(t,y) d\mu_N(t,x)  \\
+.\end{align*}
+Where the last line can be rewritten by using Integration by Parts (Divergence Theorem) :
+\begin{align*}
+  \int_{\mathbb{R}^{d} } \triangledown \phi(x) \int_{\mathbb{R}^{d } } K(x,y) d\mu_{N}(t,y) d\mu_N(t,x)  &\myS{Part.}{=} - <\triangledown*(\mu_N \int_{\mathbb{R}^{d } K(\cdot,y)d\mu_{N}(y)}),\phi> \\
+.\end{align*}
+This means $\mu $ satisfies : 
+\begin{align*}
+  &\partial_t \mu_N + \triangledown * (\mu_N * \int K(\cdot,y)d \mu_N(y)) = 0
+  &\xrightarrow{N\to \infty} \partial_t \mu + \triangledown * (\mu * \int K(\cdot,y)d \mu(y)) = 0
+.\end{align*}
+In practical applications (Theoretical Physics , Biology) systems that are considered are often of second order
+\begin{definition}[Toy Second Order System]
+  Given $N \in  \mathbb{N} $ a Second Order System is given by 
+  \begin{align*}
+    (x_i(t),v_i(t)),\ldots ,(x_{N}(t),v_{N}(t)) \in  \mathbb{R}^{2d } 
+  .\end{align*}
+  Such that : 
+  \begin{align*}
+    \frac{d}{dt} x_i(t) &= v_i(t)  \\
+    \frac{d}{dt} v_i(t) &= \frac{1}{N} \sum_{j=1}^{N} F(\underbrace{x_i(t),v_i(t)}_{\text{\tiny Position and Velocity of itself}} ; x_{j}(t),v_j(t))  + \sigma \frac{d B_t}{dt}\\ 
+  .\end{align*}
+\end{definition}
+\begin{example}[Gravitational Force]
+  An example of F could be : 
+  \begin{align*}
+    F(x,v,y,u) = \frac{x-y}{\abs{x-y}^{d} }
+  .\end{align*}
+\end{example}
+\begin{definition}[Second Order Measure]
+ The Measure of a second order System is given by : 
+ \begin{align*}
+   \mu_{N}(x,v) = \frac{1}{N} \sum_{i=1}^{N} \delta_{(x_{i}(t),v_i(t))} 
+ .\end{align*}
+\end{definition}
+\begin{exercise}
+  Show what PDE $\mu $ solves for $\sigma = 0$, \textit{Hint :} Calculate  $\frac{d}{dt} <\mu_N,\phi> $ for some test function $\phi  \in C_{0}^{\infty}(\mathbb{R}^{2d} ) $
+\end{exercise}
