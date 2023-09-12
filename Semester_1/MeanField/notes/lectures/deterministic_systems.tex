@@ -385,7 +385,27 @@ The Heaviside step function is defined by :
 Using all the above we can rewrite our many particle system  (MPS) by using the empiric measure and distributions 
 \begin{align*}
   \begin{cases}
-    \frac{d}{dt} x_i &=  \braket{K(x_i,\cdot) , \mu_N} \\ 
+    \frac{d}{dt} x_i &=  \braket{K(x_i,\cdot) , \mu_N}  = \int K(x_i,y) d\mu_N(y)\\ 
     x_i(0) &= x_{i,0}
   \end{cases}
 .\end{align*}
+\begin{theorem}
+Let the empirical measure \ref{empirical_measure} be denoted by $\mu_N$ then for "good" (regular ?)  $K(x,y)$ we have 
+\begin{align*}
+  \frac{d}{dt} \braket{\mu_N,\phi } = \braket{\mu_N \underbrace{\int K(x,y) d\mu_N(y)}_{=  K \mu_N}}= -\braket{\triangledown * \triangledown(\mu_N K\mu_N),\phi }
+.\end{align*}
+Such that $\mu_N$ is a weak solution of the MPDE
+\begin{align*}
+  \partial_t \mu_N + \triangledown * \triangledown(\mu_N K\mu_N) = 0
+.\end{align*}  
+\end{theorem}
+\begin{remark}
+ Note when we talk about weak solution, it means the PDE is solved in the sense of distributions.
+\end{remark}
+\begin{exercise}
+ Show $\mu_N K \mu_N$ as defined above is a distribution for regular/ good $K(x,y)$
+\end{exercise}
+\begin{proof}
+  
+\end{proof}
+
