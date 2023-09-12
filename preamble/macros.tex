@@ -1,0 +1,76 @@
+
+\include{packages.tex}
+%% AMS Theorem Environments
+\theoremstyle{plain}% default
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{lemma}[prop]{Lemma}
+\newtheorem{corollary}[prop]{Corollary}
+\newtheorem{theorem}[prop]{Theorem}
+\newtheorem{exercise}[prop]{Exercise}
+\newtheorem*{idea}{Idea}
+
+\theoremstyle{definition}
+\newtheorem{definition}[prop]{Definition}
+\newtheorem{example}[prop]{Example}
+\newtheorem{assumption}[prop]{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}[prop]{Remark}
+
+%%
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathcal{F}}
+\renewcommand{\Pr}{\mathbb{P}}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\cha}[1]{\mathbb{I}\{ #1 \}}
+
+
+%%boxes
+
+
+\definecolor{mLightBrown}{HTML}{EB811B}
+\definecolor{mDarkBrown}{HTML}{604c38}
+\definecolor{mDarkTeal}{HTML}{23373b}
+\definecolor{mLightBrown}{HTML}{EB811B}
+\definecolor{mLightGreen}{HTML}{14B03D}
+
+
+\newenvironment{myblock}[1][]{%
+    \tcolorbox[
+  sharpish corners,
+  colback=gray!20, % background color
+  colframe=black!0, % border color
+  leftrule=5pt, % margin
+  % right=10mm, % margin
+  title={Top #1}]}%
+    {\endtcolorbox}
+
+
+\SetKwProg{Init}{Init}{}{}
+\SetKwProg{Loop}{loop}{}{end}
+\SetKwProg{By}{by}{}{}
+
+\makeatletter
+\newcommand{\algorithmfootnote}[2][\footnotesize]{%
+  \let\old@algocf@finish\@algocf@finish% Store algorithm finish macro
+  \def\@algocf@finish{\old@algocf@finish% Update finish macro to insert "footnote"
+    \leavevmode\rlap{\begin{minipage}{\linewidth}
+    #1#2
+    \end{minipage}}%
+  }%
+}
+\makeatother
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\supp}{supp}
+\newcommand{\sqalg}{\textbf{SqAlg} }
+\DeclareMathOperator*{\regsq}{Reg^{Sq}}
+
+\newcommand{\myS}[2]{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny #1}}}{#2}}}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiter{\braket}\langle\rangle
