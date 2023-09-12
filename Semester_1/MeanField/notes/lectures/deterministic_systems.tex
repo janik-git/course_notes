@@ -237,6 +237,12 @@ Only sensible cause partial derivatives commute as otherwise the index would be 
   .\end{align*}
   We sometimes write $\braket{T,\phi}$ instead of $T(\phi )$
 \end{remark}
+\begin{definition}[Convergence]
+  For a sequence of distributions $(T_m)_{m \in  \mathbb{N}} \subset  \mathcal{D}(\Omega )'$  we say it converges against a limit $T \in \mathcal{D}(\Omega)$  iff 
+  \begin{align*}
+    \braket{T_m,\phi } \to  \braket{T,\phi } , \quad \forall \phi  \in  \mathcal{D}(\Omega )
+  .\end{align*}
+\end{definition}
 \begin{example}
   Every locally integrable function $ f \in  L_{\text{loc}}^{1}(\Omega ) \coloneqq  \{f \ | \ \forall K \subset  \Omega , \int_K f(x) dx < \infty \}  $  defines a Distribution by    : 
   \begin{align*}
@@ -266,7 +272,120 @@ Only sensible cause partial derivatives commute as otherwise the index would be 
    .\end{align*}
   \end{myblock}
 \end{example}
-Coming back to our empirical measure \ref{empirical_measure}, we can see the corresponding distribution is defined by : 
+\hspace{0mm}\\
+Coming back to our empirical measure from \ref{empirical_measure}, we can see the corresponding distribution is defined by : 
 \begin{align*}
   \braket{\mu_n,\phi } = \frac{1}{N} \sum_{i=1}^{N} \phi(x_i)
+.\end{align*}
+Some examples in approximation of $\delta $ distribution 
+\begin{example}[Heat Kernel]
+  The heat kernel $f_t(x) = \frac{1}{2 \sqrt{\pi  t} } e^{- \frac{x^2}{4t}} $
+  approximates the $\delta $ distribution
+\begin{figure}[h]
+  \begin{center}
+    \begin{tikzpicture}
+% Axes
+\draw[->] (-2,0) -- (2,0) node[right] {$x$};
+\draw[->] (0,0) -- (0,2) node[above] {$y$};
+
+% Heat kernel for t = 0.1
+\draw[red, domain=-1:1, samples=500] plot (\x, {1/(2*sqrt(pi * 0.1))*exp(-\x*\x/(0.1*4))});
+\draw[red, domain=-1:1, samples=500] plot (\x, {1/(2*sqrt(pi * 0.05))*exp(-\x*\x/(0.05*4))});
+\draw[red, domain=-1:1, samples=500] plot (\x, {1/(2*sqrt(pi * 0.01))*exp(-\x*\x/(0.01*4))});
+% \draw[red, domain=-4:4, samples=100] plot (\x, {1.8*exp(-\x*\x/(0.1*4))});
+\end{tikzpicture} 
+  \end{center}
+\end{figure}
+\end{example}
+\begin{proof}
+ \begin{align*}
+   \lim_{t \to 0+} \braket{f_t,\phi } &= \lim_{t \to 0+} \int_\mathbb{R} f_t(x) \phi(x) dx = \lim_{t \to 0+} \int_{-\infty}^{\infty} \frac{1}{2 \sqrt{\pi  t} } e^{- \frac{x^2}{4t}}  \phi(x) dx \\
+                                      &= \lim_{t \to 0+} \int_{-\infty}^{\infty} \frac{1}{\sqrt{\pi }} e^{-y^2}  \phi(2ty) dy \\
+                                      &\myS{*}{=} \phi(0) = \braket{\delta ,\phi }
+ .\end{align*} 
+ with the transformation $\frac{x}{\sqrt{2t}} = y$
+\end{proof}
+\begin{exercise}
+ Show the change of integration and limit is valid in * 
+\end{exercise}
+Further examples  include : 
+\begin{align*}
+  Q_n(x) = \begin{cases}
+    \frac{n}{2} , &\text{ if }\abs{x} \le  \frac{1}{n}\\
+    0   &\text{ if } \abs{x} > \frac{1}{n} 
+  \end{cases}
+.\end{align*}
+\begin{figure}[h]
+  \begin{center}
+    \begin{tikzpicture}
+% Axes
+\draw[->] (-2,0) -- (2,0) node[right] {$x$};
+\draw[->] (0,0) -- (0,2) node[above] {$y$};
+
+\draw[red] (-1,0)  -- (-1,1) -- (1,1) -- (1,0);
+\draw[red] (-0.5,0)  -- (-0.5,2) -- (0.5,2) -- (0.5,0);
+\draw[red] (-0.25,0)  -- (-0.25,3) -- (0.25,3) -- (0.25,0);
+% \draw[red, domain=-4:4, samples=100] plot (\x, {1.8*exp(-\x*\x/(0.1*4))});
+\end{tikzpicture} 
+  \end{center}
+\end{figure}
+\hspace{0mm}\\
+And the dirichlet kernel 
+\begin{align*}
+  D_n(x) = \frac{\sin(n+\frac{1}{2})x}{\sin(\frac{x}{2})} = 1+ 2\sum_{k=1}^{n}  \cos(kx)  \ \to 2\pi \delta 
+.\end{align*} 
+To define the notion of a distribution solving a PDE we need to first define the way we take the derivatives of distributions
+\begin{definition}[Weak derivative of Distributions]
+  $\forall  T \in  \mathcal{D}(\Omega )'$ . $\partial_i T$ is given by  
+  \begin{align*}
+    \braket{\partial_i T, \phi } \coloneqq  - \braket{T,\partial_i \phi } \quad \forall  \phi  \in \mathcal{D}(\Omega )
+  .\end{align*}
+  We first show this for all distributions that are defined by a $f \in L_{\text{loc}}^{1} $, every other distribution $T$ also has to satisfy this property.
+\end{definition}
+\begin{exercise}
+  Proof the above equality for distributions $f \in  L_{\text{loc}}^{1} $ and show for arbitrary distribution $T$ that :
+  \begin{align*}
+    -\braket{T,\partial_i \phi }
+  .\end{align*}
+  is continuous and linear.\\[1ex]
+  \textit{Hint : } Integration by parts; Why does it vanish on the boundary ?
+\end{exercise}
+\begin{example}
+ For the $\delta $  distribution : 
+ \begin{align*}
+   \braket{\delta ^{(k)},\phi  } = (-1)^{k} \phi ^{(k)}(0)
+ .\end{align*}
+\end{example}
+\begin{example}{Heaviside}
+The Heaviside step function is defined by :
+\begin{align*}
+  H = \begin{cases}
+    1, &\text{ if }x\ge 0 \\
+    0 &\text{ if } x<0
+  \end{cases} \in  L_{\text{loc}}^{1} 
+.\end{align*}
+\begin{align*}
+  \braket{H',\phi } &\coloneqq  - \braket{H,\phi'} = - \int_{-\infty}^{\infty} H(x)\phi'(x) dx\\
+                    &= - \int_0^{\infty} \phi'(x) dx = \phi(0)  =\braket{\delta,\phi }
+.\end{align*}
+\begin{figure}[h]
+  \begin{center}
+    \begin{tikzpicture}
+% Axes
+\draw[->] (-2,0) -- (2,0) node[right] {$x$};
+\draw[->] (0,0) -- (0,2) node[above] {$y$};
+
+\draw[red] (-2,0)  --  (0,0) -- (0,1) -- (2,1); 
+% \draw[red, domain=-4:4, samples=100] plot (\x, {1.8*exp(-\x*\x/(0.1*4))});
+\end{tikzpicture} 
+  \end{center}
+\end{figure}
+\end{example}
+\hspace{0mm}\\
+Using all the above we can rewrite our many particle system  (MPS) by using the empiric measure and distributions 
+\begin{align*}
+  \begin{cases}
+    \frac{d}{dt} x_i &=  \braket{K(x_i,\cdot) , \mu_N} \\ 
+    x_i(0) &= x_{i,0}
+  \end{cases}
 .\end{align*}
