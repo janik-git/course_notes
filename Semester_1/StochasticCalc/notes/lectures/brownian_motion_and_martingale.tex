@@ -1,0 +1,38 @@
+\chapter{Brownian Motion and Martingales}
+These are merely my thoughts and notes to the stochastic calc script and will only 
+include the entire statement if i had any special thoughts to it. \\[1ex]
+
+\begin{definition}[usual conditions]
+  The filtration $(\mathcal{F}_t)_{t \in [0,T]}$ is said to satisfy the usual conditions if : 
+  \begin{enumerate}
+    \item $\mathcal{F}_0$ contains all $\Pr$-null sets $\mathcal{N}$ ("completeness") 
+    \item $\mathcal{F}_t = \mathcal{F}_{t+} \coloneqq \bigcap_{s>t} F_s$ for $t \in [0,T)$ ("right-continuity")
+  \end{enumerate}
+\end{definition}
+\begin{remark}
+ Completeness assures us that any modifications to an adapted stochastic process is again adapted (same null sets). \\
+ Right-continuity can be thought of as giving us the ability to slightly peak into the future, consider the following hitting time :
+ \begin{align*}
+   \tau_A = \inf \{t \in [0,T] | X_t \in A\}
+ .\end{align*}
+ For some open set $A \subset  \mathbb{R}$ then for any $s \in  [0,T]$  the event : 
+ \begin{align*}
+   \{\tau_A = s\}   = \{X_s \in  \overline{A} \}  
+ .\end{align*}
+ Meaning that at time $s$ we do not know if $X_s$ is already in A or just right on the boundary of entering, such that we need the ability to peak slightly into
+ the future.
+\end{remark}
+\begin{prop}
+  Let $(B_t)_{t \in [0,T]}$  be a Brownian motion. The completed natural filtration $(\mathcal{F}_t)_{t \in  [0,T]}$ of a Brownian motion $(B_t)_{t \in [0,T]}$ is defined by  
+  \begin{align*}
+    \mathcal{F}_t =  \sigma(\mathcal{F}_t^{B},\mathcal{N} )
+  .\end{align*}
+  is right-continuous 
+\end{prop}
+\begin{proof}
+  Idea is to show $\mathcal{F}_{t+} \subseteq \mathcal{F}_t$ by taking any continuous and bounded $f : \mathbb{R}^{d} \to  \mathbb{R} $ and showing that for $d \in  \mathbb{N}$ , $0 \le t_1<t_2<\ldots <t_d$
+  \begin{align*}
+    \E[f(B_{t_1},\ldots ,B_{t_d}) \ | \ \mathcal{F}_{t+}] \text{ is } \mathcal{F}_t \text{-measurable}
+  .\end{align*}
+  Inkremente unabhaengig daher einfach erwartungs wert , warum nur ueber x_i und nicht auch B_i ? , dann mit DCT limit reinziehen das nach definition dann F_t messbar ist und linke seite konvergiert gegen den gewollten erwartungswert
+\end{proof}

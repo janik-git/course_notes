@@ -1,86 +1,57 @@
 
-
-\PassOptionsToPackage{dvipsnames}{xcolor}
-\usepackage{tcolorbox}
-\usepackage{lipsum}
-\tcbuselibrary{skins,breakable}
-\usetikzlibrary{shadings,shadows}
-\usepackage{graphicx}
-\usepackage{exsheets}
-\SetupExSheets{
-  headings = block-subtitle ,
-  headings-format = \large\bfseries\sffamily ,
-  % needs v0.16 2014/09/14 to work:
-  subtitle-format = \large\bfseries\sffamily,
-  solution/print = true
-}
-%%% ENCODING, FONT & LOCALIZATION
-\usepackage[utf8]{inputenc} % use unicode input-encoding (allows unicode characters in the .tex files, default: Asci)
-
-% \let\temp\rmdefault
-% \usepackage{lmodern} % vectorized version of the "computer modern" font (default) (https://tex.stackexchange.com/q/1390/148164, https://tex.stackexchange.com/q/147194/148164)
-% \usepackage[osf]{mathpazo}
-% \let\rmdefault\temp
-\usepackage[english]{babel} %% last language is main
-%\shorthandoff{"} %babel breaks tikz-cd otherwise (activate if used)
-\usepackage{csquotes} %% biblatex wants csquotes (localized quotes) if babel is present
-
-
-\usepackage{enumitem} %% better (customizable) enumerations (e.g. \begin{enumerate}[label=(\roman*)])
-
-
-%%% STYLING
-% \setlength{\parindent}{0em} % No indentation for new paragraphs
-\usepackage{emptypage} % removes page numbers on empty pages
-% \makeatletter \@twosidefalse \makeatother
-
-
-%%% GRAPHICS & PLOTS
-
-% \usepackage{graphicx} % enable pictures
-\usepackage{wrapfig} % text wrapping around figures
-% \usepackage{tikz, tikz-cd, pgfplots} % plots and sketches
-% \pgfplotsset{compat=1.16}
-
-%%% CODE
-\usepackage[ruled,linesnumbered]{algorithm2e}
-
-% fix algomathdi{NOT TRUE ,Check with our eta}splay (see: https://tex.stackexchange.com/a/611426/148164)
-\makeatletter
-\renewenvironment{algomathdisplay}
- {\[}
- {\@endalgocfline\vspace{-\baselineskip}\]{\DontPrintSemicolon\;}}
-\makeatother
-%%% MATH
-\usepackage{chngcntr}
-\usepackage{mathtools} % fixes some things from amsmath and adds some new features
-\usepackage{amsthm, amssymb} % amsthm -> proof env, amssymb -> additional symbols
-\counterwithin{equation}{section}
-
-\usepackage{aligned-overset} % https://tex.stackexchange.com/questions/257529/overset-and-align-environment-how-to-get-correct-alignment
-%% usage: \overset{something}&{=}
-\usepackage{newpxtext}
-\usepackage[varbb]{newpxmath}
-
-%%% Special Symbols
-\usepackage{bbm} % blackboard numbers: usage \mathbbm{1} (amssymb \mathbb{1} looks bad)
-% \usepackage{cancel} % strike through equation parts to indicate they cancel out
-% %% contradiction symbol
-\usepackage{wasysym} % lightning symbol
-% \newcommand*{\contradiction}[1][]{\quad\text{{\LARGE\lightning} #1}\ }
-
-%%% REFS 
-\usepackage[unicode, hidelinks]{hyperref} %% clickable links
-\usepackage{cleveref}
-\definecolor{mylinkcolor}{HTML}{F79359}
-\definecolor{mycitecolor}{HTML}{E46264}
-\definecolor{myurlcolor}{HTML}{DB9C98}
+% basics
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+% \usepackage[dutch]{babel}
+\usepackage{url}
+\usepackage{hyperref}
 \hypersetup{
   linkcolor  = mylinkcolor!85!black,
   citecolor  = mycitecolor!85!black,
   urlcolor   = myurlcolor!85!black,
   colorlinks = true,
 }
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{enumitem}
+% \usepackage{parskip}
+\usepackage{emptypage}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage[usenames,dvipsnames]{xcolor}
 
-\usepackage{enumitem} %% better (customizable) enumerations (e.g. \begin{enumerate}[label=(\roman*)])
-\usepackage[bottom]{footmisc}
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+
+% figure support
+\usepackage{import}
+\usepackage{xifthen}
+\pdfminorversion=7
+\usepackage{pdfpages}
+\usepackage{transparent}
+% \newcommand{\incfig}[1]{%
+%     \def\svgwidth{\columnwidth}
+%     \import{./figures/}{#1.pdf_tex}
+% }
+
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+% %http://tex.stackexchange.com/questions/76273/multiple-pdfs-with-page-group-included-in-a-single-page-warning
+
+\usepackage{fancyhdr}
+
+\usepackage{tcolorbox}
+\pdfsuppresswarningpagegroup=1
+
+
+\definecolor{correct}{HTML}{009900}
+\definecolor{mylinkcolor}{HTML}{F79359}
+\definecolor{mycitecolor}{HTML}{E46264}
+\definecolor{myurlcolor}{HTML}{DB9C98}

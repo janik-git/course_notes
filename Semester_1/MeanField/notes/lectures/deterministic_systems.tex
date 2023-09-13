@@ -1,4 +1,5 @@
 \chapter{Deterministic Mean Field Particle Systems}
+\section{Goal}
 \begin{definition}[Deterministic Mean Field Particle System]
   For $N \in  \mathbb{N}$ a deterministic mean field particle system is given by N particles : 
   \begin{align*}
@@ -27,12 +28,12 @@ The goal is to solve the above $d*N$ dimensional system under assumptions on K.
  .\end{align*}
  with $t \in  [0,T] ,\ x(t) \in  \mathbb{R}^{n} $
 \end{definition}
-\begin{assumption}[A]\label{eq:Assumption_A}
+\begin{assumption}\label{Assumption_A}
   Condition for global existence : f is continuous in $(t,x) \in  [0,T] \times \mathbb{R}^{n} $ \\ 
   Condition for uniqueness : f is Lipschitz continuous in $x$  
 \end{assumption}
-\begin{theorem}[]
-  Whenever assumption \ref{eq:Assumption_A} holds the standard IVP has a unique solution $x \in  \mathcal{C}^{1}([0,T] ; \mathbb{R}^{n} ) $
+\begin{theorem}[Picard Iteration]
+  Whenever Assumption \ref{Assumption_A} holds the standard IVP has a unique solution $x \in  \mathcal{C}^{1}([0,T] ; \mathbb{R}^{n} ) $
 \end{theorem}
 \begin{proof}[Proof]
   Rewriting the IVP using integration : 
@@ -46,8 +47,9 @@ The goal is to solve the above $d*N$ dimensional system under assumptions on K.
              &\vdots \\
     x_m(t) &= x_0 + \int_0^{t} f(s,x_{m-1}(s)) ds 
   .\end{align*}
-  Step 1 of the proof consists of proving the above sequence is converging , step 2 is then showing the limit is a solution to the IVP\\[1ex]
-  Under Assumption \ref{eq:Assumption_A} we know that $f$ is continuous such that $(x_n)_{n \in  N} \subset \mathcal{C}^{1}([0,T];\mathbb{R}^{n} ) $, 
+  \textbf{Step 1:} First part of the proof consists of proving the above sequence is converging \\[0.5ex]
+  \textbf{Step 2:} The second part is then showing the limit is a solution to the IVP\\[1ex]
+  Under Assumption \ref{Assumption_A} we know that $f$ is continuous such that $(x_n)_{n \in  N} \subset \mathcal{C}^{1}([0,T];\mathbb{R}^{n} ) $, 
   As $\mathcal{C}^{1} $ is complete any sequence that is cauchy must also converge against a limit in the space. \\[1ex]
   \begin{align*}
     \abs{x_2 - x_1} &= \abs{\int_{0}^{t} f(s,x_{1}(s)) ds  -  \int_{0}^{t} f(s,x_{0}(s)) ds  } = \abs{\int_{0}^{t} f(s,x_{m-1}(s))  - f(s,x_{n-1}(s)) ds } \\
@@ -153,13 +155,15 @@ The reason this proof deviates from the standard Picard-Lindelöf theorem, is th
       .\end{align*}
   \end{enumerate} 
 \end{definition}
+\begin{remark}
 We further assume $K$ has the following properties :
-\begin{align*}
+  \begin{align*}
   K(x,y) &= -K(y,x) \tag{antisymmetric}\\
     K(x,x) &= 0 
 .\end{align*}
+\end{remark}
  \begin{theorem}
- When the assumption of regularity on $K$  holds, the MPS has a solution for all $T>0$
+ For regular $K$ the MPS has a solution for all $T>0$
 \begin{align*}
   \begin{cases}
     \frac{d}{dt} x_i &= \frac{1}{N} \sum_{j=1}^{N} K(x_i,x_j) ,  1\le i \le N \\ 
@@ -182,7 +186,7 @@ As shown in the introduction $\mu_N$ is a (weak-) solution to the  following PDE
 \begin{align*}
   &\partial_t \mu_N + \triangledown * (\mu_N * \int K(\cdot,y)d \mu_N(y)) = 0
   .\end{align*}
-\begin{idea}
+\begin{intuition}
   Now for $N\to \infty$ if we have $\mu_N \xrightarrow{\text{in some sense}} \mu $   then $\mu $ is a (weak) solution to 
   \begin{align*}
     \partial_t \mu + \triangledown * (\mu * \int K(\cdot,y)d \mu(y)) = 0
@@ -191,7 +195,7 @@ As shown in the introduction $\mu_N$ is a (weak-) solution to the  following PDE
   \begin{align*}
     \mu_0 \leftarrow \mu_N(0)
   .\end{align*}
-\end{idea}
+\end{intuition}
 \section{Weak Solutions and Distributions}
 Distributions are a more general class of functions and can be seen as the dual space of the space of test functions 
 \begin{definition}[Multi-Index]
@@ -201,9 +205,9 @@ for example $\gamma  = (0,2,1) \in \N^3_0$  can be used to denote partial deriva
   \partial^{\gamma } = \prod_i (\frac{\partial}{\partial x_i})^{\gamma_i}
 .\end{align*}
 \end{definition}
-\begin{myblock}
-Only sensible cause partial derivatives commute as otherwise the index would be ambiguous.
-\end{myblock}  
+\begin{remark}
+  Only sensible cause partial derivatives commute as otherwise the index would be ambiguous.
+\end{remark}
 \hspace{0mm}\\
 \begin{definition}[Test Functions]
  For $\Omega \subset  \mathbb{R}^{d} $  the space of test functions \\ $\mathcal{D}(\Omega) \supset \mathcal{C}_0^{\infty}(\Omega) $.
@@ -262,7 +266,6 @@ Only sensible cause partial derivatives commute as otherwise the index would be 
   \begin{align*}
     \braket{\delta ,\phi } = \int_{\mathbb{R}^{d} } \phi(x) d \delta   = \phi(0)
   .\end{align*}
-  \begin{myblock}
    Remember for a measurable set $E$ 
    \begin{align*}
     \delta_x(E) = \begin{cases}
@@ -270,7 +273,6 @@ Only sensible cause partial derivatives commute as otherwise the index would be 
       0  &\text{ if }x \not\in E
     \end{cases}
    .\end{align*}
-  \end{myblock}
 \end{example}
 \hspace{0mm}\\
 Coming back to our empirical measure from \ref{empirical_measure}, we can see the corresponding distribution is defined by : 
@@ -281,7 +283,7 @@ Some examples in approximation of $\delta $ distribution
 \begin{example}[Heat Kernel]
   The heat kernel $f_t(x) = \frac{1}{2 \sqrt{\pi  t} } e^{- \frac{x^2}{4t}} $
   approximates the $\delta $ distribution
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{center}
     \begin{tikzpicture}
 % Axes
@@ -315,7 +317,7 @@ Further examples  include :
     0   &\text{ if } \abs{x} > \frac{1}{n} 
   \end{cases}
 .\end{align*}
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{center}
     \begin{tikzpicture}
 % Axes
@@ -368,7 +370,7 @@ The Heaviside step function is defined by :
   \braket{H',\phi } &\coloneqq  - \braket{H,\phi'} = - \int_{-\infty}^{\infty} H(x)\phi'(x) dx\\
                     &= - \int_0^{\infty} \phi'(x) dx = \phi(0)  =\braket{\delta,\phi }
 .\end{align*}
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{center}
     \begin{tikzpicture}
 % Axes
@@ -389,6 +391,16 @@ Using all the above we can rewrite our many particle system  (MPS) by using the 
     x_i(0) &= x_{i,0}
   \end{cases}
 .\end{align*}
+\begin{definition}[Weak Solution of MFE]
+  We say $\mu $ is a weak solution of the Mean-Field-Equation (MFE) iff for $\forall  t \in  [0,T]$ , $\mu_t \in  \mathcal{M}(\mathbb{R}^{d} )$ satisfies for 
+  all test functions  $\forall  \phi  \in  \mathcal{C}^{\infty}_0(\mathbb{R}^{d } )$ the following equation
+  \begin{align*}
+    \braket{\mu_t,\phi } - \braket{\mu_0,\phi } = \int_0^{t}  \braket{\mu_sK\mu_s,\phi } ds
+  .\end{align*}
+\end{definition}
+\begin{remark}
+  If $\mu_0 = \mu_{N,0}$  then $\mu_{N,t}$ is a weak solution of the MFE
+\end{remark}
 \begin{theorem}
 Let the empirical measure \ref{empirical_measure} be denoted by $\mu_N$ then for "good" (regular ?)  $K(x,y)$ we have 
 \begin{align*}
@@ -408,4 +420,13 @@ Such that $\mu_N$ is a weak solution of the MPDE
 \begin{proof}
   
 \end{proof}
-
+\begin{definition}[characteristic problem for MFE]
+  The corresponding characteristic is given by : 
+\begin{align*}  
+  \begin{cases}
+    \frac{d}{dt} x(t,x_0,\mu_0) &= \int_{\mathbb{R}^{d } } K(x(t,x_0,\mu_0),y) d\mu_t(y)\\
+    x(0,x_0,\mu_0) &= x_0 \in  \mathbb{R}^{d }  \\
+    \mu_t &= x(t,*,\mu_0) \# \mu_0 
+  \end{cases}
+.\end{align*}
+\end{definition}
