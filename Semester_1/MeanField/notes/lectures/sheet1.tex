@@ -1,0 +1,29 @@
+\chapter{Excercise Sheets}
+\section{Sheet 1 (11.09.2023)}
+\subsection{Excercise 1}
+\begin{question}
+	Consider the second order system :
+	\begin{align*}
+		d X_t^i & =  V_t^i                                                    \\
+		d V_t^i & = \frac{1}{N} \sum_{i=1}^{N} F(t,X_t^i,V_t^i,X_t^j,V_t^j) dt
+		.\end{align*}
+	on $[0,T]$ for some smooth interaction force $F : [0,T] \times  \mathbb{R}^{d} \times  \mathbb{R}^{d} \times \mathbb{R}^{d}\times \mathbb{R}^{d} \mapsto \mathbb{R}^{d} $
+	following the lecture we assume the empirical measure :
+	\begin{align*}
+		\mu_{t}^{N }(dx,dv) = \frac{1}{N}  \sum_{i=1}^{N} \delta_{(X_t^i,V_t^i)}
+		.\end{align*}
+	converges in some sense to the measure $\mu_t$ with density $\rho_t $ for each t.
+	Derive an equation for $\rho ,t \ge 0$ similar to the lecture.
+\end{question}
+\begin{solution}
+	Let $\phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{?} ) $ and calculate :
+	\begin{align*}
+		\frac{d}{dt} \braket{\mu_N,\phi } & =\frac{d}{dt} \int_{\mathbb{R}^{2d} } \phi(x,v) d\mu_N(t)(dx,dv) = \frac{d}{dt}\int \frac{1}{N} \sum_{i=1}^{N} \phi(x,v) d\delta_{(x_i^{t},v_i^{t}  )} \\
+                                      & \myS{*}{=} \frac{1}{N} \sum_{i=1}^{N}  \frac{d}{dt} \phi(x_{i}(t),v_i(t)) \\
+                                      &\myS{Chain.}{=} \frac{1}{N} \sum_{i=1}^{N} \partial_x \phi * \dot{x_i} + \partial_v * \dot{v_i}    \\
+                                      &= \frac{1}{N} \sum_{i=1}^{N} \partial_x \phi*v_i(t)  + \partial_v \phi *\sum_{j=1}^{N} F(t,x_i(t),v_i(t),x_j(t),v_j(t))\\
+                                      % &= \frac{1}{N} \sum_{i=1}^{N } (\partial_x + \partial_v)\phi * \sum_{j=1}^{N} \int_{\mathbb{R}^{2d} } F(t,x_i(t),v_i(t),y) d\delta_{(x_j,v_j)}(y) \\
+                                      % &=  \frac{1}{N} \sum_{i=1}^{N } (\partial_x + \partial_v)\phi * \sum_{j=1}^{N} \int_{\mathbb{R}^{2d} } F(t,x_i(t),v_i(t),y) d\delta_{(x_j,v_j)}(y) \\
+		.\end{align*}
+
+\end{solution}

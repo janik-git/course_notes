@@ -4,10 +4,13 @@
 \newcommand{\myS}[2]{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny #1}}}{#2}}}
 \newcommand\N{\ensuremath{\mathbb{N}}}
 \newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\E{\ensuremath{\mathbb{E}}}
+\renewcommand\P{\ensuremath{\mathbb{P}}}
 \newcommand\Z{\ensuremath{\mathbb{Z}}}
 \renewcommand\O{\ensuremath{\emptyset}}
 \newcommand\Q{\ensuremath{\mathbb{Q}}}
 \newcommand\C{\ensuremath{\mathbb{C}}}
+\renewcommand{\textbf}[1]{{\fontfamily{cmss}\selectfont\bfseries #1}}
 
 % \usepackage{systeme}
 \let\svlim\lim\def\lim{\svlim\limits}
@@ -18,7 +21,7 @@
 
 % \usepackage{stmaryrd} % for \lightning
 \newcommand\contra{\scalebox{1.1}{$\lightning$}}
-% \let\phi\varphi
+\let\phi\varphi
 
 %%%% commands 
 \makeatother
