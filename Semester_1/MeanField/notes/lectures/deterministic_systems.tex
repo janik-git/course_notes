@@ -1,5 +1,9 @@
 \chapter{Deterministic Mean Field Particle Systems}
-\section{Goal}
+The goal for this chapter is to determine when a unique solution exists
+to the Mean-Field-Equation arising from our Particle Systems.
+Beginning by recapping standard ODE Theory on when a solution exists to an ODE IVP 
+and continuing with the notion of Weak Solutions and Distributions which allows us the generalize the above 
+ODE results.
 \begin{definition}[Deterministic Mean Field Particle System]
   For $N \in  \mathbb{N}$ a deterministic mean field particle system is given by N particles : 
   \begin{align*}
@@ -18,39 +22,39 @@
     X_N = \begin{pmatrix} x_1(t) \\ x_2(t) \\ \vdots \\ x_N(t)  \end{pmatrix} \in \mathbb{R}^{dN} 
   .\end{align*}
 \end{definition}
-The goal is to solve the above $d*N$ dimensional system under assumptions on K.
 \section{ODE Theory}
 \begin{definition}[Initial Value Problem (standard)]
- For $\forall  T > 0 $  the standard ode system is given by : 
+ For $\forall \ T > 0 $ let the standard IVP be given by : 
  \begin{align*}
   x' &= f(t,x) \\
   x \vert_{t=0} &=  x_0 \in \mathbb{R}^{n} 
  .\end{align*}
- with $t \in  [0,T] ,\ x(t) \in  \mathbb{R}^{n} $
-\end{definition}
-\begin{assumption}\label{Assumption_A}
-  Condition for global existence : f is continuous in $(t,x) \in  [0,T] \times \mathbb{R}^{n} $ \\ 
-  Condition for uniqueness : f is Lipschitz continuous in $x$  
-\end{assumption}
+ with $t \in  [0,T] ,\ x(t) \in  \mathbb{R}^{n} $ and $f : [0,T] \times \mathbb{R}^{n } \to \mathbb{R}^{n} $
+ \end{definition}
+ As opposed to Picard-Lindelöf where only need locally Lipschitz continuity since we first construct a solution on a small local subset and then extend this solution,
+ here we require global Lipschitz continuity since we do not want to extend our solution.
 \begin{theorem}[Picard Iteration]\label{picard1}
-  Whenever Assumption \ref{Assumption_A} holds the standard IVP has a unique solution $x \in  \mathcal{C}^{1}([0,T] ; \mathbb{R}^{n} ) $
+  Whenever $f : [0,T] \times  \mathbb{R}^{n } \to \mathbb{R}^{n} $is globally Lipschitz continuous in the second component
+  the standard IVP has a unique solution $x \in  \mathcal{C}^{1}([0,T] ; \mathbb{R}^{n} ) $
 \end{theorem}
 \begin{proof}[Proof]
-  Rewriting the IVP using integration : 
-  \begin{align*}
-    x(t) - x(0) = \int_0^{t }f(s,x(s)) ds   \quad \forall  t \in  [0,T]
-  .\end{align*}
-  We construct the following sequence by : 
+  We begin by defining our Picard-Iteration by 
   \begin{align*}
     x_1(t) &= x_0 + \int_0^{t }f(s,x_0) ds \\
-    x_{2}(t) &= x_0 + \int_0^{t} f(s,x(s)) ds 
+    x_{2}(t) &= x_0 + \int_0^{t} f(s,x(s)) ds \\
              &\vdots \\
     x_m(t) &= x_0 + \int_0^{t} f(s,x_{m-1}(s)) ds 
   .\end{align*}
-  \textbf{Step 1:} First part of the proof consists of proving the above sequence is converging \\[0.5ex]
-  \textbf{Step 2:} The second part is then showing the limit is a solution to the IVP\\[1ex]
-  Under Assumption \ref{Assumption_A} we know that $f$ is continuous such that $(x_n)_{n \in  N} \subset \mathcal{C}^{1}([0,T];\mathbb{R}^{n} ) $, 
-  As $\mathcal{C}^{1} $ is complete any sequence that is cauchy must also converge against a limit in the space. \\[1ex]
+  The proof will be split into two steps 
+  \begin{itemize}
+   \item \textbf{Step 1:} The first part of the proof consists of showing the above defined sequence is Cauchy and thus converges
+  \item \textbf{Step 2:} The second part is then showing the limit is a solution to the IVP
+  \end{itemize}
+  \newpage
+  \hspace{0mm}\\
+  We know that $f$ is continuous such that $(x_n)_{n \in  N} \subset \mathcal{C}^{1}([0,T];\mathbb{R}^{n} ) $, 
+  by completeness we know that any sequence that is Cauchy must also converge against a limit in the space. \\[1ex]
+  As such we show our sequence is Cauchy by first considering the distance between any two points
   \begin{align*}
     \abs{x_2 - x_1} &= \abs{\int_{0}^{t} f(s,x_{1}(s)) ds  -  \int_{0}^{t} f(s,x_{0}(s)) ds  } = \abs{\int_{0}^{t} f(s,x_{m-1}(s))  - f(s,x_{n-1}(s)) ds } \\
                     &\le \int_0^{t} \abs{f(s,x_{1}(s)) - f(s,x_{0}(s))} ds    \\ 
@@ -59,7 +63,7 @@ The goal is to solve the above $d*N$ dimensional system under assumptions on K.
                     &\le L * \int_0^{t} \int_0^{s_0} \abs{f(s,x_0)} ds ds_0  \\
                     &\le L \underbrace{M}_{=\max_{s \in  [0,T]}\abs{f(s,x_0)}} \frac{t^2}{2}  
   .\end{align*}
-  By repeatedly using  the Lipschitz continuity of f the following induction assumption is motivated : 
+  We can extend to arbitrary $m \in  \mathbb{N}$ by using induction  
   \begin{align*}
     \abs{x_m(t) - x_{m-1}(t)} \le M L^{m-1} \frac{t^m}{m!}  \tag{IA}
   .\end{align*}
@@ -68,13 +72,13 @@ The goal is to solve the above $d*N$ dimensional system under assumptions on K.
     \abs{x_{m+1}(t) - x_{m}(t)} &\myS{Lip.}{\le }  L \int_0^{t} \abs{x_m(s)-x_{m-1}(s)} ds \\
                                 &\myS{IA.}{\le } L \int_0^{t} \frac{M L^{m-1} s^{m}  }{m!} ds = ML^{m}  \frac{t^{m+1} }{(m+1)!}
   .\end{align*}
-  For any $n,m \in  \mathbb{N}$ and assuming without loss of generality that  $n>m$ such that $n = m+p$ for $p \in  N$ : 
+  Now for any $n,m \in  \mathbb{N}$ and assuming without loss of generality that  $n>m$ we can write  $n = m+p$ for $p \in  \N$ : 
   \begin{align*}
     \abs{x_{n}(t) - x_{m}(t)} &= \abs{x_{m+p}(t) - x_{m}(t)} \le  \sum_{k=m+1}^{m+p}  \abs{x_k(t)-x_{k-1}(t)} \myS{Ind.}{\le } M \sum_{k=m+1}^{m+p}  \frac{L^{k-1 }T^{k}  }{k!}\\
                               &= \frac{M}{L} \sum_{k=m+1}^{m+p} \frac{(LT)^{k} }{k!}  = \frac{M}{L} \frac{(LT)^{m+1} }{(m+1)!}\sum_{k=0}^{p-1} \frac{(LT)^{k} }{k!}  \\
                               &\le \frac{M}{L} \frac{(LT)^{m+1} }{(m+1)!} e^{LT}  \xrightarrow{m\to \infty} 0 \text{  uniformly in } t \in  [0,T]
   .\end{align*}
-  This shows that $(x_m)_{m \in  \mathbb{N}}$  is Cauchy and has a limit $x \in  \mathcal{C}([0,T];\mathbb{R}^{n} )$ with : 
+  This shows that $(x_m)_{m \in  \mathbb{N}}$  is Cauchy and has a limit $x \in  \mathcal{C}([0,T];\mathbb{R}^{n} )$ with  
   \begin{align*}
     \max_{t \in  [0,T]} \abs{x_m(t) - x(t)} \to  0
   .\end{align*}
@@ -82,7 +86,7 @@ The goal is to solve the above $d*N$ dimensional system under assumptions on K.
   \begin{align*}
     x(t) =  \lim_{m\to \infty} x_0 + \int_0^{t} f(s,x_{m-1}(s)) ds  \leftrightarrow x_0 + \int_0^{t} f(s,x(s)) ds 
   .\end{align*}
- Which can be shown by : 
+  Consider the difference between both sides 
  \begin{align*}
    \abs{\lim_{m \to \infty} \int_0^{t} f(s,x_{m-1}(s))  - f(s,x(s)) ds } &\le  \lim_{m \to  \infty} \int_0^{t} \abs{f(s,x_{m-1}(s))-f(s,x(s))} ds \\
                                                                          &\le  \lim_{m \to \infty} L \int_0^{t} \abs{x_{m-1}(s)-x(s)} ds \\
@@ -537,6 +541,30 @@ The goal of this section is to consider  as $N \to  \infty$ how the empirical me
 we have already shown that for arbitrary given measure $\mu_0$ (on both sides of the arrows)  the PDE problem is uniquely solved,
 the idea of the Mean Field Limit problem is to prove a stability result for the above convergence.
 \subsection{Weak Convergence of Measure (Wasserstein Distance)}
+\begin{definition}[Weak Setting of PDE problem]
+ For all test functions $\phi  \in  \mathcal{C}_0^{\infty }(\mathbb{R}^{d} ) $ :
+ \begin{align*}
+   \int_{\mathbb{R}^{d } } \phi(x) d\mu(t,x) - \int_{\mathbb{R}^{d}} \phi(x) d\mu_0 = \int_{0}^{t} \int_{\mathbb{R}^{d} }  K\mu(s,x) \triangledown \phi(x) d\mu(s,x) 
+ .\end{align*}
+ Where 
+ \begin{align*}
+   K\mu(x) = \int_{\mathbb{R}^{d} } K(x,y) d\mu(y)
+ .\end{align*}
+\end{definition}
+To give a small recap of what we have done so far : 
+\begin{enumerate}
+  \item If $\mu_{0} = \mu_{N,0} $  then $\mu_{N,t}$ is a weak solution of the above PDE 
+  \item Solve the PDE for given $\mu_0 \in  \mathcal{P}_1(\mathbb{R}^{d } )$ for regular K then 
+    \begin{align*}
+     \mu_t = x_t \# \mu_0 
+    .\end{align*}
+    is a weak solution of the PDE
+\end{enumerate}
+The next goal is to consider the problem  
+\begin{align*}
+  \text{if } \mu_{N,0} \to \mu_0 \quad \text{ then } \mu_{N,t} \to \mu_t
+.\end{align*}
+$\Leftrightarrow$ stability of PDE
 \begin{definition}[Wasserstein Distance]
   For all $\mu , \nu  \in  \mathcal{P}_p(\mathbb{R}^{d} )$  , $(p\ge 1) $ the Wasserstein Distance of $\mu $ and $\nu $ is given by 
   \begin{align*}
@@ -544,8 +572,8 @@ the idea of the Mean Field Limit problem is to prove a stability result for the 
   .\end{align*}
   Where  
   \begin{align*}
-    \Pi(\mu ,\nu ) = \{\pi \in \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) : &\int_{\mathbb{R}^{d} } \pi(dx,*) = \nu(*) \\
-                                                                                      &\int_{\mathbb{R}^{d} } \pi(dy,*) = \mu(*)\}  
+    \Pi(\mu ,\nu ) = \{\pi \in \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) : &\int_{\mathbb{R}^{d}\times E } \pi(dx,dy) = \nu(E) \\
+                                                                                      &\int_{E \times  \mathbb{R}^{d} } \pi(dx,dy) = \mu(E)\}  
   .\end{align*}
 \end{definition}
 \begin{exercise}
@@ -554,3 +582,133 @@ the idea of the Mean Field Limit problem is to prove a stability result for the 
   W^{1}(\delta_x,\delta_y)  = \abs{x - y}
  .\end{align*}
 \end{exercise}
+\begin{remark}
+ If $\phi , \psi \in  \mathcal{C}(\mathbb{R}^{d} )$  s.t :
+ \begin{align*}
+   \phi(x) &\sim  \abs{x}^{p}  \quad \forall \ \abs{x} \gg 1 \\
+   \psi(x) &\sim  \abs{y}^{p}  \quad \forall \ \abs{y} gg 1
+ .\end{align*}
+ Then 
+ \begin{align*}
+   \int \int_{\mathbb{R}^{2d} } (\phi(x) + \psi(y)) \pi(dx,dy) = \int_{\mathbb{R}^{d } } \phi(x) d\mu(x) + \int_{\mathbb{R}^{d} } \psi(y) d\nu(y)
+ . \end{align*}
+\end{remark}
+\begin{corollary}[Kontonovich-Rubinstein duality]
+ \begin{align*}
+   \dist_{MK,1}(\mu ,\nu ) &= W^{1}(\mu ,\nu )  \\
+                           &= \sup_{\phi \in  \text{Lip}(\mathbb{R}^{d} )} \abs{\int_{\mathbb{R}^{d} } \phi(x) d\mu(x) - \int_{\mathbb{R}^{d} } \phi(x) d\nu(x)}
+ .\end{align*} 
+ $\text{Lip}(\phi ) = 1$
+\end{corollary}
+The proof of the above can be found in the book xyz
+\begin{theorem}[Dobrushin's stability]
+  Let $\mu_{0},\overline{\mu }_0  \in  \mathcal{P}_1(\mathbb{R}^{d } )$\\
+  Then let $(x(t,*,\mu_0),\mu_t(*)),(x(t,*,\overline{\mu }_0 ),\overline{\mu }_t(*) )$ be solutions of 
+  the corresponding PDE problem. For arbitrary $\forall\ t >0$ it holds that the distance 
+  \begin{align*}
+    \dist_{MK,1}(\mu_t,\overline{\mu }_t ) \le e^{2\abs{t}L} \dist_{MK,1}(\mu_0,\overline{\mu }_0 )
+  .\end{align*} 
+\end{theorem}
+\begin{proof}
+  For initial data $\mu_{0} ,\overline{\mu}_0$ we want to compare the trajectories
+ \begin{align*}
+   x(t,x_{0},\mu_{0}) - x(t,\overline{x}_0,\overline{\mu }_0 ) = x_{0}-\overline{x}_0 &+ \int_0^{t} \int_{\mathbb{R}^{d } } K(x(s,x_{0},\mu 0),x(s,z,\mu_0))   d\mu_0(z) ds \\
+                                                                                      &- \int_0^{t} \int_{\mathbb{R}^{d} } K(x(s,\overline{x}_0,\overline{\mu }_0  ),x(s,\overline{z },\overline{\mu }_0  )) d\overline{\mu}_0(\overline{z} ) ds
+ .\end{align*}
+ We need to combine the above two integrals together, while the time integrals are the same, but the space integral has to be converted into 2d dimensions by inserting $1 = \int_{\mathbb{R}^{d} } d\mu_0(z)$
+ \begin{align*}
+   x(t,x_{0},\mu_{0}) - x(t,\overline{x}_0,\overline{\mu }_0 ) + \int_0^{t} &\iint   K(x(s,x_{0},\mu 0),x(s,z,\mu_0)) \\
+   &- K(x(s,\overline{x}_0,\overline{\mu }_0  ),x(s,\overline{z },\overline{\mu }_0 ))  d(\mu_0 \times \overline{\mu }_0)(z,\overline{z} ) ds
+ .\end{align*}
+ Let $\pi_0 \in  \Pi(\mu_{0},\overline{\mu }_0 )$ then we can estimate point-wise for fixed $x_{0},\overline{x }_0 $:
+ \begin{align*}
+   \|x(t,x_{0},\mu_0) - x(t,\overline{x}_0,\overline{\mu }_0  )\| \le  \|x_{0}-\overline{x}_0 \| + L\int_0^{t} &\iint_{\mathbb{R}^{2d } } \|x(s,x_{0},\mu_0) - x(s,\overline{x }_0,\overline{\mu }_0  )\| \\
+                                                                                                                                       &+ \|x(s,z,\mu_0) - x(s,\overline{z},\overline{\mu }_0  )\| d\pi_0(z,\overline{z} ) ds
+ .\end{align*}
+ Now taking the integral on both sides : 
+ \begin{align*}
+   \iint_{\mathbb{R}^{2d } }  \|x(t,x_{0},\mu_0) - x(t,\overline{x}_0,\overline{\mu }_0  )\| d\pi_0(x_{0},\overline{x}_0 ) &\le \iint_{\mathbb{R}^{2d} } \|x_{0}-\overline{x}_0 \| d\pi_0(x_{0},\overline{x}_0 ) \\
+                                                                                                                               &+ L\int_0^{t}  \iint_{\mathbb{R}^{2d } }  \|x(s,x_{0},\mu_0) - x(s,\overline{x }_0,\overline{\mu }_0  )\| d\pi_0(z,\overline{z} ) ds \\
+                                                                                                                               &+   L \int_0^{t} \int \int_{\mathbb{R}^{2d} }  \|x(s,z,\mu_0) - x(s,\overline{z},\overline{\mu }_0  )\| d\pi_0(z,\overline{z} ) d\pi_0(z,\overline{z}) ds
+ .\end{align*}
+ Now we define : 
+ \begin{align*}
+   D[\pi_0](t) = \int \int_{\mathbb{R}^{d} } \|x(s,z,\mu_0) - x(s,\overline{z},\overline{\mu }_0  )\| d\pi_0(z,\overline{z} )
+ .\end{align*}
+ We obtain that the distance based on the measure $\pi_0$ at time t :
+ \begin{align*}
+   D[\pi_0](t) \le  D[\pi_{0}](0) + 2L \int_0^{t} D[\pi_0](s) ds
+ .\end{align*}
+ We can now use  Gronwalls inequality 
+ \begin{align*}
+   D[\pi_0](t) \le D[\pi_0](0)*e^{2L\abs{t}}
+ .\end{align*}
+ Where the above inequality holds for arbitrary $ \pi_0 \in  \Pi(\mu_{0},\overline{\mu }_0 )$
+ \begin{align*}
+   \inf_{\pi_0 \in  \Pi(\mu_0,\overline{\mu }_0 )} D[\pi_0](t) \le \inf_{\pi_0 \in  \Pi (\mu_0,\overline{\mu }_0 )} D[\pi_0](0)*e^{2Lt}  = \dist_{MK,1}
+ .\end{align*}
+ Now all we need to show is that 
+ \begin{align*}
+   \dist_{MK,1} = \inf_{\pi_0 \in  \Pi(\mu_0,\overline{\mu }_0 )} D[\pi_0](t)  = \inf_{\pi_t \in  \Pi(\mu_t,\overline{\mu }_t )} \int \int \abs{x-\overline{x} } d\pi_t(x,\overline{x} )
+ .\end{align*}
+ It remains to be prove that for
+ \begin{align*}
+  \phi_t(x_{0},\overline{x}_0 ) = (x(t,x_{0},\mu_{0}),x(t,\overline{x}_0,\overline{\mu }_0  ))
+ .\end{align*}
+ the push forward measure $\phi_t \# \pi_0 \in  \Pi(\mu_t,\overline{\mu }_t )$ for $\forall  \ \pi_0 \in  \Pi(\mu ,\overline{\mu }_0 )$
+\end{proof}
+\begin{exercise}
+  Prove that for arbitrary $\pi_0 \in  \Pi(\mu_0,\overline{\mu }_0 )$  the push forward measure $\phi_t \# \pi_0 \exists  \Pi(\mu_t,\overline{\mu }_t )$ for 
+  \begin{align*}
+    \phi_t(x_{0},\overline{x}_0 ) : \mathbb{R}^{2d} \to  \mathbb{R}^{2d} \ \phi_t(x_{0},\overline{x}_0 )   = (x(t,x_{0},\mu_0),x(t,\overline{x}_{0},\overline{\mu}_0))
+  .\end{align*}
+\end{exercise}
+We are also interested in what happpens when the initial data is good
+\begin{corollary}
+ If $\mu_{0}$  has a density  $f_{0} \in  L^{1}(\mathbb{R}^{d} ) $a with finite first moment : 
+ \begin{align*}
+   \int_{\mathbb{R}^{d} } \abs{x} f_{0}(x) dx < \infty
+ .\end{align*}
+ Then the Cauchy problem 
+ \begin{align*}
+   \partial_t f  + \triangledown * (fkf) &= 0  \\
+   f_0 \vert_{t=0} = f_{0}
+ .\end{align*}
+ has a unique weak solution $f \in  \mathcal{C}(\mathbb{R};L^{1}(\mathbb{R}^{d} ) )$ i.e $\forall \ \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $ it holds : 
+ \begin{align*}
+   \int_{\mathbb{R}^{d} }\phi(x) f(x,t) dx - \int_{\mathbb{R}^{d} }\phi(x) f_0(x) dx = \int_0^{t} \int_{\mathbb{R}^{d} } f(x,t)Kf(x,t) \triangledown \phi(x) dx ds
+ .\end{align*}
+ and  for all $t \in  \mathbb{R}$
+ \begin{align*}
+   \|f(*,t)\|_{L^{1}(\mathbb{R}^{d} ) } \in  \mathcal{C}(\mathbb{R})
+ .\end{align*}
+\end{corollary}
+\begin{proof}
+  Left as an exercise
+\end{proof}
+\begin{exercise}
+We already know the weak-solution $\mu_t$  exists such that it remains to show that for $\forall \ t \in  \mathbb{R}$ , $\mu_t \in  \mathcal{P}_1(\mathbb{R}^{d} )$ is absolute continuous 
+with respect to the Lebesgue measure, prove this statement
+\end{exercise}
+\begin{theorem}[mean field limit ]
+  For arbitrary initial data $\forall \ f_{0} \in  L^{1}(\mathbb{R}^{d} ) $ , let $\mu_{N,0} = \frac{1}{n} \sum_{i=1 }^{N} \delta_{x_{i,0}} $
+  s.t the distance 
+  \begin{align*}
+    \dist_{MK,1}(\mu_{N,0},f_{0}) \xrightarrow{N \to \infty} )
+  .\end{align*}
+  and $x_N(t)$ be the solution of many particle system wiht ID $x_{i,0}$ then 
+  the corresponding empirical measure $\mu_{N,t} = \frac{1}{N} \sum_{i=1 }^{N} x_{i}(t) $ it holds : 
+  \begin{align*}
+    \dist_{MK,1}(\mu_{N,t},f_t) \le  e^{2Lt} \dist_{MK,1}(\mu_{N,0},f_{0}) 
+  .\end{align*}
+  Where $f_t$ is the corresponding density resulting from the previous corollary of the PDE weak solution.\\[1ex]
+  and furthermore $\mu_{N,t} \xrightarrow{N\to \infty} f(*,t)$ weakly in measure i.e 
+  \begin{align*}
+    \forall  \phi \in \mathcal{C}_b(\mathbb{R}^{d } ) \ : \ \int \phi  d\mu_{N,t} \to  \int \phi(x) f_t(x) dx
+  .\end{align*}
+\end{theorem}
+\begin{exercise}
+  Find a sequence of empirical measures that converges against a density.
+\end{exercise}
+
+% http://www.cmls.polytechnique.fr/perso/golse/M2/PolyKinetic.pdf

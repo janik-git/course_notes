@@ -34,6 +34,30 @@ include the entire statement if i had any special thoughts to it. \\[1ex]
   \begin{align*}
     \E[f(B_{t_1},\ldots ,B_{t_d}) \ | \ \mathcal{F}_{t+}] \text{ is } \mathcal{F}_t \text{-measurable}
   .\end{align*}
+  We know that by the properties of Brownian motions any increment $B_t - B_s $ is independent of $\mathcal{F}_s^{B} $,
+  take $k \in  \{1,\ldots ,d-1\}  $ such that $t_k \le t \le t_{k+1}$. For $n \in \mathbb{N}$ large : 
+  \begin{align*}
+    t + \frac{1}{n} < t_{k+1}
+  .\end{align*}
+  and : 
+  \begin{align*}
+    \lim_{n \to \infty}  t+\frac{1}{n} = t
+  .\end{align*}
+  Idea is to first show that  $\E[f(B_{t_{1}},\ldots ,B_{t_d})\ | \ \mathcal{F}_{t+\frac{1}{n}}]$ converges against a $\mathcal{F}_t$ measurable limit 
+  and converges against $\E[. \ | \ \mathcal{F}_{t+}]$ which concludes the proof. \\[1ex]
+  \begin{align*}
+    \E[f&(B_{t_{1}},\ldots ,B_{t_d})\ | \ \mathcal{F}_{t+\frac{1}{n}}] \\
+    &=  \E[f(B_{t_{1}},\ldots,B_{t_k},\underbrace{B_{t+\frac{1}{n}}+ (B_{t_{k+1}} - B_{t+\frac{1}{n}})}_{=0},\ldots  ,\underbrace{B_{t+\frac{1}{n}}+ (B_{t_{d}} - B_{t+\frac{1}{n}})}_{=0})\ | \ \mathcal{F}_{t+\frac{1}{n}}]\\
+    &= \int_{\mathbb{R}^{d-k} } f(B_{t_{1}},\ldots,B_{t_k},B_{t+\frac{1}{n}}+ x_1,\ldots  ,B_{t+\frac{1}{n}}+ x_{d-k}) \rho_n(x) dx
+  .\end{align*}
+  Question? why do we ignore the first $t_k$ elements \\ 
+  Convergence of integral is shown by DCT against : 
+  \begin{align*}
+    \int_{\mathbb{R}^{d-k} } f(B_{t_{1}},\ldots,B_{t_k},B_{t}+ x_1,\ldots  ,B_{t}+ x_{d-k}) \rho(x) dx
+  .\end{align*}
+  Which is clearly $\mathcal{F}_t$ mb. \\
+  Convergence of left hand side is shown by backward martingale theorem. \\[1ex]
+  Plugging in $\char_{A}$
 \end{proof}
 
 

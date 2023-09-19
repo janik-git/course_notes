@@ -1,0 +1,70 @@
+\section{Dont cross the streams}
+Consider the PDE $\partial_x u + 2x\partial_y u  = 0$ on the domain $y>0$ with the boundary condition $u(x,0) = g(x)$
+\begin{question}
+  \textbf{(a)} Show that the boundary hyperplane $\{y=0\}  $ is non-characteristic at $(x,0)$, except for $x=0$.
+\end{question}
+\begin{solution}
+Consider the PDE as a function $F(\frac{\partial u}{\partial x},\frac{\partial u}{\partial y},u(x,y),x,y)=0$   then we need to show that : 
+\begin{align*}
+  \partial_{p_{1}} F(p_{0},p_{1},z,x,y) \neq 0
+.\end{align*}
+In our case : 
+\begin{align*} 
+  \partial_{p_{1}} F(p_{0},p_{1},z,x,y)  = \partial_{p_{1}} \left( p_{0} + 2x p_{1} \right)   = 2x
+.\end{align*}
+Which as required is non zero on $(x,0)$ except for $x=0$
+\end{solution}
+\begin{question}
+  \textbf{(b)}  What condition does the PDE impose on the boundary data g at the point $(0,0)$
+\end{question}
+\begin{solution}
+ At the point $(0,0)$ we know $F(d \frac{g(0)}{dx},p_{1},g(0),0,0) = 0$ but 
+ \begin{align*}
+  F(d \frac{dg(0)}{dx},p_{1},g(0),0,0) = \frac{dg}{dx}(0) + 2*0*p_{1} =  \frac{dg}{dx}(0) = 0
+ .\end{align*}
+ The PDE requires g to be constant at $(0,0)$
+\end{solution}
+\begin{question}
+  \textbf{(c)} Determine the characteristic curves of this PDE.
+\end{question}
+\begin{solution}
+ Consider $z(s) = u(x(s),y(s))$  then : 
+ \begin{align*}
+   z'  = \partial_x u x' + \partial_y y' 
+ .\end{align*}
+ Choosing $x' = 1 $ and $y' =  2x$ aligns with the PDE such that  
+ \begin{align*}
+   x(s) &= s +x_{0} \\
+   y(s) &= 2xs + y_{0}
+ .\end{align*}
+ Considering the initial condition 
+ \begin{align*}
+  z(0) = u(x(0),y(0)) =  u(x_{0},0)
+ .\end{align*}
+ Meaning $y(s) = 2xs$ this leads to : 
+ \begin{align*}
+   z(s) = u(x_{0}+s,2xs) = g(x_{0})
+ .\end{align*}
+ For $(x,y)$ we get : 
+ \begin{align*}
+   x_{0} &= x-s  \\
+   s     &= \frac{y}{2x}
+ .\end{align*}
+ Such that : 
+ \begin{align*}
+  u(x,y)  = g(x-\frac{y}{2x})
+ .\end{align*}
+\end{solution}
+\begin{question}
+ By considering the $y$-derivative of u on the boundary hyperplane, show that there is no $\mathcal{C}^{1} $ solution with the initial data $g(x) = x$
+\end{question}
+\begin{solution}
+% On the boundary hyperplane $H = \{y=0\}  $ we have by (a) that it is non characteristic at $(x,0)$ except for $x=0$ 
+% This means that : 
+% \begin{align*}
+%   \frac{\partial F}{\partial p_{1}}(\frac{dg(0)}{dx},p_{1},z,0,0) = 0 
+% .\end{align*}
+% Which requires $\frac{dg}{dx}$ to be constant ? idk dude, i think the issue is that g needs to be constant but it isnt
+By (b) we know that the PDE requires $g'= 0$ at $(0,0)$ but for initial data $g(x) = x $ we get $\frac{dg}{dx}(0) = 1 \neq 0$, such that no $\mathcal{C}^{1} $ solution may exist,
+other way is using that $H = \{y=0\}  $ is non-characteristic at $(0,0)$
+\end{solution}
