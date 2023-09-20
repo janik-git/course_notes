@@ -3,7 +3,7 @@
 \makeatother
 % \usepackage{thmtools}
 % \usepackage[framemethod=TikZ]{mdframed}
-\mdfsetup{skipabove=1em,skipbelow=0em}
+\mdfsetup{skipabove=1em,skipbelow=1em}
 
 
 \theoremstyle{definition}
@@ -16,6 +16,7 @@
         linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
     }
 ]{thmgreenbox}
+
 
 \declaretheoremstyle[
     headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
@@ -34,6 +35,20 @@
         linecolor=NavyBlue
     }
 ]{thmblueline}
+
+
+% \definecolor{excercise_color}{HTML}{17B396}
+\definecolor{excercise_color}{HTML}{ECAC16}
+
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{excercise_color!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=excercise_color,
+    }
+]{thmexcercise}
 
 \declaretheoremstyle[
     headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
@@ -91,6 +106,7 @@
 
 \declaretheorem[style=thmblueline, numbered=no, name=Remark]{remark}
 \declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
+\declaretheorem[style=thmexcercise, numberwithin=section, name=Exercise]{exercise}
 
 \declaretheorem[style=thmblueline, name=Question]{question}
 \declaretheorem[style=thmproofbox,  name=Solution]{solution}
@@ -102,7 +118,7 @@
 \newtheorem*{observe}{Observe}
 \newtheorem*{property}{Property}
 \newtheorem*{intuition}{Intuition}
-\newtheorem{exercise}{Exercise}
+% \newtheorem{exercise}{Exercise}
 
 
 \usepackage{etoolbox}
