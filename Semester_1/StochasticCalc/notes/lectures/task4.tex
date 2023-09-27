@@ -1,0 +1,33 @@
+\chapter{Problem Sheet 4}
+\section{4.1}
+\begin{question}
+  Let $(B_t)_{t \in  [0,T]}$ be a brownian motion. Without using Ito formula show that 
+  \begin{align*}
+    \int_0^{t} B_s dB_s = \frac{1}{2}(B_t^2 - t) 
+  .\end{align*}
+\end{question}
+\begin{solution}
+  Without using Ito formula we only know how to evaluate Simple Functions $f \in  \mathcal{H}_0^{2} $ this is done by 
+  \begin{align*}
+    \int_0^{t}  f d B_s = I(f \cha_{[0,t]}) = \sum_{i=0}^{n-1} f_i(B_{t_{i+1}} - B_{t_i})
+  .\end{align*}
+  In our case we have $f(*,s) = B_s \in  \mathcal{H}^2$ we approximate by 
+  \begin{align*}
+  f_n(s) = \sum_{i=1}^{n-1} \cha_{(t_{i},t_{i+1}]}(s)B_{t_i} 
+  .\end{align*}
+  Where we decompose the interval $[0,T]$ into $t_i = \frac{i}{n}T$
+  First show that $f_n \to  f$ , consider 
+  \begin{align*}
+    \|f_n - f\|_{\mathcal{H}^2}^2 &= \E[\int_0^{T} \sum_{i=0}^{n-1} (\cha_{(t_{i},t_{i+1}]}(t)B_{t_i}-B_t)^2 dt  ] \\
+                                  &\myS{Fub}{=} \int_{0}^{T} \sum_{i=0}^{n-1} \E[(\cha_{(t_{i},t_{i+1}]}(t)B_{t_i}-B_t)^2]  dt \\
+                                  &= \sum_{i=0}^{n-1} \int_{t_i}^{t_{i+1}} \E[(B_{t_i}-B_t)^2]  dt \\
+                                  &\myS{Def.}{=}  \sum_{i=1}^{n-1} \int_{t_i}^{t_{i+1}} \abs{t-t_i}  dt \\
+                                  &=\sum_{i=0}^{n-1} \frac{1}{2}(t_{i+1}-t_{i})^2 \\
+                                  &= \sum_{i=0}^{n-1} \frac{T^2}{2n^2} \\
+                                  &= \frac{T}{2n} \xrightarrow{n \to \infty} 0
+  .\end{align*}
+  Such that we get 
+  \begin{align*}
+    I(f \cha_{[0,t]}) = \lim_{n\to \infty} I(f_n \cha_{[0,t]}) = \lim_{n\to \infty} \sum_{t_i \le  t} 
+  .\end{align*}
+\end{solution}

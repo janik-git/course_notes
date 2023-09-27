@@ -1,0 +1,22 @@
+\chapter{Uebung}
+\begin{definition}
+  For $X = (X_t)_{t \in  [0,T]}$   continuous local martingale  then, The process $\braket{X} = (\braket{X}_t)_{t \in  [0,T]}$ is given by 
+  \begin{align*}
+    \braket{X}_t = \lim_{n \to  \infty} \sum_{J \in \Pi_{n}} (\triangle_{J \cap [0,T]} X)^2 
+  .\end{align*}
+  The limit is needed such that the non decreasing property is satisfied , i.e while the summands are always non negative ,
+  the increments might be different in size such that the process is not non-decreasing , note that the difference between $t and t+\epsilon $ is that the intersection $J \cap [0,t]$ is taken over a bigger intervall \\
+  Dont think this is true (he said it) look below , the granularity does not change if we fix an n, the limit is just needed for the uniqueness tbh.
+ \end{definition}
+\begin{remark}
+ The Process is well defined as it is independent of the sequence of partitions $\Pi_n$ 
+ \begin{enumerate}
+   \item $\braket{X}_0 = 0$ , and non decreasing 
+   \item And $(X_t^2 - \braket{X}_{t \in  [0,T]})$ is again a continuous local martingale 
+ \end{enumerate}
+ Why is it unique, as it is non decreasing and 0 at time 0, we get a unique process by (ii) as the only way for it to be a martingale is to be the same 
+ at every time t as the Martingale property allows us to trace back at any time t to time 0  \\[1ex]
+\end{remark}
+\begin{align*}
+  \braket{X}_{t+1} - \braket{X}_t = \sum_{J \in  \Pi_n} (\triangle_{J \cap [0,t+1]} X)^2 - (\triangle_{J \cap [0,t]} X)^2 =  \sum_{J \in  \Pi_n} (\triangle_{J \cap [t,t+1]} X)^2 > 0 
+.\end{align*}

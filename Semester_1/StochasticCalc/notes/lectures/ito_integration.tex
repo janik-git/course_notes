@@ -1,0 +1,46 @@
+\chapter{Ito-Integration}
+\begin{lemma}[Itos isometry]
+  For $f \in  \mathcal{H}_0^2$ (f is of form $f(\omega ,s) = \sum_{i=0}^{n-1} a_i(\omega )\cha_{(t_i]} $, $a_i$ is any random variable, its just 
+  a discrete case)   
+\end{lemma}
+\begin{proof}
+  Idea is similar to law of large numbers , i.e split the quadratic and non quadratic terms are 0 as $\E[(B_{t_{i+1}} - B_{t_i})] = 0 $ is 0 and for a brownian motion 
+  the increments are Normal with mean $t_{i+1} - t_i$
+\end{proof}
+\begin{remark}
+ The idea is to define a space of simple functions that lies dense in the space of functions (Stochastic processes )  this allows 
+ us to prove properties of simple functions and transfer that to more complex one , think Stochastic 1 
+\end{remark}
+The following Proposition does just that and tells us that this sequence exists
+\begin{prop}
+  For every f $f \in  \mathcal{H}^2$ there exists a sequence  $(f_n)_{n \in  \mathbb{N}} \subset  \mathcal{H}_0^{2} $ such that 
+  \begin{align*}
+    \|f_n - f\|_{\mathcal{H}^{2}} \to  0 \quad \text{ as } n\to \infty
+  .\end{align*}
+\end{prop}
+\begin{proof}
+ In essence the proof first shows that we can define us $f_n $ as 
+ \begin{align*}
+  f_n =  \max(-n, \min(f,n))
+ .\end{align*}
+ This is just this 
+\begin{figure}[H]
+   \begin{center}
+ \begin{tikzpicture}
+\begin{axis}[
+    ytick=false,
+    xtick=false,
+    ymin=-3.0, ymax=3,
+    ] 
+    % Define the step function
+    \addplot[color=blue, thick, forget plot] {2} node[pos=0.7,below right] {$n$}; 
+    \addplot[color=blue, thick, forget plot] {-2} node[pos=0.7,below right] {$-n$}; 
+    \addplot[color=red, thick] {x^3 + x^2 + x};
+  \end{axis}
+ \end{tikzpicture}    
+   \end{center}
+ \end{figure}
+ Then as $f_n$ is bounded by f clearly we can use $DCT$ to get the convergence, (swap integral and limit) \\[1ex]
+ Second step 
+\end{proof}
+

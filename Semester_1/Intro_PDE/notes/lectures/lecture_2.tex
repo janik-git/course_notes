@@ -180,10 +180,79 @@ An answer to this are partitions of unity (not practically useful)
   .\end{align*}
   where N is the outward pointing normal. (last component is positive)
 \end{theorem}
+\begin{proof}
+ First Note that $\triangledown * F = \partial_1 F_1 + \ldots  + \partial_n F_n$ 
+ Idea is to do the proof component wise and proof a statement about each component and put them back together\\[1ex]
+ In the special case of $F,F' =0$ on the boundary then extend F by 0 to $\mathbb{R}^{n} $ to show that the both sides vanish. We know $\Omega $ is bounded and as such is contained by a Box and by continous extension we can integrate over that box 
+ \begin{align*}
+   \int_\Omega  \triangledown * F = \int_{\text{Box}} \triangledown * F =  \sum \int_{\text{box}} \partial_i F_i 
+ .\end{align*}
+ Where 
+ \begin{align*}
+   \int_{\text{box}} \partial_i F_i &= \int_{-R}^{R}\iint_{-R}^{R}   \partial_i F_i dx_1 dx_2 \ldots  dx_n \\
+                                    &= \iint [\int_{-R}^{R} \partial_i F_i ]_{-R}^{R}   = 0\\ 
+ .\end{align*}
+ Such that the sum is 0 as well \\[1ex]
+ In the general case we do it similar , where the existence of the box is guaranteed by the fact that every submanifold is a graph over some box.
+ We are able to cover $\overline{\Omega } $ by $\Omega $ and all the boxes $V' \times  (a,b) \subset  \mathbb{R}^{n}  $, by compactness we only need finite many 
+ sets to cover $\overline{\Omega } $, by choosing a partition of unity we avoid including the same point multiple times : 
+ \begin{align*}
+   \int_{\partial \Omega } F*N d \sigma  = \sum \int_{\partial \Omega \cap U_i } (h_i * F) N d \sigma  
+ .\end{align*}
+ Remember that each $h_i$ vanishes outside $U_i$, in the case $U_i = \Omega $ then $h_i F$ is 0 on the boundary and is covered by the first case.
+ Normal case is $U_i = V' \times  (a,b)$ for some $a,b$
+ \begin{figure}[H]
+ \begin{center}
+ \begin{tikzpicture}
+   \draw[] (0,0) -- (1,0) -- (1,1) -- (0,1) -- (0,0);
+   \node[left] (a) at (0,0) {$a$};
+   \node[left] (b) at (0,1) {$b$};
+   \draw[red!70] (1/2,0) -- (1/2,2.55/4);
+   \draw[blue!70] (0,1/2) .. controls (1,1) and (0.5,0) .. (1,1/2) node[right,blue!70] {$\partial \Omega  = (v,\lambda(v))$};
+ \end{tikzpicture} 
+ \end{center} 
+ \end{figure}
+ Where the area below the curve is $\Omega $ in essence we integrate over lines : 
+ \begin{align*}
+  x \mapsto \int_a^{\lambda(x)}  F_i(x,z) dz
+ .\end{align*}
+ Note that $\lambda(x)$ is the height at point x such that the integral of the $\partial_i$ term :
+ \begin{align*}
+   \int_{\Omega  \cap U_i} \partial_i F_i = \int_{V'} \int_a^{\lambda(x)}  \partial_{x_i} F_i(x,z) dz d^{n-1} x  = \int_{V'} \lambda(x)*F_i(x,\lambda(x)) d^{n-1}x
+ .\end{align*}
+ Last equality follows from the fact that F is zero on $V' \times  \{a\}  $ (by property of the partition of unity $h_i$ 
+\end{proof}
+\begin{definition}[Formula outward pointing Normal]
+  The formula for the outward pointing normal is given by 
+  \begin{align*}
+    N =  \pm \frac{1}{\sqrt{1+\abs{\triangledown \lambda}}^2 }\begin{pmatrix} -\triangledown \lambda  \\ 1 \end{pmatrix} 
+  .\end{align*}
+  Where $\lambda $ is a height function,this says in essence that every sub manifold is a graph over a coordinate plane. The explicit formula of $N$ comes from the fact 
+  that we can determine every tangent and then just determine N such that the dualproduct (dot product) is 0 
+\end{definition}
 \begin{comment}
  The symbol $d\sigma$ in this case means that the integral is a surface integral and not a classical integral on a subset of $\mathbb{R}^{n } $.
 \end{comment}
-
+\begin{definition}[Projection ]
+  Let $P$ be a projection otno the jth coordinate
+  \begin{align*}
+    P(x) = (x_{1},\ldots ,\underbrace{c}_{jth},\ldots x_n)
+  .\end{align*}
+  To get the derivative is just the identity except at the jth coordinate where it is 0  \\[1ex] 
+  Now if there exists a regular parameterization of the plane $\Phi  : \mathbb{R}^{k} \to \mathbb{R}^{n}   $  to get a regular parameterization
+  we can project onto the coordinate which would not be linear independent which gives us full rank
+\end{definition}
+\begin{example}
+ How does the divergence theorem genrealize the fundamental theorem of calculus , 
+ we consider a scalar valued function $f$ and embed it into a vector valued funciton $F = \begin{pmatrix} 0 , \ldots  , f , \ldots  0 \end{pmatrix} $ 
+ then 
+ \begin{align*}
+   \int_{\Omega } \partial_i f d\mu  = \int_{(a,b)} \parital_i f  d\mu  = \int_{\{a,b\}  }f N_i d\sigma  = (fN_i)(a) + (fN_i)(b) = f(b)-f(a)
+ .\end{align*}
+\end{example}
+\begin{example}[Volume of unit ball]
+  Volume of unit ball in $n$ dimension is given by the volume of the unit ball scaled by $r^{n} $ and some cosntant $\omega_n$, 
+\end{example}
 
 % section Divergence Theorem (end)
 \section{Distributions} % (fold)
