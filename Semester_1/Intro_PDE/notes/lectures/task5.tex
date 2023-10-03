@@ -3,4 +3,69 @@
   Calculate $(I | \triangledown \lambda ) * \begin{pmatrix} I \\ \triangledown \lambda  \end{pmatrix} $ and show that the determinant of it is equal to $\sqrt{1+\abs{\triangledown \lambda }^2} $
 \end{question}
 \begin{solution}
+$\phi(x) =  (x,\lambda(x))$ , $x \in  \mathbb{R}^{n-1} $  
+\begin{align*}
+  \phi' =  \begin{pmatrix} I \\
+  \triangledown \lambda\end{pmatrix} 
+.\end{align*}
+Calculating 
+\begin{align*}
+  \phi'^{T}\phi'  = I + (\triangledown \lambda)^{T}(\triangledown \lambda)  
+.\end{align*}
+Weinstein Aronszajn identity
+\begin{align*}
+  det(\phi'^{T}\phi' ) = det(I_{n-1} + \triangledown \lambda \triangledown \lambda ^{T}  ) = det(I_{n-1} + \triangledown \lambda ^{T}\triangledown \lambda  ) = 1 + \abs{\triangledown \lambda }^2
+.\end{align*}
 \end{solution}
+\section{Is this an applied math course}
+\begin{question}
+ What order is the Black-Scholes PDE and is it parabolic elliptic or hyperbolic 
+\end{question}
+\begin{solution}
+ Just rearange 
+ \begin{align*}
+  \frac{1}{2} \sigma ^2 S^2 \frac{\partial ^2 V}{\partial S^2} +  \frac{\partial V}{\partial t} + rS \frac{\partial V}{\partial S}  - rV = 0 
+ .\end{align*}
+ Second order linear with $a_{11} = \frac{1}{2} \sigma ^2 S^2$ , $a_{12} = a_{21} = 0$ , $a_{22} = 0$ , positive semi definite ,
+ and eigenvalues are of different sign i.e it is parabolic, coefficients are allowed to be functions so we need to consider every point in the domain 
+ before labeling. \\[1ex]
+ We try to bring it into the form of the heat equation , so we need constant coefficients, 
+ we do this by an exponential change of coordinates (called eulers equation)
+ \begin{align*}
+  S = e^{x}  \quad t = \tau  
+ .\end{align*}
+ ($\tau =t$ , no change couldve used t) 
+ \begin{align*}
+  \frac{\partial V}{\partial x}  = \frac{\partial S}{\partial x} \frac{\partial V}{\partial S}  + \frac{\partial \tau }{\partial x} \frac{\partial V}{\partial \tau } 
+ .\end{align*}
+ which is just
+\begin{align*}
+   \frac{\partial V}{\partial x}  = S \frac{\partial V}{\partial S}
+.\end{align*}
+For the second diff
+\begin{align*}
+  \frac{\partial ^2 V}{\partial x^2}  &= \frac{\partial S}{\partial x} \frac{\partial }{\partial S} \frac{\partial V}{\partial S} + \frac{\partial \tau }{\partial x} \\
+                                      &= S \frac{\partial }{\partial s}(S \frac{\partial V}{\partial S} )  \\
+                                      &= S \frac{\partial V}{\partial S} + S^2 \frac{\partial ^2 V}{\partial S^2} 
+.\end{align*}
+\end{solution}
+\section{15 The Music of the Spheres}
+\begin{question}
+ Suppose that you have an $(n+1) \times  n$  matrix A and a unit vector $b \in  \mathbb{R}^{n+1 }$ such that 
+ b is perpendicular to every column of A. That is $b^{T}A = 0 $. Let $\tilde{A} = (b | A)$ be the square matrix
+ with b as the first column. Argue that 
+ \begin{align*}
+   (det \tilde{A})^{2}  = det \tilde{A}^{T} \tilde{A} = det A^{T}A 
+ .\end{align*}
+\end{question}
+\begin{solution}
+ The first equality follows trivial for square matrices such that 
+ \begin{align*}
+   det(\tilde{A})det(\tilde{A}) =  det(\tilde{A}\tilde{A}) = det(\tilde{A}^{T}A  )
+ .\end{align*}
+ Note 
+ \begin{align*}
+tilde{A}^{T}\tilde{A}^{T} = \begin{pmatrix} b  \\ A \end{pmatrix}   \begin{pmatrix} b | A \end{pmatrix}
+ .\end{align*}
+\end{solution}
+

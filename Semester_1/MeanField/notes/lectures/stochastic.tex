@@ -1,5 +1,70 @@
 \chapter{Stochastic Mean Field Particle Systems}
-5-6 weeks
+From now on let the underlying probability space be given by $(\Omega ,\mathcal{F},\mathbb{P})$.
 \section{Basics of probability}
+\begin{definition}[Brownian Motion]
+  Real valued stochastic process $W(*)$ is called a Brownian motion (Wiener process) if 
+  \begin{enumerate}
+    \item $W(0)= 0  \text{a.s.}$ 
+    \item $W(t) - W(s) \sim \mathcal{N}(0,t-s)$ , for all $t,s\ge 0$ 
+    \item $\forall  0< t_{1} < t_{2} < \ldots  < t_n$  , $W(t_{1}),W(t_{2})-W(t_{1}),\ldots,W(t_n) - W(t_{n-1})$ are independent 
+    \item $W(t)$ is continuous a.s (sample paths) 
+  \end{enumerate}
+\end{definition}
+\begin{remark}[Properties]
+  \begin{enumerate}
+    \item $\E[W(t)] = 0$  , $\E[W(t)^2] = t$ , for all $t>0$
+    \item $\E[W(t)W(s)]=t \land s$ a.s
+    \item $W(t) \in  \mathcal{C}^{\gamma }[0,T] $ , $\forall 0 < \gamma < \frac{1}{2}$.
+    \item $W(t)$ is nowhere differentiable  a.s
+  \end{enumerate}
+  additionally Brownian motions are martingales and satisfy the Markov property 
+\end{remark}
+\begin{definition}[Progressively measurable]
+  In addition to adaptation of a Stochastic process $X_t$  we say it is progressively measurable w.r.t $\mathcal{F}_t$
+  if $X(s,\omega ) : [0,t] \times  \Omega  \to  \mathbb{R}$ is $\mathcal{B}[0,t] \times  \mathcal{F}_t$ measurable, i.e the t is included 
+\end{definition}
+\begin{definition}[Simple functions]
+  Instead of $\mathcal{H}^{2} $  she uses $\mathbb{L}^2(0,T)$ is the space of all real-valued progressively measurable proceses $G(*)$ s.t
+  \begin{align*}
+    \E[\int_0^{T} G^2 dt] < \infty 
+  .\end{align*}
+  define $\mathbb{L}$ analog
+\end{definition}
+\begin{definition}[Step Process]
+  $G \in  \mathbb{L}^2(0,T)$  is called a step process when Partition of $[0,T]$ exists 
+  s.t $G(t) = G_k$ for all $t_k \le  t \le t_{k+1}$, $k=0,\ldots ,m-1$ note $G_k$ is $\mathcal{F}_{t_k}$ measurable R.V.
+\end{definition}
+For step process we define the ito integral as a simple sum 
+\begin{definition}[Ito integral for step process]
+ Let $G \in  \mathbb{L}^2(0,T)$ be a step process  is given by 
+ \begin{align*}
+   \int_0^{T}  G(t) dW_t = \sum_{k=0}^{m-1}  G_k(W(t_{k+1}-W(t_k)))
+ .\end{align*}
+ We take the left value of the process such that we converge against the right integral later
+\end{definition}
+\begin{remark}
+ For two step processes $G,H \in  \mathbb{L}^2(0,T)$  for all $a,b \in  \mathbb{R}$,
+ we have linearity (note they may have two different partitions, so we need to make a bigger (finer) one to include both,)\\[1ex]
+ \begin{enumerate}
+   \item $\int_0^{T} (aG+bH) dW_t = a\int G + b \int  H$ 
+   \item $\E[\int_0^{T} G dW_t] = 0$ , because the Brownian motion has EV of 0
+   \item $\E[(\int_0^{T} G dW_t )^2 ]= \E[\int_{0}^{T}G^2 dt ]$  Ito isometry
+ \end{enumerate}
+\end{remark}
+\begin{proof}
+  First property is just defining a new partition that includes both process.
+  Second property, the Idea of the proof is that
+  \begin{align*}
+    \E[\int_0^{t} G d W_t ] &= \E[\sum_{k=0}^{m-1}G_k(W_{t_{k+1}}-W_{t_k}) ]  \\
+                            &= \sum_{k=0}^{m-1}\E[G_k(W(t_{k+1})-W(t_k))]  \\
+  .\end{align*}
+  Remember $G_k \sim \mathcal{F}_{t_k}$ m.b. and $W(t_{k+1}) - W(t_k)$ is mb. wrt to $W^{t}(t_k) $ future sigma algebra
+  and it is independent of $\mathcal{F}_{t_k}$ s.t the expectation decomposes 
+  \begin{align*}
+    \sum_{k=0}^{m-1}\E[G_k(W(t_{k+1})-W(t_k))]  &= \sum_{k=0}^{m-1} \E[G_k]\E[W(t_{k+1}-W(t_{k}))]  = C*0 = 0 
+  .\end{align*}
+  For the variance decompose into square and non square terms , the non square terms dissapear by property 2 the rest follows by the variance of 
+  Brownian motion, be careful of which terms are actually independent , at leas one will always be independent of the other 3
+\end{proof}
 \section{Bad K}
 \section{Convergence}
