@@ -43,4 +43,27 @@ The following Proposition does just that and tells us that this sequence exists
  Then as $f_n$ is bounded by f clearly we can use $DCT$ to get the convergence, (swap integral and limit) \\[1ex]
  Second step 
 \end{proof}
-
+\begin{definition}[3.11]
+ For a fixed $T \in  (0,\infty)$  we introduce 
+ \begin{align*}
+   \mathcal{H}_{\text{loc}}^2 \coloneqq  \{f : \Omega  \times  [0,T] \to  \mathbb{R} : f \text{ is measurable, adapted and } \int_0^{T} f^2(*,s) ds <\infty   \mathbb{P}\text{-a.s.} \}  
+ .\end{align*}
+ clearly $\E[I(f^2)] < \infty$  implies $f \in  \mathcal{H}_{\text{loc}}^2$ find example for f that is in $\mathcal{H}_{\text{loc}}^2$ but is not in $\mathcal{H}^2$, 
+\end{definition}
+\begin{remark}
+  Localizing sequence is an increasing sequence $\nu_n$ of $[0,T]$  stopping times such that for $f \in  \mathcal{H}_{\text{loc}}^2$ if $f \cha_{[0,\nu_n]} \in  \mathcal{H}^2$ for all $n \in  \mathbb{N}$ and 
+  \begin{align*}
+    \mathbb{P}(\bigcup_{n=1}^{\infty} \{\nu_n = T\}   ) = 1
+  .\end{align*}
+  Question , what does the above allow us to do 
+\end{remark}
+\begin{example}
+  Consider any $f \in  \mathcal{H}_{\text{loc}}^2$  and $\nu_n$ then 
+  \begin{align*}
+    \E[\int_0^{T} f^2(*,s)] ds  &= \E[\int_{0}^{T} f^2(*,s) ds *\cha_{\bigcup_{n=1}^{\infty} \{v_n = T\}  }]\\
+                                &\myS{?}{=}  \int_{0}^{T} \int_{\Omega }  f^2(*,s) *\cha_{\bigcup_{n=1}^{\infty} \{v_n = T\}} d\mathbb{P} ds \\
+                                &= \int_0^{T} \int_{\Omega }  \sum_{n=1}^{\infty} f^2(*,s) *\cha_{\{v_n = T\}} d\mathbb{P} ds \\ 
+                                &\myS{?}{=}  \int_0^{T}  \sum_{n=1}^{\infty} \int_{\Omega }  f^2(*,s) *\cha_{\{v_n = T\}} d\mathbb{P} ds \\ 
+                                &\myS{?}{=}  \sum_{n=1}^{\infty} \int_{\Omega } \int_0^{T}    f^2(*,s) *\cha_{\{v_n = T\}} d\mathbb{P} ds 
+  .\end{align*}
+\end{example}
