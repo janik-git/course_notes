@@ -3,12 +3,13 @@
 target/
 **/*.rs.bk
 
-books/
+# books/
 tasks/
-Lectures/
+# Lectures/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
+*.mp4
 *.lof
 *.log
 *.lot
