@@ -66,5 +66,88 @@ For step process we define the ito integral as a simple sum
   For the variance decompose into square and non square terms , the non square terms dissapear by property 2 the rest follows by the variance of 
   Brownian motion, be careful of which terms are actually independent , at leas one will always be independent of the other 3
 \end{proof}
+\begin{definition}[Ito Formula]
+  
+\end{definition}
+\begin{proof}
+ Step 1 : 
+ \begin{enumerate}
+  \item $d(W_t^2) = 2 W_t dW_t + dt$ which is equivalent to $W^2(t) = W_0^{2} + \int_0^{t} 2 W_s dW_t + \int_0^{t} ds  $ 
+  \item $d(tW_t) = W_t dt + t dW_t$ which is equivalent to $tW(t) - sW(0) = \int_0^{t} W_s ds + \int_0^{t} s dW_s  $
+ \end{enumerate}
+ Actually $\forall \text{ a.e } \omega  \in  \Omega $ : 
+ \begin{align*}
+   2 \int_0^{t} W_s dW_s = 2 \lim_{n \to \infty}  
+ .\end{align*}
+ Now we prove (2) $tW_t - 0 W_0  = \int_0^{t} W_s ds + \int_0^{t} s dW_s  $ 
+ \begin{align*}
+   \int_0^{t} s   dW_s + \int_0^{t} W_s ds = \lim_{n \to \infty} \sum_{k=0}^{n-1} t_k^{n} (W(t_{k+1}^{n} )- W(t_{k}^{n} ))    + \sum_{k=0}^{n-1} W(t_{k+1}^{n}(t_{k+1}^{n} -t_{k}^{n}  ) ) 
+ .\end{align*}
+ We choose the right value for the second integral
+ \begin{align*}
+   = \lim_{n\to \infty} \sum_{k=0}^{n-1} (-t_k^{n}W(t_k)^{n} + t_{k+1}^{n}W(t_{k+1}^{n} )   )   =W(t)t - W(0)*0
+ .\end{align*}
+ Its product rule 
+ \begin{align*}
+   dX_{1} &= F_{1} dt + G_{1}dW_t \\
+   dX_2 &= F_{2} dt + G_{2} dW_t
+ .\end{align*}
+ This can be written as 
+ \begin{align*}
+  d(X_{1},X_{2}) = X_{2}dX_{1} + X_{1}dX_{2}
+ .\end{align*}
+ this shorthand notation actually means 
+ \begin{align*}
+   X_1(t)X_{2}(t) - X_{1}(0)X_{2}(0) = &\int_0^{t} X_{2}F_{1} ds + \int_0^{t} X_{2}G_{1} dW_s \\
+                                       &+ \int_0^{t} X_{1}F_{2} ds + \int_0^{t} X_{1}G_{2}dW_s \\
+                                       &+ \int_0^{t}G_{1}G_{2}     
+ .\end{align*}
+ We prove for $F_{1},F_{2},G_{1},G_{2}$ are time independent 
+ \begin{align*}
+   &\int_0^{t} (X_{2}dX_{1} + X_{1}dX_{2} + G_{1}G_{2}ds)  \\
+   &= \int_0^{t} (X_{2}F_{1}+X_{1}F_{2} + G_{1}G_{2}) ds + \int_0^{t} (X_{2}G_{1} + X_{1}G_{2})  dW_s \\
+   &= \int_0^{t} (\underbrace{F_{2}F_{1}s + F_{1}G_{2}W_s}_{=X_{2}} + \underbrace{F_{1}F_{2}s+F_{2}G_{1}W_s}_{=X_{1}} +G_{1}G_{2}) ds \\ 
+   &+ \int_0^{t} (F_{2}G_{1}s + G_{2}G_{1}W_s+F_{1}G_{2}s + G_{1}G_{2}W_s) dW_s \\
+   &= G_{1}G_{2}t + F_{1}F_{2}t^2 + (F_{1}G_{2}+F_{2}G_{1})\underbrace{\left(\int_0^{t} W_s ds + \int_0^{t}  s dW_s\right)}_{tW_t} + 2G_{1}G_{2} \underbrace{\int_0^{t} W_s dW_s}_{W_t^2-t} \\
+   &=G_{1}G_{2}t + F_{1}F_{2}t^2 + (F_{1}G_{2}+F_{2}G_{1}) tW_t +G_{1}G_{2}W_t^2 - G_{1}G_{2}t \\
+   &= X_{1}(t)*X_{2}(t)
+ .\end{align*}
+ Where $X_{2}(t) = \int_0^{t} F_{2} ds + \int_0^{t}G_{2}dW_s   \myS{Cons.}{=} F_{2}t + G_{2}W_t$ \\[1ex]
+ Extend the above idea by considering step processes ($F_{1},F_{2},G_{1},G_{2}$)instead of time independent.
+ Step processes are constant (related to time) and we can use the above prove for every time step t and just consider
+ a summation over it. \\
+ For general $F_{1},F_{2} \in  L^{1}(0,T) , G_{1},G_{2} \in  L^2(0,T) $ then we take step processes
+ to approximate them
+ \begin{align*}
+   &\E[\int_0^{T} \abs{F_{i}^{n} - F_{i}} dt  ] \to  0 \\
+   &\E[\int_0^{T} \abs{G_{i}^{n} - G_{i}}^2 dt  ] \to  0 \\
+ .\end{align*}
+ \begin{align*}
+  X_i(t)^{n} = X_i(0) + \int_0^{t} F_i^{n}    ds + \int_0^{t} G_i^{n}  dW_s
+ .\end{align*}
+ It holds 
+ \begin{align*}
+   X_{1}^{n}(t) X_{2}(t)^{n}   - X_1(0)X_{2}(0)  &= \int_0^{t} X_2(s)^{n}  F_1^{n}(s) ds + \int_0^{t} X_2(s)G_1(s)^{n}    dW_s \\
+                                                 &+ \int_0^{t} X_1^{n}  (s) F_2^{n}(s) ds + \int_0^{t} X_1(s)^{n}G_2^{n}(s) dW_s + \int_0^{t} G_1(s)^{n}G_2^{n}(s) ds
+ .\end{align*}
+ Only thing left is a convergence result (i.e DCT) sinc the processes are bounded or smth like that. \\[1ex]
+ Step 3 if $u(x) = x^{m} , \ \forall  m=0,\ldots$  to prove 
+ \begin{align*}
+  d(X^{m} ) = mX^{m-1} dX + \frac{1}{2}m(m-1) X^{m-2} G^2dt
+ .\end{align*}
+ For $m=2$ the result is obtained by the product rule, By induction we prove for arbitrary $m$ \\[1ex]
+ \textbf{(IV)} Suppose the statement hold for $m-1$ \\
+ \textbf{(IS)} $m-1 \to  m$
+ \begin{align*}
+   d(X^{m} ) &= d(X*X^{m-1} ) = XdX^{m-1}  + X^{m-1} dx + (m-1)X^{m-2} G^2 dt\\
+             &\myS{IS}{=} X(m-1)X^{m-2}  dx + X*\frac{1}{2}(m-1)(m-2)X^{m-3}G^2dt +X^{m-1} dx + (m-1)X^{m-2}G^2 dt  \\
+             &= mX^{m-1} dx + (m-1)(\frac{m}{2}-1+1)X^{m-2}G^2   dt \\
+             &= \underbrace{mX^{m-1}}_{\partial_x u}dx + \frac{1}{2} \underbrace{m(m-1)X^{m-2}}_{\partial^2_x u} G^2dt  
+ .\end{align*}
+ Now $u(x) =x^{m}  $
+ \begin{align*}
+  dX  =F dt + G dW_t
+ .\end{align*}
+\end{proof}
 \section{Bad K}
 \section{Convergence}
