@@ -1,0 +1,59 @@
+\chapter{MacroView}
+This chapter is supposed to provide some rationale of what this course is all about
+\section{General Problem}
+The general problem is on how to evaluate certain expressions when going from discrete time intervalls
+to continuous ones.
+\begin{example}
+	Evaluating value processes for trading strategies usually take the shape (in discrete time) \\[1ex]
+	Let $\phi  = (\phi_{0}(t),\phi_1(t))_{t \in [0,T] \cap \mathbb{Q}}$ be a trading strategy, then we'd model the value of this strategy as
+	\begin{align*}
+    V_t(\phi ) = \sum_{t=1}^{N} \phi_0(t_i)(B(t_{i+1}) - B(t_{i})) +  \sum_{t=1}^{N} \phi_1(t_i)(S(t_{i+1}) - S(t_{i}))
+	.\end{align*}
+  Where $B(t)$ is the risk-free asset and $S(t)$ the risky asset. \\[1ex]
+  Moving to continuous time a sum representation will no longer be enough so we define the stochastic integral 
+  \begin{align*}
+    V_t(\phi )= \int_0^{t} \phi_{0} dB_s + \int_0^{t} \phi_1 dS_s
+  .\end{align*}
+  Issue now becomes we need the underlying stochastic processes to have certain properties for our integral representation to make 
+  sense i.e to be consistent with a discrete definition. To guarantee no arbitrage we want stochastic processes with irregular paths 
+  like Brownian motions.
+\end{example}
+\section{Fundamental Requirements }
+For our base construction we want a couple things from our base probability space, and the random variables/processes acting on it.
+\begin{definition}[Sample Paths]
+  Sample paths are given when taking a stochastic process and evaluating it for a concrete random state $\omega  \in  \Omega $,
+  we define the mapping : 
+  \begin{align*}
+    t \mapsto X_t(\omega )
+  .\end{align*}
+  We often require this mapping to be continuous (left,right) and say the process is continuous (left,right) if all the sample paths are
+\end{definition}
+\begin{remark}
+  (Right,Left)  continuity  of a stochastic process lets us do things we are used to when dealing with the discrete case, it is useful to consider what it means 
+  for a sample path to be continuous.\\[1ex]
+  Let $\omega  \in  \Omega $ be such that  the map 
+  \begin{align*}
+    t \mapsto X_t(\omega )
+  .\end{align*}
+  is continuous, then by definition we get that for $\forall  \epsilon  > 0 , t \in  [0,T]$ there exists $\delta  > 0 $ such that 
+  \begin{align*}
+    s \in B(x,\delta ) \ \implies \  \abs{X_s(\omega ) - X_t(\omega )} < \epsilon 
+  .\end{align*}
+\end{remark}
+\section{Construction}
+The sum representation will be still helpful when we define stochastic integrals, the construction 
+of stochastic integrals is analog to that of the Lebesgue Integral, we define simple functions 
+then we show those simple functions lie dense in the set of more Complex ones and construct
+the integral of those as the limit of simple functions.
+\begin{definition}[Simple Functions]
+  We define the space
+  \begin{align*}
+    \mathcal{H}_0^{2} \coloneqq  \{f : \Omega \times [0,T] \to  \mathbb{R} \ |\ f(\omega ,s) \coloneqq  \sum_{i=1}^{n} a_i(\omega )*\cha_{[t_i,t_{i+1})}(s)   \}   
+  .\end{align*} 
+  Where $a_i : \Omega  \to  \mathbb{R}$ are $\mathcal{F}_{t_i}$-mb random variables with second moment ($\E[a_i^2]< \infty$), for any partition $(t_i)_{i \in  \mathbb{N}}$ of $[0,T]$
+\end{definition}
+\begin{remark}
+ A couple things to note is that , $\mathcal{H}_0^{2} $  contains stochastic processes, the $a_i$ themselves are Random variables 
+ and we require the second moment such that our class of functions contains more useful processes (existence of second moment is not outrageous and it guarantees finite entropy)
+\end{remark}
+

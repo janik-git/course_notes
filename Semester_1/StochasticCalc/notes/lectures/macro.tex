@@ -1,0 +1,252 @@
+\chapter{MacroView}
+This chapter is supposed to provide some rationale of what this course is all about
+\section{General Problem}
+The general problem is on how to evaluate certain expressions when going from discrete time intervalls
+to continuous ones.
+\begin{example}
+	Evaluating value processes for trading strategies usually take the shape (in discrete time) \\[1ex]
+	Let $\phi  = (\phi_{0}(t),\phi_1(t))_{t \in [0,T] \cap \mathbb{Q}}$ be a trading strategy, then we'd model the value of this strategy as
+	\begin{align*}
+    V_t(\phi ) = \sum_{t=1}^{N} \phi_0(t_i)(B(t_{i+1}) - B(t_{i})) +  \sum_{t=1}^{N} \phi_1(t_i)(S(t_{i+1}) - S(t_{i}))
+	.\end{align*}
+  Where $B(t)$ is the risk-free asset and $S(t)$ the risky asset. \\[1ex]
+  Moving to continuous time a sum representation will no longer be enough so we define the stochastic integral 
+  \begin{align*}
+    V_t(\phi )= \int_0^{t} \phi_{0} dB_s + \int_0^{t} \phi_1 dS_s
+  .\end{align*}
+  Issue now becomes we need the underlying stochastic processes to have certain properties for our integral representation to make 
+  sense i.e to be consistent with a discrete definition. To guarantee no arbitrage we want stochastic processes with irregular paths 
+  like Brownian motions.
+\end{example}
+\section{Fundamental Requirements }
+For our base construction we want a couple things from our base probability space, and the random variables/processes acting on it.
+\begin{definition}[Sample Paths]
+  Sample paths are given when taking a stochastic process and evaluating it for a concrete random state $\omega  \in  \Omega $,
+  we define the mapping : 
+  \begin{align*}
+    t \mapsto X_t(\omega )
+  .\end{align*}
+  We often require this mapping to be continuous (left,right) and say the process is continuous (left,right) if all the sample paths are
+\end{definition}
+  (Right,Left)  continuity  of a stochastic process lets us do things we are used to when dealing with the discrete case, it is useful to consider what it means 
+  for a sample path to be continuous.\\[1ex]
+  \begin{remark}
+  Let $\omega  \in  \Omega $ be such that  the map 
+  \begin{align*}
+    t \mapsto X_t(\omega )
+  .\end{align*}
+  is continuous, then by definition we get that for $\forall  \epsilon  > 0 , t \in  [0,T]$ there exists $\delta  > 0 $ such that 
+  \begin{align*}
+    s \in B(x,\delta ) \ \implies \  \abs{X_s(\omega ) - X_t(\omega )} < \epsilon 
+  .\end{align*}
+  \end{remark}
+  We will see why this is useful in a second. Let us try to show that the hitting time 
+  \begin{align*}
+    \tau_n = \inf \{t \in  [0,T] : X_t \ge n\}  
+  .\end{align*}
+  is in-fact a stopping time 
+  \begin{example}
+  Consider the hitting time $\tau_n = \inf \{t \in  [0,T] : X_t \ge n\}  $, to show that this hitting time is a stopping time, we want to show 
+  \begin{align*}
+    \{\tau_n \le  t\}   \in  \mathcal{F}_t
+  .\end{align*}
+  Lets remind ourselves that $t \in  \mathbb{R}^{+} $, so we cannot simply do this 
+  \begin{align*}
+    \{\tau_n \le  t\} = \bigcup_{s \le  t} \underbrace{\{X_s \ge n \}}_{\mathcal{F}_s} \xRightarrow{?} (\bigcup_{s \le  t} \{X_s \ge n \})   \in \mathcal{F}_t
+  .\end{align*}
+  While it looks Ok to do this, we are  ignoring the fact that taking a union over uncountable many sets in a $\sigma$-algebra is is not guaranteed to still lie in the algebra.\\[1ex]
+  We avoid this by only considering $s \in  \mathbb{Q}$
+  \begin{align*}
+  \{\tau_n \le  t\} = \bigcup_{s \in  \mathbb{Q} \, \ s \le  t} \underbrace{\{X_s \ge n \}}_{\mathcal{F}_s} \in  \mathcal{F}_t 
+  .\end{align*}  
+  Which is where the continuity of our process comes to play.
+  \end{example}
+  \begin{remark}
+    Lets reformulate the hitting time for arbitrary set $A \in  \mathbb{R}$  then we need to differentiate between 
+    open and closed $A$, i.e does 
+    \begin{align*}
+      \{\tau_A \le  t\} = \bigcap_{n \in  \mathbb{N}} \{\tau < t + \frac{1}{n}\}  \underbrace{\in }_{?} \mathcal{F}_{t} 
+    .\end{align*}
+    This is the case only if 
+    \begin{align*}
+      \bigcap_{s > t} \mathcal{F}_s = \mathcal{F}_{t+} = \mathcal{F}_t
+    .\end{align*}
+    Which is the right continuity of our filtration
+  \end{remark}
+  We usually impose two properties on our filtration, the above mentioned right continuity, which could be seen as the ability to infinitesimally peek into the future at any time $t \in  [0,T]$ and allows us
+  to do things as seen above. And that $\mathcal{F}_0$ contains all $\P$-null sets which tells us that any modification of a random variable is again adapted to the same filtration
+  \begin{definition}[Modification]
+    Let $X$ be a stochastic process and $Y$ another , we say $Y$ is a modification of $X$ if  
+    \begin{align*}
+      \P(X_t=Y_t) = 1 \quad \forall  t \in  [0,T]
+    .\end{align*}
+    In words this means that if we fix any $t \in [0,T]$ the set $\{\omega  \in  \Omega \ | \ X_t(\omega ) \neq  Y_t(\omega ) \}  $ is a $\P$-null set and we know 
+    that $X,Y$ are not too different if we look at all sample paths
+  \end{definition}
+  \begin{remark}
+    The fact that $t \in  [0,T]$  is outside of $\P$ should not be disregarded as a trivial change
+    consider the alternative down below
+  \end{remark}
+  \begin{definition}[indistinguishable]
+    Let $X$ be a stochastic process and $Y$ another , we say $Y$ is indistinguishable of $X$ if  
+    \begin{align*}
+      \P(X_t = Y_t \ \forall  t \in  [0,T]) = 1
+    .\end{align*}
+  \end{definition}
+  The difference between the two can be made clear by
+  \begin{align*}
+    A \coloneqq  \{\omega  \in  \Omega  : X_t(\omega ) = Y_t(\omega ) \ \forall  t \in  [0,T] \} \subseteq  \{\omega  \in  \Omega  : X_t(\omega ) = Y_t(\omega )\} \coloneqq A_t    
+  .\end{align*}
+  Clearly for any $\omega  \in A $  we can just fix $t \in  [0,T]$ and know $X_t(\omega ) = Y_t(\omega )$ which directly implies $\omega  \in  A_t$.
+  The measure theoretic implication of the above inclusion is that 
+  \begin{align*}
+    \P(A_t) \ge \P(A)
+  .\end{align*}
+  It follows that indistinguishable is the stronger assumptions as 
+  \begin{align*}
+    \P(A_t) \ge  \P(A) = 1
+  .\end{align*}
+  Gives $\P(A_t) = 1$, since $t \in  [0,T]$ was arbitrary it holds for all $t \in  [0,T]$.
+  \begin{remark}
+   For two processes to be indistinguishable we require only null many sample paths  be different, 
+   all other sample paths have to be the same for X and Y
+  \end{remark}
+\section{Key Concepts}
+\subsection{Quadratic Variation}
+Stochastic processes do not have variance, just the random variables that make up the process have variance. 
+Such that we can consider the quadratic variation of a stochastic process 
+\begin{definition}
+ We define the quadratic variation of a process by 
+ \begin{align*}
+   \braket{X}_t \coloneqq  \lim_{n \to  \infty} \sum_{J \in  \Pi_n}(\triangle_{J \cap [0,t]} X)^2
+ .\end{align*}
+\end{definition}
+Lets consider the total variation by 
+\begin{remark}
+ The relation between total variation and integration is that the total variation is the same as the integral over the derrivative (first)  (ill try proving for pth order),
+ Now if the pth order variation is finite we know that the p+1 term in a taylor series vanishes such that we need to consider up to the pth term , we see this in all the proofs.
+\end{remark}
+We care about variation of a process X because we want to compute various statistics related to f(X), e.g. the mean and variance at given times. These computations are facilitated by using Ito’s Lemma to compute the time dynamics of f(X). The proof of Ito’s Lemma, like the proof of the chain rule from calculus, proceeds by taking a Taylor expansion of f, allowing us to approximate the dynamics of f(X) by constants and various order variations of X. When X is finite variation, a first order Taylor expansion suffices, because higher order terms vanish. When X has nonzero quadratic variation, the second order term must be accounted for. This ultimately leads to the Ito correction term.
+\section{Construction}
+The sum representation will be still helpful when we define stochastic integrals, the construction 
+of stochastic integrals is analog to that of the Lebesgue Integral, we define simple functions 
+then we show those simple functions lie dense in the set of more Complex ones and construct
+the integral of those as the limit of simple functions.
+\begin{definition}[Simple Functions]
+  We define the space
+  \begin{align*}
+    \mathcal{H}_0^{2} \coloneqq  \{f : \Omega \times [0,T] \to  \mathbb{R} \ |\ f(\omega ,s) \coloneqq  \sum_{i=1}^{n} a_i(\omega )*\cha_{[t_i,t_{i+1})}(s)   \}   
+  .\end{align*} 
+  Where $a_i : \Omega  \to  \mathbb{R}$ are $\mathcal{F}_{t_i}$-mb random variables with second moment ($\E[a_i^2]< \infty$), for any partition $(t_i)_{i \in  \mathbb{N}}$ of $[0,T]$
+\end{definition}
+Note that we clearly have for any $f \in  \mathcal{H}_0^2$ that 
+\begin{align*}
+  \E[\int_0^{T} f^2(*,s) ds ] = \E[(\sum_{i=1}^{n} a_i \cha_{[t_i,t_{i+1})})^2] \myS{Jen.}{\le } \sum_{i=1}^{n} \E[a_i \cha_{[t_i,t_{i+1})}]  \le  \infty
+.\end{align*}
+And in fact we define the stochastic integral for a simple function with respect to a  Brownian motion  as
+\begin{align*}
+  I(f) = \int_0^{T}  f(*,s) dB_{s}  = \sum_{i=1}^{n} a_i(B_{t_{i+1}} - B_t)
+.\end{align*}
+\begin{remark}
+ A couple things to note is that $\mathcal{H}_0^{2} $ contains the stochastic processes we want to integrate and 
+ the stochastic integral yields a random variable i.e for $f \in  \mathcal{H}_0^{2} $
+ \begin{align*}
+   I(f) : \Omega \to \mathbb{R} \ \omega  \mapsto \int_0^{T} f(\omega ,s) dB_s
+ .\end{align*}
+ Note $I(f)$ is in-fact a continuous function by property of integration
+\end{remark}
+Defining the norm $\|f\|_{\mathcal{H}^2} \coloneqq  \E[I(f^2)]$ we get a natural condition for a process to lie in the more general space 
+$\mathcal{H}^2$ 
+\begin{definition}
+ We say a function $f$ lies in $\mathcal{H}^2$  if 
+ \begin{enumerate}
+   \item $f$ is a measurable and adapted stochastic process with respect to $(\mathcal{F} \otimes \mathcal{B}([0,T])),\mathcal{B}(\mathbb{R})$
+   \item $\|f\|_{\mathcal{H}^2} < \infty$
+ \end{enumerate}
+\end{definition}
+Together with
+\begin{prop}
+  For every $f \in  \mathcal{H}^2$  there exists a sequence $(f_n)_{n\in \mathbb{N}} \subset  \mathcal{H}_0^{2} $  such that 
+  \begin{align*}
+    \|f_n - f\|_{\mathcal{H}^2} \to  0
+  .\end{align*}
+\end{prop}
+\begin{proof}
+ The proof relies on constructing $f_n \in  \mathcal{H}^2_0$  for any given $f \in  \mathcal{H}^2$, we begin by gradually 
+ generalizing our $f$ till we get a simple $f_n$, consider the first construction 
+ \begin{align*}
+  f_n = -n \lor (f \land n)
+ .\end{align*}
+ I.e we just squeeze $f$ in between $[-n,n]$ the following follows trivial since we eventually encompass the entire domain 
+ \begin{align*}
+   \|f_n - f\|_{\mathcal{H}^2} \to  0
+ .\end{align*}
+  Now define new $f_n$
+  \begin{align*}
+    f_n(*,t) = n*\int_{t-\frac{1}{n}}^{t}  f(*,s) ds
+  .\end{align*}
+  As $n \to  \infty$  we get  $t - \frac{1}{n} \to  t$, consider if $f(*,s)$ is some constant $f(*,s) = c$  
+  \begin{align*}
+    f_n(*,t) \coloneqq  n \int_{t-\frac{1}{n}}^{t} f(*,s) ds =  n*c*(t-(t-\frac{1}{n})) = c
+  .\end{align*}
+  Note the lower bound is in fact $(t-\frac{1}{n})^{+} $ to guarantee non negative time, left out for simplicity sake , we get n as the scaling factor because 
+  \begin{align*}
+    (t-(t-\frac{1}{n}))^{-1}  = (\frac{1}{n})^{-1} = n 
+  .\end{align*}
+  I.e we divide the area of the square by the length of its base to get its height, and as we make the interval smaller that square is our function value\\[1ex]
+  Now since we are dealing with random variables everything is only almost everywhere, and we need the following construction to show that we converge 
+  \begin{align*}
+    A &\coloneqq  \{(\omega ,t) \in  \Omega  \times  [0,T] \ : \ \lim_{n \to \infty} f_n(\omega ,t) \neq  f(\omega ,t)\}  \\
+    A_\omega  &\coloneqq  \{t \in [0,T] \ : \ (\omega ,t) \in  A  \\
+  .\end{align*}
+  Using the Fundamental theorem of calculus or rather (Lebesgue differentiation theorem) we have $\omega  \in  \Omega  $ that $\lambda(A_\omega ) = 0$.
+  Such that we can use dominated convergence and get $\|f_n - f\|_{\mathcal{H}^2} \to  0$. We can use DCT since $f_n$ re bounded from above by $f$ ? i dont think that always holds.
+  The above two steps allow us to do this : for any $f \in  \mathcal{H}^2$ there exists $(f_n)_{n \in  \mathbb{N}}$ continuous and bounded,
+  for every $f_n$ there exists $(g_k)_{k \in  \mathbb{N}}$ such that $\|g_k \to  f_n\|_{\mathcal{H}^2}$ \\[1ex]
+  We relabel and show that for $f \in  \mathcal{H}^2$ continuous and bounded there exists $(f_n)_{n \in  \mathbb{N}} \in  \mathcal{H}^2_0$ such that 
+  \begin{align*}
+    \norm{f_n -f}_{\mathcal{H}^2} \to  0
+  .\end{align*}
+  We can construct our $f_n \in  \mathcal{H}^2_0$ by taking the interval $[0,T]$ and making it discrete by using 
+  \begin{align*}
+    \phi_n : \mathbb{R} \to  \{\frac{j}{2^{n} } \ : \ j \in  \mathbb{Z}\}   , u \mapsto \sum_{j \in  \mathbb{Z}} \frac{j-1}{2^{n} } \cha_{(\frac{j-1}{2^{n} },\frac{j}{2^n}]}(u)
+  .\end{align*}
+  I.e approximate the time at u by its left value. We then get a simple function 
+  \begin{align*}
+    f_{n,s}(\omega ,t) \coloneqq  f(\omega ,(s+\phi_n(t-s))_+)
+  .\end{align*}
+  No idea why we choose $s \in  [0,1]$ seem arbitrary, $\phi_n(t) \to t$ anyway
+\end{proof}
+We get a basic construction of stochastic integrals, ideally we want a correspondence between $L^2$ functions and functions in $\mathcal{H}^2$
+\begin{definition}[Itos isometry]
+  For any $f \in  \mathcal{H}^2$  we have $\|f\|_{\mathcal{H}^2} = \|I(f)\|_{L^2}$
+\end{definition}
+and $\mathcal{H}^2 \subsetneq L^2$
+\begin{remark}
+ This inclusion, becomes important once we start thinking about extending the stochastic integral to all $f \in L^2$
+\end{remark}
+As the above stochastic integrals are Random variables we can further construct stochastic processes from them 
+\begin{definition}
+  For every $f \in  \mathcal{H}^2$  there exists a continuous Martingale $X = (X_t)_{t \in  [0,T]}$ such that 
+  \begin{align*}
+    X_t = I(f\cha_{[0,t]})
+  .\end{align*}
+\end{definition}
+\begin{proof}
+  
+\end{proof}
+\begin{remark}
+  Recall what $I(f\cha_{[0,t]})$  means for $f \in  \mathcal{H}^2$ 
+  \begin{align*}
+    I(f\cha_{[0,t]}) = \int_0^{t} f(*,s) dB_s  
+  .\end{align*}
+\end{remark}
+This allows us the formally define the Ito integral 
+\begin{definition}
+ For any $f \in  \mathcal{H}^2$  the Ito integral is defined by 
+ \begin{align*}
+   \int_0^{t} f(*,s) dB_s = X_t = I(f \cha_{[0,t]})
+ .\end{align*}
+\end{definition}
+\section{Extension by localization}
+We want the class of integrands to be as big as possible , i.e any continuous function $g : \mathbb{R} \to  \mathbb{R}$ however $g(x) = e^{\frac{x^2}{2}} $  has no second moment
