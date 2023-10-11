@@ -67,9 +67,33 @@ For step process we define the ito integral as a simple sum
   Brownian motion, be careful of which terms are actually independent , at leas one will always be independent of the other 3
 \end{proof}
 \begin{definition}[Ito Formula]
-  
+  If $u \in  \mathcal{C}^{2,1}(\mathbb{R} \times  [0,T] ; R) $   then 
+  \begin{align*}
+    d u(x(t),t) &= \frac{\partial u}{\partial t} (x(t),t) dt + \frac{\partial u}{\partial x}(x(t),t) dx + \frac{1}{2} \frac{\partial^2 u}{\partial x^2}G^2dt \\ 
+    &= \frac{\partial u}{\partial x}(x(t),t)GdW_t +(\frac{\partial u}{\partial t}(x(t),t) ) + \frac{\partial u}{\partial x}(x(t),t) F + \frac{1}{2} \frac{\partial ^2 u}{\partial x^2}G^2 dt 
+  .\end{align*}
+  For $dX = F dt + G dW_t$ for $F \in  L^{1}([0,T]) $ , $G \in  L^2([0,T])$
 \end{definition}
 \begin{proof}
+  The proof is split into the steps
+  \begin{enumerate}
+   \item  
+     \begin{align*}
+       d(W_t^2) &= 2W_t  dW_t + dt\\
+       d(tW_t) &= W_t dt + t d W_t
+     .\end{align*}
+    \item 
+      \begin{align*}
+        dX_i &= F_i dt + G_i dW_t \\
+        d(X_{1},X_{2}) &= X_2 dX_1 + X_{1} dX_{2} + G_{1}G_{2}dt \\
+      .\end{align*}
+    \item 
+      \begin{align*}
+        u(x) =  x^{m}  \quad m\ge 2
+      .\end{align*} 
+    \item Itos formula for $u(x,t) = f(x)g(t)$ where $f$ is a polynomial
+  \end{enumerate}
+  I.e we prove the Ito formula for functions of the form $u(x) = x^{m} $ and then 
  Step 1 : 
  \begin{enumerate}
   \item $d(W_t^2) = 2 W_t dW_t + dt$ which is equivalent to $W^2(t) = W_0^{2} + \int_0^{t} 2 W_s dW_t + \int_0^{t} ds  $ 
@@ -148,6 +172,155 @@ For step process we define the ito integral as a simple sum
  \begin{align*}
   dX  =F dt + G dW_t
  .\end{align*}
+ Step 4  If $u(x,t) = f(x)g(t)$ where  $f$ is a polynomial
+  \begin{align*}
+    d(u(x,t)) &= d(f(x)g(t)) = f(x)dg + g df(x) + G*0 dt  \\
+              &\myS{S3}{=} f(x)g'(t) dt + gf'(x) dx + \frac{1}{2}gf^{''}(x) G^2 dt 
+  .\end{align*}
+  Itos formula is true for $f(x)g(t)$, it should thus also be true for functions $u(x,t) = \sum_{i=1}^{m} g^{i}(t)f^{i}(x) $ \\[1ex]
+  Step 5: if   $u \in \mathcal{C}^{2,1} $ then we know there exists a sequence of polynomials $f^{i}(x) $  s.t
+  \begin{align*}
+    u_n(x,t) = \sum_{i=1}^{n} f^{i}(x)g^{i}(t)
+  .\end{align*}
+  Then $u_n \to u$ uniformly for any compact set $K \subset  \mathbb{R} \times  [0,T] $, we can thus apply 
+  Itos formula for each of the $u_n$ and take the limit term wise  
 \end{proof}
+\begin{remark}
+ One can get the existence of the polynomial sequence by using Hermetian polynomials 
+ \begin{align*}
+  H_n(x) = (-1)^{n}  e^{\frac{x^2}{2}} \frac{d^{n}}{d x^{n} } e^{-\frac{x^2}{2}} 
+ .\end{align*}
+\end{remark}
+\begin{exercise}
+  If $u \in  \mathcal{C}^{\infty} $  , $\frac{\partial u}{\partial x} \in  \mathcal{C}_b$ then prove Step 4 $\implies$ Step 5 \\[1ex]
+  \textit{Use Taylor expansion and use the uniform convergence of the Taylor series on any compact support }
+\end{exercise}
+\begin{remark}[Multi Dimensional Brownian Motion]
+ Multi dimensional  Brownian motion 
+ \begin{align*}
+  W(t) &= (W^{1}(t),\ldots ,W^{m}(t)  ) \in  \mathbb{R}^{m} \\
+ .\end{align*}
+ In each direction we should have a 1 dimensional Brownian motion and any two directions should be independent.
+ We use the natural filtration $\mathcal{F}_t = \sigma(W(s) ; 0\le s\le t)$
+\end{remark}
+\begin{definition}[Multi-Dimensional Ito's Integral]
+  We the define the $n$ dimensional integral for $G \in  L^{2}_{n*m}([0,T]) $ , $G_{ij} \in  L^{2}([0,T])$ $1\le i\le n \ , \ 1 \le j \le m$
+  \begin{align*}
+    \int_0^{T} G d W_t = \begin{pmatrix} \vdots \\ \int_0^{T} G_{ij} d W^{j}_t \\ \vdots    \end{pmatrix}_{n \times 1}
+  .\end{align*}
+  With the Properties 
+  \begin{align*}
+    \E[\int_0^{T} G dW_t ] &= 0  \\
+    \E[(\int_0^{T} G dW_t )^2] = \E[\int_0^{T} \abs{G}^2 dt ]
+  .\end{align*}
+  Where $\abs{G}^2 = \sum_{i,j}^{n,m} \abs{G_{ij}}^2 $ 
+\end{definition}
+\begin{definition}[Multi-Dimensional Ito process]
+ We define the $n$ dimensional Ito process as  
+ \begin{align*}
+   X(t) &= X(s) + \int_s^{t} F_{n \times  1}(r) dr   + \int_0^{t} G_{n \times  m}(r) dW_{m \times  1}(r)  \\
+   dX^{i} = F^{i} dt + \sum_{j=1}^{m} G^{ij} dW_t^i      \qquad 1\le i \le n
+ .\end{align*}
+\end{definition}
+\begin{theorem}[Multi Dimensional Ito's formula]
+  We define the $n$ dimensional Ito's formula as $u \in  \mathcal{C}^{2,1}(\mathbb{R}^{n} \times [0,T],\mathbb{R} ) $
+  \begin{align*}
+    du(x(t),t) &= \frac{\partial u}{\partial t}(x(t),t) dt + \triangledown u(x(t),t) * dx(t) \\
+               &+ \frac{1}{2} \sum \frac{\partial ^2 u}{\partial x_i \partial x_j}(x(t),t) \sum_{l=1}^{m}  G^{il} G^{il}dt 
+  .\end{align*}
+\end{theorem}
+\begin{prop}
+  For real valued processes $X_{1},X_{2}$
+ \begin{align*}
+  \begin{cases}
+    dX_{1} &= F_{1} dt + G_1 dW_1 \\
+    d X_2 &= F_{2} dt + G_{2} dW_2
+  \end{cases} \implies d(X_{1},X_{2}) = XdX_{2} + X_{2}dX_{1} + \sum_{k=1}^{m} G_1^{k} G_2^{k} dt   
+ .\end{align*} 
+\end{prop}
+Working with SDEs relies on a lot of notational rules as seen in the differential notation is just shorthand for the Integral form 
+\begin{definition}
+ Formal multiplication rules for SDEs
+ \begin{align*}
+   (dt)^2 = 0 \ , \ dt dW^{k} = 0 \ , \ dW^{k}dW^{l} = \delta_{kl} dt    
+ .\end{align*}
+\end{definition}
+Using this notation we can simply itos formula as follows 
+\begin{align*}
+  du(X,t) &= \frac{\partial u}{\partial t} dt + \triangledown_x u*dX + \frac{1}{2}\sum_{i,j=1}^{n} \frac{\partial ^2  u}{\partial x_i \partial x_j}   dX^{i}dX^{j}   \\ 
+          &= \frac{\partial u}{\partial t} dt + \sum_{i=1}^{n} \frac{\partial u}{\partial X^{i} } F^{i} dt + \sum_{i=1}^{n} \frac{\partial u }{\partial X_i}      \sum_{i=1}^{m} G^{ik} d W_k   \\
+          &+  \frac{1}{2} \sum_{i,j=1}^{n}  \frac{\partial ^2  u}{\partial x_i \partial x_j} \left(F^{i} dt + \sum_{k=1}^{m} G^{ik} dW_k   \right)\left( F^{j} dt + \sum_{l=1}^{m} G^{i;} dW_l    \right)   \\
+          &= (\frac{\partial u}{\partial t} + F*\triangledown u + \frac{1}{2} H*D^2 u) dt + \sum_{i=1}^{n} \frac{\partial u}{\partial x_i} \sum_{k=1}^{m} G^{ik} dW_{k}
+.\end{align*}
+Where 
+\begin{align*}
+  dX^{i} &= F^{i} dt + \sum_{k=1}^{m}  G^{ik} dW_k   \\
+  H_{ij} &= \sum_{k=1}^{m} G^{ik}G^{jk}  \ , \ A *B = \sum_{i,j=1}^{m} A_{ij} B_{ij} 
+.\end{align*}
+Typical example 
+\begin{align*}
+G^{T}G = \sigma  I_{n \times  n} 
+.\end{align*}
+\begin{example}
+ If $F$ and $G$ are deterministic 
+ \begin{align*}
+   dX_{n \times  1} F(t)_{n \times  1} dt + G_{n \times  m} dW_t{m \times  1}
+ .\end{align*}
+ Then for arbitrary test function $u \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{n} ) $ then by Ito's formula 
+ \begin{align*}
+   u(x(t)) - u(x(0)) &= \int_0^{t} \triangledown u (x(s)) * F(s) ds + \int_0^{t}  \frac{1}{2}(G^{T}G ) : D^2u(x(s)) ds \\
+                     &+ \int_0^{t} \triangledown u(x(s)) * G(s) dW_{s} 
+ .\end{align*}
+ Let $\mu(s,*)$  be the law of $X(s)$ then we take the expectation of the above integral 
+ \begin{align*}
+   &\int_{\mathbb{R}^{n} } u(x) d\mu(s,x) - \int_{\mathbb{R}^{n} } u(x) d\mu_0(x)  =  \int_{0}^{t} \int_{\mathbb{R}^{n} }  \triangledown u(x) * F(s) d\mu(s,x)  \\
+   &+ \int_0^{t} \int_{\mathbb{R}^{n} }  \frac{1}{2}(G^{T}(s)G(s)) : D^2 u(x) * d\mu (s,x) + 0
+ .\end{align*}
+\end{example}
+\begin{definition}[Parabolic Operator]
+ \begin{align*}
+   \partial_t u  - \frac{1}{2} \sum_{i,j=1}^{n}  D_{ij} (\sum_{k=1}^{m}  G^{ik}G^{kj}  )\mu  + \triangledown * (F \mu )  = 0 
+ .\end{align*} 
+\end{definition}
+\begin{example}
+  If $F=0$  $m=n$ and $G=\sqrt{2}I_{n \times  n} $ then 
+  \begin{align*}
+    dX = \sqrt{2} dW_t 
+  .\end{align*}
+  And the law of $X$ , $\mu $ fulfills the heat equation
+  \begin{align*}
+    \mu_t = \triangle \mu  = 0
+  .\end{align*}
+\end{example}
+How does this all translate to our Mean field Limit, consider a particle system given  by 
+\begin{align*}
+  \begin{cases}  
+  dX_N &= F(X_N) dt + \sqrt{2} dW_{dN \times 1} \\
+  d x_i &=  \frac{1}{N} \sum K(x_i,x_j) dt + \sqrt{2} dW_t^1  \qquad 1\le i\le N \ N\to \infty\\
+  x_i(0)    &= x_{0,i} \\
+  \mu_N(t) &= \frac{1}{N} \sum_{i=1}^{N} \delta_{x_i(t)} 
+  \end{cases}
+.\end{align*}
+At time $t = 0$ the $x_i$ are independent random variables at any time $t>0$ they are dependent and the particles have joint law 
+\begin{align*}
+  (x_{1}(t),\ldots ,x_N(t)) \sim  u(x_{1},\ldots ,x_n)
+.\end{align*}
+Where $u \in  \mu(\mathbb{R}^{dN}$ by Ito's formula we get for arbitrary test function $\forall  \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{dN} ) $ 
+\begin{align*}
+  \phi(X_N) &=  \phi(X_N(0)) + \int_0^{t} \triangledown _{dN}\phi  *\begin{pmatrix} \vdots \\ \frac{1}{n} \sum_{j=1}^{N} K(x_i,x_j) \\ \vdots  \end{pmatrix}  X_N \\
+            &+ \int_0^{t}  \triangle_{X_N} \phi  dt + \int_0^{t} \sqrt{2} \triangledown \phi  dW_t^{i} 
+.\end{align*}
+Taking the expectation on both sides, then the last term disappears by definition of Ito processes 
+\begin{align*}
+  \partial_t - \sum_{i=1}^{N} \triangle_i u  + \sum_{i=1}^{N} \triangledown_{x_i} \left( \frac{1}{N} \sum_{j=1}^{N} K(x_i,x_j) u \right)  = 0
+.\end{align*}
+Now consider the Mean-Field-Limit, if the joint particle law can be rewritten as the tensor product of a single $\overline{u}$ 
+\begin{align*}
+ u(x_{1},\ldots ,x_N)  = \overline{u}^{\otimes N}  
+.\end{align*}
+the equation simplifies
+\begin{align*}
+  \partial_t - \sum_{i=1}^{N} \triangle_i u  + \sum_{i=1}^{N} \triangledown_{x_i} \left( \overline{u}^{\otimes N}k \star \overline{u}(x_i)   \right)  = 0
+.\end{align*}
 \section{Bad K}
 \section{Convergence}
