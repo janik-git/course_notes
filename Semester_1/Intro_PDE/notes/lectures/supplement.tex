@@ -1,0 +1,18 @@
+\begin{lemma}[2.12]
+ The convolution $g \star F$ of a test function $g \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{n} ) $ belongs to $C^{\infty}(\mathbb{R}^{n} ) $ : 
+ \begin{align*}
+  g \star F : \ \mathbb{R}^{n}  \to  \mathbb{R} , \quad x \mapsto F(T_xPg)
+ .\end{align*}
+\end{lemma}
+\begin{proof}
+ The continuity argument works by realising that since F is continuous and linear  
+ \begin{align*}
+   \frac{\partial }{\partial x_i} F(T_xPg) = \lim_{h\to 0} \frac{F(T_{x+h}Pg) - F(T_xPg)}{h} =  F(\lim_{h\to 0} \frac{T_{x+h}Pg - T_xPg}{h})
+ .\end{align*}
+ The next important argument ist that because we use Riemann integration we are allowed to represent the integral as a limit over sums of  differences, thus we can swap Integral and Distribution as follows 
+ \begin{align*}
+  F(\int  \phi ) = F(\lim \sum \phi_i) = \lim \sum F(\phi_i ) = \int F(\phi_i )
+ .\end{align*}
+ This is kinda encrypted in the statement \\[1ex]
+ For any $\phi  \in  \mathcal{D}(\mathbb{R}^{n} )$ appropriate Riemann sums define a sequence of finite linear combinations of function in $\{T_xPg \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{n}) \ | \ x \in  \supp(\phi ) \}  $
+\end{proof}
