@@ -10,13 +10,26 @@ to continuous ones.
     V_t(\phi ) = \sum_{t=1}^{N} \phi_0(t_i)(B(t_{i+1}) - B(t_{i})) +  \sum_{t=1}^{N} \phi_1(t_i)(S(t_{i+1}) - S(t_{i}))
 	.\end{align*}
   Where $B(t)$ is the risk-free asset and $S(t)$ the risky asset. \\[1ex]
-  Moving to continuous time a sum representation will no longer be enough so we define the stochastic integral 
+  Let $X,Y$ be two stochastic process and some partition $t \coloneqq  \{t_i | 0\le t_0<t_{1}<\ldots \le T\}  $ \ when $n \to \infty$ we get the following sum
   \begin{align*}
-    V_t(\phi )= \int_0^{t} \phi_{0} dB_s + \int_0^{t} \phi_1 dS_s
+    \sum_{i=1}^{\infty}  X_t*(Y_{t_i} - Y_{t_{i-1}}) = \int_0^{T}  X dY
   .\end{align*}
-  Issue now becomes we need the underlying stochastic processes to have certain properties for our integral representation to make 
-  sense i.e to be consistent with a discrete definition. To guarantee no arbitrage we want stochastic processes with irregular paths 
-  like Brownian motions.
+  Similar to a Riemann integral ($Y_{t_i} = t_i$), now the issue is we need to restrict this type of sum to processes with bounded variation i.e 
+  \begin{align*}
+    \sup_{\Pi }  \sum_{J \in  \Pi} Y_{t_{i}} - Y_{t_{i-1}}  < \infty
+  .\end{align*}
+  Where $\Pi $ is the set of all (zero) partitions of $[0,T]$, Main issue is now that stochastic processes with finite variation dont contain enough irregularity to model
+  Financial markets well enough since they allow for arbitrage, we thus define the stochastic integral to include processes which have non finite first variation and contain
+  enough irregularity. \\[1ex]
+  A trivial but, important thing to realize is that stochastic integrals are just stochastic processes with nicer properties i.e
+  they exhibit properties that allow us to model financial markets. The same applies to stochastic differential equations, which are just shorthand notation for stochastic integrals 
+  \begin{align*}
+   dX_t = \mu(t,X_t)dt + \sigma(t,X_t)dB_t 
+  .\end{align*}
+  is the same as 
+  \begin{align*}
+    X_t = x_{0} + \int_0^{t} \mu(s,X_s) ds + \int_0^{t} \sigma(s,X_s) dB_s 
+  .\end{align*}
 \end{example}
 \section{Fundamental Requirements }
 For our base construction we want a couple things from our base probability space, and the random variables/processes acting on it.
@@ -250,3 +263,32 @@ This allows us the formally define the Ito integral
 \end{definition}
 \section{Extension by localization}
 We want the class of integrands to be as big as possible , i.e any continuous function $g : \mathbb{R} \to  \mathbb{R}$ however $g(x) = e^{\frac{x^2}{2}} $  has no second moment
+\begin{definition}[Localization]
+  Localization in general is a method of extending a given property to a larger class of processs
+\end{definition}
+In the context of stochastic integration we consider extension in relation to the integrands and the processes we integrate to i.e 
+\begin{align*}
+  \int X dY
+.\end{align*}
+$X$ vs $Y$, 
+\subsection{Extension of Martingales}
+Our processes we integrate in respect to are Martingales we want to extend the integration (localize it) to local Martingales i.e 
+processes that are almost martingales
+\begin{definition}[Local Martingale]
+ An $(\mathcal{F}_t)-$adapted process $X$  is a called a local martingale if there is an increasing sequence $\tau_n$ of $\mathcal{F}_t$ stopping times with $\tau_n \uparrow T$ a.s and 
+ \begin{align*}
+   X^{n}_t = (X_{t \land \tau_n} - X_0) 
+ .\end{align*}
+ is a martingale, we call $\tau_n$ the localizing sequence
+\end{definition}
+\begin{example}
+One of the most common localizing sequence (integrands and martingale)  is the following 
+\begin{align*}
+  \tau_n = \inf \{t \in  [0,T]  \ : \ \abs{X_t} \ge  n\}   \land T
+.\end{align*}
+i.e the hitting time of the set $[n ,\infty)$, such that we know 
+\begin{align*}
+  \abs{X_{t \land \tau_n}} < \infty
+.\end{align*}
+In general you look at a process that fulfills the martingale property almost and define a new process that stops once it exceeds the space of where it takes on those properties
+\end{example}
