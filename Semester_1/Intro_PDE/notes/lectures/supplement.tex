@@ -16,3 +16,142 @@
  This is kinda encrypted in the statement \\[1ex]
  For any $\phi  \in  \mathcal{D}(\mathbb{R}^{n} )$ appropriate Riemann sums define a sequence of finite linear combinations of function in $\{T_xPg \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{n}) \ | \ x \in  \supp(\phi ) \}  $
 \end{proof}
+\begin{definition}[Spherical Mollifier]
+ define the Spherical mollification 
+ \begin{align*}
+   \int_{\mathbb{R}^{n} } u \Lambda_{r,\epsilon } = \int_0^{\infty} S[u](x,s) \lambda(s,r)ds 
+ .\end{align*}
+ As $\epsilon  \to 0$ the above converges against the spherical mean 
+\end{definition}
+For a harmonic function u we get that for any mollifier $\lambda \in  \mathcal{C}^{\infty}_0 $
+\begin{align*}
+  \int_{\mathbb{R}^{n} } u \Lambda_{r,\epsilon } &= \int_0^{\infty} S[u](x,s) \lambda(s,r)ds \\
+                                                 &= u(x) \int \lambda  ds
+.\end{align*}
+This provides an intuition to what harmonic Distributions should fulfill and motivates the weak mean value property
+\begin{theorem}{Weak Mean Value Property}
+ Let $U \in  \mathcal{D}'(\Omega )$  be a distribution on an open domain $\Omega  \subset  \mathbb{R}^{n} $. We 
+ say that $U$ has the weak mean value property, if for each ball $B(x,r) \subset  \Omega $ and each $\psi \in  \mathcal{C}^{\infty}_0((0,r)) $ with 
+ \begin{align*}
+  \int \psi d \mu  =  0
+ .\end{align*}
+ The distribution  $U$ vanishes on the following test function 
+ \begin{align*}
+  \tilde{\psi} (y) = \frac{\psi(\abs{y-x})}{n\omega_n \abs{y-x}^{n-1} }
+ .\end{align*}
+\end{theorem}
+We check where the above formula comes from i.e it is actually test function and what happens at $x=y$
+\begin{remark}
+ At $x=y$  because we defined $\psi$ to have compact support away from 0 we know that before it gets to 0 it must already be identically 0
+\end{remark}
+$U$ is harmonic if $\triangle U = 0$ in the sense of distribution i.e 
+\begin{align*}
+  \forall \phi  \ U(\triangle \phi ) = 0
+.\end{align*}
+Note if $U \coloneqq F_u$
+\begin{align*}
+  U(\triangle \phi ) = \int (\triangle \phi)u dx
+.\end{align*}
+We now proof that if $U$ is a harmonic distribution then $U$ has the Weak mean value property  and 
+if $U \coloneqq  F_u$ with $u \in  \mathcal{C}(\Omega )$ and it has the weak mean value property the $u$ has the mean value property
+\begin{proof}
+  The statement of the Weak Mean Value Property already implies the converse of the second statement. \\[1ex] 
+  We want to show that 
+  \begin{align*}
+    \tilde{\psi} = \triangle g
+  .\end{align*}
+  Because if it is then 
+  \begin{align*}
+    U(\tilde{\psi}) = U(\triangle g) = 0
+  .\end{align*}
+  Define $\Psi(s) = \int_0^{s} \psi(t) dt  $ and observe that $\Psi$ is also a test function on $(0,r)$,
+  To prove this you could simply differentiate $\Psi$ and get $\psi$ which is a test function. 
+  The support is necessarily contained in $(0,r)$ as for small $s \in  (0,r)$ it is 0 since $\psi =0$ for 
+  r near t it is constant with the assumption that 
+  \begin{align*}
+    \psi(r-\epsilon) = \int_0^{r} \psi = 0 
+  .\end{align*}
+  \begin{align*}
+    g(y) = v(\abs{y-x}) 
+  .\end{align*}
+  Where 
+  \begin{align*}
+    v(t) = \int_r^{t} \frac{\Psi(s)}{n \omega_n s^{n-1} }  ds
+  .\end{align*}
+  We get 
+  \begin{align*}
+    \triangle_y g(y) = v^{''}(\abs{y-x}) + \frac{n-1}{\abs{y-x}}v'(\abs{y-x})
+  .\end{align*}
+  Where  by the fundamental theorem of calculus
+  \begin{align*}
+    v'  = \frac{\psi(t)}{n \omega_n t^{n-1}}
+  .\end{align*}
+  And 
+  \begin{align*}
+    v^{''} = \frac{\Psi'}{n \omega_n t^{n-1}} + \frac{\Psi}{n \omega_n}x - (n-1)t^{-n}
+  .\end{align*}
+  \begin{align*}
+    \triangle_y g(y) = \frac{\psi(\abs{y-x})}{n \omega_n \abs{y-x}^{n-1} } - \frac{(n-1)\Psi(\abs{y-x})}{n \omega_n \abs{y-x}^{n} } + \frac{n-1}{\abs{y-x}} \frac{\Psi(\abs{y-x})}{n \omega_n \abs{y-x}^{n-1} } = \tilde{\psi}(y)
+  .\end{align*}
+  This proves the first part. \\[1ex]
+  For part b instead of dealing with any test function we choose specific types of mollifiers.
+  Take $B(x,R) \subset  \Omega $   and look at radis $r_{1} <r_{2} $ such that $B(x,r_{1}) \subset  B(x,r_{2}) \subset  \Omega $ and define the test function 
+  \begin{align*}
+    \psi = \lambda_{\epsilon }(t-r_{1}) - \lambda_{\epsilon }(t-r_2)
+  .\end{align*}
+  This means that 
+  \begin{align*}
+    0 \myS{WKMP.}{=} F_u(\tilde{psi}) &= \int_{\mathbb{R}^{n} } u[\Lambda_{r_{1},\epsilon } - \Lambda_{r_{2},\epsilon }]\\
+                                      &=  \int_{\mathbb{R}^{n} } u \Lambda_{r_{1},\epsilon } - \int_{\mathbb{R}^{n} } u \Lambda_{r_{2},\epsilon }\\
+  .\end{align*}
+Because u is continuous we know that as $\epsilon \to  0$ that 
+\begin{align*}
+  \int_{\mathbb{R}^{n} } u \Lambda_{r_{1},\epsilon } - \int_{\mathbb{R}^{n} } u \Lambda_{r_{2},\epsilon } \to S[u](x,r_{1}) - S[u](x,r_{2})\\ 
+.\end{align*}
+Conclusion u has MVP.
+\end{proof}
+Ideally we want the first statement to be an equivalence and indeed that is the case\\[1ex]
+\begin{definition}[Rationale behind definition]
+ The set of functions $\tilde{\psi} $  is characterized by the three properties : 
+ \begin{enumerate}
+    \item Depends only on the distance to $x$ 
+    \item Compact support on $\mathbb{R}^{n}\setminus \{x\}   $ since otherwise we divide by 0,\\
+      note we also get this by properties of $\psi$
+    \item  Total integral is zero
+ \end{enumerate}
+ I.e every function with those properties has form 
+ \begin{align*}
+  \tilde{\psi} (y) = \frac{\psi(\abs{y-x})}{n \omega_n \abs{y-x}^{n-1} }
+ .\end{align*}
+\end{definition}
+We now claim that for two functions $\tilde{\chi } ,\tilde{\psi}  $ that fulfill properties 1 and 2  for centers $x = a,b$ respectively 
+and suppose $\tilde{\chi }$ is identically zero on $B(a,R)$ and the support of $\tilde{\psi}$ lies in $B(b,r)$ for $r<R$
+this means that $\tilde{\psi}$ is defined very close to its center and $\tilde{\chi } $ is defined very large (it is 0 long before $\tilde{\psi} $ is defined) \\[1ex]
+Then $\tilde{\chi } \star  \tilde{\psi}  $ has properties 3
+\begin{lemma}[2.9]
+  for f and g rotational symmetric  then the convolution is rotational symmetric around  the sum of their centers
+\end{lemma}
+First note that naturally since both $\tilde{\chi } $ and $\tilde{\psi} $ only depend on the distance to a,b they are 
+rotational symmetric and thus the convolution by Lemma 2.9 also is rotational symmetric around $a+b$
+\begin{align*}
+  \supp  \tilde{\chi } \star  \tilde{\psi} \subset  \mathbb{R}^{n}  \setminus B(a,R) + B(b,r)
+.\end{align*}
+And 
+\begin{align*}
+  \int \tilde{\chi } \star \tilde{\psi} = \int \tilde{\chi }  \int \tilde{\psi} 
+.\end{align*}
+\begin{lemma}[Weyls Lemma 3.7]
+ On an open domain $\Omega \subset  \mathbb{R}^{n} $  for each harmonic distribution $U \in  \mathcal{D}'(\Omega )$ there exists a 
+ harmonic function $u \in  \mathcal{C}^{\infty}(\Omega ) $ with $U = F_u$
+\end{lemma}
+\begin{proof}
+ Since we only need existence we can directly define u as 
+ \begin{align*}
+   u(x) \coloneqq  U(\tilde{\psi}_x) \qquad \tilde{\psi}_x (y) \coloneqq  \frac{\psi(\abs{y-x})}{n \omega_n \abs{y-x}^{n-1} }
+ .\end{align*}
+ The choice of $\psi$ does indeed not matter, taking the difference of two $\psi$ it would have integral of 0 
+ and since $U$ has weak mean value property it leads to the same definition
+\end{proof}
+Why is that nice ? \\[1ex]
+All harmonic functions are smooth i.e there are no non regular solutions to the Laplace equation \\[1ex]
+Corollary 3.8 not useful

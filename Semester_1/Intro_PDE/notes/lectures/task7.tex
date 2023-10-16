@@ -355,3 +355,87 @@ Since distribution are linear operators
 .\end{align*}
 Thus the limit exists.
 \end{solution}
+\section{Tutorial}
+\subsection*{19.}
+WE can generalise the argument for all linear transformations
+\begin{align*}
+  y = Ax +b   \implies y_j = \sum_{k}A_{jk}x_k + b_j
+.\end{align*}
+Then define 
+\begin{align*}
+  v(x) = u(Ax +b)
+.\end{align*}
+then by chain rule 
+\begin{align*}
+  \frac{\partial v}{\partial x_i}  &= \sum \frac{\partial u}{\partial y_{i}} \frac{\partial y}{\partial x_i}  \\
+                                   &= \sum_{l} \frac{\partial u}{\partial y_l}  A_{li}
+.\end{align*}
+And 
+\begin{align*}
+  \frac{\partial ^2 v}{\partial x_j \partial x_i}  &= \sum \frac{\partial }{\partial x_j}  \frac{\partial u}{\partial y_{i}} A_{li} \\   
+                                                   &= \sum_{l,m} \frac{\partial u}{\partial y_m \partial y_l}  A_{mj}A_{li}
+.\end{align*}
+Then we get for the laplacian
+\begin{align*}
+  \triangle v &= \sum_{i} \frac{\partial ^2 v}{\partial x_i^2}  \\
+              &= \sum_{l,m} \frac{\partial u}{\partial y_m \partial y_l } (\sum A_{mi} A_{li})
+              &= \triangle u 
+.\end{align*}
+Last equality for $A \in  O(M)$, writing it out as a matrix 
+\begin{align*}
+  H(v)_{ij} = \sum_{l,m} H(u)_{m,l}A_{mj}A_{li}
+.\end{align*}
+This is the same  as 
+\begin{align*}
+  \sum_{m,l} A_{jm}^{T} H(u)_{ml} A_{li}
+.\end{align*}
+Then 
+\begin{align*}
+  \triangle v &= \text{trace}(H(v)) \\
+              &= \text{trace}(A^{T}H(u)A ) \\
+              &= \text{trace}(A A^{T}H(u) )
+.\end{align*}
+\subsection*{20}
+All Harmonic polynomials have a saddle point at $(0,0)$ \\[1ex]
+$P^{d} $  homoegnous degree d 
+\begin{align*}
+  P^{D} = \begin{pmatrix} n+d-1 \\ n-1 \end{pmatrix}  
+.\end{align*}
+Then 
+\begin{align*}
+  \triangle : P^{d} \to P^{d-2}  
+.\end{align*}
+For $p = x_{1}^2x_{2}x_{3}^2$ we get
+\begin{align*}
+  \triangle p =  2x_{2}x_{3}^2  + 0 + 2x_{1}^2x_{2} 
+.\end{align*}
+$\triangle$ is surjective since 
+\begin{align*}
+ \dim \ker \triangle = \begin{pmatrix} n+d-1 \\ n-1 \end{pmatrix}   - \begin{pmatrix} n+d-3 \\ n-1 \end{pmatrix} 
+.\end{align*}
+n choose k for the amount of harmonic polynomials, harmonic functions are smooth and indeed also harmonic i.e 
+they are equal to their taylor series i.e theyre polynomials\\
+If $u$ has the MVP for spheres S it also has it for the globular mean 
+\begin{align*}
+  M[u](x,r)  &= \frac{n}{r^{n} } \int_0^{r} u(x)s^{n-1}   ds \\
+             &= \frac{n}{r^{n} } u(x) \frac{1}{n} [s_n]_{0}^{r}  \\
+             &= u(x)
+.\end{align*}
+Other direction if $u$ has MVP for M  then 
+\begin{align*}
+  u(x) = M[u](x,r)
+.\end{align*}
+And 
+\begin{align*}
+  \frac{1}{n}r^{n} u(x) &= \int_0^{r} s^{n-1}S[u](x,s)    ds \\
+  \frac{1}{n}n r^{n-1}u(x)&= r^{n-1}S[u](x,r)  
+.\end{align*}
+Proof of 21, is to lower bound the are of the Lens created by the intersection of two circles by 
+using the circle that fits inside it, when $r \to \infty$ the shared values of both circles become
+very similar and thus their difference should tend to 0\\[1ex]
+Small note in 
+\begin{align*}
+  \Lambda = \frac{\lambda_{\epsilon }(\abs{y-x})}{n\ldots }
+.\end{align*}
+The $\abs{*}$ refers to the norm in the relevant dimension, i.e $y \in  \mathbb{R}^{n} $ and $x \in  \mathbb{R}^{n} $
+
