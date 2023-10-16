@@ -322,5 +322,106 @@ the equation simplifies
 \begin{align*}
   \partial_t - \sum_{i=1}^{N} \triangle_i u  + \sum_{i=1}^{N} \triangledown_{x_i} \left( \overline{u}^{\otimes N}k \star \overline{u}(x_i)   \right)  = 0
 .\end{align*}
-\section{Bad K}
-\section{Convergence}
+\section{Solving Stochastic Differential Equations}
+The setup of the following section will be the following 
+\begin{definition}[Basic Setup]
+ We consider the probability space $(\Omega ,\mathcal{F},\mathbb{P})$, With a $m-D$ dimensional Brownian motion $W(*)$. Let $X_0$ be an 
+ $n-D$ dimensional random variable independent of $W(0)$, then our Filtration is given by
+ \begin{align*}
+  \mathcal{F}_t = \sigma(X_{0}) \cup \sigma(W(s) , 0\le s\le t)
+ .\end{align*}
+\end{definition}
+Note for better understanding the dimensions will be included in the following definition, but we generally leave them out.
+\begin{definition}[SDE]
+ Given the above basic setup we are trying to solve equations of the type 
+ \begin{align*}
+  \begin{cases}
+    d\underbrace{X_t}_{n \times 1} &= \underbrace{b}_{n \times 1}(X_t,t) dt + \underbrace{B}_{n \times m}(X_t,t) d\underbrace{W_t}_{m \times 1} \quad 0\le t\le T \\
+    X_{t}\rvert_{t=0} &= X_{0} \quad X \ : \ (t,\omega ) \to  \mathbb{R}^{n} 
+  \end{cases}
+ .\end{align*}
+ Where 
+ \begin{align*}
+   b &: (x,t) \in  \mathbb{R}^{n} \times [0,T] \to \mathbb{R}^{n}   \\
+   B &: (x,t) \in  \mathbb{R}^{n} \times [0,T] \to  M^{nxm}  
+ .\end{align*}
+\end{definition}
+\begin{remark}
+ The differential equation should always be understood as the Integral equation 
+ \begin{align*}
+  X_t - X_{0} = \int_0^{t}  b(X_s,s) ds + \int_0^{t} B(X_s,s) dW_s 
+ .\end{align*}
+\end{remark}
+\begin{definition}[Solution]
+ We say an $\mathbb{R}^{n} $-valued stochastic process $X(*)$ is a solution of the SDE if 
+ \begin{enumerate}
+  \item $X_t$ is progressively measurable w.r.t $\mathcal{F}_t$
+  \item (drift) $F\coloneqq b(X_t,t) \in  L_{n}^{1}([0,T]) \ \Leftrightarrow \  \int_0^{t} \E[F_s] ds < \infty $ 
+  \item (diffusion) $G\coloneqq B(X_t,t) \in  L_{n \times m}^{2}([0,T]) \Leftrightarrow \  \int_0^{t} \E[\abs{G_s}^2] ds < \infty $ 
+ \end{enumerate}
+\end{definition}
+Reminder that (1) implies that for any given $t \in  [0,T]$ $X_t$ is random variable measurable with respect to $\mathcal{F}_t$\\[1ex]
+The goal from now on is to prove the existence and uniqueness of such solutions, we formulate the following theorem,
+one should remember that if the diffusion term $B(X_t,t)$ is 0 then we get a unique solution iff $b(X_t,t)$ is Lipschitz
+\begin{theorem}[Existence and Solution]
+  Suppose $b \ : \ \mathbb{R}^{n} \times  [0,T] \to  \mathbb{R}^{n}  $ and $B : \mathbb{R}^{n} \times  [0,T] \to  M^{n \times m}  $,
+  then we get the necessary condition that they are continuous and (globally) Lipschitz continuous with respect to $x$ i.e $\exists  \ L > 0$ such that
+  for arbitrary $\forall  \ x , \tilde{x} \in  \mathbb{R}^{n}  $ and $t \in  [0,T]$ it holds
+  \begin{align*}
+    \abs{b(x,t) - b(\tilde{x},t )} +  \abs{B(x ,t) - B(\tilde{x},t )} \le  L \abs{x - \tilde{x} }
+  .\end{align*}
+  and  the linear growth condition 
+  \begin{align*}
+    \abs{b(x,t)} + \abs{B(x,t)} \le  L(1+\abs{x}) 
+  .\end{align*}
+  The initial data $X_{0}$ should be square integrable $x_{0} \in  L_n^{2}(\Omega ) $ and that $X_0$ is independent of $W^{t}(0)$ \\[1ex]
+  Whenever the above conditions hold then there exists a unique solution $X \in  L^2_n([0,T])$ of the SDE.
+\end{theorem}
+\begin{proof}
+  We begin by proving the uniqueness of solution. \\[1ex] 
+  Suppose we have two solutions $X$ and $\tilde{X} $ to the SDE then we need to show that they are indistinguishable,
+  then by using the definition of a solution 
+  \begin{align*}
+    X_t - \tilde{X}_t = \int_0^{t} (b(X_s,s) - b(\tilde{X}_s,s )) ds + \int_0^{t} B(X_s,s) - B(\tilde{X}(s),s )  dW_s
+  .\end{align*}
+  If the diffusion term were to be 0 we could use a Grönwall type inequality and get the uniqueness. 
+  To work with the diffusion term we consider the square of the above and apply Itos isometry. Note that
+  generally $\abs{a+b}^2 \nleqslant  (a^2+b^2)$  which is why we need the extra 2.
+  \begin{align*}
+    \abs{X_t - \tilde{X}_t}^2 \le  2\abs{\int_0^{t} (b(X_s,s) - b(\tilde{X}_s,s )) ds}^2 + \abs{\int_0^{t} B(X_s,s) - B(\tilde{X}(s),s )  dW_s}^2
+  .\end{align*}
+  Now consider the following 
+  \begin{align*}
+    \E[\abs{X_t-\tilde{X}_t}^2] &\le 2\E[\abs{\int_0^{t} \abs{b(X_s,s) - b(\tilde{X}_s,x )} ds}^2 ]  \\
+                                & \qquad + 2 \E[\abs{\int_0^{t} B(X_s,s) - B(\tilde{X}_s,s ) dW_s}^2]\\
+                                &\myS{Hold.}{\le } 2
+  .\end{align*}
+ Where the following Hoelders inequality was used 
+ \begin{align*}
+   \left( \int_0^{t} 1 \abs{f} ds  \right)^2 &\le  \left( \int_0^{t} 1^2 ds  \right)^{\frac{1}{2}*2}*\left( \int_0^{t} \abs{f}^2 ds  \right)^{\frac{1}{2}*2}  \\
+                                             &\le t \int_0^{t} \abs{f}^2 ds 
+ .\end{align*}
+\end{proof}
+\begin{remark}
+ Uniqueness in a stochastic sense means that for two solution $X,\tilde{X} $ we have
+ \begin{align*}
+   \P(X(t) = \tilde{X}(t), \ \forall  t \in  [0,T] ) = 1 \Leftrightarrow \max_{0\le t \le T} \abs{x(t)-\tilde{x}(t) }  = 0 \text{ a.s.}
+ .\end{align*}
+ I.e they are indistinguishable 
+\end{remark}
+As a small side note we consider this example to distinguish modifications and indistinguishable.
+\begin{example}
+  First note that for any $t \in  [0,T]$  we have the following inclusion 
+  \begin{align*}
+    A \coloneqq \{X(t)=\tilde{X}(t) ,\ \forall \ t \in  [0,T] \}  \subset  \{X(t) = \tilde{X}(t) \} \coloneqq  A_t   
+  .\end{align*}
+  i.e 
+  \begin{align*}
+   \P(A) \le  P(A_t) 
+  .\end{align*}
+  Such that indistinguishability implies modification where modification means 
+  \begin{align*}
+    \forall \ t  \in  [0,T] \ : \ \P(A_t) = 1
+  .\end{align*}
+\end{example}
+
