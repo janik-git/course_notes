@@ -473,14 +473,52 @@ one should remember that if the diffusion term $B(X_t,t)$ is 0 then we get a uni
   \begin{align*}
     \sum_{n=0}^{\infty} \P(A_n) \le  C \sum_{n=0}^{\infty}2^{2n} \frac{(MT)^{n} }{(n+1)!}    <\infty \implies \P(\bigcap_{n=0}^{\infty} \bigcup_{m=n}^{\infty} A_m ) = 0
    .\end{align*}
-   Define by a telescope argument 
+   i.e $\exists  B \subset  \Omega  $ with $\P(B) = 1$ s.t $\forall \ \omega  \in  B$ , $\exists \ N(\omega ) > 0 $ s.t
    \begin{align*}
-     X_t^n = X_t^0 + \sum_{j=1}^{n-1}(X_t^{j+1} - X_t^{j}) 
+     \max_{0\le t\le T} \abs{X_t^{n+1}(\omega ) - X_t^{n}(\omega )} \le  2^{-n} 
    .\end{align*}
-   Then the above converges to 
+   In fact we can give $B$ directly by 
    \begin{align*}
-     X_t = X_0 + \int_0^{t} b(X_s,s) ds + \int_0^{t} B(X_s,s)  dW_s
+     \left( \bigcap_{n=0}^{\infty} \bigcup_{m=n}^{\infty} A_m   \right)^{C} = \bigcup_{n=0}^{\infty} \bigcap_{m=n}^{\infty} A_m^{C} = B     
    .\end{align*}
+   then for $\omega  \in  B$  we can make a Cauchy sequence argument
+   \begin{align*}
+     \max_{0\le t\le T} \abs{X_t^{n+k} - X^{n}_t } &\le  \sum_{j=1}^{k} \max \abs{X_t^{n+j} - X^{n+(j-1)}_t } \\
+                                                   &\le \sum_{j=1}^{k} \frac{1}{2^{n+j-1} } < \frac{1}{2^{n-1} } 
+   .\end{align*}
+   By the above we get 
+   \begin{align*}
+     X_t^{n}(\omega ) \to X_t(\omega ) \qquad \text{ uniform in } t\in [0,T]
+   .\end{align*}
+   Therefore for a.s. $\omega $ , take the limit in the iteration  and obtain 
+   \begin{align*}
+    X_t = X_{0} + \int_0^{t} b(X_s,s) ds + \int_0^{t} B(X_s,s) dW_s  
+   .\end{align*}
+   This means $X_t$ is just a stochastic process and by properties of $W_s$ it is already progressively measurable.
+   It remains to show that $X_t \in  \mathbb{L}^2([0,T])$
+   \begin{align*}
+     \E[\abs{X_t^{n+1}}^2] &\le  C(1+\E[\abs{X_0}^2]) + C \int_0^{t} \E[\abs{X_s^{n} }^2] ds \\
+                           &\le  C \sum_{j=0}^{n} C^{j+1} \frac{t^{j+1}}{(j+1)!} (1+\E[\abs{X_0}^2]) \\
+                           &\le  C* e^{Ct} 
+   .\end{align*}
+   This follows by $\E[X_{0}] = 0$ , linear growth condition for the first integral and Ito isometry for second and then linear growth condition, noting 
+   that the $\mathbb{L}^2$ norm of the initial value $X_0$ is bounded \\[1ex]
+    By Dominated Convergence we obtain that the expectation of $X_t^2$  is bounded, whats the dominating rv ? 
+    \begin{align*}
+      \E[\abs{X_t}^2] \le  C(t) \implies \int_0^{T} \E[\abs{X_t}^2]  < \infty
+    .\end{align*}
+    We can bound it by 
+    \begin{align*}
+      \E[\abs{X_t}^2] = \E[\abs{X_t + X_0 -X_0}^2] \le  2\E[\abs{X_t - X_0}^2] + 2\E[\abs{X_0}^2]
+    .\end{align*}
+   % Define by a telescope argument 
+   % \begin{align*}
+   %   X_t^n = X_t^0 + \sum_{j=1}^{n-1}(X_t^{j+1} - X_t^{j}) 
+   % .\end{align*}
+   % Then the above converges to 
+   % \begin{align*}
+   %   X_t = X_0 + \int_0^{t} b(X_s,s) ds + \int_0^{t} B(X_s,s)  dW_s
+   % .\end{align*}
 \end{proof}
 \begin{remark}
  Uniqueness in a stochastic sense means that for two solution $X,\tilde{X} $ we have
@@ -504,4 +542,144 @@ As a small side note we consider this example to distinguish modifications and i
     \forall \ t  \in  [0,T] \ : \ \P(A_t) = 1
   .\end{align*}
 \end{example}
-
+\begin{theorem}[Higher moments estimate]
+  Assumptions for $b$ , $B$ and $X_{0}$ are the same as before, if in addiotion 
+  \begin{align*}
+    \E[\abs{X_0}^{2p} ]< \infty
+  .\end{align*}
+  for some $p \ge 1$ then $\forall  t \in  [0,T]$ 
+  \begin{align*}
+    \E[\abs{X_t}^{2p}]\le C(1+\E[\abs{X}_0^{2p} ])e^{Ct} 
+  .\end{align*}
+  and $\E[\abs{X_t - X_0}^{2p} ] \le  C(1+\E[\abs{X_0}^{2p} ])e^{Ct}t^p $
+\end{theorem}
+\begin{proof}
+ Left as an exercise \\
+ \textit{Hint:} Expand the definition  use the same growth condition stuff , holder and then Ito isometry 
+\end{proof}
+\newpage
+\subsection{General Convergence Results}
+\begin{definition}[Weak convergence of measures]
+ The following statements are equivalent   
+ \begin{enumerate}
+   \item $\mu_n \rightharpoonup \mu $
+   \item For $\forall  f \in  \mathcal{C}_b(\mathbb{R}^{d} )$ it holds 
+ \begin{align*}
+  \int f d\mu_n \to \int  f d\mu 
+ .\end{align*}
+\item For $\forall  B \in \mathcal{B} $  
+  \begin{align*}
+    \mu_n(B) \to  \mu(B)
+  .\end{align*}
+\item For $\forall f \in  \mathcal{C}_b(\mathbb{R}^{d} )$ uniform continuous it holds 
+  \begin{align*}
+    \int  f d\mu_n \to  \int f d\mu 
+  .\end{align*}
+ \end{enumerate}
+\end{definition}
+\begin{definition}[Weak convergence of Random variable]
+ The following statements are equivalent  
+ \begin{enumerate}
+   \item $X_n$ converges weakly in Law to $X$  
+     \begin{align*}
+      X_n \rightharpoonup X
+     .\end{align*}
+   \item For $\forall f \in  \mathcal{C}_b(\mathbb{R}^{d} )$ it holds 
+     \begin{align*}
+       \E[f(X_n)] \to \E[f(x)]
+     .\end{align*}
+ \end{enumerate}
+ \begin{enumerate}
+   \item $X_n$ converges to $X$ in probability
+   \item For $\forall \epsilon  >0$ 
+     \begin{align*}
+       \P(\abs{X_n - X} >\epsilon ) \xrightarrow{n\to \infty} 0
+     .\end{align*}
+ \end{enumerate}
+\end{definition}
+\begin{exercise}
+ Prove that 
+ \begin{align*}
+   X_n \to  X \ \text{a.s.} \implies \P(\abs{X_n - X} > \epsilon ) \xrightarrow{n\to \infty} 0 \implies X_n \xRightarrow{(D)} X
+ .\end{align*}
+\end{exercise}
+\begin{definition}[Tightness]
+ A set of probability measures $S \subset  \mathcal{P}(\mathbb{R}^{d} )$  is called tight, if 
+ for $\forall \ \epsilon  > 0$ there exists $\exists \  K \subset  \mathbb{R}^{d} $ compact such that 
+ \begin{align*}
+   \sup_{\mu  \in  S} \mu(K^{c} )  \le  \epsilon 
+ .\end{align*}
+\end{definition}
+\begin{theorem}[Prokhorov's theorem]
+  A sequence of measures $(\mu_n)_{n \in  \mathbb{N}}$  is tight in $\mathcal{P}(\mathbb{R}^{d} )$ iff 
+  any subsequence has a weakly convergences subsequence.
+\end{theorem}
+\begin{proof}
+ Refer to literature 
+\end{proof}
+We can now define the Stochastic Empirical measure  
+\begin{definition}[Empirical Measure (Stochastic version)]
+  For a set of  random variables $(X_i)_{i\le N}$  we define the (random) empirical measure 
+  \begin{align*}
+    \mu_n = \frac{1}{N}\sum_{i=1}^{N} \delta_{X_i} 
+  .\end{align*}
+\end{definition}
+Point wise this definition coincides with the deterministic case.
+\begin{corollary}
+  If  $X_i$ are i.i.d random variables with law $\mu_{X}$ then  $\forall  \ f \in  \mathcal{C}_b(\mathbb{R}^{d} ) $ it holds that
+  \begin{align*}
+    \P(\lim_{N \to \infty} \int  f d \mu_N = \int f d\mu ) = 1
+  .\end{align*}
+\end{corollary}
+Actually one can prove that the choice of $f \in  \mathcal{C}_b$ does not matter for the convergence 
+We get the stronger corollary
+\begin{corollary}
+  If  $X_i$ are i.i.d random variables with law $\mu_{X}$ then  it holds that
+\begin{align*}
+  \P(\mu_N \rightharpoonup \mu ) = 1
+.\end{align*}
+i.e 
+\begin{align*}
+ \P( \forall  f \in  \mathcal{C}_b(\mathbb{R}^{d} ) \ : \int f_n d\mu_n = \int  f d\mu )  = 1
+.\end{align*}
+\end{corollary}
+\begin{proof}
+ The proof relies mainly on proving that $\mathcal{C}_b(\mathbb{R}^{d} )$  is separable for compact support 
+ we can use the density of the polynomials. Then we can go from arbitrary $f$ to the union over a countable sequence of $f$ 
+ and then argue through separability that this is equal to the entire space.
+\end{proof}
+Remembering the definition of the Wasserstein distance 
+\begin{definition}[Wasserstein Distance]
+  For all $\mu , \nu  \in  \mathcal{P}_p(\mathbb{R}^{d} )$  , $(p\ge 1) $ the Wasserstein Distance of $\mu $ and $\nu $ is given by 
+  \begin{align*}
+    W^{p}(\mu ,\nu ) = \dist_{MK,p}(\mu ,\nu ) = \inf_{\pi \in  \Pi(\mu ,\nu )} \left( \int \int_{\mathbb{R}^{2d} } \abs{x-y}^{p} \pi(dxdy) \right)^{\frac{1}{p}}  
+  .\end{align*}
+  Where  
+  \begin{align*}
+    \Pi(\mu ,\nu ) = \{\pi \in \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) : &\int_{\mathbb{R}^{d}\times E } \pi(dx,dy) = \nu(E) \\
+                                                                                      &\int_{E \times  \mathbb{R}^{d} } \pi(dx,dy) = \mu(E)\}  
+  .\end{align*}
+  then the following convergences are equivalent
+  \begin{enumerate}
+   \item $W_p(\mu_n,\mu ) \to 0$
+    \item  For $\forall f \in \mathcal{C}(\mathbb{R}^{d} )$ such that $\abs{f(x)} \le  C(1+\abs{x}^{p} )$
+     \begin{align*}
+      \int  f d\mu_n \to \int  f d\mu 
+     .\end{align*} 
+    \item $\mu_n \rightharpoonup \mu $
+  \end{enumerate}
+\end{definition}
+\begin{corollary}
+ If $X_i$  are i.i.d random variables with law $\mu_X$ and $\int \abs{x}^{p} \mu  < \infty $ then
+ \begin{align*} 
+ W_p(\mu_N,\mu ) \to  0 \qquad \text{ a.s.}
+ .\end{align*}
+ and 
+ \begin{align*}
+   \E[W_p^{p}(\mu_N,\mu ) ] \to 0
+ .\end{align*}
+ Where 
+ \begin{align*}
+   \mu_N = \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i} 
+ .\end{align*}
+\end{corollary}
