@@ -394,13 +394,93 @@ one should remember that if the diffusion term $B(X_t,t)$ is 0 then we get a uni
   \begin{align*}
     \E[\abs{X_t-\tilde{X}_t}^2] &\le 2\E[\abs{\int_0^{t} \abs{b(X_s,s) - b(\tilde{X}_s,x )} ds}^2 ]  \\
                                 & \qquad + 2 \E[\abs{\int_0^{t} B(X_s,s) - B(\tilde{X}_s,s ) dW_s}^2]\\
-                                &\myS{Hold.}{\le } 2
+                                &\myS{Hold.}{\le } 2t \E[\int_0^{t} \abs{b(X_s,s) - b(\tilde{X})s,s )}^2 ds ] + 2\E[\int_0^{t} \abs{B(X_s,s)-B(\tilde{X}_s,s )}^2 ds ] \\
+                                &\myS{Lip.}{\le } 2(t+1)L^2 E[\int_0^{t} \abs{X_s-\tilde{X}_s }^2 ds ]\\
+                                &= 2(t+1)L^2 \int_0^{t} E[\abs{X_s-\tilde{X}_s }^2  ]ds\\
   .\end{align*}
  Where the following Hoelders inequality was used 
  \begin{align*}
    \left( \int_0^{t} 1 \abs{f} ds  \right)^2 &\le  \left( \int_0^{t} 1^2 ds  \right)^{\frac{1}{2}*2}*\left( \int_0^{t} \abs{f}^2 ds  \right)^{\frac{1}{2}*2}  \\
                                              &\le t \int_0^{t} \abs{f}^2 ds 
  .\end{align*}
+ Now by Gronwalls inequality we have 
+ \begin{align*}
+   \E[\abs{X_t-\tilde{X}_t }^2] = 0
+ .\end{align*}
+ i.e $X_t$ and $\tilde{X}_t $ are modifications of each other and it remains to show that they are actually
+ indistinguishable.\\[1ex]
+ Define 
+ \begin{align*}
+  A_t = \{ \omega  \in  \Omega  \ | \ \abs{X_t - \tilde{X}_t  } > 0\}   \qquad \P(A_t) = 0
+ .\end{align*}
+ \begin{align*}
+   \P(\max_{t \in  \mathbb{Q} \cap [0,T]} \abs{X_t-\tilde{X}_t } > 0 ) = \P(\bigcup_{k=1}^{\infty} A_{t_k} ) = 0
+ .\end{align*}
+ Now since $X_t(\omega )$ is continuous in $t$ we can extend the maximum over the entire interval $[0,T]$ 
+ \begin{align*}
+   \max_{t \in  \mathbb{Q} \cap [0,T]} \abs{X_t - \tilde{X}_t} = \max_{t \in  [0,T]} \abs{X_t - \tilde{X}_t}
+ .\end{align*}
+ Then the probability over the entire interval must also be 0 
+ \begin{align*}
+   \P(\max_{t \in  [0,T]} \abs{X_t - \tilde{X}_t} >0)  = 0 \quad \text{ i.e. } X_t = \tilde{X}_t \ \forall  t \text{ a.s.} 
+ .\end{align*}
+ This concludes the uniqueness proof, for existence as in the deterministic case we use Picard iteration.\\[1ex]
+ Define the Picard iteration by  
+ \begin{align*}
+   X_t^{0} &= X_0  \\
+           &\vdots\\
+   X_t^{n+1} &= X_0 + \int_0^{t} b(X_s^{n},s ) ds + \int_0^{t} B(X_s^{n},s ) dW_s   
+ .\end{align*}
+ Let $d(t)^{n} = \E[\abs{X_t^{n+1}-X_t^{n}}^2] $ we claim that by induction $d^{n}(t) \le  \frac{(Mt)^{n+1} }{(n+1)!} $ for some $M>0$.\\
+  \textbf{IA:} For $n=0$ we have
+  \begin{align*}
+    d(t)^{0} = \E[\abs{X_t^1-X_t^0}^2] &\le  \E[2 (\int_0^{t} b(X_0,s) ds )^2 + 2 (\int_0^{t} B(X_0,s )dW_s )^2]  \\
+                                       &\le  2t \E[\int_0^{t} L^2(1+X_{0}^2) ds ] + 2\E[\int_0^{t} L^2(1+X_{0}) ds ] \\
+                                       &\le  tM \qquad \text{ where } M\ge 2L^2(1+\E[X_{0}^2]) +2L^2(1+T)
+  .\end{align*}
+  \textbf{IV:} suppose the assumption holds for $n-1 \in  \mathbb{N}$\\
+  \textbf{IS:} Take $n-1 \to n$ then 
+  \begin{align*}
+    d^{n}(t) &= \E[\abs{X_t^{n+1} - X^{n}_t }^2] \le  2 L^2 T \E[\int_0^{t} \abs{X_s^{n} - X_s^{n-1}  }^2 ds ]  + 2L^2\E[\int_0^{t} \abs{X_s^{n} - X_s^{n-1}  }^2  ds] \\
+             &\myS{IV}{\le } 2L^2(1+T) \int_0^{t} \frac{(Ms)^n}{n!} ds \\
+             &= 2L^2(1+t) \frac{M^n}{(n+1)!} t^{n+1} \le \frac{M^{n+1}t^{n+1}}{(n+1)!} 
+  .\end{align*}
+  Issue now is that because of $\Omega $ we cannot use completeness to argue the convergence, instead
+  we use a similar argument to the uniqueness proof. 
+  \begin{align*}
+    &\E[\max_{0\le t \le T} \abs{X^{n+1}_t - X^{n}_t  }^2] \\
+    &\le \E[\max_{0\le t\le T} 2\abs*{\int_0^{t} b(X_s^{n},s )-b(X_s^{n-1},s ) ds}^2 + 2\abs*{\int_0^{t}B(X_s^{n},s )-B(X_s^{n-1},s ) dW_s}^2] \\
+    &\le 2TL^2 \E[\int_0^{T} \abs{X_s^{n} - X_s^{n-1}  }^2 ds ] + 2\E[\max_{0\le t\le T} \abs*{\int_0^{t} B(X_s^{n},s )- B(X_s^{n-1},s ) ds W_s}]\\
+    &\le  2TL^2 \E[\int_0^{T} \abs{X_s^{n} - X_s^{n-1}  }^2 ds ] + 8\E[\int_0^{T} \abs{B(X_s^{n},s  )-B(X_s^{n-1},s )}^2 ds ]\\
+    &\le C*\E[\int_0^{T} \abs{X_s^{n}-X_s^{n-1}  }^2 ds ]
+  .\end{align*}
+  Where we used the following Doobs martingales Lp inequality 
+  \begin{align*}
+    \E[\max_{0\le s\le t} \abs{X(s)}^{p} ] \le  (\frac{p}{p-1})^{p} \E[\abs{X(t)}^{p}  ] 
+  .\end{align*}
+  By Picard iteration we know the distance $d^{n}(t) = \E[\abs{X_s^{n}-X_s^{n-1}  }^2] $ is bounded by 
+  \begin{align*}
+    C*\E[\int_0^{T} \abs{X_s^{n}-X_s^{n-1}  }^2 ds ] &= C* \int_0^{T} \E[\abs{X_s^{n} - X_s^{n-1}  }^2] ds \\
+                                                     &\le \int_0^{T} \frac{(Mt)^{n} }{(n)!} \\
+                                                     &= C \frac{M^{n} T^{n+1} }{(n+1)!}
+  .\end{align*}
+  Further more we get with a Markovs inequality
+  \begin{align*}
+    \P(\underbrace{\max_{0\le t\le T} \abs{X_t^{n+1}-X_t^n}^2 > \frac{1}{2^{n} }}_{A_n}) &\le 2^{2n} \E[\max_{0\le t\le T} \abs{X_t^{n+1}-X_t^n}^2]\\
+                                                                      &\le 2^{2n} \frac{CM^{n}T^{n+1}  }{(n+1)!} 
+  .\end{align*}
+  Then by Borel-Cantelli we know
+  \begin{align*}
+    \sum_{n=0}^{\infty} \P(A_n) \le  C \sum_{n=0}^{\infty}2^{2n} \frac{(MT)^{n} }{(n+1)!}    <\infty \implies \P(\bigcap_{n=0}^{\infty} \bigcup_{m=n}^{\infty} A_m ) = 0
+   .\end{align*}
+   Define by a telescope argument 
+   \begin{align*}
+     X_t^n = X_t^0 + \sum_{j=1}^{n-1}(X_t^{j+1} - X_t^{j}) 
+   .\end{align*}
+   Then the above converges to 
+   \begin{align*}
+     X_t = X_0 + \int_0^{t} b(X_s,s) ds + \int_0^{t} B(X_s,s)  dW_s
+   .\end{align*}
 \end{proof}
 \begin{remark}
  Uniqueness in a stochastic sense means that for two solution $X,\tilde{X} $ we have
