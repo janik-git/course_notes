@@ -3,9 +3,9 @@
 target/
 **/*.rs.bk
 
-# books/
+books/
 tasks/
-# Lectures/
+Lectures/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
