@@ -3,7 +3,7 @@
 \makeatother
 % \usepackage{thmtools}
 % \usepackage[framemethod=TikZ]{mdframed}
-\mdfsetup{skipabove=1em,skipbelow=0em}
+\mdfsetup{skipabove=1em,skipbelow=1em}
 
 
 \theoremstyle{definition}
@@ -96,6 +96,16 @@
 \declaretheorem[style=thmredbox, name=Lemma,numberwithin=section]{lemma}
 \declaretheorem[style=thmredbox, numbered=no, name=Corollary]{corollary}
 \declaretheorem[style=thmredbox, name=Assumption,numberwithin=section]{assumption}
+% unnumbered  gotta be a better way to do this but w/e
+\declaretheorem[style=thmgreenbox, name=Definition,numbered=no]{Definition}
+\declaretheorem[style=thmbluebox, numbered=no, name=Example]{Example}
+\declaretheorem[style=thmredbox, name=Proposition,numbered=no]{Prop}
+\declaretheorem[style=thmredbox, name=Theorem,numbered=no]{Theorem}
+\declaretheorem[style=thmredbox, name=Lemma,numbered=no]{Lemma}
+\declaretheorem[style=thmredbox, numbered=no, name=Corollary]{Corollary}
+\declaretheorem[style=thmredbox, name=Assumption,numbered=no]{Assumption}
+
+
 
 
 \declaretheorem[style=thmproofbox, name=Proof]{replacementproof}
