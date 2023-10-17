@@ -3,44 +3,52 @@ This chapter is supposed to provide some rationale of what this course is all ab
 \section{General Problem}
 The general problem is on how to evaluate certain expressions when going from discrete time intervalls
 to continuous ones.
-\begin{example}
+\begin{Example}
 	Evaluating value processes for trading strategies usually take the shape (in discrete time) \\[1ex]
 	Let $\phi  = (\phi_{0}(t),\phi_1(t))_{t \in [0,T] \cap \mathbb{Q}}$ be a trading strategy, then we'd model the value of this strategy as
 	\begin{align*}
     V_t(\phi ) = \sum_{t=1}^{N} \phi_0(t_i)(B(t_{i+1}) - B(t_{i})) +  \sum_{t=1}^{N} \phi_1(t_i)(S(t_{i+1}) - S(t_{i}))
 	.\end{align*}
   Where $B(t)$ is the risk-free asset and $S(t)$ the risky asset. \\[1ex]
-  Let $X,Y$ be two stochastic process and some partition $t \coloneqq  \{t_i | 0\le t_0<t_{1}<\ldots \le T\}  $ \ when $n \to \infty$ we get the following sum
+  Let $X,Y$ be two stochastic process and some partition $t \coloneqq  \{t_i | 0\le t_0<t_{1}<\ldots \le t_n = T\}  $ \ when $n \to \infty$ we get the following
   \begin{align*}
     \sum_{i=1}^{\infty}  X_t*(Y_{t_i} - Y_{t_{i-1}}) = \int_0^{T}  X dY
   .\end{align*}
-  Similar to a Riemann integral ($Y_{t_i} = t_i$), now the issue is we need to restrict this type of sum to processes with bounded variation i.e 
+  Similar to a Riemann integral ($Y_{t_i} = t_i$),
+  Now the issue is  the lefthand side only exists for processes with bounded variation i.e 
   \begin{align*}
     \sup_{\Pi }  \sum_{J \in  \Pi} Y_{t_{i}} - Y_{t_{i-1}}  < \infty
   .\end{align*}
-  Where $\Pi $ is the set of all (zero) partitions of $[0,T]$, Main issue is now that stochastic processes with finite variation dont contain enough irregularity to model
-  Financial markets well enough since they allow for arbitrage, we thus define the stochastic integral to include processes which have non finite first variation and contain
-  enough irregularity. \\[1ex]
+  Where $\Pi $ is the set of all (zero) partitions of $[0,T]$\\[1ex]
+  Main issue is now that stochastic processes with finite variation dont contain enough irregularity to model
+  Financial markets well enough since they allow for arbitrage
+\end{Example}
+In general any Process where the $p<2$ variation is finite has sample paths that are too smooth and allow for arbitrage.\\[1ex]
+Thus ideally we extend the above to processes where only the $p=2$ variation is finite ( and non-zero) leading to the entire quadratic variation argument.
+\begin{remark}
   A trivial but, important thing to realize is that stochastic integrals are just stochastic processes with nicer properties i.e
-  they exhibit properties that allow us to model financial markets. The same applies to stochastic differential equations, which are just shorthand notation for stochastic integrals 
+  they exhibit properties that allow us to model financial markets (and many other things).
+\end{remark}
+\begin{Definition}[Notation]
+   Stochastic differential equations are just shorthand notation for stochastic integrals  i.e.
   \begin{align*}
    dX_t = \mu(t,X_t)dt + \sigma(t,X_t)dB_t 
   .\end{align*}
   is the same as 
   \begin{align*}
-    X_t = x_{0} + \int_0^{t} \mu(s,X_s) ds + \int_0^{t} \sigma(s,X_s) dB_s 
+    X_t = X_{0} + \int_0^{t} \mu(s,X_s) ds + \int_0^{t} \sigma(s,X_s) dB_s 
   .\end{align*}
-\end{example}
+\end{Definition}
 \section{Fundamental Requirements }
-For our base construction we want a couple things from our base probability space, and the random variables/processes acting on it.
-\begin{definition}[Sample Paths]
+For our base construction we want a couple things from our probability space, and the random variables/processes acting on it.
+\begin{Definition}[Sample Paths]
   Sample paths are given when taking a stochastic process and evaluating it for a concrete random state $\omega  \in  \Omega $,
   we define the mapping : 
   \begin{align*}
     t \mapsto X_t(\omega )
   .\end{align*}
   We often require this mapping to be continuous (left,right) and say the process is continuous (left,right) if all the sample paths are
-\end{definition}
+\end{Definition}
   (Right,Left)  continuity  of a stochastic process lets us do things we are used to when dealing with the discrete case, it is useful to consider what it means 
   for a sample path to be continuous.\\[1ex]
   \begin{remark}
@@ -58,7 +66,7 @@ For our base construction we want a couple things from our base probability spac
     \tau_n = \inf \{t \in  [0,T] : X_t \ge n\}  
   .\end{align*}
   is in-fact a stopping time 
-  \begin{example}
+  \begin{Example}
   Consider the hitting time $\tau_n = \inf \{t \in  [0,T] : X_t \ge n\}  $, to show that this hitting time is a stopping time, we want to show 
   \begin{align*}
     \{\tau_n \le  t\}   \in  \mathcal{F}_t
@@ -73,7 +81,7 @@ For our base construction we want a couple things from our base probability spac
   \{\tau_n \le  t\} = \bigcup_{s \in  \mathbb{Q} \, \ s \le  t} \underbrace{\{X_s \ge n \}}_{\mathcal{F}_s} \in  \mathcal{F}_t 
   .\end{align*}  
   Which is where the continuity of our process comes to play.
-  \end{example}
+  \end{Example}
   \begin{remark}
     Lets reformulate the hitting time for arbitrary set $A \in  \mathbb{R}$  then we need to differentiate between 
     open and closed $A$, i.e does 
@@ -88,14 +96,14 @@ For our base construction we want a couple things from our base probability spac
   \end{remark}
   We usually impose two properties on our filtration, the above mentioned right continuity, which could be seen as the ability to infinitesimally peek into the future at any time $t \in  [0,T]$ and allows us
   to do things as seen above. And that $\mathcal{F}_0$ contains all $\P$-null sets which tells us that any modification of a random variable is again adapted to the same filtration
-  \begin{definition}[Modification]
+  \begin{Definition}[Modification]
     Let $X$ be a stochastic process and $Y$ another , we say $Y$ is a modification of $X$ if  
     \begin{align*}
       \P(X_t=Y_t) = 1 \quad \forall  t \in  [0,T]
     .\end{align*}
     In words this means that if we fix any $t \in [0,T]$ the set $\{\omega  \in  \Omega \ | \ X_t(\omega ) \neq  Y_t(\omega ) \}  $ is a $\P$-null set and we know 
     that $X,Y$ are not too different if we look at all sample paths
-  \end{definition}
+  \end{Definition}
   \begin{remark}
     The fact that $t \in  [0,T]$  is outside of $\P$ should not be disregarded as a trivial change
     consider the alternative down below
@@ -290,5 +298,7 @@ i.e the hitting time of the set $[n ,\infty)$, such that we know
 \begin{align*}
   \abs{X_{t \land \tau_n}} < \infty
 .\end{align*}
-In general you look at a process that fulfills the martingale property almost and define a new process that stops once it exceeds the space of where it takes on those properties
+In general you look at a process that fulfills the martingale property almost and define a new process that stops once it exceeds the space of where it takes on those properties i.e in the case above
+that would be the bounded property
 \end{example}
+
