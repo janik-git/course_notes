@@ -95,7 +95,10 @@
 \declaretheorem[style=thmredbox, name=Theorem,numberwithin=section]{theorem}
 \declaretheorem[style=thmredbox, name=Lemma,numberwithin=section]{lemma}
 \declaretheorem[style=thmredbox, numbered=no, name=Corollary]{corollary}
-\declaretheorem[style=thmredbox, name=Assumption,numberwithin=section]{assumption}
+\declaretheorem[style=thmbluebox, numbered=no, name=Idea]{idea}
+
+\declaretheorem[style=thmredbox, name=Assumption]{assumption}
+\renewcommand\theassumption{\Alph{assumption}}
 % unnumbered  gotta be a better way to do this but w/e
 \declaretheorem[style=thmgreenbox, name=Definition,numbered=no]{Definition}
 \declaretheorem[style=thmbluebox, numbered=no, name=Example]{Example}
@@ -103,11 +106,7 @@
 \declaretheorem[style=thmredbox, name=Theorem,numbered=no]{Theorem}
 \declaretheorem[style=thmredbox, name=Lemma,numbered=no]{Lemma}
 \declaretheorem[style=thmredbox, numbered=no, name=Corollary]{Corollary}
-\declaretheorem[style=thmredbox, name=Assumption,numbered=no]{Assumption}
-
-
-
-
+\declaretheorem[style=thmredbox, name=Assumption,numbered=no,Refname=Assumption]{Assumption}
 \declaretheorem[style=thmproofbox, name=Proof]{replacementproof}
 \renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
 
