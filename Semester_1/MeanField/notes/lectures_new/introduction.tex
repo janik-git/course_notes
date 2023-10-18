@@ -1,0 +1,66 @@
+\chapter{Model description and Introduction}
+The following chapter will outline how the relevant particle models 
+are defined, we differentiate between first and second order systems
+focusing here on first order systems while leaving the second order setting
+as exercises 
+\section{1st Order Particle Systems}
+\begin{definition}[1st Order Particle System]
+  We consider a system of $N$ particles and denote by $(x_{1}(t),x_{2}(t),\ldots,x_N(t)) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ),\ i=1,\ldots ,N $ 
+  the trajectories of the particles.\\[1ex]
+  Our first order system is then governed by the system of ordinary differential equations 
+  \begin{align*}
+    \begin{cases}
+      d x_i(t) &= \frac{1}{N}\sum_{j=1}^{N} K(x_{i},x_{j}) dt, \quad 1\le i \le N  \\
+        x_i(t)\rvert_{t=0} &= x_i(0)
+    \end{cases}
+  .\end{align*}
+  where $K : \mathbb{R}^{2d} \to \mathbb{R}^{d}  $ is a given function.
+\end{definition}
+We consider the following examples for $K$ 
+\begin{example}
+A common example for a well-behaved $K$ is 
+\begin{align*}
+  K(x,y) =  \nabla (\abs{x-y}^2)
+.\end{align*}
+which is a locally Lipschitz continuous function. \\[1ex]
+Another typical interaction  force is the potential field given by Coulomb potential, namely 
+\begin{align*}
+  K(x,y) = \nabla \frac{1}{\abs{x-y}^{d-2}} = \frac{x-y}{\abs{x-y}^{d} }
+.\end{align*}
+which is not continuous
+\end{example}
+\begin{definition}[Empirical Measure]\label{empirical_measure}
+ For a set of particles\\
+ $(x_{1}(t),x_{2}(t),\ldots,x_N(t)) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ),\ i=1,\ldots ,N $ we define the empirical measure by 
+ \begin{align*}
+   \mu^{N}(t) \triangleq \frac{1}{N} \sum_{j=1}^{N} \delta_{x_i(t)} 
+ .\end{align*}
+\end{definition}
+Our goal is the study of the limit of this system as $N \to  \infty$. An appropriate quantity is to consider the empirical measure \ref{empirical_measure}.
+If the initial empirical measure converges in some sense to a measure $\mu(0)$ i.e. 
+\begin{align*}
+  \mu^{N}(0) \to \mu(0)
+.\end{align*}
+would $\mu^N(t)$ also converge to some measure $\mu(t)$ ?
+\begin{align*}
+  \mu^N(t) \xrightarrow{?} \mu(t)
+.\end{align*}
+Furthermore, can we find an equation which $\mu(t)$ satisfies and in which sense does it satisfy this equation?\\[1ex]
+\begin{example}
+  Consider the following case when the limit measure $\mu(t)$ is absolutely continuous with respect the Lebesgue measure, this means that 
+\begin{align*}
+  d\mu(0,x) = \rho_0(x) dx \quad \rho_0 \in  L^{1}(\mathbb{R}^{d} ) 
+.\end{align*}
+would the limit function have the same property ?
+\end{example}
+\section{Motivation For Partial Differential Equation}
+Let us derive the partial differential equation that $\mu(t)$ should satisfy by 
+considering the following calculation \\[1ex]
+For $\forall \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $ we consider  
+\begin{align*}
+  \frac{d}{dt} \braket{\mu^N(t),\phi } &\triangleq \frac{d}{dt} \int_{\mathbb{R}^{d} } \phi(x) d\mu^N(t,x)  \\
+                                       &\myS{Def.}{=} \frac{d}{dt} \int_{\mathbb{R}^{d} } \frac{1}{N} \sum_{j=1}^{N} \phi(x)d\delta_{x_{i}(t)}\\
+                                       &\myS{Lin.}{=} \frac{1}{N} \frac{d}{dt} \phi (x_i(t))\\
+                                       &= \frac{1}{N} \sum_{j=1}^{N} \nabla \phi(x_i(t)) *\frac{d}{dt} x_i(t)
+.\end{align*}
+
