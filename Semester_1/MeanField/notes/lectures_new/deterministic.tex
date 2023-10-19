@@ -75,7 +75,7 @@ the corresponding partial differential equation. We are going to work only with 
  \begin{align*}
    \abs{x_{m+1}(t)-x_m(t)}&= \abs*{\int_0^{t} f(s,x_m(s)) - f(s,x_{m-1}(s)) ds }\\
                           &\myS{Tri.}{\le }  \int_0^{t} \abs{f(s,x_m(s))-f(s,x_{m-1})(s)} ds \\
-                          \le L \int_0^{t} \abs{x_m(s) - x_{m-1}(s)}   ds \\
+                          &\le L \int_0^{t} \abs{x_m(s) - x_{m-1}(s)}   ds \\
                           &\myS{IV}{\le } L \int_0^{t} \frac{ML^{m-1}\abs{s}^{m}  }{m!}  ds\\
                           &= \frac{ML^{m}\abs{t}^{m+1} }{(m+1)!}
  .\end{align*}
@@ -107,7 +107,7 @@ the corresponding partial differential equation. We are going to work only with 
  To prove the uniqueness suppose we have two solutions $x(t),\tilde{x}(t) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} )  $ then they satisfy 
  \begin{align*}
    x(t) &= x_{0} + \int_{t_{0}}^{t} f(s,x(s))  ds \\
-  \tilde{x}(t) = x_{0} + \int_{t_{0}}^{t} f(s,\tilde{x}(s) )   ds
+   \tilde{x}(t) &= x_{0} + \int_{t_{0}}^{t} f(s,\tilde{x}(s) )   ds
  .\end{align*}
  By taking the difference of these two solutions and using the Lipschitz continuity  of $f$ in $x$ we obtain 
  \begin{align*}
@@ -551,7 +551,7 @@ Next we concentrate on the following PDE
 ,\end{align*}
 \end{definition}
 We give the definition of the weak solution of (MFE)
-\begin{definition}[Weak Solution of MFE]
+\begin{definition}[Weak Solution of MFE]\label{weak_solution_of_mfe}
   For all $t \in [0,T]$ , $\mu (t) \in  \mathcal{M}(\mathbb{R}^{d} )$ is called a 
   weak solution of (MFE), where $\mathcal{M}(\mathbb{R}^{d} )$ denotes the space of measures on $\mathbb{R}^{d} $\\[1ex]
   For $\forall  \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $ it holds 
@@ -605,7 +605,7 @@ We define the following initial value problem, the so called characteristics equ
 \end{assumption}
 Actually this assumption has already been used in order to show the well-posedness of the particle system
 \newpage
-\begin{theorem}[Existence and Uniqueness of Characteristics Equation]
+\begin{theorem}[Existence and Uniqueness of Characteristics Equation]\label{existence_uniqueness_char}
   Let \autoref{regularity} hold for K and $\mu_0 \in \mathcal{P}_1(\mathbb{R}^{d} )$ then the 
   \nameref{characteristics_equation } has a unique solution $x(t,x_{0},\mu_0) \in  \mathcal{C}^{1}(\mathbb{R};\mathbb{R}^{d}  ) $
   and $x(t,*,\mu_0) \# \mu_0 \in  \mathcal{P}_1 $ for $\forall t > 0$
@@ -684,4 +684,182 @@ Actually this assumption has already been used in order to show the well-posedne
     \|x(t,*) - \tilde{x}(t,*) \|_X = 0
   .\end{align*}
   where clearly $\|x(0,*) - \tilde{x}(0,*) \|_X = 0$
+\end{proof}
+\subsection{Stability}
+Let's remind us of the $N$-particle system (MPS), the Mean field equation (MFE) and its weak solution as defined in \autoref{weak_solution_of_mfe}.
+We have thus far done the following things 
+\begin{enumerate}
+  \item If $\mu_0 = \mu_N(0)$  then $\mu_N(t)$ is a weak solution of (MFE)
+  \item If $\mu_0 = \mathcal{P}_1(\mathbb{R}^{d} )$ and the assumption on \nameref{regularity} hold for K,then\\
+    $x(t,*,\mu_0) \# \mu_0 \in  \mathcal{P}_1$ is the solution of (MFE)
+\end{enumerate}
+We will prove the stability of the mean field PDE, which means directly that 
+\begin{align*}
+  \mu_N(0) \to \mu(0) \implies \mu_{N}(t) \to \mu(t)
+.\end{align*}
+by using the so called Monge-Kantorovich distance (or Wasserstein distance) 
+\begin{definition}[Monge-Kantorovich Distance]
+ For two measures $\mu ,\nu  \in  \mathcal{P}_p(\mathbb{R}^{d} )$  $p\ge 1$ with 
+ \begin{align*}
+   \mathcal{P}_p(\mathbb{R}^{d} ) = \{\mu  \in  \mathcal{P}(\mathbb{R}^{d}) \ : \ \int_{\mathbb{R}^{d} } \abs{x}^{p} d\mu(x) <\infty  \}  
+ .\end{align*}
+ the Monge-Kantorovich distance $\dist_{\text{MK},p}(\mu ,\nu )$ or $W^{p}(\mu ,\nu ) $ is defined by 
+ \begin{align*}
+   \dist_{\text{MK},p}(\mu ,\nu ) = W^{p}(\mu ,\nu )  = \inf_{\pi  \in  \Pi(\mu ,\nu )}\left( \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } \abs{x-y}^{p} d\pi(x,y) \right)^{\frac{1}{p}} 
+ .\end{align*}
+ where 
+ \begin{align*}
+   \Pi(\mu ,\nu ) = \{\pi  \in  \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) \ : \ \int_{\mathbb{R}^{d} }\pi(*,dy) = \mu(*) \text{ and } \int_{\mathbb{R}^{d} } \pi(dx,*) = \nu(*)\}  
+ .\end{align*}
+\end{definition}
+\begin{remark}
+ For $\forall \phi ,\psi  \in  \mathcal{C}(\mathbb{R}^{d} )$  such that $\phi(x) \sim O(\abs{x}^{p} )$ for $\abs{x} \gg 1$ and $\psi(y) \sim O(\abs{y}^{p} )$ for 
+ $\abs{y} \gg 1$, for $\pi \in  \Pi(\mu,\nu ) $ it holds 
+ \begin{align*}
+   \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } (\phi(x)+\psi(y)) d\pi(x,y) = \int_{\mathbb{R}^{d} } \phi(x) + d\mu(x) + \int_{\mathbb{R}^{d} } \psi(y) d\nu(y)
+ .\end{align*}
+\end{remark}
+\begin{remark}[Kantorovich-Rubinstein duality]
+ It can be shown that the $W^{1} $  distance can be computed by
+ \begin{align*}
+   \dist_{\text{MK},1}(\mu ,\nu ) = W^{1}(\mu ,\nu )  = \sup_{\phi \in \text{Lip}(\mathbb{R}^{d} ),\text{Lip}(\phi )\le 1} \abs*{\int_{\mathbb{R}^{d} } \phi(x) d\mu (x) - \int_{\mathbb{R}^{d} }\phi(x) d\nu(x)}
+ .\end{align*}
+\end{remark}
+\begin{theorem}[Dobrushin's stability]
+  Let $\mu_0,\overline{\mu }_0 \in  \mathcal{P}_1(\mathbb{R}^{d} ) $  and\\
+  $(x(t,*,\mu_0),\mu(*,t))$ , $(x(t,*,\overline{\mu}_0),\overline{\mu}_0 (*,t))$ be solutions of 
+  \autoref{existence_uniqueness_char}. Then $\forall t >0$ it hold 
+  \begin{align*}
+    \dist_{\text{MK},1}(\mu(*,t),\overline{\mu }(*,t) ) \le e^{2 \abs{t} L} \dist_{\text{MK},1} (\mu_0,\overline{\mu }_0 )
+  .\end{align*}
+\end{theorem}
+\begin{proof}
+  Let $(x_{0},\mu_0)$  and $(\overline{x}_0,\overline{\mu }_0  )$ be two initial data pairs of problem \autoref{existence_uniqueness_char}
+  and $\pi_0 \in  \Pi (\mu_0,\overline{\mu }_0 )$ taking the difference of these two problems, we have 
+  \begin{alignat*}{3}
+    &x(t,x_{0},\mu_0) &&- x(t,\overline{x}_0,\overline{\mu }_0  ) \\
+    &= x_{0}-\overline{x}_0 &&+ \int_0^{t} \int_{\mathbb{R}^{d} }   K(x(s,x_{0},\mu_0),y) d\mu(s,y) ds  \\
+    & &&- \int_0^{t} \int_{\mathbb{R}^{d} } K(x(s,\overline{x}_0,\overline{\mu }_0),y) d \overline{\mu }(s,y)ds
+  .\end{alignat*}
+where $\mu(*,t) = x(t,*,\mu_0) \# \mu_0$ and $\overline{\mu }(*,t) = x(t,*,\overline{\mu }_0 ) \# \overline{\mu }_0$. Now we compute further and get 
+\begin{alignat*}{3}
+  &x(t,x_{0},\mu_0) &&- x(t,\overline{x}_0,\overline{\mu }_0  )\\
+  &= x_{0}-\overline{x}_0 &&+ \int_0^{t} \int_{\mathbb{R}^{d} } K(x(s,x_{0},\mu_0),x(s,z,\mu_0)) d\mu_0(z) ds \\
+  & &&- \int_0^{t} \int_{\mathbb{R}^{d} } K(x(s,\overline{x}_0,\overline{\mu }_0  ),x(s,\overline{z},\overline{\mu }_0  )) d \overline{\mu }_0(\overline{z} )  ds\\
+  &= x_0 - \overline{x_0}  &&+ \int_0^{t} \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } \left(K(x(s,x_{0},\mu_0),x(s,z,\mu_0)) \right.\\
+  & &&-\left. K(x(s,\overline{x}_0,\overline{\mu }_0  ),x(s,\overline{z},\overline{\mu }_0  ))\right) d\pi_0(z,\overline{z} ) ds
+.\end{alignat*}
+There for by assumption on \nameref{regularity} for K, we have 
+\begin{alignat*}{3}
+  &\abs{x(t,x_{0},\mu_0) - x(t,\overline{x}_0,\overline{\mu }_0  )}  \\
+  &\le \abs{x_{0}-\overline{x}_0 } + L \int_0^{t} \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  }&&\abs{x(s,x_{0},\mu_0)- x(s,\overline{x}_0,\overline{\mu }_0  )}  \\
+  &  &&+ \abs{x(s,z,\mu_0) - x(s,\overline{z},\overline{\mu }_0  )}  d\pi_0(z,\overline{z} ) ds
+\end{alignat*}
+\vspace{-\baselineskip}
+\begin{alignat*}{3}
+  &\le \abs{x_{0}-\overline{x}_0 } &&+ L \int_0^{t} \abs{x(s,x_{0},\mu_0)- x(s,\overline{x}_0,\overline{\mu }_0  )} ds \\
+  &  &&+L \int_0^{t} \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  }  \abs{x(s,z,\mu_0) - x(s,\overline{z},\overline{\mu }_0  )}  d\pi_0(z,\overline{z} ) ds
+.\end{alignat*}
+Next we integrate both sides in $x_{0},\overline{x}_0 $ with respect to the measure $\pi_0$
+\begin{align*}
+  &\iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  }\abs{x(t,x_{0},\mu_0) - x(t,\overline{x}_0,\overline{\mu }_0  )} d\pi_0(x_{0},\overline{x}_0 )\\
+  &\le  \iint_{\mathbb{R}^{d}\times \mathbb{R}^{d}  }\abs{x_{0}-\overline{x}_0 } d\pi_0(x_{0},\overline{x}_0 )\\
+  &+ L \int_0^{t} \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  }   \abs{x(s,x_{0},\mu_0)-x(s,\overline{x}_0,\overline{\mu }_0  )} d\pi_0(x_{0},\overline{x}_0 ) ds\\
+  &+ L \int_0^{t} \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  }   \abs{x(s,z,\mu_0)-x(s,\overline{z},\overline{\mu }_0  )} d\pi_0(z,\overline{z}  ) ds\\
+.\end{align*}
+By denoting 
+\begin{align*}
+  D[\pi_0](t) = \iint_{\mathbb{R}^{d}\times \mathbb{R}^{d}  }\abs{x(s,z,\mu_0)-x(s,\overline{z},\overline{\mu }_0  )} d\pi_0(z,\overline{z} )
+.\end{align*}
+we have obtained the estimate 
+\begin{align*}
+  D[\pi_0](t) \le  D[\pi_0](0) + 2L\int_0^{t}D[\pi_{0}] (s) ds
+.\end{align*}
+which implies by Gronwall's inequality that 
+\begin{align*}
+  D[\pi_0](t) \le D[\pi_0](0)e^{2Lt} 
+.\end{align*}
+Now let $\phi_t : \mathbb{R}^{d} \times  \mathbb{R}^{d} \to  \mathbb{R}^{d} \times  \mathbb{R}^{d}    $ be the map such that 
+\begin{align*}
+  \phi_t(x_{0},\overline{x}_0 ) = (x(t,x_{0},\mu_0),x(t,\overline{x}_0,\overline{\mu }_0  ))
+.\end{align*}
+and for arbitrary $\pi_0 \in  \Pi(\mu_0,\nu_0)$ , $\pi_t \coloneqq  \phi_t \# \pi_0$ be the push forward measure of $\pi_0$ by $\phi_t$.
+It is obvious that 
+\begin{align*}
+  \pi_t = \phi_t \# \pi_0 \in  \Pi(\mu(*,t),\overline{\mu }(*,t) )
+.\end{align*}
+Therefore 
+\begin{align*}
+  \dist_{\text{MK},1}(\mu(*,t),\overline{\mu }(*,t) ) &= \inf_{\pi \in \Pi(\mu(*,t),\overline{\mu }(*,t) ) } \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } \abs{z-\overline{z} } d\pi(z,\overline{z} )\\
+                                                      &\le  \inf_{\pi_0 \in \Pi(\mu_0,\overline{\mu }_0) } \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } \abs{x(t,z,\mu_0)-x(t,\overline{z},\overline{\mu }_0)  } d\pi(z,\overline{z} )\\
+                                                      &=  \inf_{\pi_0 \in \Pi(\mu_0,\overline{\mu }_0) } D[\pi_0] (t)\\
+                                                      &\le \inf_{\pi_0 \in  \Pi(\mu_0,\overline{\mu }_0 )}D[\pi_0](0) e^{2Lt} \\
+                                                      &= e^{2Lt} \dist_{\text{MK},1}(\mu_0,\overline{\mu }_0 )
+.\end{align*}
+\end{proof}
+\section{Mollification Operator}
+\begin{definition}[Mollification-Kernel]
+A function $j(x) \in  \mathcal{C}_0^{\infty} $ is called a mollification kernel  if it satisfies
+the following properties
+\begin{enumerate}
+  \item $j(x) \ge 0$  
+  \item $\supp j \subset  \overline{B_1(0)}  $
+  \item $\int_{\mathbb{R}^{d} } j(x) dx = 1$
+\end{enumerate} 
+\end{definition}
+A typical example of a smooth kernel is  given by 
+\begin{example}
+ \begin{align*}
+   j(x) = \begin{cases}
+     k \exp(-\frac{1}{1-\abs{x}^2}) &\text{ if } \abs{x} < 1 \\
+     0 &\text{ if } \text{otherwise}
+   \end{cases} 
+ .\end{align*}
+ where $k$ is given s.t the integral is 1 
+\end{example}
+\begin{remark}
+ Based on the given function $j$ it is easy to prove that its rescaled sequence converges to 
+ the Dirac Delta distribution in the weak sense 
+ \begin{align*}
+   j_{\epsilon}(x) = \frac{1}{\epsilon^d}j(\frac{x}{\epsilon}) \xrightharpoonup{\epsilon \to 0} \delta_0
+ .\end{align*}
+\end{remark}
+\begin{exercise}
+ Prove that for $\phi(x) \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $  it holds that $\forall x \in  \mathbb{R}^{d} $
+ \begin{align*}
+   \lim_{\epsilon \to 0}j_{\epsilon} \star \phi(x) = \phi(x)
+ .\end{align*}
+\end{exercise}
+\begin{definition}[Mollification Operator]
+  For $\forall u \in  L_{\text{loc}}^{1}(\mathbb{R}^{d} ) $  we define the following function as its mollification 
+  \begin{align*}
+    J_{\epsilon}(u)(x) \triangleq j_{\epsilon}(x) \star u(x) = \int_{\mathbb{R}^{d} }j_{\epsilon}(x-y)u(y)dy
+  .\end{align*}
+  where $J_{\epsilon}$ is called the mollification operator
+\end{definition}
+\begin{remark}
+  Notice that $\supp j_{\epsilon}(x) \subset  \overline{B_{\epsilon}(0)} $  we obtain 
+  \begin{align*}
+    J_{\epsilon}(u)(x) = \int_{B_{\epsilon}(0)}j_{\epsilon}(x-y)u(y) dy < \infty
+  .\end{align*}
+\end{remark}
+\begin{lemma}\hspace{0mm}\\
+  \begin{enumerate}
+    \item If $u(x) \in  L^{1}(\mathbb{R}^{d} ) $  and $\supp u(x)$ is compact in $\mathbb{R}^{d} $ then 
+      \begin{align*}
+        J_{\epsilon}(u) = j_{\epsilon} \star  u \in \mathcal{C}_0^{\infty} \quad \forall  \epsilon > 0
+      .\end{align*}
+    \item if $u \in  C_0(\mathbb{R}^{d} )$ then 
+      \begin{align*}
+        J_{\epsilon}(u) \xrightarrow{\epsilon \to 0} u \text{ uniformly on } \supp u
+      .\end{align*}
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+ 1. Let $K = \supp u \subset  \mathbb{R}^{d} $ be compact , then we have 
+ \begin{align*}
+   \supp j_{\epsilon} \star  u = \{x \in  \mathbb{R}^{d} \ | \ \dist(x,K) \le \epsilon  \}  
+ .\end{align*}
+ is also compact. For the differentiability  it is enough to show it for the first order partial 
+ differentiability at any given point. The argument for higher order derivatives is analo
 \end{proof}
