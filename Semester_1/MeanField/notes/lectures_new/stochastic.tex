@@ -1,7 +1,8 @@
 \chapter{MEAN FIELD LIMIT FOR SDE SYSTEM}
-\section{Basic On Probability Theory}
+\section{Basics On Probability Theory}
 This section is dedicated to a small review of basic concepts 
 in probability theory in preparations of SDE's
+\subsection{Probability Spaces and Random Variables}
 \begin{definition}[$\sigma$-Algebra]
  Let $\Omega $  be a given set, then a $\sigma-$algebra $\mathcal{F}$ on $\Omega $ is a
  family of subsets of $\Omega $ s.t.
@@ -179,37 +180,35 @@ This measure is called the distribution of X
   .\end{align*}
 \end{example}
 \begin{definition}[Independent Events]
-  Events $A_{1},\ldots ,A_{n} \in  \mathcal{F}$ are called independet if $\forall 1 \le k_{1} < \ldots  < k_m \le  n$ it holds 
+  Events $A_{1},\ldots ,A_{n} \in  \mathcal{F}$ are called independent if $\forall 1 \le k_{1} < \ldots  < k_m \le  n$ it holds 
   \begin{align*}
     \P(A_{k_{1}}\cap A_{k_2} \cap \ldots \cap A_{k_m} )=\P(A_{k_{1}})\P(A_{k_{2}})\ldots \P(A_{k_m})
   .\end{align*}
 \end{definition}
 \begin{definition}[Independent $\sigma-$Algebra]
- Let $\mathcal{F}_j \subset  \mathcal{F}$   be $\sigma-$algebras for $j=1,2,\ldots $. Then we say $\mathcal{F}_j$ are independet if 
+ Let $\mathcal{F}_j \subset  \mathcal{F}$   be $\sigma-$algebras for $j=1,2,\ldots $. Then we say $\mathcal{F}_j$ are independent if 
  for $\forall 1 \le k_{1}<k_{2}<\ldots <k_m$ and $\forall A_{k_j} \in  \mathcal{F}_{k_j}$ it holds
  \begin{align*}
   \P(A_{k_{1}}\cap A_{k_2} \cap \ldots \cap A_{k_m} )=\P(A_{k_{1}})\P(A_{k_{2}})\ldots \P(A_{k_m})
  .\end{align*}
 \end{definition}
 \begin{definition}[Independent Random Variables]
- We say random variables $X_{1},\ldots ,X_m \ : \ \Omega  \to \mathbb{R}^{d} $  are independet if 
+ We say random variables $X_{1},\ldots ,X_m \ : \ \Omega  \to \mathbb{R}^{d} $  are independent if 
  for $\forall  B_{1},\ldots ,B_{m} \subset  \mathcal{B}$ in $\mathbb{R}^{d} $ it holds 
  \begin{align*}
    \P(X_{j_{1}}\in B_{j_{1}},\ldots, X_{j_k}\in B_{j_k} ) = \P(X_{j_{1}} \in  B_{j_{1}})\ldots \P(X_{j_k} \in  B_{j_k})
  .\end{align*}
- which is equivalent to proving that $\mathcal{U}(X_{1}),\ldots ,\mathcal{U}(X_k)$ are independet
+ which is equivalent to proving that $\mathcal{U}(X_{1}),\ldots ,\mathcal{U}(X_k)$ are independent
 \end{definition}
 \begin{theorem}
- $X_{1},\ldots ,X_m \ : \ \Omega  \to \mathbb{R}^{d} $ are independet if and only if 
+ $X_{1},\ldots ,X_m \ : \ \Omega  \to \mathbb{R}^{d} $ are independent if and only if 
  \begin{align*}
    F_{X_{1},\ldots ,X_m}(x_{1},\ldots ,x_m) =F_{X_{1}}(x_{1})\ldots F_{x_m}(x_m) \quad \forall  x_i \in \mathbb{R}^{d} 
  .\end{align*}
 \end{theorem}
-\begin{exercise}
- Proof the above theorem 
-\end{exercise}
+\newpage
 \begin{theorem}
-  If $X_{1},\ldots ,X_m \ : \ \Omega  \to \mathbb{R} $ are independet and $\E[\abs{X_i}] < \infty$ then 
+  If $X_{1},\ldots ,X_m \ : \ \Omega  \to \mathbb{R} $ are independent and $\E[\abs{X_i}] < \infty$ then 
   \begin{align*}
     \E[\abs{X_{1},\ldots ,X_m}]<\infty
   .\end{align*}
@@ -218,17 +217,155 @@ This measure is called the distribution of X
     \E[X_{1}\ldots X_m] = \E[X_{1}]\ldots \E[X_m]
   .\end{align*}
 \end{theorem}
-\begin{exercise}
- Proof the above theorem 
-\end{exercise}
 \begin{theorem}
-  $X_{1},\ldots ,X_m \ : \ \Omega  \to \mathbb{R} $ are independet and $\V[X_i] <\infty$ then 
+  $X_{1},\ldots ,X_m \ : \ \Omega  \to \mathbb{R} $ are independent and $\V[X_i] <\infty$ then 
   \begin{align*}
     \V[X_{1} + \ldots  + X_m] = \V[X_{1}] + \ldots  + \V[X_m]
   .\end{align*}
 \end{theorem}
 \begin{exercise}
- Proof the above theorem 
+ Proof the above theorems
 \end{exercise}
-
+\subsection{Borel Cantelli}
+\begin{definition}
+ Let $A_{1},\ldots ,A_m \in \mathcal{F}$   then the set 
+ \begin{align*}
+   \bigcap_{n=1}^{\infty}\bigcup_{m=n}^{\infty} A_m = \{\omega \in \Omega  \ : \ \omega  \text{ belongs to infinite many} A_{m}\text{'s}\}  
+ .\end{align*}
+ is called $A_m$ infinitely often or $A_m$ i.o.
+\end{definition}
+\begin{lemma}[Borel Cantelli]\label{borel_cantelli}
+ If $\sum_{m=1}^{\infty} \P(A_m) < \infty  $  then $\P(A_ \text{ i.o. }) = 0$
+\end{lemma}
+\begin{proof}
+ By definition we have 
+ \begin{align*}
+   \P(A_m \text{ i.o. }) \le  \P(\bigcup_{m=n}^{\infty} ) \le \sum_{m=n}^{\infty} \P(A_m)  \xrightarrow{m\to \infty} 0
+ .\end{align*}
+\end{proof}
+\begin{definition}[Convergence In Probability]
+  We say a sequence of random variables $(X_k)_{k=1}^{\infty} $  converges in probability to $X$ if 
+  for $\forall  \epsilon > 0$
+  \begin{align*}
+    \lim_{k\to \infty} \P(\abs{X_k - X} > \epsilon ) = 0 
+  .\end{align*}
+\end{definition}
+\begin{theorem}[Application Of Borel Cantelli]
+ If $X_k \to  X$  in probability, then there exists 
+ a subsequence $(X_{k_j})_{j=1}^{\infty} $ such that 
+ \begin{align*}
+   X_{k_j}(\omega ) \to X(\omega ) \text{ for almost every } \omega \in  \Omega 
+ .\end{align*}
+ This means that $\P(\abs{X_{k_j}-X}\to 0) = 1$
+\end{theorem}
+\begin{proof}
+  For $\forall  j \ \exists k_j$  with $k_j < k_{j+1} \to  \infty$ s.t.
+  \begin{align*}
+    \P(\abs{X_{k_j} - X} > \frac{1}{j}) \le \frac{1}{j^2}
+  .\end{align*}
+  then 
+  \begin{align*}
+    \sum_{j=1}^{\infty} \P(\abs{X_{k_j}-X} > \frac{1}{j}) = \sum_{j=1}^{\infty} \frac{1}{j^2}   < \infty
+  .\end{align*}
+  Let $A_j = \{\omega  \ : \ \abs{X_{k_j}-X} > \frac{1}{j}\}  $ then by \nameref{borel_cantelli} we have $\P(A_j\text{ i.o.}) = 0$ s.t.
+  \begin{align*}
+    \forall  \omega  \in  \Omega  \ \exists J \text{ s.t. } \forall  j>J
+  .\end{align*}
+  it holds 
+  \begin{align*}
+    \abs{X_{k_j}(\omega ) - X(\omega )} \le  \frac{1}{j}
+  .\end{align*}
+\end{proof}
+\subsection{Strong Law Of Large Numbers}
+\begin{definition}
+ A sequence of random variables $X_{1},\ldots ,X_n$  is called identically distributed if 
+ \begin{align*}
+   F_{X_{1}}(x)= F_{X_{2}}(x) = \ldots  = F_{X_n}(x) \quad \forall x \in  \mathbb{R}^{d}  
+ .\end{align*}
+ If additionally $X_{1},\ldots ,X_n$ are independent then we say they are identically-independent-distributed i.i.d
+\end{definition}
+\begin{theorem}[Strong Law Of Large Numbers]
+ Let $X_{1},\ldots ,X_N$  be a sequence of i.i.d integrable random variables on the same probability
+ space $(\Omega ,\mathcal{F},\P)$ then 
+ \begin{align*}
+   \P(\lim_{N \to  \infty} \frac{X_1 + \ldots  + X_N}{N} = \E[X_i]) = 1
+ .\end{align*}
+ where $\E[X_i] = \E[X_j]$ 
+\end{theorem}
+\begin{proof}
+  Suppose for simplicity $\E[X^{4} ] < \infty$  for $\forall  i = 1,2,\ldots $.
+  Then without loss of generality we may assume $\E[X_i] = 0$ otherwise we use $X_i - \E[X_i]$ as our new sequence.
+  Consider 
+  \begin{align*}
+    \E[(\sum_{i=1}^{N} X_i )^{4} ] = \sum_{i,j,k,l}\E[X_iX_jX_kX_l]
+  .\end{align*}
+  If $i \neq j ,k,l$ then because of independence it follows that 
+  \begin{align*}
+    \E[X_iX_jX_kX_l] = \E[X_i]\E[X_jX_kX_l] = 0
+  .\end{align*}
+  Then 
+  \begin{align*}
+    \E[(\sum_{i=1}^{N}X_i )^{4} ] &= \sum_{i=1}^{N}\E[X_i^{4} ]  + 3 \sum_{i\neq j}\E[X_i^2X_j^2] \\
+                                  &= N\E[X_{1}^{4} ] + 3(N^2-N)\E[X_{1}^2]^2 \\
+                                  &\le  N^2C
+  .\end{align*}
+  Therefore for fixed $\epsilon > 0$
+  \begin{align*}
+    \P(\abs{\frac{1}{N} \sum_{i=1}^{N}X_i } \ge \epsilon) &= \P(\abs{\sum_{i=1}^{N}X_i }^{4}  \ge (\epsilon N)^{4} )\\
+                                                          &\myS{Mrkv.}{\le} \frac{1}{(\epsilon N)^{4} } \E[\abs{\sum_{i=1}^{N} X_i }^{4} ]\\
+                                                          &\le  \frac{C}{\epsilon^4}\frac{1}{N^2}
+  .\end{align*}
+  Then by \nameref{borel_cantelli} we get 
+  \begin{align*}
+    \P(\abs{\frac{1}{N} \sum_{i=1}^{N} X_i } \ge  \epsilon \text{ i.o.}) = 0
+  .\end{align*}
+  because 
+  \begin{align*}
+    \sum_{N=1}^{\infty} \P(A_N)  = \sum_{N=1}^{\infty} \frac{C}{\epsilon^4}\frac{1}{N^2}  < \infty
+  .\end{align*}
+  where  
+  \begin{align*}
+    A_N = \{\omega  \in  \Omega  \ : \ \abs{\frac{1}{N}\sum_{i=1}^{N}X_i } \ge  \epsilon\}  
+  .\end{align*}
+  Now we take $\epsilon = \frac{1}{k}$ then the above gives 
+  \begin{align*}
+    \lim_{N\to \infty} \sup \frac{1}{N} \sum_{i=1}^{N}  X_i(\omega ) \le \frac{1}{k}
+  .\end{align*}
+  holds except for $\omega  \in  B_k$ with $\P(B_k) = 0$. Let $B = \bigcup_{k=1}^{\infty} B_k $ then $\P(B) = 0$ and
+  \begin{align*}
+    \lim_{N \to \infty} \frac{1}{N} \sum_{i=1}^{N} X_i(\omega ) = 0  \text{ a.e.}
+  .\end{align*}
+\end{proof}
+\subsection{Conditional Expectation}
+\begin{definition}
+  Let $Y$ be random variable, then $\E[X|  Y] $ is defined as a $\mathcal{U}(Y)-$measurable random variable
+  s.t for $\forall  A \in \mathcal{U}(Y)$ it holds 
+  \begin{align*}
+    \int_A X d\P = \int_A \E[X|Y] d\P
+  .\end{align*}
+\end{definition}
+\begin{definition}
+ Let $(\Omega ,\mathcal{F},\P)$  be a probability space and $\mathcal{ U} \subset  \mathcal{F}$ be a $\sigma-$algebra,
+ if $X  : \Omega  \to  \mathbb{R}^{d} $ is an integrable random variable then $\E[X |\mathcal{U}]$  is
+ defined as a random variable on $\Omega$ s.t. $\E[X | \mathcal{U}]$ is $\mathcal{U}-$measurable and for $\forall A \in  \mathcal{U}$
+ \begin{align*}
+   \int_A X d\P  = \int_A \E[X | \mathcal{U}] d \P
+ .\end{align*}
+\end{definition}
+\begin{exercise}
+ Proof the following equalities  
+ \begin{enumerate}
+   \item $\E[X|Y] = \E[X | \mathcal{U}]$
+   \item $\E[\E[X|\mathcal{U}]] = \E[X]$
+   \item $\E[X] = \E[X | \mathcal{W}]$, where $\mathcal{W} = \{\emptyset,\Omega \}  $
+ \end{enumerate}
+\end{exercise}
+\begin{remark}
+ One can define the conditional probability similarly. Let $\mathcal{V} \subset  \mathcal{U}$  be a $\sigma-$algebra 
+ then for $A \in  \mathcal{U}$ the conditional probability is defined as follows
+ \begin{align*}
+   \P(A | \mathcal{V}) = \E[\cha_A | \mathcal{V}]
+ .\end{align*}
+Note the alternative notation $\chi_A \equiv \cha_A$
+\end{remark}
 
