@@ -537,7 +537,7 @@ sense of distribution
  Show $\mu ^{N}\mathcal{K}\mu ^{N}  $  is a distribution for smooth $K(x,y)$ 
 \end{exercise}
 Next we concentrate on the following PDE 
-\begin{definition}[Mean Field Equation (MFE)]
+\begin{definition}[Mean Field Equation (MFE)]\label{mfe}
  Define the mean field equation as 
  \begin{align*}
   \text{(MFE)}\begin{cases}
@@ -725,7 +725,7 @@ by using the so called Monge-Kantorovich distance (or Wasserstein distance)
    \dist_{\text{MK},1}(\mu ,\nu ) = W^{1}(\mu ,\nu )  = \sup_{\phi \in \text{Lip}(\mathbb{R}^{d} ),\text{Lip}(\phi )\le 1} \abs*{\int_{\mathbb{R}^{d} } \phi(x) d\mu (x) - \int_{\mathbb{R}^{d} }\phi(x) d\nu(x)}
  .\end{align*}
 \end{remark}
-\begin{theorem}[Dobrushin's stability]
+\begin{theorem}[Dobrushin's stability]\label{dobrushin_stability}
   Let $\mu_0,\overline{\mu }_0 \in  \mathcal{P}_1(\mathbb{R}^{d} ) $  and\\
   $(x(t,*,\mu_0),\mu(*,t))$ , $(x(t,*,\overline{\mu}_0),\overline{\mu}_0 (*,t))$ be solutions of 
   \autoref{existence_uniqueness_char}. Then $\forall t >0$ it hold 
@@ -830,7 +830,7 @@ A typical example of a smooth kernel is  given by
    \lim_{\epsilon \to 0}j_{\epsilon} \star \phi(x) = \phi(x)
  .\end{align*}
 \end{exercise}
-\begin{definition}[Mollification Operator]
+\begin{definition}[Mollification Operator]\label{mollification_operator}
   For $\forall u \in  L_{\text{loc}}^{1}(\mathbb{R}^{d} ) $  we define the following function as its mollification 
   \begin{align*}
     J_{\epsilon}(u)(x) \triangleq j_{\epsilon}(x) \star u(x) = \int_{\mathbb{R}^{d} }j_{\epsilon}(x-y)u(y)dy
@@ -860,6 +860,230 @@ A typical example of a smooth kernel is  given by
  \begin{align*}
    \supp j_{\epsilon} \star  u = \{x \in  \mathbb{R}^{d} \ | \ \dist(x,K) \le \epsilon  \}  
  .\end{align*}
- is also compact. For the differentiability  it is enough to show it for the first order partial 
- differentiability at any given point. The argument for higher order derivatives is analo
+ is also compact. For the differentiability  it is enough to show the first order partial 
+ differentiability at any given point, as the argument for higher order differentiability is analog\\[1ex]
+ Now for $\forall  x \in  \supp j_{\epsilon} \star  u$  we have that $\forall i = 1,2,\ldots ,d$ 
+ \begin{align*}
+   \frac{\partial }{\partial x_i}  \int_{\mathbb{R}^{d} } j_{\epsilon}(x-y)u(y) dy = \int_K \frac{\partial }{\partial x_i} j_{\epsilon}(x-y)u(y) dy
+ .\end{align*}
+ where we have used the fact that 
+ \begin{align*}
+   \abs{\frac{\partial }{\partial x_i} j_{\epsilon}(x-y)u(y)} \le \abs{\frac{\partial }{\partial x_i}j_{\epsilon}(x-y) } \|u\|_{L^{1} } \le  \frac{Cj'}{\epsilon ^{d} }
+ .\end{align*}
+ to show the uniform integrability of $\frac{\partial }{\partial x_i}j_{\epsilon}(x-y)u(y) $\\[1ex]
+ For (2) we need to prove that for $u \in  \mathcal{C}_0(\mathbb{R}^{d} )$ it holds 
+ \begin{align*}
+   \|J_{\epsilon}(u)-u\|_{L^{\infty}(\supp u) } \xrightarrow{\epsilon \to 0} 0
+ .\end{align*}
+ Actually $\forall  x \in \supp u$ we have the following estimate
+ \begin{align*}
+   \abs{j_{\epsilon}\star u(x) - u(x)} &= \abs*{\int_{\mathbb{R}^{d} }j_{\epsilon}(x-y)(u(y)-u(x)) dy}\\
+                                       &= \abs*{\int_{\supp u} j_{\epsilon}(x-y)(u(y)-u(x)) dy}\\
+                                       &\le \max_{\substack{x,y \in \supp u \\ \abs{x-y} < \epsilon}} \abs{u(y)-u(x)} \int_{\mathbb{R}^{d} }j_{\epsilon}(x-y)dy \xrightarrow{\epsilon \to 0} 0
+ .\end{align*}
+ where we have used the fact that $u \in  \mathcal{C}(\supp u)$ which means u is uniformly continuous to obtain the limit in the last step above
 \end{proof}
+\subsection{Conservation of Mass}
+Let $u(t)$ be the push forward measure obtained form \autoref{characteristics_equation}, one can check that is is a weak solution of (MFE) by using 
+test functions. Furthermore we obtain that if the initial measure has a probability density, then the solution is also integrable 
+for any fixed time $t$ 
+\begin{corollary}
+ Let $f_{0}$ be a probability density of $\mu_0$ on $\mathbb{R}^{d}$ with 
+ \begin{align*}
+   \int_{\mathbb{R}^{d} } \abs{x} f_0(x) dx < \infty
+ .\end{align*}
+ Then the Cauchy problem 
+ \begin{align*}
+  \begin{cases}
+    \partial_t f + \nabla * (f \mathcal{K} f)  &= 0\\
+    f\rvert_{t=0} &= f_{0}
+  \end{cases}
+ .\end{align*}
+ has a unique weak solution $f(t,*) \in  L^{1}(\mathbb{R}^{d} ) $ and $\|f(t,*)\|_{L^{1}(\mathbb{R}^{d} ) } = 1$. The weak solution in 
+ the sense of distribution means that $\forall  \phi  \in  \mathcal{C}_0^{\infty} $ it holds for all $0\le \tilde{t}<t<\infty$
+ \begin{align*}
+   \int_{\mathbb{R}^{d} }\phi(x) f(t,x) dx - \int_{\mathbb{R}^{d} }\phi(x)f(\tilde{t},x )dx = \int_{\tilde{t} }^{t} \int_{\mathbb{R}^{d} }  f(s,x) \mathcal{K}f(s,x) dx ds
+ .\end{align*}
+\end{corollary}
+\begin{proof}
+ We need to prove $\forall  t \in  \mathbb{R}$ and $\mu_t \in  \mathcal{P}_1(\mathbb{R}^{d} )$ absolutely continuous with respect to the 
+ Lebesgue measure i.e. $\forall  B \in  \mathcal{B}$ and $\int_{B} d\lambda  = 0$ it holds $\mu_t(B) = 0$.
+ The mass conservation property, $\|f(t,*)\|_{L^{1}(\mathbb{R}^{d} ) } = 1$  comes from the definition of probability measures
+\end{proof}
+\begin{exercise}
+ Let $\mu_t \in  \mathcal{P}_1(\mathbb{R}^{d} )$  be an absolutely continuous measure with respect to the Lebesgue measure,
+ then proof that for $\forall  B \in  \mathcal{B}$ such that 
+ \begin{align*}
+  \int_B d\lambda  = 0
+ .\end{align*}
+ it holds that $\mu_t(B) = 0$
+\end{exercise}
+In the next we give an alternative proof of the conservation of mass without using the characteristics presentation and instead only use 
+the definition of a weak solution\\[1ex]
+\begin{proof}
+ In the weak solution formulation  it holds 
+ \begin{align*}
+   \int_{\mathbb{R}^{d} }\phi(x) f(t,x) dx = \int_{\mathbb{R}^{d} }\phi(x)f(\tilde{t},x ) dx + \int_{\tilde{t} }^{t} \iint_{\mathbb{R}^{2d} } f(s,x)K(x,y)f(s,y)\nabla \phi (x) dx dy ds
+ .\end{align*}
+ where the test function $\phi  \in  \mathcal{C}_0^{\infty} $ is chosen arbitrarily. Now we take a sequence of test functions defined as follows. \\[1ex]
+ For $\forall  R >0$ 
+ \begin{align*}
+  \phi_R(x) = \begin{cases}
+    1 ,& \abs{x} \le R\\
+    \text{ smooth } ,& R < \abs{x} < 2R,\\
+    0 ,& \abs{x} \ge R
+  \end{cases}
+ .\end{align*}
+ An example of this is the mollification of a step function i.e. $\phi_R = j_{\frac{R}{2}}*\cha_{B_{\frac{3R}{2}}}$
+\begin{figure}[H]
+   \begin{center}
+ \begin{tikzpicture}
+\begin{axis}[
+    ytick=false,
+    xtick=false,
+    domain=-4:4,
+    % y=0.5cm/3,
+    % x=0.5cm,
+    xmin=-4, xmax=4,
+    ymin=-0.0, ymax=0.5,
+    axis lines=middle,
+    clip=false,
+    height=5cm,
+    enlarge y limits=false,
+    samples=100,
+    ]
+    
+    \def\radius{2.8} % radius for mollification
+    % Define the step function
+    \addplot[color=blue, thick, forget plot, domain=-4:-2.5] {0};
+    \addplot[color=blue, thick, forget plot, domain=-2.5:2.5] {0.125};
+    \addplot[color=blue, thick, forget plot, domain=2.5:4] {0};
+    
+    % Define the mollification function
+    \addplot[color=red, thick] {exp(-1/(1-(x/\radius)^2+0.001))/(sqrt(1-(x/\radius)^2)*\radius)};
+  \end{axis}
+ \end{tikzpicture}    
+   \end{center}
+ \end{figure}
+ One obtains directly for the gradient estimate $\abs{\nabla \phi_R(x)} \le  \frac{C}{R}$. Therefore with this
+ test function, we obtain from the weak solution formula that 
+ \begin{align*}
+   \abs*{\int_{\mathbb{R}^{d} }f(t,x)\phi_R(x)dx - \int_{\mathbb{R}^{d} } f(\tilde{t},x )\phi_R(x) dx} &= \abs*{\int_{\tilde{t} }^{t}\iint_{\mathbb{R}^{2d} }f(s,x)K(x,y)f(s,y)\nabla \phi_R(x)dxdyds }\\
+                                                                                                       &\le \frac{CL}{R}  \int_{\tilde{t} }^{t}\iint_{\mathbb{R}^{2d} } (1+\abs{x} + \abs{y})f(s,x)f(s,y) \abs{\nabla \phi_R(x)} dx dy ds \\
+                                                                                                       &\le  \frac{C}{R}\abs{t - \tilde{t}}
+ .\end{align*}
+ Where $C$ depends on $\|(1+\abs{*})f(t,*)\|_{L^{1}(\mathbb{R}^{d} ) }$. Since 
+ \begin{align*}
+  \abs{f(t,x)\phi_R(x)}\le \abs{f(t,x)} \quad \forall  x \in  \mathbb{R}^{d} 
+ .\end{align*}
+ we can use the dominant convergence theorem to obtain 
+ \begin{align*}
+   \int_{\mathbb{R}^{d} } f(t,x)\phi_R(x) dx \xrightarrow{R\to \infty} \int_{\mathbb{R}^{d} }f(t,x) dx >0
+ .\end{align*}
+ Therefore passing to the limit $R \to \infty$ we have 
+ \begin{align*}
+   \int_{\mathbb{R}^{d} } f(t,x) dx = \int_{\mathbb{R}^{d} }f_0(x) dx
+ .\end{align*}
+\end{proof}
+\section{Mean Field Limit}
+\begin{theorem}[Mean Field Limit]\label{mean_field_limit}
+  For $f_{0} \in  L^{1}(\mathbb{R}^{d} ) $ , let $\mu_0^{N} = \frac{1}{N} \sum_{i=1}^{N} \delta_{x_{i,0}} $  such that
+  \begin{align*}
+    \dist_{\text{MK},1}(\mu_0^{N},f_{0} ) \xrightarrow{N\to \infty} 0
+  .\end{align*}
+  Let $X_N(t)$ be the solution of the N particle system \hyperref[first_order_system]{(MPS)} with its empirical measure   
+  \begin{align*}
+    \mu ^{N}(t) = \frac{1}{N}  \sum_{i=1}^{N}  \delta_{x_i(t,X_{N,0})}
+  .\end{align*}
+  Then 
+  \begin{align*}
+    \dist_{\text{MK},1}(\mu ^{N}(t),f(t,*) ) \le e^{2Lt} \dist_{\text{MK},1}(\mu_0^{N},f_{0} ) \xrightarrow{N \to \infty} 0
+  .\end{align*}
+  And $\mu ^{N}(t) \rightharpoonup f(t,*) $ weakly in measures , i.e for $\forall  \phi  \in  \mathcal{C}_b(\mathbb{R}^{d} )$ it holds 
+  \begin{align*}
+    \int_{\mathbb{R}^{d} }\phi(x)d\mu ^{N}(t,x) \xrightarrow{N\to \infty}  \int_{\mathbb{R}^{d} } \phi(x)f(t,x) dx 
+  .\end{align*}
+\end{theorem}
+\begin{proof}
+  The stability result from  \autoref{dobrushin_stability} gives us already the convergence rate estimate. We are left 
+  to prove the weak convergence in measure. Note $\forall \phi \in \text{Lip}(\mathbb{R}^{d} )$ we have
+  \begin{align*}
+    \abs*{\int_{\mathbb{R}^{d} }\phi(x)d\mu ^{N}(t,x) -\int_{\mathbb{R}^{d}}\phi(x)f(t,x) dx} &= \abs{\iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } (\phi(x) - \phi(y)) d\pi_t(x,y)}\\
+                                                                                              &\le \text{Lip}(\phi ) \iint_{\mathbb{R}^{d}\times \mathbb{R}^{d}  }\abs{x-y}d\pi_t(x,y)\\
+                                                                                              &\to 0
+  .\end{align*}
+  where $\pi_t \in  \Pi(\mu ^{N}(t),f(t,*) )$\\[1ex]
+  Since $\text{Lip}(\mathbb{R}^{d} )$ is dense in $C_{0}(\mathbb{R}^{d} )$ and because the total mass is 1, the above also holds for test functions in 
+  $\mathcal{C}_b(\mathbb{R}^{d} )$. Hence the weak convergence in measure is true. The fact that $\text{Lip}(\mathbb{R}^{d} )$ is dense in $\mathcal{C}_0$ 
+  can be obtained by using the mollification operator introduced in \autoref{mollification_operator}. More precisely we have to show that $\forall  \phi \in C_b^{\infty} $ it holds 
+  \begin{align*}
+    \int_{\mathbb{R}^{d} }\phi(x) d\mu ^{N}(t,x)  \xrightarrow{N\to \infty} \int_{\mathbb{R}^{d} }\phi(X)f(t,x)dx
+  .\end{align*}
+  Notice we have shown that the above convergence holds for all $\phi  \in  \text{Lip}(\mathbb{R}^{d} )$.\\[1ex]
+  For $\forall \phi  \in  \mathcal{C}_b^{\infty} $ and $\forall \epsilon > 0$ we choose $R>1$ s.t.
+  \begin{align*}
+    \frac{2 \|\phi \|_{L^{\infty}(\mathbb{R}^{d} ) }M_1}{R} \le  \frac{\epsilon}{2}
+  .\end{align*}
+  where $M_{1} = \int_{\mathbb{R}^{d} } \abs{x} d\mu ^{N}(t,x) $. Let $\phi_m \in \mathcal{C}_0^{\infty}(B_{2R}) $ be the approximation of $\phi $ on $B_{\frac{3R}{2}}$. This means
+  that $\exists  M > )$ such that for $\forall m > M$ it holds 
+  \begin{align*}
+    \|\phi_m - \phi \|_{L^{\infty}(B_R) } < \frac{\epsilon}{4}
+  .\end{align*}
+  Now we take $\phi_{M+1} \in  \mathcal{C}_0^{\infty}(B_{2R}) $ which is obviously Lipschitz continuous. Therefore the convergence 
+  holds. Then $\exists N_{1}>0$ such that $\forall  N > N_{1}$ we have 
+  \begin{align*}
+    \abs*{\int_{\mathbb{R}^{d} }\phi_{M+1}(x)(d\mu ^{N}(t,x) - f(t,x) )dx}< \frac{\epsilon}{4}
+  .\end{align*}
+  To summarize we obtain that 
+  \begin{alignat*}{3}
+    &\abs*{\int_{\mathbb{R}^{d} }\phi(x) d\mu ^{N}(t,x) - \int_{\mathbb{R}^{d} }\phi(x) f(t,x) dx} &&\le \abs*{\int_{B_R }\phi(x)(d\mu ^{N}(t,x) - f(t,x)dx ) } \\
+    & &&+\abs*{\int_{B_R^{c} } \phi(x)(d\mu ^{N}(t,x)-f(t,x)dx )}\\
+    & &&\le \abs*{\int_{B_R }\phi_{M+1}(x)(d\mu ^{N}(t,x) - f(t,x)dx ) } \\
+    & &&+ \abs*{\int_{B_R} (\phi_{M+1}(x)-\phi(x))(d\mu ^{N}(t,x)-f(t,x)dx )}\\
+    & &&+ \abs*{\int_{B^{c}_R }\abs{\phi(x)} \frac{\abs{x}}{R}(d\mu ^{N}(t,x) + f(t,x) dx)}\\
+    & &&< \frac{\epsilon}{4} + \|\phi_{M+1}-\phi \|_{L^{\infty}(B_R) } + \frac{2}{R}\|\phi \|_{L^{\infty}(\mathbb{R}^{d} ) }M_1\\
+    & &&< \frac{\epsilon}{4} +\frac{\epsilon}{4} +\frac{\epsilon}{2} \le \epsilon
+  .\end{alignat*}
+\end{proof}
+\hspace{0mm}\\[3ex]
+This concludes the chapter on the Mean-field Limit in the deterministic setting, we have thus far 
+reviewed the basics of relevant ODE Theory, introduced the Mean-Field particle system \hyperref[first_order_system]{(MPS)} and the 
+associated Mean-Field equation \hyperref[mfe]{(MFE)} and finished by proving a convergence
+result for the Mean-Field Limit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
