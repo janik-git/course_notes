@@ -1,0 +1,132 @@
+
+\begin{align*}
+  &\text{Leon Fiethen 1728330}\\
+ &\text{Janik Sperling 1728567}
+.\end{align*}
+\section*{Sheet 7}
+\subsection*{23}
+\begin{question}
+Suppose that $u \in  \mathcal{C}^2(\mathbb{R}^{2} )$ is harmonic with 
+critical point at $x_{0}$. Assume the Hessian of $u$ has non-zero determinant. Show 
+that $x_{0}$ is a saddle point. Explain the connection
+to the maximum principle  
+\end{question}
+\begin{solution}
+  Since $u \in  \mathcal{C}^2(\mathbb{R}^{2} )$  is harmonic and assume 
+  assume $x_{0}$ is a maximum, then by the maximum principle $u$ must be constant and $u' = 0$, 
+  therefore $H(u)$ must have 0 determinant too, for minima we argue that $x_{0}$ minima of $u$ implies
+  a maxima of $-u$ and the same argument applies. \\[1ex]
+  It follows if $u$ has a Hessian with non zero determinant it must have a saddle point at $x_{0}$
+\end{solution}
+\subsection*{24}
+Let $\Omega \subset  \mathbb{R}^{n} $ be an open and connected region. A continuous function $v : \overline{\Omega } \to \mathbb{R} $
+is called subharmonic if for all $x \in  \Omega $ and $r>0$ with $B(x,r) \subset  \Omega $ it lies below its spherical mean 
+\begin{align*}
+  v(x) \le  \mathcal{S}[v](x,r)
+.\end{align*}
+\begin{question}[a]
+ Prove that every subharmonic function obeys the maximum-principle i.e. 
+ if the maximum of $v$ can be found inside $\Omega $ then $v$ is constant
+\end{question}
+\begin{solution}
+ Suppose $x_{0} \in  \Omega $ is the maximum of $v$ then on a ball of radius $r>0$ around $x_{0}$ we have
+ \begin{align*}
+   0 \ge  v(x_{0}) - S[v](x_{0},r) = \frac{1}{C} \int_{\partial B(x_{0},r)} v(x_{0}) - v(y) d\sigma(y) \ge  0
+ .\end{align*}
+ As from $x_{0}$ maxima it follows that  for $\forall  y \in  B(x_{0},r)$ 
+ \begin{align*}
+  v(x_{0}) - v(y) \ge 0
+ .\end{align*}
+ We conclude that for all $y \in  \partial B(x_{0},r)$ 
+ \begin{align*}
+  v(x_{0}) = v(y)
+ .\end{align*}
+ Now suppose there exists $y_{1} \in B(x_{0},r)  $ such that $\abs{v(y_{1})-v(x_{0})} > 0$ then by continuity we have 
+ $\forall  x \in  B(y_{1},r)$ also (where $r>0$ is sufficiently small )$\abs{v(x)-v(x_{0})} > 0$ such that 
+ \begin{align*}
+   0 &< \frac{1}{C} \int_{B(y_{1},r)} v(x_{0}) - v(y) \\
+     &\le \frac{1}{C} \int_{B(y_{1},r)} S[v](x_{0},r) - v(y) d\mu(y)\\ &
+     = S[v](x_{0},r) - \frac{1}{C} \int_{B(y_{1},r)} v(y) d\mu(y)  
+ .\end{align*}
+ for $r \to 0$ we must have 
+ \begin{align*}
+   0 < S[v](x_{0},r) - \frac{1}{C} \int_{B(y_{1},r)} v(y) d\mu(y) \le x_{0}-y_{1} \ge  0
+ .\end{align*}
+ a contradiction.  (idk about this fully tbh). \\[1ex]
+ Now we know that if $v$ attains a maxima $x_{0}$ it must be constant on a small ball centered at $x_{0}$ with $r>0$. 
+ By compactness we can cover $\overline{\Omega }$  by finite many balls of radius $\frac{r}{2}>0$ 
+ \begin{align*}
+  B(\gamma_{1},\frac{r}{2}),\ldots ,B(\gamma_n,\frac{r}{2})
+ .\end{align*}
+ Pick $\gamma_{1} = x_{0}$ then v is constant on the first ball and the next center $\gamma_{2}$ must necessarily be contained in the ball 
+ $B(x_{0},r)$ such that $v$ is also constant on this ball, by repeating this argument we get that $v$ must be constant on all balls.
+\end{solution}
+\begin{question}[b]
+ Suppose that $v$ is twice continuous differentiable. Show that $v$ is subharmonic if and only 
+ if $- \Delta v \le 0$ in $\Omega$
+\end{question}
+\begin{solution}
+ Assume first that $-\Delta v \le 0$ in $\Omega$ and define 
+ \begin{align*}
+   \tilde{v}(r) = S[v(x)-v](x,r) 
+ .\end{align*}
+ for $x \in  \mathbb{R}$ then by the divergence theorem we get that 
+ \begin{align*}
+   \frac{d}{dr}\tilde{v}(r)  =  -\frac{1}{C} \int_{B(x,r)} \Delta v d\mu
+ .\end{align*}
+ By assumption 
+ \begin{align*}
+   \frac{d}{dr} \tilde{v}(r)  \le  0
+ .\end{align*}
+ Such that we must have for all $\tilde{r} \le r $
+ \begin{align*}
+   \tilde{v}(r) - \tilde{v}(\tilde{r}) \ge 0
+ .\end{align*}
+ But 
+ \begin{align*}
+   \tilde{v}(r) - \tilde{v}(\tilde{r})  &= v(x) - S[v](x,r) - (v(x) - S[v](x,\tilde{r})) \\
+                                          &= S[v](x,\tilde{r}) - S[v](x,r) 
+                                          &\le 0
+ .\end{align*}
+ i.e. 
+ \begin{align*}
+   S[v](x,\tilde{r}) \le S[v](x,r)
+ .\end{align*}
+ but by continuity of $v$ for $\tilde{r}\to 0$  we have
+ \begin{align*}
+   v(x) \le S[v](x,r)
+ .\end{align*}
+ We may extend this argument for $\forall  x \in  \Omega $ and $\tilde{r}>0$ such that $B(x,\tilde{r}) \subset  \Omega $ since we can cover
+ $\Omega $ by finite many $r$ Balls.\\[1ex]
+ Now assume $v$ is sub harmonic then we have for $x \in  \Omega $ and $\forall r>0$ such that
+ the ball $B(x,r) \subset  \Omega $ that
+ \begin{align*}
+   \tilde{v} \le  0 
+ .\end{align*}
+ and we get again by divergence theorem that 
+ \begin{align*}
+   \frac{d}{dr} \tilde{v} = \frac{1}{C} \int_{B(x,r)} - \Delta v(y) d\mu(y)
+ .\end{align*}
+ If $ - \Delta v > 0 $ on $B(x,r)$  then $\frac{d}{dr} \tilde{v}  > 0  $ and 
+ \begin{align*}
+   S[v](x,r) \le  S[v](x,\tilde{r} )
+ .\end{align*}
+ which is a contradiction if we take $\tilde{r} \to 0 $ idk cuh.
+\end{solution}
+\begin{question}[c]
+ Let $u : \overline{\Omega } \to  \mathbb{R} $  be a harmonic function. Show that $\|\nabla u\|^2$ is subharmonic
+\end{question}
+\begin{solution}
+ To show that 
+ \begin{align*}
+  v \coloneqq  \|\nabla u \|^2 \ : \ \overline{\Omega } \to  \mathbb{R} \ x \mapsto \|\nabla u(x)\|^2 
+ .\end{align*}
+ is subharmonic we show by (b)  $-\Delta v \le 0$ 
+ \begin{align*}
+   \Delta v =  \Delta \|\nabla v\|^2 &= \nabla * \nabla \|\nabla v\|^2 \\
+                                     &=  \sum_{j=1}^{n} \frac{\partial}{\partial x_j} * \sum_{i=1}^{n} \frac{\partial ^2 u}{\partial x_j \partial x_i}  \\
+ .\end{align*}
+ First recognize that 
+\end{solution}
+
+
