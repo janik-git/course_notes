@@ -366,6 +366,114 @@ This measure is called the distribution of X
  \begin{align*}
    \P(A | \mathcal{V}) = \E[\cha_A | \mathcal{V}]
  .\end{align*}
-Note the alternative notation $\chi_A \equiv \cha_A$
+Note the equivalent notation $\chi_A \equiv \cha_A$
 \end{remark}
+\begin{theorem}
+ Let $X$ be an integrable random variable, then for all $\sigma-$algebras $\mathcal{U} \subset  \mathcal{F}$  the 
+ conditional expectation $\E[X | \mathcal{U}]$ exists and is unique up to $\mathcal{U}-$measurable sets of probability
+ zero
+\end{theorem}
+\begin{proof}
+ Omit 
+\end{proof}
+\begin{theorem}[Properties Of Conditional Expectation]
+ \begin{enumerate}
+   \item If $X$ is $\mathcal{U}-$measurable then $\E[X|\mathcal{U}] = X$ a.s.
+   \item $\E[aX + bY|\mathcal{U}] = a\E[X|\mathcal{U}] + b \E[Y|\mathcal{Y}]$
+   \item If $X$ is $\mathcal{U}-$measurable and $XY$ is integrable then 
+     \begin{align*}
+       \E[XY|\mathcal{U}] = X \E[Y|\mathcal{Y}]
+     .\end{align*}
+   \item If $X$ is independent of $\mathcal{U}$ then $\E[X|\mathcal{U}] = \E[X]$ a.s.
+   \item If $\mathcal{W} \subset  \mathcal{U}$ are two $\sigma-$algebras then 
+     \begin{align*}
+       \E[X|\mathcal{W}] = \E[\E[X|\mathcal{U}]|\mathcal{W}] = \E[\E[X|\mathcal{W}]|\mathcal{U}] \text{ a.s.}
+     .\end{align*}
+   \item If $X\le Y$ a.s. then $\E[X|\mathcal{U}] \le \E[Y\mathcal{U}]$  a.s.
+ \end{enumerate} 
+\end{theorem}
+\begin{exercise}
+ Proof the above properties  
+\end{exercise}
+\begin{lemma}[Conditional Jensen's Inequality]
+  Suppose $\phi  : \mathbb{R}\to \mathbb{R}$ is convex and $\E[\phi(x)] < \infty$ then
+  \begin{align*}
+    \phi(\E[X|\mathcal{U}]) \le \E[\phi(X)|\mathcal{U}]
+  .\end{align*} 
+\end{lemma}
+\begin{exercise}
+ Proof the above Lemma 
+\end{exercise}
+\subsection{Stochastic Processes And Brownian Motion}
+\begin{definition}[Stochastic Process]
+ A stochastic process is a parameterized collection of random variables 
+ \begin{align*}
+   (X(t))_{t \in [0,T]} \ : [0,T] \times \Omega  \ : \ \ (t,\omega ) \mapsto X(t,\omega )
+ .\end{align*}
+ For $\forall  \omega  \in  \Omega $ the map 
+ \begin{align*}
+   X(*,\omega ) \ : \ [0,T] \to \mathbb{R}^{d}  \ : \ t \mapsto X(t,\omega )
+ .\end{align*}
+ is called sample path
+\end{definition}
+\begin{definition}[History]
+ Let $X(t)$ be a real valued process. The $\sigma-$algebra 
+ \begin{align*}
+  \mathcal{U}(t) \coloneqq  \mathcal{U}(X(s) \ | \ 0\le s\le t)
+ .\end{align*}
+ is called the history of $X$ until time $t\ge 0$
+\end{definition}
+\begin{definition}[Martingale]
+  Let $X(t)$ be a real valued process and $\E[\abs{X(t)}] < \infty$  for $\forall t \ge 0$
+  \begin{enumerate}
+    \item If $X(s) = \E[X(t)|\mathcal{U}(s)]$ a.s. $\forall  t \ge  s \ge  0$  then $X(*)$ is called a martingale
+    \item If $X(s) \lesseqqgtr  \E[X(t)|\mathcal{U}(s)]$ a.s. $\forall  t \ge  s \ge  0$  then $X(*)$ is called a (super) sub-martingale
+  \end{enumerate}
+\end{definition}
+\begin{lemma}
+  Suppose $X(*)$ is a real-valued martingale and $\phi  : \mathbb{R} \to  \mathbb{R}$ a convex function.
+  If $\E[\abs{\phi(X(t))}] < \infty $ for $\forall  t\ge 0$ then $\phi(X(*))$ is a sub-martingale
+\end{lemma}
+\begin{theorem}[Martingale-Inequalities]
+ Assume $X(*)$  is a process with continuous sample paths a.s. 
+ \begin{enumerate}
+   \item If $X(*)$ is a sub-martingale then $\forall  \lambda > 0$ , $t \ge 0$ it holds 
+     \begin{align*}
+       \P(\max_{0\le s\le t} X(s) \ge \lambda ) \le  \frac{1}{\lambda }\E[X(t)^{+} ]
+     .\end{align*}
+    \item If $X(*)$ is a martingale and $1 < p < \infty$ then
+      \begin{align*}
+        \E[\max_{0\le s\le t} \abs{X(s) }^{p} ] \le (\frac{p}{p-1})^{p} \E[\abs{X(t)}^{p} ]
+      .\end{align*}
+ \end{enumerate}
+\end{theorem}
+\begin{proof}
+ Omit 
+\end{proof}
+\subsection{Brownian Motion}
+\begin{definition}[Brownian Motion]
+ A real valued stochastic process $W(*)$ is called a Brownian motion 
+ or Wiener process if 
+ \begin{enumerate}
+   \item $W(0) = 0$ a.s.
+   \item $W(t)$ is continuous a.s.
+   \item $W(t) - W(s) \sim \mathcal{N}(0,t-s)$ for $\forall t\ge s\ge 0$
+   \item $\forall \ 0 < t_{1}<t_{2}<\ldots <t_n$ , $W(t_{1}),W(t_{2})-W(t_{1}),\ldots ,W(t_n)-W(t_{n-1})$ are independent 
+ \end{enumerate}
+\end{definition}
+\begin{remark}
+ One can derive directly that 
+ \begin{align*}
+   \E[W(t)] = 0 \quad \E[W^2(t)] = t \qquad \forall t \ge 0
+ .\end{align*}
+\end{remark}
+
+
+
+
+
+
+
+
+
 
