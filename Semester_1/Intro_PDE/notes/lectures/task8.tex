@@ -4,21 +4,30 @@
  &\text{Janik Sperling 1728567}
 .\end{align*}
 \section*{Sheet 7}
-\subsection*{23}
+\subsection*{23 Back in the saddle}
 \begin{question}
 Suppose that $u \in  \mathcal{C}^2(\mathbb{R}^{2} )$ is harmonic with 
-critical point at $x_{0}$. Assume the Hessian of $u$ has non-zero determinant. Show 
+critical point at $x_{0}$, Assume the Hessian of $u$ has non-zero determinant. Show 
 that $x_{0}$ is a saddle point. Explain the connection
 to the maximum principle  
 \end{question}
+By Ana I we know that $u$ has a saddle point if the eigenvalues of the hessian at $x_{0}$ are of opposing sign i.e.
+the determinant of $\det(H(u))\le 0$
 \begin{solution}
-  Since $u \in  \mathcal{C}^2(\mathbb{R}^{2} )$  is harmonic and assume 
-  assume $x_{0}$ is a maximum, then by the maximum principle $u$ must be constant and $u' = 0$, 
-  therefore $H(u)$ must have 0 determinant too, for minima we argue that $x_{0}$ minima of $u$ implies
-  a maxima of $-u$ and the same argument applies. \\[1ex]
-  It follows if $u$ has a Hessian with non zero determinant it must have a saddle point at $x_{0}$
+  \begin{align*}
+    \det(H(u))  =  \frac{\partial ^2 u}{\partial x^2}*\frac{\partial ^2 u}{\partial y^2} - \frac{\partial u}{\partial x \partial y}^2
+  .\end{align*}
+  Since u is harmonic
+  \begin{align*}
+   \frac{\partial ^2 u }{\partial x^2} + \frac{\partial ^2 u }{\partial y ^2}  = 0 \implies \frac{\partial ^2 u }{\partial x^2} = -\frac{\partial ^2 u }{\partial y ^2}
+  .\end{align*}
+  then we get 
+  \begin{align*}
+    \det(H(u)) =   \frac{\partial ^2 u}{\partial x^2}*\frac{\partial ^2 u}{\partial y^2} - \frac{\partial u}{\partial x \partial y}^2 = - (\frac{\partial ^2 u}{\partial x^2})^2 -  (\frac{\partial u}{\partial x \partial y})^2  \le 0
+  .\end{align*}
 \end{solution}
-\subsection*{24}
+\newpage
+\subsection*{24 Subharmonic Functions}
 Let $\Omega \subset  \mathbb{R}^{n} $ be an open and connected region. A continuous function $v : \overline{\Omega } \to \mathbb{R} $
 is called subharmonic if for all $x \in  \Omega $ and $r>0$ with $B(x,r) \subset  \Omega $ it lies below its spherical mean 
 \begin{align*}
@@ -31,36 +40,28 @@ is called subharmonic if for all $x \in  \Omega $ and $r>0$ with $B(x,r) \subset
 \begin{solution}
  Suppose $x_{0} \in  \Omega $ is the maximum of $v$ then on a ball of radius $r>0$ around $x_{0}$ we have
  \begin{align*}
-   0 \ge  v(x_{0}) - S[v](x_{0},r) = \frac{1}{C} \int_{\partial B(x_{0},r)} v(x_{0}) - v(y) d\sigma(y) \ge  0
- .\end{align*}
- As from $x_{0}$ maxima it follows that  for $\forall  y \in  B(x_{0},r)$ 
- \begin{align*}
-  v(x_{0}) - v(y) \ge 0
+   0 \ge  v(x_{0}) - S[v](x_{0},r) = \frac{1}{C} \int_{\partial B(x_{0},r)} \underbrace{v(x_{0}) - v(y)}_{v(x_{0})\text{ is max}} d\sigma(y) \ge  0
  .\end{align*}
  We conclude that for all $y \in  \partial B(x_{0},r)$ 
  \begin{align*}
   v(x_{0}) = v(y)
  .\end{align*}
- Now suppose there exists $y_{1} \in B(x_{0},r)  $ such that $\abs{v(y_{1})-v(x_{0})} > 0$ then by continuity we have 
- $\forall  x \in  B(y_{1},r)$ also (where $r>0$ is sufficiently small )$\abs{v(x)-v(x_{0})} > 0$ such that 
+ Now we want to extend this to the entire Ball $\forall y \in  B(x_{0},r)$ and then argue that we can cover 
+ $\Omega $ by Balls where this holds.\\[1ex]
+ We know that
  \begin{align*}
-   0 &< \frac{1}{C} \int_{B(y_{1},r)} v(x_{0}) - v(y) \\
-     &\le \frac{1}{C} \int_{B(y_{1},r)} S[v](x_{0},r) - v(y) d\mu(y)\\ &
-     = S[v](x_{0},r) - \frac{1}{C} \int_{B(y_{1},r)} v(y) d\mu(y)  
+   \int_{B(x_{0},\tilde{r} )} v(x_{0})-v(y) d\mu(y) = \int_0^{\tilde{r}} \int_{\partial B(x_{0},\tilde{r} )} v(x_{0})-v(y) d\sigma(y) dr  = 0
  .\end{align*}
- for $r \to 0$ we must have 
- \begin{align*}
-   0 < S[v](x_{0},r) - \frac{1}{C} \int_{B(y_{1},r)} v(y) d\mu(y) \le x_{0}-y_{1} \ge  0
- .\end{align*}
- a contradiction.  (idk about this fully tbh). \\[1ex]
+ We conclude $v$ is constant on the entire Ball $\forall y \in  B(x_{0},r)$ (and note our original argument didn't depend on the value of $r$ besides the ball being contained)\\[1ex]
  Now we know that if $v$ attains a maxima $x_{0}$ it must be constant on a small ball centered at $x_{0}$ with $r>0$. 
  By compactness we can cover $\overline{\Omega }$  by finite many balls of radius $\frac{r}{2}>0$ 
  \begin{align*}
   B(\gamma_{1},\frac{r}{2}),\ldots ,B(\gamma_n,\frac{r}{2})
  .\end{align*}
- Pick $\gamma_{1} = x_{0}$ then v is constant on the first ball and the next center $\gamma_{2}$ must necessarily be contained in the ball 
- $B(x_{0},r)$ such that $v$ is also constant on this ball, by repeating this argument we get that $v$ must be constant on all balls.
+ Pick $\gamma_{1} = x_{0}$ then v is constant on the first ball and the next center $\gamma_{2}$ is contained in the ball 
+ $B(x_{0},r)$ (otherwise relabel) such that $v$ is also constant on this ball, by repeating this argument we get that $v$ must be constant on all balls.
 \end{solution}
+\newpage
 \begin{question}[b]
  Suppose that $v$ is twice continuous differentiable. Show that $v$ is subharmonic if and only 
  if $- \Delta v \le 0$ in $\Omega$
@@ -80,53 +81,102 @@ is called subharmonic if for all $x \in  \Omega $ and $r>0$ with $B(x,r) \subset
  .\end{align*}
  Such that we must have for all $\tilde{r} \le r $
  \begin{align*}
-   \tilde{v}(r) - \tilde{v}(\tilde{r}) \ge 0
+   \tilde{v}(r) - \tilde{v}(\tilde{r}) \le  0
  .\end{align*}
  But 
  \begin{align*}
    \tilde{v}(r) - \tilde{v}(\tilde{r})  &= v(x) - S[v](x,r) - (v(x) - S[v](x,\tilde{r})) \\
-                                          &= S[v](x,\tilde{r}) - S[v](x,r) 
+                                          &= S[v](x,\tilde{r}) - S[v](x,r)\\
                                           &\le 0
  .\end{align*}
  i.e. 
  \begin{align*}
-   S[v](x,\tilde{r}) \le S[v](x,r)
+   S[v](x,\tilde{r} ) \le  S[v](x,r)
  .\end{align*}
- but by continuity of $v$ for $\tilde{r}\to 0$  we have
+ by continuity of $v$ for $\tilde{r}\to 0$  we have
  \begin{align*}
    v(x) \le S[v](x,r)
  .\end{align*}
- We may extend this argument for $\forall  x \in  \Omega $ and $\tilde{r}>0$ such that $B(x,\tilde{r}) \subset  \Omega $ since we can cover
- $\Omega $ by finite many $r$ Balls.\\[1ex]
- Now assume $v$ is sub harmonic then we have for $x \in  \Omega $ and $\forall r>0$ such that
- the ball $B(x,r) \subset  \Omega $ that
+ which is the sub-harmonic property \\[1ex]
+ Now for the case $v$ sub-harmonic implies $-\Delta v \le 0$ we do this by proving that 
+ $-\Delta v > 0 $ it follows $v$ not sub harmonic, but this just means we reverse all the inequalities above and make them strict
+ such that we get 
  \begin{align*}
-   \tilde{v} \le  0 
+   v(x) > S[v](x,r)
  .\end{align*}
- and we get again by divergence theorem that 
- \begin{align*}
-   \frac{d}{dr} \tilde{v} = \frac{1}{C} \int_{B(x,r)} - \Delta v(y) d\mu(y)
- .\end{align*}
- If $ - \Delta v > 0 $ on $B(x,r)$  then $\frac{d}{dr} \tilde{v}  > 0  $ and 
- \begin{align*}
-   S[v](x,r) \le  S[v](x,\tilde{r} )
- .\end{align*}
- which is a contradiction if we take $\tilde{r} \to 0 $ idk cuh.
+ i.e. $v$ is not sub-harmonic
 \end{solution}
 \begin{question}[c]
  Let $u : \overline{\Omega } \to  \mathbb{R} $  be a harmonic function. Show that $\|\nabla u\|^2$ is subharmonic
 \end{question}
 \begin{solution}
- To show that 
- \begin{align*}
-  v \coloneqq  \|\nabla u \|^2 \ : \ \overline{\Omega } \to  \mathbb{R} \ x \mapsto \|\nabla u(x)\|^2 
- .\end{align*}
- is subharmonic we show by (b)  $-\Delta v \le 0$ 
- \begin{align*}
-   \Delta v =  \Delta \|\nabla v\|^2 &= \nabla * \nabla \|\nabla v\|^2 \\
-                                     &=  \sum_{j=1}^{n} \frac{\partial}{\partial x_j} * \sum_{i=1}^{n} \frac{\partial ^2 u}{\partial x_j \partial x_i}  \\
- .\end{align*}
- First recognize that 
+  By the previous sheet we know that any partial derivative of a harmonic function is again harmonic such that 
+  \begin{align*}
+    \frac{\partial u}{\partial x_i}
+  .\end{align*}
+  is harmonic,by (d) we have that for any convex function $f \circ (\frac{\partial u}{\partial x_i})$   is subharmonic,
+  since $f(x) = x^2$ is convex, and the sum of sub-harmonic is trivially also sub-harmonic.
 \end{solution}
-
-
+\begin{question}[d]
+ Show that $f \circ u$  is sub-harmonic for any smooth convex function $f : \mathbb{R} \to \mathbb{R} $
+\end{question}
+\begin{solution}
+ We calculate 
+ \begin{align*}
+   \triangle f(u(x)) &= \sum_{i=1}^{n} \frac{\partial ^2 f}{\partial x_i^2}  \\
+                     &\myS{Chn.}{=} \sum_{i=1}^{n} \frac{\partial}{\partial x_i}(f'(u)*\frac{\partial u}{\partial x_i})\\
+                     &= \sum_{i=1}^{n} f^{''}(u) (\frac{\partial u}{\partial x_i})^2 + \sum_{i=1}^{n} f'(u)  \frac{\partial ^2 u}{\partial x_i^2}\\
+                     &= \sum_{i=1}^{n} C^{''}  (\frac{\partial u}{\partial x_i})^2 + \sum_{i=1}^{n} C^{'}  \frac{\partial ^2 u}{\partial x_i^2}  \\
+                     &= C^{''} \|\nabla u\|^2 + C^{'} \Delta u \ge 0  
+ .\end{align*}
+it follows $- \Delta f \le 0$  since $C'' \ge 0$
+\end{solution}
+\begin{question}[e]
+ Let $v_{1},v_{2}$  be two sub harmonic functions. Show that $v = \max(v_{1},v_{2})$ is sub harmonic 
+\end{question}
+\begin{solution}
+ We show this for $v_{1}$  for $v_{2}$  the process is analog 
+ \begin{align*}
+   v_{1}(x) \myS{Ass.}{\le } S[v_{1}](x,r) = \frac{1}{C} \int_{\partial B(x,r)} v_{1}(y) d\sigma(y) \le  \frac{1}{C} \int_{\partial B(x,r)}\max(v_{1},v_{2}) d\sigma(y) 
+ .\end{align*}
+ this implies 
+ \begin{align*}
+   \max(v_{1},v_{2})(x) \le  S[v](x,r)
+ .\end{align*}
+\end{solution}
+\subsection*{25. Never judge a book by its cover}
+Let $\Omega  \subset \mathbb{R}^{n} $ be an open ,connected and bounded subset and let 
+$f : \Omega  \to \mathbb{R}$ and $g_{1},g_{2} : \partial \Omega  \to \mathbb{R}$ be continuous functions.
+Consider then the two Dirichlet problems
+\begin{align*}
+  - \Delta u  = f \quad u \rvert_{\partial \Omega } = g_k
+.\end{align*}
+for $k=1,2$. Let $u_{1},u_{2}$ be respective solutions such that they are twice continuously differentiable
+on $\Omega $ and continuous on $\overline{\Omega } $. Show that if $g_{1}\le g_{2}$ on $\partial \Omega $ then $u_{1}\le u_{2}$ on Omega
+\begin{solution}
+ As always we take the difference of two solutions of the inhomogeneous equation and get a solution to the homogeneous problem i.e.
+ \begin{align*}
+  \tilde{u} = u_{1} - u_{2} 
+ .\end{align*}
+ is harmonic, such that we consider 
+ \begin{align*}
+   \int_{\partial \Omega } u_{1} - u_{2} d\sigma  = \int_{\partial \Omega } g_{1}-g_{2} d\sigma  \le  0 
+ .\end{align*}
+ By the Weak Maximum Principle (3.11) a harmonic function takes its maximum on the boundary this means that any $y \in  \Omega $ such that 
+ \begin{align*}
+  u_{1}(y) - u_{2}(y) \ge 0
+ .\end{align*}
+ presents a contradiction as $y$ would be the maxima. Thus we have on the entirety of $\Omega $ $u_{1}\le u_{2}$
+\end{solution}
+\subsection*{To be or not to be}
+\begin{question}
+  Consider the Dirichlet problem for the Laplace equation $\Delta u$ on $\Omega $ with $u = g$ on $\partial \Omega $, where
+$\Omega \subset  \mathbb{R}^{n} $ is an open and bounded subset and $g$ is a continuous function. We know from the weak
+maximum principle that there is at most one solution. In this question we see that for some domains, existence is not guaranteed.
+Consider $\Omega  = B(0,1) \setminus \{0\}  $, so that the boundary $\partial \Omega  = \partial B(0,1) \cup \{0\}  $ consists of two components.
+We write $g(x) = g_1(x)$ for $x \in  \partial B(0,1)$ and $g(0) = g_2$. Show that there does not exist a solution
+for $g_1(x) = 0$ and $g_2 = 1$.
+\end{question}
+\begin{solution}
+ Let $u$ be a solution then $u$ is harmonic and is bounded on 
+\end{solution}
