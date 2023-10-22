@@ -3,7 +3,7 @@
   &\text{Leon Fiethen 1728330}\\
  &\text{Janik Sperling 1728567}
 .\end{align*}
-\section*{Sheet 7}
+\section*{Sheet 8}
 \subsection*{23 Back in the saddle}
 \begin{question}
 Suppose that $u \in  \mathcal{C}^2(\mathbb{R}^{2} )$ is harmonic with 
@@ -129,7 +129,7 @@ is called subharmonic if for all $x \in  \Omega $ and $r>0$ with $B(x,r) \subset
                      &= \sum_{i=1}^{n} C^{''}  (\frac{\partial u}{\partial x_i})^2 + \sum_{i=1}^{n} C^{'}  \frac{\partial ^2 u}{\partial x_i^2}  \\
                      &= C^{''} \|\nabla u\|^2 + C^{'} \Delta u \ge 0  
  .\end{align*}
-it follows $- \Delta f \le 0$  since $C'' \ge 0$
+it follows by convexity of $f$ that  $- \Delta f \le 0$  
 \end{solution}
 \begin{question}[e]
  Let $v_{1},v_{2}$  be two sub harmonic functions. Show that $v = \max(v_{1},v_{2})$ is sub harmonic 
@@ -178,5 +178,8 @@ We write $g(x) = g_1(x)$ for $x \in  \partial B(0,1)$ and $g(0) = g_2$. Show tha
 for $g_1(x) = 0$ and $g_2 = 1$.
 \end{question}
 \begin{solution}
- Let $u$ be a solution then $u$ is harmonic and is bounded on 
+  We suppose a solution $u$ exists on $\Omega  = B(0,1) \setminus \{0\} $ with the hint we use Lemma 3.23 and get that $u$ extends as a harmonic function
+  on $\tilde{\Omega } = B(0,1) $, now we are in a similar case described below  3.14 where by the Initial condition we have $u \equiv 0 $ on $\partial \tilde{\Omega } \coloneqq  \partial B(0,1)  $
+  and know by the weak maximum principle that both minimum and maximum ($-u$ and $u$) on $\tilde{\Omega } $ is 0 i.e $u \equiv 0$ on all of $\tilde{\Omega } $, this is a direct contradiction to $g_{2}=1$ 
+  and no solution can exist.
 \end{solution}
