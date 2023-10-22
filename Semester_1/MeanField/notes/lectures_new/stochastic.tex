@@ -168,7 +168,7 @@ This measure is called the distribution of X
 \begin{example}
  Let $X$ be random variable with density function  $x \in  \mathbb{R}$
  \begin{align*}
-  f(x) = \frac{1}{\sqrt{2\pi \sigma ^2}e^{-\frac{\abs{x-m}^2}{2\sigma ^2}}  }
+ f(x) = \frac{1}{\sqrt{2\pi \sigma ^2}}e^{-\frac{\abs{x-m}^2}{2\sigma ^2}}  
  .\end{align*}
  then we say that $X$ has a Gaussian (or Normal) distribution with mean m and variance $\sigma^2$ and write
  \begin{align*}
@@ -176,7 +176,7 @@ This measure is called the distribution of X
  .\end{align*}
  Obviously 
  \begin{align*}
-   \int_{\mathbb{R}} xf(x) dx = m \qquad \int_{\mathbb{R}}\abs{x-m}^2f(x) dx = \sigma^2
+   \int_{\mathbb{R}} xf(x) dx = m \quad \text{ and } \quad \int_{\mathbb{R}}\abs{x-m}^2f(x) dx = \sigma^2
   .\end{align*}
 \end{example}
 \begin{definition}[Independent Events]
@@ -933,7 +933,7 @@ include the dimensionality as a subscript for clearness.
    dX^{i} &= F^{i} dt + \sum_{j=1}^{m} G^{ij} dW_t^i      \qquad 1\le i \le n
  .\end{align*}
 \end{definition}
-\begin{theorem}[Multi Dimensional Ito's formula]
+\begin{theorem}[Multi Dimensional It\^o's formula]
   We define the $n-$dimensional It\^o's formula for $u \in  \mathcal{C}^{2,1}(\mathbb{R}^{n} \times [0,T],\mathbb{R} ) $ by 
   \begin{align*}
     du(X(t),t) &= \frac{\partial u}{\partial t}(X(t),t) dt + \nabla u(X(t),t) * dX(t) \\
@@ -1031,7 +1031,7 @@ Where $u \in  \mathcal{M}(\mathbb{R}^{dN})$, then by It\^o's formula we get for 
   \phi(\mathbb{X}_N(t)) &=  \phi(\mathbb{X}_N(0)) + \int_0^{t} \nabla\phi  *\begin{pmatrix} \vdots \\ \frac{1}{n} \sum_{j=1}^{N} K(X_i,X_j) \\ \vdots  \end{pmatrix} \\
                         &+ \int_0^{t}  \Delta{\mathbb{X}_N} \phi  dt + \int_0^{t} \sqrt{2} \nabla \phi  dW_t^{i} 
 .\end{align*}
-Taking the expectation on both sides, then the last term disappears by definition of Ito processes 
+Taking the expectation on both sides, then the last term disappears by definition of It\^o processes 
 \begin{align*}
   \partial_t - \sum_{i=1}^{N} \Delta_i u  + \sum_{i=1}^{N} \nabla_{X_i} \left( \frac{1}{N} \sum_{j=1}^{N} K(X_i,X_j) u \right)  = 0
 .\end{align*}
@@ -1076,8 +1076,8 @@ The setup of the following section will be the following
  We say an $\mathbb{R}^{n}$-valued stochastic process $X(*)$ is a solution of the SDE if 
  \begin{enumerate}
   \item $X_t$ is progressively measurable w.r.t $\mathcal{F}_t$
-  \item (drift) $F\coloneqq b(X_t,t) \in  L_{n}^{1}([0,T]) \ \Leftrightarrow \  \int_0^{t} \E[F_s] ds < \infty $ 
-  \item (diffusion) $G\coloneqq B(X_t,t) \in  L_{n \times m}^{2}([0,T]) \Leftrightarrow \  \int_0^{t} \E[\abs{G_s}^2] ds < \infty $ 
+  \item (drift) $F\coloneqq b(X_t,t) \in  \mathbb{L}_{n}^{1}([0,T]) \ \Leftrightarrow \  \int_0^{t} \E[F_s] ds < \infty $ 
+  \item (diffusion) $G\coloneqq B(X_t,t) \in  \mathbb{L}_{n \times m}^{2}([0,T]) \Leftrightarrow \  \int_0^{t} \E[\abs{G_s}^2] ds < \infty $ 
  \end{enumerate}
 \end{definition}
 \begin{remark}
@@ -1120,9 +1120,9 @@ for a solution to be unique
   \begin{align*}
     X_t - \tilde{X}_t = \int_0^{t} (b(X_s,s) - b(\tilde{X}_s,s )) ds + \int_0^{t} B(X_s,s) - B(\tilde{X}(s),s )  dW_s
   .\end{align*}
-  If the diffusion term were to be 0 we could use a Grönwall type inequality and get the uniqueness. 
-  To work with the diffusion term we consider the square of the above and apply Itos isometry. Note that
-  generally $\abs{a+b}^2 \nleqslant  (a^2+b^2)$  which is why we need the extra 2.
+  If the diffusion term were 0 we could use a Grönwall type inequality and get the uniqueness.\\[1ex]
+  Instead we consider the square of the above and apply It\^os isometry. Note that
+  generally $\abs{a+b}^2 \nleqslant  (a^2+b^2)$  but  $\abs{a+b}^2 \le  2(a^2+b^2)$
   \begin{align*}
     \abs{X_t - \tilde{X}_t}^2 \le  2\abs{\int_0^{t} (b(X_s,s) - b(\tilde{X}_s,s )) ds}^2 + \abs{\int_0^{t} B(X_s,s) - B(\tilde{X}(s),s )  dW_s}^2
   .\end{align*}
@@ -1319,7 +1319,6 @@ for a solution to be unique
 \begin{proof}
  Refer to literature 
 \end{proof}
-We can now define the Stochastic Empirical measure  
 \begin{definition}[Empirical Measure (Stochastic version)]
   For a set of  random variables $(X_i)_{i\le N}$  we define the (random) empirical measure 
   \begin{align*}
