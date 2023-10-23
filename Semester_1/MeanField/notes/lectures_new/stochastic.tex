@@ -1108,7 +1108,7 @@ for a solution to be unique
     \abs{b(x,t) - b(\tilde{x},t )} +  \abs{B(x ,t) - B(\tilde{x},t )} \le  L \abs{x - \tilde{x} }
   .\end{align*}
 \end{remark}
-\begin{theorem}[Existence and Uniqueness of Solution]
+\begin{theorem}[Existence and Uniqueness of Solution]\label{sde_solution_theorem}
   Let \autoref{assumption_sde_sol} hold for an \nameref{(SDE)} and assume the initial data $X_0$ is  
   square integrable and independent of $W^{t}(0)$.
   Then there exists a unique solution $X \in  \mathbb{L}^2_n([0,T])$ of the \nameref{sde}.
@@ -1237,9 +1237,13 @@ for a solution to be unique
                            &\le  C* e^{Ct} 
    .\end{align*}
    Where we used $\E[X_{0}] = 0$ ,the  linear growth condition for the first integral and It\^o isometry for the second and then again the linear growth condition\\[1ex]
-    Using the above we conclude
+    Using the above we conclude by Fatous's lemma
     \begin{align*}
-      \E[\abs{X_t}^2] = \E[\abs{X_t + X_t^n -X_t^n}^2] \le  2\E[\abs{X_t - X_t^n}^2] + 2\E[\abs{X_t^n}^2] < \infty
+      \E[\abs{X_t}^2] = \E[\lim_{n\to \infty} \abs{X^{n+1}_t }]  \le  \liminf_{n\to \infty} \E[\abs{X^{n+1}_t }^2] \le C*e^{Ct} 
+    .\end{align*}
+    Therefore 
+    \begin{align*}
+      \int_0^{T} \E[\abs{X(t)}^2]  \le  CT*e^{CT} 
     .\end{align*}
 \end{proof}
 \begin{remark}
@@ -1319,7 +1323,7 @@ for a solution to be unique
 \begin{proof}
  Refer to literature 
 \end{proof}
-\begin{definition}[Empirical Measure (Stochastic version)]
+\begin{definition}[Empirical Measure (Stochastic version)]\label{empirical_stochastic}
   For a set of  random variables $(X_i)_{i\le N}$  we define the (random) empirical measure 
   \begin{align*}
     \mu_n = \frac{1}{N}\sum_{i=1}^{N} \delta_{X_i} 
@@ -1327,7 +1331,7 @@ for a solution to be unique
 \end{definition}
 Point wise this definition coincides with the deterministic case.
 \begin{corollary}
-  If  $X_i$ are i.i.d random variables with law $\mu_{X}$ then  $\forall  \ f \in  \mathcal{C}_b(\mathbb{R}^{d} ) $ it holds that
+  If  $(X_i)_{i \in  \{1,\ldots ,N\}  }$ are i.i.d random variables with law $\mu_{X}$ then  $\forall  \ f \in  \mathcal{C}_b(\mathbb{R}^{d} ) $ it holds that
   \begin{align*}
     \P(\lim_{N \to \infty} \int  f d \mu_N = \int f d\mu ) = 1
   .\end{align*}
@@ -1335,7 +1339,7 @@ Point wise this definition coincides with the deterministic case.
 Actually one can prove that the choice of $f \in  \mathcal{C}_b$ does not matter for the convergence 
 We get the stronger corollary
 \begin{corollary}
-  If  $X_i$ are i.i.d random variables with law $\mu_{X}$ then  it holds that
+  If  $(X_i)_{i \in  \{1,\ldots ,N\}  }$ are i.i.d random variables with law $\mu_{X}$ then  it holds that
 \begin{align*}
   \P(\mu_N \rightharpoonup \mu ) = 1
 .\end{align*}
@@ -1357,8 +1361,8 @@ Remembering the definition of the Wasserstein distance
   .\end{align*}
   Where  
   \begin{align*}
-    \Pi(\mu ,\nu ) = \{\pi \in \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) : &\int_{\mathbb{R}^{d}\times E } \pi(dx,dy) = \nu(E) \\
-                                                                                      &\int_{E \times  \mathbb{R}^{d} } \pi(dx,dy) = \mu(E)\}  
+    \Pi(\mu ,\nu ) = \Bigg\{\pi \in \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) : &\int_{\mathbb{R}^{d}\times E } \pi(dx,dy) = \nu(E) \\
+                                                                                      &\int_{E \times  \mathbb{R}^{d} } \pi(dx,dy) = \mu(E)\Bigg\}  
   .\end{align*}
   then the following convergences are equivalent
   \begin{enumerate}
@@ -1370,8 +1374,32 @@ Remembering the definition of the Wasserstein distance
     \item $\mu_n \rightharpoonup \mu $
   \end{enumerate}
 \end{definition}
-\begin{corollary}
- If $X_i$  are i.i.d random variables with law $\mu_X$ and $\int \abs{x}^{p} \mu  < \infty $ then
+\newpage
+\begin{definition}[General Dominated Convergence]
+ One does not need to find a bounding function and instead it is enough to prove uniform integrability  
+\end{definition}
+\begin{lemma}[De La Valle Poisson Criterion]\label{de_la_valle}
+ A sequence of random variables $(X_i)$  is uniformly integrable iff there 
+ $\exists \phi $ convex with
+ \begin{align*}
+   \lim_{x \to \infty} \frac{\phi(x)}{x} = \infty
+ .\end{align*}
+s.t.
+\begin{align*}
+ \sup_i \E[\phi(\abs{X_i})] < \infty
+.\end{align*}
+\end{lemma}
+\begin{proof}
+  As the construction of $\phi $ is heavily technical we refer to xyz
+\end{proof}
+\begin{remark}
+ In general uniform integrability means that 
+ \begin{align*}
+   \lim_{r \to  \infty} \sup_i \E[\abs{X_i}*\cha_{\abs{X_i}\ge r}] = 0
+ .\end{align*}
+\end{remark}
+\begin{corollary}\label{wasserstein_convergence_arb}
+  If $(X_i)_{i \in \{1,\ldots ,N\}  }$  are i.i.d random variables with law $\mu_X$ and $\int \abs{x}^{p} \mu  < \infty $ i.e $\mu  \in  \mathcal{P}^p(\mathbb{R}^{d} ) $
  \begin{align*} 
  W_p(\mu_N,\mu ) \to  0 \qquad \text{ a.s.}
  .\end{align*}
@@ -1384,3 +1412,170 @@ Remembering the definition of the Wasserstein distance
    \mu_N = \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i} 
  .\end{align*}
 \end{corollary}
+\begin{proof}
+ Remember that the following convergences are equivalent 
+ \begin{enumerate}
+   \item $W_p(\mu_N,\mu ) \to 0$
+   \item $\mu_N \rightharpoonup \mu $ and $\int \abs{x}^{p} d\mu_N \to \int \abs{x}^{p} d\mu   $
+   \item $\mu_n \rightharpoonup \mu $ and $\lim_{n\to \infty} \sup_r \int_{\abs{x} \ge r} \abs{x}^p d\mu_N = 0$
+ \end{enumerate}
+ Note that if we fix a.s. $\omega $ then we can treat this as the deterministic case. \\[1ex]
+ We already know that 
+ \begin{align*}
+  \mu_N \rightharpoonup \mu \text{ a.s.}
+ .\end{align*}
+ it remains to show 
+ \begin{align*}
+   \int \abs{x}^{p} d\mu_N   &= \frac{1}{N}\sum_{i=1}^{N} \abs{X_i}^{p}  \xrightarrow{LLN} \E[\abs{X_i}^{p} ] < \infty
+ .\end{align*}
+ since $(X_i)$ are i.i.d then $\abs{X_i}^{p} $ is also i.i.d  and we use the Law of large numbers\\
+ And we get a.s. that $W_p(\mu_N,\mu ) \to  0$, we can even show the stronger statement 
+ \begin{align*}
+   \E[W^{p}(\mu_n,\mu ) ] \to  0
+ .\end{align*}
+First note that  
+ \begin{align*}
+   W_p^{p}(\mu_N,\mu )  &\le  2^{p-1} (W^{p}_p(\mu_N,\delta_0)  + W_p^{p}(\delta_0,\mu )) \\
+                        &= 2^{p-1} (\frac{1}{N} \sum_{i=1}^{N}   \abs{X_i}^{p}  + W_p^{p}(\delta_0,\mu ))
+ .\end{align*}
+ then it is sufficient to show the uniform integrability of the first part 
+ \begin{align*}
+  \frac{1}{N}\sum_{i=1}^{N} \abs{X_i}^{p}  
+ .\end{align*}
+ Since $\abs{X_i}^{p} $ is integrable then there exists a convex function  $\phi $ with $\lim_{x \to \infty} \frac{\phi(x)}{x} = \infty$ and 
+ \begin{align*}
+   \E[\phi(\abs{X_i}^{p} )] < \infty
+ .\end{align*}
+ Then we want to show  
+ \begin{align*}
+   \sup_N \E[\phi \left(\frac{1}{N}\sum_{i=1}^{N} \abs{X_i}^{p}\right)  ]  \myS{Jen.}{\le } \sup_N \sum_{i=1}^{N}\E[\phi (\abs{X_i}^{p} )] =  \E[\phi(\abs{X_i}^{p} )] < \infty
+ .\end{align*}
+ Using \autoref{de_la_valle} we get the uniform integrability and we conclude 
+ \begin{align*}
+   \E[W_p^{p}(\mu_N,\mu ) ]\to 0
+ .\end{align*}
+\end{proof}
+All the above statement apply to arbitrary i.i.d sequences of random variables, in our Mean-Field-Limit we only get 
+the i.i.d property at $t=0$, we seek to prove that as $N \to \infty$ we nonetheless get a convergence.\\[1ex]
+\begin{definition}[Stochastic Particle System ]\label{sden}
+  For $N$ interacting particles $(X^{1} ,\ldots ,X^{N} )$ and initial data $(X_i^{N}(0))_{i \in  \{1,\ldots ,N\}  } \subset  L^2(\Omega) $
+\begin{align*}
+  \text{(SDEN)}\begin{cases}
+    d X_i^{N}(t) &=   b(X_i^{N}(t) , \mu_N(t) )dt + \sigma(X_i(t)^{N},\mu_N(t))dW^{i}_t \\
+    X_i^{N}(0) &= X_{i,0}^{N}   \text{ i.i.d with law } \mu_0
+  \end{cases}
+.\end{align*}
+Where $\mu_N$ is the empirical measure \autoref{empirical_stochastic}, for our initial data we already have
+\begin{align*}
+  \E[W_2^{2}(\mu_N(0),\mu_0) ] \to  0
+.\end{align*}
+\end{definition}
+\begin{remark}
+  The dimensions for our Stochastic-Particle-System are the same as in \autoref{sde}
+\end{remark}
+\begin{remark}
+ Our goal is to also prove the convergence 
+ \begin{align*}
+   \E[\sup_{\abs{t}} W_2^{2}(\mu_N(t),\mu(t))  ] \to 0
+ .\end{align*}
+\end{remark}
+Let us once again consider our toy model given by 
+\begin{example}[Stochastic Toy Model]
+ We take the following drift and diffusion terms as a simplification
+ \begin{align*}
+   b(X,\mu )&= \nabla V \star  \mu(X)\\
+   \sigma(X,\mu ) &= \sigma_0 >0
+ .\end{align*}
+ The first step is to consider a solution of the \hyperref[sden]{(SDEN)} for fixed $N$, such that 
+ $b$ and $\sigma$ are Lipschitz continuous  i.e $\exists  L >0$ s.t.
+ \begin{align*}
+  &\abs{b(X,\mu ) - b(\tilde{X},\tilde{\mu }  )} + \abs{\sigma(X,\mu ) - \sigma(\tilde{X},\tilde{\mu }  )} \\
+  &\le  L \left( \abs{X - \tilde{X} } + W_2(\mu ,\tilde{\mu } ) \right) 
+ .\end{align*}
+  And furthermore  assume that $\nabla V $ is Lipschitz continuous
+  \begin{align*}
+    \abs{b(X,\mu ) - b(\tilde{X},\tilde{\mu }  )} &= \abs*{\int \nabla V(X-y) d\mu(y) - \int  \nabla V(\tilde{X}-y ) d \tilde{\mu }(y) }\\
+                                                  &\ge \int \abs{\nabla V(X-y) - \nabla V(\tilde{X}-y )}d\mu (y) + \abs*{\int \nabla V(\tilde{X - y}(d\mu(y) - d \tilde{\mu }(y) ) )}\\
+                                                  &\myS{Lip.}{\le }L*\abs{X - \tilde{X} } + LW_1(\mu ,\tilde{\mu } ) \\
+                                                  &\le L*(\abs{X-\tilde{X} } + W_2(\mu,\tilde{\mu } ))
+  .\end{align*}
+  under the above assumptions for $b$ and $\sigma $ the problem \hyperref[sden]{(SDEN)} has a unique strong solution 
+  in $\mathbb{L}^{2}_{dN}([0,T]) $\\[1ex]
+\end{example}
+\begin{proof}
+  First note $\mathbb{X} = (X_1^{N},\ldots ,X_N^{N}  ) \in  \mathbb{R}^{dn} $ and $\mathbb{W} = (W^{1},\ldots ,W^{N}  )$ then 
+  \begin{align*}
+    B(\mathbb{X}) = \begin{pmatrix} \vdots \\ b(X_i^{N},\frac{1}{N}\sum_{k=1}^{N}  \delta_{X_k} ) \end{pmatrix}_{dN}  \qquad \text{diag}(\Sigma(\mathbb{X})) = \begin{pmatrix} \delta(X_1,\frac{1}{N}\sum_{k=1}^{N} \delta_{X_k} ), \ldots \delta(X_N,\frac{1}{N}\sum_{k=1}^{N} \delta_{X_k} ) \end{pmatrix}_{dN \times mN}
+  .\end{align*}
+  Then our SDE is given by 
+  \begin{align*}
+    d \mathbb{X}(t) = B(\mathbb{X}(t)) dt + \Sigma(\mathbb{X}(t)) d \mathbb{W}_t
+  .\end{align*}
+  We need to check that $B$ and $\Sigma $ satisfy \autoref{assumption_sde_sol} 
+  \begin{align*}
+    \abs{B(\mathbb{X})-B(\mathbb{Y})}_{\mathbb{R}^{dn} }^2  &= \sum_{j=1}^{N} \abs{X_j,\frac{1}{N}\sum_{k=1}^{N} \delta_{X_k}  - b(Y_j,\frac{1}{N}\sum_{k=1}^{N} \delta_{Y_k} )}  \\
+                                                            &\le \sum_{j=1}^{N} 2L^2 \left( \abs{X_j-Y_j}^2  + W_2^2(\mu_N(X),\mu_N(Y))\right)   \\
+                                                            &\le  4L^2 \|\mathbb{X} - \mathbb{Y}\|^2 
+  .\end{align*}
+  For $\Sigma $ the argument is analog ,where for the Wasserstein distance we used 
+  \begin{align*}
+    \pi  = \frac{1}{N} \sum_{k=1}^{N} \delta_{(X_k,Y_k)}  \in  \Pi
+  .\end{align*}
+  then  the Wasserstein distance is given by and one can simplify further till they get the result
+  \begin{align*}
+   \frac{1}{N}\sum_{k=1}^{N} \abs{X_k-Y_k}^2  
+  .\end{align*}
+  Then by \autoref{sde_solution_theorem} we get a solution $X \in  L^2([0,T])$ for fixed $N$\\[1ex]
+  As $N \to \infty$ we expect to get the following 
+  \begin{align*}
+    \begin{cases}
+      dY^{i}(t) &= b(Y^{i}(t) ,\mu(t) ) dt + \sigma(Y^{i}(t),\mu(t) )dW_t^i \\
+      Y^{i}(0)  &=  X_{i,0}^{N} \in  L^2(\Omega ) \text{ i.i.d} 
+    \end{cases}
+  .\end{align*}
+  In fact since the above system beyond the initial data is independent of $N$ we may consider the simplified equation
+  called Makean-Vlasov equation which is a non-linear non-local SDE
+  \begin{align*}
+    \begin{cases}
+      dY(t) &= b(Y(t) ,\mu(t) ) dt + \sigma(Y(t),\mu(t) )dW_t^i \\
+      Y(0)  &=  \xi \in  L^2(\Omega ) \text{ i.i.d} 
+    \end{cases}
+  .\end{align*}
+\end{proof}
+\begin{exercise}
+ Think about what happens if the initial data is i.i.d but the diffusion term is 0 
+\end{exercise}
+\begin{remark}
+ Note that the fact that 
+ \begin{align*}
+   W_1(\mu ,\tilde{\mu } ) \le  W_{2}(\mu ,\tilde{\mu } )
+ .\end{align*}
+ follows naturally by Hölders inequality, in fact this holds for all $p>q$
+  \begin{align*}
+   W_q(\mu ,\tilde{\mu } ) \le  W_{p}(\mu ,\tilde{\mu } )
+ .\end{align*}
+\end{remark}
+\begin{remark}
+ To study such Makean-Vlasov equations we consider a more general setting i.e. 
+ we use the sample path space $\mathcal{C}^{d} = \mathcal{C}([0,T];\mathbb{R}^{d} ) $, this means from now on
+ all the random variables are given as maps 
+ \begin{align*}
+   X : \Omega_{\text{a.s.}}  \to  \mathcal{C}^{d} 
+ .\end{align*}
+ we equip $\mathcal{C}^{d} $ with the norm 
+ \begin{align*}
+   \|X\|_{T} =  \sup_{0\le t\le T} \abs{X(t)}
+ .\end{align*}
+ the norm $\|*\|_T$ induces a $\sigma$-algebra on $\mathcal{C}^{d} $
+\end{remark}
+We can define a measures $\mu  \in  \mathcal{P}^2(\mathcal{C}^{d} ) \to  (\mu(t))_{t \in  [0,T]} \in  \mathcal{C}([0,T],\mathcal{P}^2(\mathbb{R}^{d} ))$.
+And we can define for arbitrary measures $\mu ,\tilde{\mu } \in  \mathcal{P}^2(\mathcal{C}^{d} ) $ the Wasserstein distance by
+\begin{align*}
+  \sup_{t \in  [0,T]} W_{\mathbb{R}^{d},2 }(\mu(t),\tilde{\mu }(t) ) \le  W_{\mathcal{C}^{d},2 } (\mu ,\tilde{\mu } )
+.\end{align*}
+\begin{exercise}
+ Consider what it means for $\mu  \in  \mathcal{P}^2(\mathcal{C}^{d} )$  i.e show that in fact 
+ \begin{align*}
+  \mu(t) \in  \mathcal{P}^2()
+ .\end{align*}
+\end{exercise}
