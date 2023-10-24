@@ -54,7 +54,7 @@ Then our stochastic particle system is given by,
     X_i^{N}(0) &= X_{i,0}^{N}   
   \end{cases}
 .\end{align*}
-Where $\mu_N$ is the stochastic empirical measure
+Where $\mu_N$ is the stochastic empirical measure and note $\mathcal{L}(X_{0}) = \mu_0$
 \end{definition}
 \begin{remark}
   The dimensions for our Stochastic-Particle-System are the same as in \autoref{sde}
@@ -200,7 +200,7 @@ the i.i.d property at $t=0$ such that we seek to prove that even as $N \to \inft
 \subsection{Toy Example}
 Let us first consider a simple stochastic particle system given by 
 \begin{assumption}\label{sde_solution_assumption_strong}
-Assume drift and diffusion $b,\sigma $   are Lipschitz continuous i.e. $\exists  L >0$ s.t.
+Assume drift  $b : \mathbb{R}^{d} \times  \mathcal{P}^2(\mathbb{R}^{d} ) \to  \mathbb{R}^{d} $ and diffusion $\sigma : \mathbb{R}^{d} \times  \mathcal{P}^2(\mathbb{R}^{d} ) \to \mathbb{R}^{d \times  m}  $   are Lipschitz continuous i.e. $\exists  L >0$ s.t.
  \begin{align*}
   \abs{b(X,\mu ) - b(\tilde{X},\tilde{\mu }  )} + \abs{\sigma(X,\mu ) - \sigma(\tilde{X},\tilde{\mu }  )} \le  L \left( \abs{X - \tilde{X} } + W_2(\mu ,\tilde{\mu } ) \right) 
  .\end{align*}
@@ -278,7 +278,7 @@ this equation is called Makean-Vlasov equation which is a non-linear non-local S
 \begin{definition}[Makean-Vlasov Equation]
   The following non-linear and non-local SDE is called Makean-Vlasov Equation 
 \begin{align*}
-    \begin{cases}
+    \text{(MVE)} \begin{cases}
       dY(t) &= b(Y(t) ,\mu(t) ) dt + \sigma(Y(t),\mu(t) )dW_t^i \\
       Y(0)  &=  \xi \in  L^2(\Omega ) \text{ i.i.d} 
     \end{cases}
@@ -304,16 +304,178 @@ this equation is called Makean-Vlasov equation which is a non-linear non-local S
  \begin{align*}
    \mu  \coloneqq  (\mu(t))_{t \in  [0,T]} \qquad \mu(t)
  .\end{align*}
+ and by using the function 
+ \begin{align*}
+  l_t : \mathcal{C}^{d} \to  \mathbb{R}^{d} \ X \mapsto X(t)  
+ .\end{align*}
+ then we get a measure on $\mathbb{R}^{d} $ by using the pushforward
+ \begin{align*}
+  \mu_t \coloneqq \mathcal{B} \to \mathbb{R}^{d}   \ A \mapsto \mu(l^{-1}_t(A) )
+ .\end{align*}
 \end{definition}
-\begin{definition}[Wasserstein Distance]
+
+\begin{definition}[Wasserstein Distance]\label{c_d_wasserstein}
 And we can define for arbitrary measures $\mu ,\tilde{\mu } \in  \mathcal{P}^2(\mathcal{C}^{d} ) $ the Wasserstein distance by
 \begin{align*}
   \sup_{t \in  [0,T]} W_{\mathbb{R}^{d},2 }(\mu(t),\tilde{\mu }(t) ) \le  W_{\mathcal{C}^{d},2 } (\mu ,\tilde{\mu } )
 .\end{align*}
+Where 
+\begin{align*}
+  W_{\mathcal{C}^{d},2 }(\mu ,\tilde{\mu } ) = \inf_{\pi  \in  \Pi(\mu ,\tilde{\mu } )} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \|x-y \|^2 d\pi(x,y)
+.\end{align*}
 \end{definition}
-\begin{exercise}
- Consider what it means for $\mu  \in  \mathcal{P}^2(\mathcal{C}^{d} )$  i.e show that in fact 
+\begin{remark}
+ Note that
  \begin{align*}
-  \mu(t) \in  \mathcal{P}^2()
+   \int_{\mathcal{C}^{d} } f(x) d\mu(x) = \int_{\mathbb{R}^{d} }  f(x(t)) d\mu_t
  .\end{align*}
-\end{exercise}
+\end{remark}
+\begin{theorem}[Unique and Existence of Solution for Makean-Vlasov]\label{solution_vlasov}
+  If $b$ and $\sigma $ satisfy \autoref{sde_solution_assumption_strong} then MVE has a unique and strong solution
+  $Y \in  \mathbb{L}^2([0,T])$ and $\mu  \in  \mathcal{L}(Y)$
+\end{theorem}
+\begin{proof}
+ We use the notation 
+ \begin{align*}
+   d_t^2 =  \inf_{\pi  \in  \Pi(\mu,\tilde{\mu } )} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  }\|x-y\|^2_t d\pi(x,y)
+ .\end{align*}
+ For any given $\mu  \in \mathcal{P}^2(\mathcal{C}^{d} )$ we consider the following SDE 
+ \begin{align*}
+   \begin{cases} 
+   dY^{\mu } (t) &= b(Y^{\mu} (t),\mu(t))dt + \sigma(Y^{\mu } (t),\mu(t))dW_t\\
+    Y(0)   & \xi \in  L^2(\Omega)
+   \end{cases}
+ .\end{align*}
+ Let $\phi(\mu ) = \mathcal{L}(Y^{\mu } ) $ be the law of $Y^{\mu} $. \\[1ex]
+ For the existence  and the uniqueness of $Y^{\mu } $ we need to check 
+ \begin{align*}
+   \abs{b(x,\mu(t)) - b(\tilde{x},\mu(t) )} + \abs{\sigma(x,\mu(t)) - \sigma(\tilde{x},\mu(t))} \le  L \abs{x-\tilde{x} }
+ .\end{align*}
+ Since it is the same measure the Wasserstein distance is 0 and the above is true by \autoref{sde_solution_assumption_strong}.\\
+ If $\phi $ has a fixpoint $\overline{\mu } $, then $\overline{\mu } $ is the solution of MVE.
+ We prove this by first bounding the difference between two measures, let $\mu ,\tilde{\mu }$ be arbitrary given measure i n
+ $\mathcal{P}^2(\mathcal{C}^{d} )$, first note
+ \begin{align*}
+  Y^{\mu }(t) - \xi = \int_0^{t} b(Y^{\mu }(s),\mu(s) ) ds + \int_0^{t} \sigma(Y^{\mu }(s),\mu(s) ) dW_s \qquad \mu= \mu,\tilde{\mu} 
+ .\end{align*}
+ then by taking the difference 
+ \begin{align*}
+   &\sup_{0\le t \le \tau }\abs{Y^{\mu }(t) - Y^{\tilde{\mu } }(t)}^2 \\
+   &= \sup_{0\le t \le s}\abs*{\int_0^{t} b(Y^{\mu }(s),\mu(s) )- b(Y^{\tilde{\mu}}(s),\tilde{\mu}(s) ) ds + \int_0^{t} \sigma(Y^{\mu }(s),\mu(s) ) - \sigma (Y^{\tilde{\mu}}(s),\tilde{\mu}(s) ) dW_s}^2\\
+   &\le \sup_{0\le t \le \tau } 2t \int_0^{t} \abs{b(Y^{\mu }(s),\mu(s) )- b(Y^{\tilde{\mu}}(s),\tilde{\mu}(s) )}^2 ds \\
+   &+ \sup_{0\le t \le \tau }2 \abs*{\int_0^{t} \sigma(Y^{\mu }(s),\mu(s) ) - \sigma (Y^{\tilde{\mu}}(s),\tilde{\mu}(s) ) dW_s}^2 \\
+ .\end{align*}
+ Now taking the expectation 
+ \begin{align*}
+   &\E[\sup_{0\le t \le \tau }\abs{Y^{\mu }(t) - Y^{\tilde{\mu } }(t)}^2] \\
+   &\le 4\tau  L^2 \E\left[\int_0^{\tau } \abs{Y^{\mu }(s) - Y^{\tilde{\mu } }(s)  }^2 + W_2^2(\mu(s) ,\tilde{\mu}(s) ) ds \right]\\
+   &+ 16 L^2 \E[\int_0^{\tau } \abs{Y^{\mu}(s) - Y^{\tilde{\mu } }(s)  }^2 + W_2^2(\mu(s),\tilde{\mu }(s) )  ds]
+ .\end{align*}
+ Where we used Doobs-$L^{p} $ inequality for the second term.
+ \begin{align*}
+   &\E[\sup_{0\le t\le \tau }\abs*{\int_0^{t} \sigma(Y^{\mu }(s),\mu(s) ) - \sigma (Y^{\tilde{\mu}}(s),\tilde{\mu}(s) ) dW_s}^2] \\
+   &\le 8 \E[\int_0^{\tau } \abs{\sigma(Y^{\mu }(s),\mu(s) ) - \sigma (Y^{\tilde{\mu}}(s),\tilde{\mu}(s) )}^2 ds]\\
+   &\le 8 \E[\int_0^{\tau } \abs{Y^{\mu}(s) - Y^{\tilde{\mu } }(s)  }^2 + W_2^2(\mu(s),\tilde{\mu }(s) )  ds]
+ .\end{align*}
+ All together 
+ \begin{align*}
+   \E[\|Y^{\mu } - Y^{\tilde{\mu } }\|_{\tau}^2] &\le C \int_0^{\tau } \E[\|Y^{\mu } - Y^{\tilde{\mu } }\|_s^2] ds + C \int_0^{\tau } \E[W_2^2(\mu(s),\tilde{\mu }(s) )]  ds  \\
+ .\end{align*}
+ So by Grönwall inequality we get 
+ \begin{align*}
+   \E[\|Y^{\mu } - Y^{\tilde{\mu } }\|_{\tau}^2] &\le C(\tau )* \int_0^{\tau }  W_2^2(\mu(s) ,\tilde{\mu }(s) ) ds \\                                               
+                                                 &\le C(\tau )* \int_0^{\tau }  \sup_{0\le t \le s} W_2^2(\mu(t) ,\tilde{\mu }(t) ) ds \\                                              
+                                                 &\le C(\tau ) \int_0^{\tau } d_s(\mu ,\tilde{\mu } )ds
+ .\end{align*}
+ using  the inequality \autoref{c_d_wasserstein}\\[1ex]
+ remember that $\phi(\mu) = \mathcal{L}(Y^{\mu } )$ and $\phi(\tilde{\mu } ) = \mathcal{L}(Y^{\tilde{\mu } } )$, then
+ \begin{align*}
+   d_{\tau }^2(\phi(\mu ),\phi(\tilde{\mu } )) =  \inf_{\pi  \in  \Pi(\phi(\mu) ,\phi(\tilde{\mu } ))} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}   } \|x-y\|_\tau^2 d\pi(x,y)
+ .\end{align*}
+ now if we take joint distribution of $Y^{\mu } $ and $Y^{\tilde{\mu } }$ . $\pi_1$ we can write 
+ \begin{align*}
+   \E[\|Y^{\mu }-Y^{\tilde{\mu } } \|_\tau^2 ] &= \int_{\mathcal{C}^{d},\mathcal{C}^{d}  } \|x-y\|_{\tau }^{2} d\pi_1(x,y)  \\
+                                               &\le  C(\tau ) \int_0^{\tau } d_s(\mu ,\tilde{\mu } )ds
+ .\end{align*}
+ Lets summarize, for $\forall  \mu , \tilde{\mu } \mathcal{P}^2(\mathcal{C}^{d} ) $ we obtained 
+ \begin{align*}
+   d_t(\phi(\mu ),\phi(\tilde{\mu } )) \le C(t) \int_0^{t} d_s(\mu ,\tilde{\mu } ) ds \tag{*}
+ .\end{align*}
+To prove the uniqueness of solutions. If we have two solutions $\mu ,\tilde{\mu } $ i.e. 
+\begin{align*}
+  \phi(\mu ) &= \mu \\
+  \phi(\tilde{\mu } ) &= \tilde{\mu } 
+.\end{align*}
+then the above estimate (*) says 
+\begin{align*}
+  d(\mu,\tilde{\mu } ) \le  C(t) \int_0^{t} ds(\mu ,\tilde{\mu } )  ds \implies d_t(\mu ,\tilde{\mu } )  = 0
+.\end{align*}
+To prove the existence. Take arbitrary $\mu_0 \in  \mathcal{P}^2(\mathcal{C}^{d} )$, (for example $\mu_0 = \mathcal{L}(\xi)$)
+\begin{align*}
+  \phi(\mu_0) &= \mu_1 \\
+  \phi(\mu_1) &= \mu_2 \\
+              &\vdots \\
+  \phi(\mu_k) &= \mu_{k+1}
+.\end{align*}
+the estimate means that $(\mu_k)$ is Cauchy in $\mathcal{P}^2(\mathcal{C}^{d} )$
+\begin{align*}
+  d_t(\mu_{k+m},\mu_m) \le  \sum \ldots 
+.\end{align*}
+Then there exists a $\mu \in \mathcal{P}^2(\mathcal{C}^{d} )$ such that 
+\begin{align*}
+  W_2^{2}(\mu_k,\mu ) \to  0 
+.\end{align*}
+\end{proof}
+\begin{remark}
+ That in our case the empirical measure $\mu_N$ is not exactly the law of $X^{N} $ and is 
+ stochastic, such that the above proof does not exactly holds for our (SDEN)\\
+ For our initial data we already know that 
+ \begin{align*}
+   \E[W_2^2(\mu_N(0),\mu_0  )] \xrightarrow{N\to \infty} 0
+ .\end{align*}
+ and we expect for any $t>0$
+ \begin{align*}
+   \E[W_{\mathcal{C}^{d},2 }^2(\mu_N(t),\mu )] \to 0
+ .\end{align*}
+\end{remark}
+\begin{theorem}[Mean-Field-Limit]
+  Let $b$ and $\sigma$ fulfill \autoref{sde_solution_assumption_strong} and use 
+  $\mu_N$ the empirical measure, then there exists a measure $\mu \in \mathcal{P}^2(\mathcal{C}^{d} )$ s.t. 
+  \begin{align*}
+    \lim_{N\to \infty}\E]W_{\mathcal{C}^{d},2 }^2(\mu_N,\mu ) = 0
+  .\end{align*}
+  and for any fixed $k \in  \mathbb{N}$ it holds
+  \begin{align*}
+    \left( X^{N}_1,\ldots ,X_k^{N}   \right)  \xRightarrow{(D)} \left( Y_{1},\ldots ,Y_{k}   \right) 
+  .\end{align*}
+\end{theorem}
+\begin{proof}
+  The proof is similar to what we have done in the \autoref{solution_vlasov}, the critical part is to 
+  work with our stochastic empirical measure, we do so by introducing an intermediate empirical measure. We compute 
+  \begin{align*}
+    \abs{X_i^{N}(t) - Y_i(t) }^2 &\le 2 t \int_0^{t} \abs{b(X^{N}_i(s),\mu_N(s) ) -  b(Y_i(s),\mu(s) )} \\
+    &+ 2 \abs*{\int_0^{t} \sigma(X_i^{N}(s),\mu_N(s) ) - \sigma(Y_i(s),\mu(s))  dW_s^{i} }^2
+  .\end{align*}
+  Now using Grönwall's inequality implies 
+  \begin{align*}
+    \E[\sup_{0\le r\le t} \abs{X_i^{N}(r) - Y_i(r) }^2] &\le C \E{\int_0^{t} W_2^{2}(\mu_N(s),\mu(s))  } ds\\
+                                                        &\le  C*\E[\int_0^{t} d_r^2(\mu_N,\mu ) dr]
+  .\end{align*}
+  Let $\overline{\mu }_N $ be the empirical measure of $Y_i$ 
+  \begin{align*}
+    \overline{\mu }_N = \frac{1}{N} \sum_{i=1}^{N} \delta_{Y_i}  
+  .\end{align*}
+  And let $\mu \sim \mathcal{L}(Y_i)$ then 
+  \begin{align*}
+    \E[W_2^2(\overline{\mu }_N,\mu  )] \to  0
+  .\end{align*}
+  Now we consider for $\forall $ a.s. $\omega  \in  \Omega $
+  \begin{align*}
+    d_t^2(\overline{\mu }_N,\mu_N ) = \inf_{\pi  \in  \Pi(\mu_N,\overline{\mu }_N )} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \|x-y\|^2_t d\pi(x,y) 
+  .\end{align*}
+  By taking $\pi  = \mu_N \otimes \overline{\mu }_N $ we can write the above integral explicitly 
+  \begin{align*}
+    \le \frac{1}{N} \sum_{i=1}^{N} \|X^{N}_i - Y_i \|_t^2 
+  .\end{align*}
+\end{proof}
+
