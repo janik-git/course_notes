@@ -1,22 +1,199 @@
-\chapter{Uebung}
-\begin{definition}
-  For $X = (X_t)_{t \in  [0,T]}$   continuous local martingale  then, The process $\braket{X} = (\braket{X}_t)_{t \in  [0,T]}$ is given by 
-  \begin{align*}
-    \braket{X}_t = \lim_{n \to  \infty} \sum_{J \in \Pi_{n}} (\triangle_{J \cap [0,T]} X)^2 
-  .\end{align*}
-  The limit is needed such that the non decreasing property is satisfied , i.e while the summands are always non negative ,
-  the increments might be different in size such that the process is not non-decreasing , note that the difference between $t and t+\epsilon $ is that the intersection $J \cap [0,t]$ is taken over a bigger intervall \\
-  Dont think this is true (he said it) look below , the granularity does not change if we fix an n, the limit is just needed for the uniqueness tbh.
- \end{definition}
-\begin{remark}
- The Process is well defined as it is independent of the sequence of partitions $\Pi_n$ 
- \begin{enumerate}
-   \item $\braket{X}_0 = 0$ , and non decreasing 
-   \item And $(X_t^2 - \braket{X}_{t \in  [0,T]})$ is again a continuous local martingale 
- \end{enumerate}
- Why is it unique, as it is non decreasing and 0 at time 0, we get a unique process by (ii) as the only way for it to be a martingale is to be the same 
- at every time t as the Martingale property allows us to trace back at any time t to time 0  \\[1ex]
-\end{remark}
+\section*{Sheet 1}
+\subsection*{1.1}
+Mostly just calculating and showing the three properties 
+\begin{enumerate}
+ \item $W_0 = 0$
+ \item For any partition $(t_i)_{i \in  \mathbb{N}}$ it holds that $W_0, W_{t_1} - W_{t_0},\ldots W_{t_n}-W_{t_{n-1}}$ are independent random variables
+ \item The increment's are normally distributed i.e $W_t - W_s \sim \mathcal{N}(0,\abs{t-s})$
+\end{enumerate}
+For (iv) pick $\pm B_t$ as a counterexample , then the variance doesn't match for the increments
+\subsection*{1.2}
+\begin{exercise}
+Let $(X_t)_{t \in  [0,\infty)}$ be a right-continuous real-valued, stochastic process adapted to the filtration $(\mathcal{F}_{t})_{t \in  [0,\infty)}$ and 
+let $A \subset  \mathbb{R}$. Prove that the hitting time 
 \begin{align*}
-  \braket{X}_{t+1} - \braket{X}_t = \sum_{J \in  \Pi_n} (\triangle_{J \cap [0,t+1]} X)^2 - (\triangle_{J \cap [0,t]} X)^2 =  \sum_{J \in  \Pi_n} (\triangle_{J \cap [t,t+1]} X)^2 > 0 
+  \tau_A \coloneqq  \inf \{t\ge 0 : X_t \in  A\}  
 .\end{align*}
+is a stopping time if 
+\begin{enumerate}
+  \item $A$ is open and $(\mathcal{F}_{t})_{t \in  [0,\infty)}$  is right-continuous
+  \item $A$ is closed and $(X_t)_{t \in  [0,\infty)}$  is continuous
+\end{enumerate}  
+\end{exercise}
+\begin{proof}
+  First we note that if $A$ is open then $\tau_A = t$ does not imply $X_t \in  A$, and that since $X_t$ is right-continuous we have for any 
+  $\omega  \in  \{\tau_A =  t\}$ that 
+  \begin{align*}
+    t \mapsto X_t(\omega )
+  .\end{align*}
+  is right-continuous i.e for any $\epsilon > 0$ there $\exists \delta  > 0$ such that 
+  \begin{align*}
+    s \in [t,t+\delta ]  \implies \abs{X_s - X_{t}} < \epsilon
+  .\end{align*}
+  i.e if $X_t \in  A$ then a small Ball (to the right) around $t$ is also in $A$. This lets us do 
+  \begin{align*}
+    \{\tau_A \le  t\}   = \{\tau_A < t\}   \cup \{\tau_A = t\}   
+  .\end{align*}
+  Where
+  \begin{align*}
+    \{\tau_A < t\}   = \bigcup_{s < t} \{X_s \in A\}   \myS{Cont.}{=} \bigcup_{s < t , s \in \mathbb{Q}} \{X_s \in  A\}   
+  .\end{align*}
+  where the last union is over finite set each in $\mathcal{F}_s$ (X is adapted) such that 
+  \begin{align*}
+    \{\tau_A < t\}   \in  \mathcal{F}_t
+  .\end{align*}
+  For $\{\tau_A = t\}  $ we consider 
+  \begin{align*}
+    \{\tau_A \le  t\}   = \bigcap \{\tau_A < t+\frac{1}{n}\}   
+  .\end{align*}
+  Which by right right-continuity and again a continuous argument lie in $\mathcal{F}_t^+ = \mathcal{F}_t$ \\[1ex]
+  I am unsure why $X$  continuous is necessary since since $X_t$ at any $\omega$ is already uniquely determined by its paths.
+  We consider 
+  \begin{align*}
+    d(x,A) = \inf_{y \in  A} \abs{x-y}
+  .\end{align*}
+  Then 
+  \begin{align*}
+    \{\tau_A = t\}  = \{d(X_t,A) = 0\}  
+  .\end{align*}
+  we show that 
+  \begin{align*}
+    A_n = \{y \in  \mathbb{R} : d(y,A) < \frac{1}{n}\}  
+  .\end{align*}
+  Then 
+  \begin{align*}
+    \bigcap A_n = A
+  .\end{align*}
+  Since $A$ is closed, then we want to show 
+  \begin{align*}
+    \{\tau_A \le  t\}  =  \bigcap_{n \in  \mathbb{N}} \{\tau_{A_n} \le  t\}  
+  .\end{align*}
+  And first note that $\tau_{A_n} \le  \tau_{A_{n+1}} \le  \tau_A $ \\
+  We show that  for $T = \sup_{n} \tau_{A_n}$ 
+  \begin{align*}
+    \tau_A \le  T
+  .\end{align*}
+  Then we get the convergence, we do so by showing that $X_T \in  A$  then by definition $\tau_A \le  T$. 
+  \begin{align*}
+    d(X_T,A) = \inf_{y \in  A} \abs{X_T - y} \le  \abs{X_T -X_{t_n}} + \abs{X_{t_n} - y}  \le  \abs{X_T -X_{\tau _n}} + \frac{1}{n}
+  .\end{align*}
+  And since $X$ is continuous we get that there $\exists N \in  \mathbb{N}$ such that for $n\ge N$ 
+  \begin{align*}
+    \abs{X_T - X_{t_n}} < \frac{1}{n}
+  .\end{align*}
+  in fact left continuous would have been enough (for this argument) we still need right continuous such that we can apply (i) to 
+  \begin{align*}
+    \{\tau_A \le t\}   = \bigcap_{n \in  \mathbb{N}} \{\tau_{A_n} < t\}  
+  .\end{align*}
+\end{proof}
+\subsection*{Excercise 1.3}
+\begin{exercise}
+ Let $X$ and $X_n , n \in  \mathbb{N}$  be random variables on a probability space $(\Omega ,\mathcal{F},\P)$. Prove the following 
+ statements 
+ \begin{enumerate}
+   \item If $(X_n)_{n \in  \mathbb{N}}$ is uniformly integrable and $X_n \to  X$ $\P$-a.s. then $X_n \to  X$ in $L^1$
+   \item If $X$ is integrable, then the family $\{\E[X|\mathcal{G}] \ : \ G \subseteq \mathcal{F} \}  $ is uniformly integrable
+ \end{enumerate}
+\end{exercise}
+\begin{proof}
+  For (i)  alternative statement is if $\|X_n\| \to  \|X\|$ and $X_n \to X$  a.s. then
+  \begin{align*}
+    \lim_{n \to \infty} \E[\abs{X - X_n}]  = 0
+  .\end{align*}
+  We consider 
+  \begin{align*}
+    \abs{X-X_n} = \le  \abs{X} + \abs{X_n}
+  .\end{align*}
+ I.e 
+ \begin{align*}
+  \abs{X} + \abs{X_n} - \abs{X-X_n} \ge 0
+ .\end{align*}
+ Such that  by fatou 
+ \begin{align*}
+   0 \le \E[\lim_{n\to \infty} \abs{X} + \abs{X_n} - \abs{X-X_n}]  =   \E[2 \abs{X}] \le  \liminf \E[\abs{f} + \abs{f_n} - \abs{f-f_n}] = \liminf (\E[\abs{f}] + \E[f_n]) - \limsup \E[\abs{f-f_n}]
+ .\end{align*}
+ Then we get by rearanging
+ \begin{align*}
+   \limsup \E[\abs{f-f_n}] \le  \liminf (\E[\abs{f}] + \E[f_n]) - \E[2\abs{f}]  = 0
+ .\end{align*}
+ \\[1ex]
+ Now consider 
+ \begin{align*}
+   \E[\abs{f-f_n}] = \E[\abs{f-f_n}*\cha_{\abs{f-f_n}\ge c}] +  \E[\abs{f-f_n}*\cha_{\abs{f-f_n}  < c}]
+ .\end{align*}
+ The last is bounded by 
+ \begin{align*}
+   \E[\abs{f-f_n}*\cha_{\abs{f-f_n}\ge c}] +  \E[\abs{f-f_n}*\cha_{\abs{f-f_n}  < c}] <  \E[\abs{f-f_n}*\cha_{\abs{f-f_n}\ge c}] + c*\P(\Omega)
+ .\end{align*}
+ By convergence in measure there exists $n \in  \mathbb{N}$ such that $\P(\abs{f-f_n} \ge c)<\delta $ where $c$ is choses n such that $c*\P(\Omega ) < \frac{\epsilon}{2} $ 
+ Now we prove $\abs{f-f_n}$ is uniformly integrable, we have 
+ \begin{align*}
+  \int_A \abs{f} \le \liminf \int_A \abs{f_n} \le  \epsilon
+ .\end{align*}
+ for $\P(A) < \delta $ then 
+ \begin{align*}
+  \abs{f-f_n} < \abs{f} + \abs{f_n}
+ .\end{align*}
+ i.e 
+ \begin{align*}
+  \int_A \abs{f-f_n} \le  \int_A \abs{f} + \abs{f_n} \le  \epsilon
+ .\end{align*}
+ Such that $\abs{f-f_n}$ is uniformly integrable.
+\end{proof}
+Let us summarize, in the hitting time exercise we know finite unions of open sets are in the $\sigma$-algebra such that we always want to rewrite it as that case,
+the right continuity of $X$ allows us to show that any infinite union (over time) can be written as a finite one. the right continuity is useful be cause 
+\begin{align*}
+  [1,2+\frac{1}{n}) \to [1,2]
+.\end{align*}
+And we need that $\{\tau  < t + \frac{1}{n}\}  $ are contained in $\mathcal{F}_t$. \\[1ex]
+In the closed case we argue that first
+\begin{align*}
+  A = \bigcap A_n \coloneqq  \{y \in  \mathbb{R} : d(y,A) < \frac{1}{n}\}  
+.\end{align*}
+this follows since $A$ is closed, then we want the following convergence
+\begin{align*}
+  \{\tau_A \le  t\}  = \bigcap \{\tau_{A_n} < t\}  
+.\end{align*}
+We use the left continuity from $X$ to prove that 
+\begin{align*}
+  \sup \tau_{A_n} \le  \tau_A  \text{ and } \tau_A \le \sup_{\tau_{A_n}}
+.\end{align*}
+then since clearly $\tau_{A_n} \le  \tau_{A_n+1}$ the following holds
+\begin{align*}
+  \lim_{n \to \infty} \tau_{A_n} = \tau_A
+.\end{align*}
+the first direction holds immediately since for any $n$ we must have that
+\begin{align*}
+  \tau_{A_n} \le   \tau_A
+.\end{align*}
+And for the second we consider 
+\begin{align*}
+    d(X_T,A) = \inf_{y \in  A} \abs{X_T - y} \le  \abs{X_T -X_{t_n}} + \abs{X_{t_n} - y}  \le  \abs{X_T -X_{\tau _n}} + \frac{1}{n}
+.\end{align*}
+which goes to $0$ for $n \to \infty$
+
+\section*{2}
+\subsection*{2.1}
+Do not forget to show the integrability of the processes, besides that its just using smart 0 to get the result one wants,
+at (iii) one has to recognize that the mean of functions of equal distribution are the same and then 
+\begin{align*}
+  B_s  =B_s - B_0 \sim \mathcal{N}(0,s)
+.\end{align*}
+\subsection*{2.2}
+For (i) the direction  indistinguishable $\implies$  modification is trivial, for the other way we recognize that 
+\begin{align*}
+  A = \{X_t = Y_t \ ,\ \forall t \in [0,T] \cap \mathbb{Q} \}   = \bigcap_{t \in [0,T] \cap \mathbb{Q}} \{X_t = Y_t\} 
+.\end{align*}
+Then $A^{c} $ is a null set by property of being a union of null sets.\\
+I.e for $\omega  \in  A$ we already have for rational times $t$
+\begin{align*}
+  X_t(\omega ) = Y_t(\omega )
+.\end{align*}
+For real times $t$ we argue by 
+\begin{align*}
+  X_t(\omega ) = \lim_{k\to \infty} X_{q_k}(\omega ) = \lim_{k\to \infty} Y_{q_k}(\omega ) = Y_t(\omega )
+.\end{align*}
+\textcolor{Red}{BIG ISSUE WITH THE ABOVE} \\
+When talking in the language of probability one always needs to consider that everything is only defined up to null sets, i.e the $\omega  \in  A$ is not guaranteed 
+to also be in $\omega  \myS{?}{\in } \{X \text{right continuous}\}  $. which is why we need to consider $\omega  \in  A \cap B \cap C$ where $B,C$ guarantee 
+that we can perform the operations.
