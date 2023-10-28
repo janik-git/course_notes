@@ -197,3 +197,91 @@ For real times $t$ we argue by
 When talking in the language of probability one always needs to consider that everything is only defined up to null sets, i.e the $\omega  \in  A$ is not guaranteed 
 to also be in $\omega  \myS{?}{\in } \{X \text{right continuous}\}  $. which is why we need to consider $\omega  \in  A \cap B \cap C$ where $B,C$ guarantee 
 that we can perform the operations.
+\subsection*{2.3}
+(i) is an ok assumption to make since we otherwise consider the shifted process $M_t = M_t - \E[M_t]$,
+(ii) The telescoping argument here is fairly important, since its a common tool, and then we can proceed from there by letting go $n\to \infty$ see 
+\begin{align*}
+  M_t - M_0 = \sum_{i=1}^{n} (M_{t_i}-M_{t_{i-1}}) 
+.\end{align*}
+As $n\to \infty$ 
+\begin{align*}
+  M_t - M_0 = \int_0^{t} dM_t  
+.\end{align*}
+same argument is used later in proving Itos formula. \\[1ex]
+For (iii) we just consider the limit to $n \to \infty$ and then argue by DCT (we can bound like the following )
+\begin{align*}
+  (M_{t_i} - M_{t_{i-1}})^2 = (M_{t_i} - M_{t_{i-1}})(M_{t_i} - M_{t_{i-1}}) \le \sup_{i} (M_{t_i} - M_{t_{i-1}}) * \abs{M_{t_i} - M_{t_{i-1}}}
+.\end{align*}
+For (iv) we use fatou, also a natural bound
+\begin{lemma}
+  Let $(X_t)_{t \in  [0,T]}$  be an It\^o process with representations 
+  \begin{align*}
+    X_t = X_{0} + \int_0^{t} a(*,s) ds + \int_0^{t} b(*,s) dB_s = \tilde{X}_0 + \int_0^{t} \tilde{a}(*,s) ds + \int_0^{t} \tilde{b}(*,s)dB_s      
+  .\end{align*}
+  $X_0 = \tilde{X}_0 $, then $a = \tilde{a} $ and $b = \tilde{b} $
+\end{lemma}
+\begin{proof}
+ We have 
+ \begin{align*}
+  0 =  \int_0^{t} a(*,s) - \tilde{a}(*,s)  +   \int_0^{t} b(*,s)-\tilde{b}(*,s)  dB_s
+ .\end{align*}
+ Which follows by taking the difference, i.e 
+ \begin{align*}
+   \int_0^{t} a(*,s) - \tilde{a}(*,s)  = -  \int_0^{t} b(*,s)-\tilde{b}(*,s)  dB_s
+ .\end{align*}
+  This is a local martingale that is continuous and of finite variation
+\end{proof}
+Let us prove that 
+\begin{align*}
+  (\int_0^{t} a(*,s) ds )
+.\end{align*}
+is of finite variation
+\begin{proof}
+ Define  
+\begin{align*}
+  A_t = \int_0^{t} a(*,s) ds 
+.\end{align*}
+We consider 
+\begin{align*}
+  \lim_{n \to \infty} \sum_{i=1}^{n} A_{t_i} - A_{t_{i-1}} &=  \lim_{n \to \infty} \sum_{i=1}^{n} \int_0^{t_i} a(*,s) ds - \int_0^{t_{i-1}} a(*,s) ds  \\
+                                                           &=  \lim_{n \to \infty} \sum_{i=1}^{n} \int_{t_{i-1}}^{t_i}  a(*,s) ds\\
+                                                           &\le   \lim_{n \to \infty} \sum_{i=1}^{n} \sup_{t \in [t_{i-1},t_i]} \abs{a(*,s)}(t_{i}-t_{i-1}) \\
+                                                           &\le   \lim_{n \to \infty} \sum_{i=1}^{n} \sup_{t \in [0,T]} \abs{a(*,s)}(t_{i}-t_{i-1}) \\
+                                                           &\le   \lim_{n \to \infty} C \sum_{i=1}^{n} (t_{i}-t_{i-1}) \\
+                                                           &< \infty
+.\end{align*}
+\begin{align*}
+  \braket{A}_t = \lim_{n\to \infty} \sum_{i=1}^{n} (A_{t}-A_{t-1})^2  &= \lim_{n \to \infty} \sum_{i=1}^{n} (\int_0^{t_i} a(*,s) ds - \int_0^{t_{i-1}} a(*,s) ds)^2  \\
+                                                                      &= \lim_{n \to \infty} \sum_{i=1}^{n} (\int_{t_{i-1}}^{t_i} a(*,s) ds)^2  \\
+                                                                      &\le  \lim_{n \to \infty} \sum_{i=1}^{n} (t_i-t_{i-1})\int_{t_{i-1}}^{t_i} a(*,s)^2 ds  \\
+                                                                      &=    (T) \lim_{n\to \infty} \sum_{i=1}^{n}
+.\end{align*}
+\begin{align*}
+  (\int_{t_{i-1}}^{t_i} \abs{a(*,s)*1} ds)^2 \le (\int_{t_{i-1}}^{t_i} \abs{a(*,s)}^2 ds) ds *\int_{t_{i-1}}^{t_i}  1^2 = (t_{i}-t_{i-1})\int_{t_{i-1}}^{t_i} \abs{a(*,s)}^2 ds ds
+.\end{align*}
+\end{proof}
+\begin{lemma}
+Show 
+\begin{align*}
+  \abs{g}_t  = \sup_{\Pi } \sum_{J \in  \Pi }\abs{\Delta_{J \cap [0,t]} g} = \lim_{n\to \infty} \sum_{J \in  \Pi_n} \abs{\Delta_{J \cap [0,t]} g}
+.\end{align*}
+For a zero sequence of partitions 
+\end{lemma}
+\begin{proof}
+  Let $(\Pi )_{n \in  \mathbb{N}}$ be a zero-sequence of partitions and define
+ \begin{align*}
+   \abs{g}_t^n =  \sum_{J \in  \Pi^n}\abs{\Delta_{J \cap [0,t]} g} 
+ .\end{align*}
+ then showing that 
+ \begin{align*}
+   \abs{g}_t^{n+1} \ge    \abs{g}_t^{n}
+ .\end{align*}
+And 
+\begin{align*}
+  \sup_{\Pi } \sum_{J \in  \Pi }\abs{\Delta_{J \cap [0,t]} g} \ge  \abs{g}_t^{n}
+.\end{align*}
+Gives
+\begin{align*}
+  \lim_{n \to \infty} \abs{g}_t^{n} = \sup_{\Pi } \sum_{J \in  \Pi }\abs{\Delta_{J \cap [0,t]} g}
+.\end{align*}
+\end{proof}
