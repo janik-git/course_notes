@@ -1,0 +1,82 @@
+\begin{lemma}
+  Let $(X_t)_{t \in  [0,T]}$  be an It\^o process with representations 
+  \begin{align*}
+    X_t = X_{0} + \int_0^{t} a(*,s) ds + \int_0^{t} b(*,s) dB_s = \tilde{X}_0 + \int_0^{t} \tilde{a}(*,s) ds + \int_0^{t} \tilde{b}(*,s)dB_s      
+  .\end{align*}
+  $X_0 = \tilde{X}_0 $, then $a = \tilde{a} $ and $b = \tilde{b} $
+\end{lemma}
+\begin{proof}
+ We have 
+ \begin{align*}
+  0 =  \int_0^{t} a(*,s) - \tilde{a}(*,s)  +   \int_0^{t} b(*,s)-\tilde{b}(*,s)  dB_s
+ .\end{align*}
+ Which follows by taking the difference, i.e 
+ \begin{align*}
+   \int_0^{t} a(*,s) - \tilde{a}(*,s)  = -  \int_0^{t} b(*,s)-\tilde{b}(*,s)  dB_s
+ .\end{align*}
+  This is a local martingale that is continuous and of finite variation
+\end{proof}
+Let us prove that 
+\begin{align*}
+  (\int_0^{t} a(*,s) ds )
+.\end{align*}
+is of finite variation
+\begin{proof}
+ Define  
+\begin{align*}
+  A_t = \int_0^{t} a(*,s) ds 
+.\end{align*}
+We consider 
+\begin{align*}
+  \lim_{n \to \infty} \sum_{i=1}^{n} A_{t_i} - A_{t_{i-1}} &=  \lim_{n \to \infty} \sum_{i=1}^{n} \int_0^{t_i} a(*,s) ds - \int_0^{t_{i-1}} a(*,s) ds  \\
+                                                           &=  \lim_{n \to \infty} \sum_{i=1}^{n} \int_{t_{i-1}}^{t_i}  a(*,s) ds\\
+                                                           &\le   \lim_{n \to \infty} \sum_{i=1}^{n} \sup_{t \in [t_{i-1},t_i]} \abs{a(*,s)}(t_{i}-t_{i-1}) \\
+                                                           &\le   \lim_{n \to \infty} \sum_{i=1}^{n} \sup_{t \in [0,T]} \abs{a(*,s)}(t_{i}-t_{i-1}) \\
+                                                           &\le   \lim_{n \to \infty} C \sum_{i=1}^{n} (t_{i}-t_{i-1}) \\
+                                                           &< \infty
+.\end{align*}
+\begin{align*}
+  \braket{A}_t = \lim_{n\to \infty} \sum_{i=1}^{n} (A_{t}-A_{t-1})^2  &= \lim_{n \to \infty} \sum_{i=1}^{n} (\int_0^{t_i} a(*,s) ds - \int_0^{t_{i-1}} a(*,s) ds)^2  \\
+                                                                      &= \lim_{n \to \infty} \sum_{i=1}^{n} (\int_{t_{i-1}}^{t_i} a(*,s) ds)^2  \\
+                                                                      &\le  \lim_{n \to \infty} \sum_{i=1}^{n} (t_i-t_{i-1})\int_{t_{i-1}}^{t_i} a(*,s)^2 ds  \\
+                                                                      &=    (T) \lim_{n\to \infty} \sum_{i=1}^{n}
+.\end{align*}
+\begin{align*}
+  (\int_{t_{i-1}}^{t_i} \abs{a(*,s)*1} ds)^2 \le (\int_{t_{i-1}}^{t_i} \abs{a(*,s)}^2 ds) ds *\int_{t_{i-1}}^{t_i}  1^2 = (t_{i}-t_{i-1})\int_{t_{i-1}}^{t_i} \abs{a(*,s)}^2 ds ds
+.\end{align*}
+\end{proof}
+\begin{lemma}
+Show 
+\begin{align*}
+  \abs{g}_t  = \sup_{\Pi } \sum_{J \in  \Pi }\abs{\Delta_{J \cap [0,t]} g} = \lim_{n\to \infty} \sum_{J \in  \Pi_n} \abs{\Delta_{J \cap [0,t]} g}
+.\end{align*}
+For a zero sequence of partitions 
+\end{lemma}
+\begin{proof}
+  We proof this by 3 steps first, w.l.o.g we consider Partitions as follows
+ \begin{align*}
+ 0 = t_{0}<t_{1}<\ldots <t_n = t 
+ .\end{align*}
+ And define 
+ \begin{align*}
+   \abs{g}_t^n =  \sum_{i=1}^{n} \abs{g(t_i)-g(t_{i-1})} 
+ .\end{align*}
+ Then we show that 
+ \begin{align*}
+   \abs{g}_t^n \le  \abs{g}_t^{n+1} 
+ .\end{align*}
+We have
+\begin{align*}
+  \abs{g}_t^n - \abs{g}_t^{n+1}   = \sum_{i=1}^{n} \abs{g(t_i)-g(t_{i-1})}  - \sum_{j=1}^{n+1} \abs{g(\tilde{t}_j)-g(\tilde{t}_{j-1})}
+.\end{align*}
+W.l.o.g we consider $t_i = \frac{i}{n}*t$ then 
+\begin{align*}
+  t_i^{n}  -t_i^{n+1} &= t*(\frac{i}{n} - \frac{i}{n+1})\\
+                      &= t* (\frac{i(n+1)}{n(n+1)} -\frac{i*n}{n(n+1)})\\
+                      &= t*(\frac{i}{n(n+1)})
+.\end{align*}
+I.e 
+\begin{align*}
+  \abs{g}_t^n - \abs{g}_t^{n+1}   &= \sum_{i=1}^{n} \abs{g(t_i)-g(t_{i-1})}  - \sum_{j=1}^{n+1} \abs{g(\tilde{t}_j)-g(\tilde{t}_{j-1})}\\
+.\end{align*}
+\end{proof}
