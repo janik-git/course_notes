@@ -1,7 +1,7 @@
 \chapter{MEAN FIELD LIMIT FOR SDE SYSTEM}
-\input{lectures_new/stochastic_primer.tex}
-\input{lectures_new/ito_integral.tex}
-\input{lectures_new/solving_sdes.tex}
+% \input{lectures_new/stochastic_primer.tex}
+% \input{lectures_new/ito_integral.tex}
+% \input{lectures_new/solving_sdes.tex}
 \section{Stochastic Mean Field Limit}
 First recall the metric we use to talk about distance between two measures i.e the Wasserstein Distance
 \begin{definition}[Wasserstein Distance]
@@ -268,7 +268,7 @@ this equation is called Makean-Vlasov equation which is a non-linear non-local S
 \end{remark}
 \newpage
 \subsection{Makean-Vlasov}
-\begin{definition}[Makean-Vlasov Equation]
+\begin{definition}[Makean-Vlasov Equation]\label{MVE}
   The following non-linear and non-local SDE is called Makean-Vlasov Equation 
 \begin{align*}
     \text{(MVE)} \begin{cases}
@@ -449,16 +449,16 @@ Then there exists a $\mu \in \mathcal{P}^2(\mathcal{C}^{d} )$ such that
     \abs{X_i^{N}(t) - Y_i(t) }^2 &\le 2 t \int_0^{t} \abs{b(X^{N}_i(s),\mu_N(s) ) -  b(Y_i(s),\mu(s) )} \\
     &+ 2 \abs*{\int_0^{t} \sigma(X_i^{N}(s),\mu_N(s) ) - \sigma(Y_i(s),\mu(s))  dW_s^{i} }^2
   .\end{align*}
-  Now using Grönwall's inequality implies 
+   We get %(Now using Grönwall's inequality implies)
   \begin{align*}
-    \E[\sup_{0\le r\le t} \abs{X_i^{N}(r) - Y_i(r) }^2] &\le C \E{\int_0^{t} W_2^{2}(\mu_N(s),\mu(s))  } ds\\
+    \frac{1}{N}\sum_{i=1}^{N} \E[\sup_{0\le r\le t} \abs{X_i^{N}(r) - Y_i(r) }^2] &\le C \E{\int_0^{t} W_2^{2}(\mu_N(s),\mu(s))  } ds\\
                                                         &\le  C*\E[\int_0^{t} d_r^2(\mu_N,\mu ) dr]
   .\end{align*}
   Let $\overline{\mu }_N $ be the empirical measure of $Y_i$ 
   \begin{align*}
     \overline{\mu }_N = \frac{1}{N} \sum_{i=1}^{N} \delta_{Y_i}  
   .\end{align*}
-  And let $\mu \sim \mathcal{L}(Y_i)$ then 
+  And let $\mu \sim \mathcal{L}(Y_i)$ for $\forall  t > 0$ then 
   \begin{align*}
     \E[W_2^2(\overline{\mu }_N,\mu  )] \to  0
   .\end{align*}
@@ -470,5 +470,194 @@ Then there exists a $\mu \in \mathcal{P}^2(\mathcal{C}^{d} )$ such that
   \begin{align*}
     \le \frac{1}{N} \sum_{i=1}^{N} \|X^{N}_i - Y_i \|_t^2 
   .\end{align*}
+  We continue by taking the expectation
+  \begin{align*}
+    \E[d_t^2(\mu_N,\overline{\mu }_N )] &\le  \frac{1}{N} \sum_{i=1}^{N} \E[\sup_{0\le s \le t} \|X_i(s)^{N} - Y_i(s) \|_t^2] \\
+                                        &\le 2C\int_0^{t} \E[d_r^2(\mu_N,\mu )] dr 
+  .\end{align*}
+  Goal is to get a Grönwall inequality for 
+  \begin{align*}
+    \E[d_t^2(\mu_N,\mu )] &\le  2 \E[d_t^2(\mu_N,\overline{\mu }_N )] + 2 \E[d_t^2(\mu_N,\mu )]\\
+                          &\le  C \int_0^{t} \E[d_r^2(\mu_N,\mu )] dr + C\E[d_t^2(\overline{\mu}_N,\mu )] \\
+  .\end{align*}
+  Then by Grönwall 
+  \begin{align*}
+    \E[d_t^2(\mu_N,\mu )] &\le e^{CT} \E[\mu_{N,0}] + e^{CT} \E[d_t^2(\overline{\mu }_N,\mu  )] \xrightarrow{N\to \infty} 0 
+  .\end{align*}
+  and then for $\forall  1\le k < \infty$. 
+  \begin{align*}
+    \E[\max_{1\le i \le  k}\sup_{0\le r\le t} \|X_i^{N}(r) - Y_i(r) \|^2] &\le \max_{1 \le i\le k} \frac{1}{N}\sum_{i=1}^{k} \E[\|X_i^{N}-Y_i \|_t^2] \\
+                                                                          &\le  C*k\E[d_t^2(\mu_N,\mu   )]\\
+                                                                          &\xrightarrow{N\to \infty} 0
+  .\end{align*}
+  This concludes the proof. \textcolor{Red}{Add small summary}
 \end{proof}
-
+\section{PDE Approach To Solving the Makean-Vlasov Equation}
+Let us shortly explain the connection between the PDE approach and the SDE approach to solving the Makean-Vlasov equation,
+from now on assume $\sigma(Y(t),\mu(t)) = \sqrt{2} $constant, that means the 
+ \begin{align*}
+   Y(t) &= b(Y(t),\mu(t)) dt + \sqrt{2} dW_t\\
+   Y(0) &= \xi \in  L^{2}(\Omega ) 
+ .\end{align*}
+ and $\mu_0 = \mathcal{L}(\xi)$, applying It\^os formula for $\forall \phi  \in  \mathcal{C}_0^{\infty}([0,T)\times \mathbb{R}^{d} ) $
+\begin{align*}
+  \phi(Y(t),t) - \phi(Y(0),0) &= \int_0^{t} \frac{\partial \phi }{\partial t}(Y(s),s) + \nabla \phi(Y(s),s)*b(Y(s),\mu(s))  \\
+                              &+ \frac{1}{2} \underbrace{\sqrt{2}*\sqrt{2})}_{tr(\sigma *\sigma ^{T} )}* \Delta \phi(Y(s),s) ds \\
+                              &+ \int_0^{t} \nabla \phi(Y(s),s)  \sqrt{2} dW_s 
+.\end{align*}
+We take expectation  on both sides (note the last term is 0)  
+\begin{align*}
+  &\int_{\mathbb{R}^{d} } \phi(x,t) d\mu(t) - \int_{\mathbb{R}^{d} } \phi(x,0) d\mu_0 \\
+  &= \int_0^{t} \int_{\mathbb{R}^{d} } \frac{\partial \phi }{\partial t}(x,s) + \nabla \phi(x,s)*b(x,\mu(s))* \Delta \phi(x,s)  d\mu(s) ds
+.\end{align*}
+Formally if $\mu$ is regular enough i.e it has density and the density is good enough, then $\mu $ should satisfy the weak PDE
+\begin{align*}
+  \begin{cases}
+    \partial_t \mu  - \Delta \mu  + \nabla * (b(x,\mu) * \mu )  &=0\\
+    \mu(0) &= \mu_0
+  \end{cases}
+.\end{align*}
+\textcolor{Red}{Write out the entire thing with distributions as a middle step between the PDE and the Integral}\\[1ex]
+Next goal is to solve this PDE
+\begin{definition}[Weak PDE]
+  If $u$ is the density of $\mu $ we write 
+  \begin{align*}
+  \begin{cases}
+    &\partial_t u  - \Delta u  + \nabla * (b(x,u)*u )  =0\\
+                                                      &u(0) = u_0
+  \end{cases}
+.\end{align*}
+\end{definition}
+\begin{remark}
+ If we manage to find such $u$ then we can plug it in to the \hyperref[MVE]{(MVE)}   equation
+ \begin{align*}
+   (PDE)\begin{cases}
+    &dY_t = b(Y_t,u) dt + \sqrt{2} dW_t \\
+    &Y(t) = \xi \in  L^2(\Omega ) \quad \mathcal{L}(\xi) = u
+  \end{cases}
+ .\end{align*}
+ if $b$ is bounded and Lipschitz,then we have a solution, $Y_t $, let $\overline{u} $ be the Law of $Y_t$.
+ Then we have by It\^o formula for $\forall  \phi $
+\begin{align*}
+  &\int_{\mathbb{R}^{d} } \phi (x,t) d\overline{\mu(t)}  - \int_{\mathbb{R}^{d} } \phi(x,0) u_0(x) dx \\
+  &=  \int_0^{t} \int_{\mathbb{R}^{d} } \left(\frac{\partial \phi }{\partial t}(x,s) + \nabla \phi(x,s)*b(x,u) -  \Delta \phi(x,s)\right)\overline{u}(x,t) dx ds
+.\end{align*}
+Which means $\overline{\mu } $ satisfies
+\begin{align*}
+  \begin{cases}
+    &\partial_t \overline{\mu }  - \Delta \overline{\mu }  + \nabla * (b(x,u)*\overline{\mu } ) = 0\\
+    &\overline{\mu } \rvert_{t=0}  = u_0
+  \end{cases}
+.\end{align*}
+This means in order to solve the \nameref{MVE} e.g. we need to prove $\overline{u } = u  $
+\end{remark}
+The Laplacian gives us sufficient regularity, even for bad $b$ i.e unbounded non Lipschitz, a standard example is 
+\begin{align*}
+  b(Y_t,u) = \int K(Y_t-y)u(y) dy = \int K(y)u(Y_t-y) dy
+.\end{align*}
+the regularity depends directly on the regularity of $K$  or rather $u$ by properties of convolution.
+\begin{definition}[Sobolev Spaces]
+ We define roughly  
+ \begin{align*}
+  H^1(\mathbb{R}^{d} ) = \{u \in  L^2(\mathbb{R}^{d}) \ : \ \nabla u \in  L^2(\mathbb{R}^{d}) \}  
+ .\end{align*}
+ where $\forall  \phi \in  \mathcal{C}_0^{\infty} $ , with norm $\|u\|_{H_{1}} = \|u\|_2 + \|\nabla u\|_2$
+ \begin{align*}
+   \nabla u = \braket{\nabla u , \phi } = -\braket{u,\nabla \phi }
+ .\end{align*}
+ And 
+ \begin{align*}
+  H^{-1}(\mathbb{R}^{d} )  =  (H^{1}(\mathbb{R}^{} ) )' =  \{l \ : \ l\text{ is bounded linear functionals of } H^{1}(\mathbb{R}^{d} )  \}  
+ .\end{align*}
+ Then  
+ \begin{align*}
+   L^2([0,T];H^{1}(\mathbb{R}^{d} ) ) = \{u \ : \ \int_0^{T} \|u(t)\|_{H^1} dt < \infty \}  
+ .\end{align*}
+\end{definition}
+\begin{definition}[Weak Solution]
+  We say that $u \in  L^2([0,T];H^{1}(\mathbb{R}^{d} )\cap L^{\infty}([0,T];L^2(\mathbb{R}^{d} ))  )$
+  and $\partial_t u \in  L^2([0,T];H^{-1}(\mathbb{R}^{d} ))$ is a weak solution of the (PDE) if for 
+  $\forall  \phi  \in \mathcal{C}^{\infty}_0([0,T]\times \mathbb{R}^{d} )  $ it holds 
+  \begin{align*}
+    \int_0^{T} \braket{\partial_t u , \phi }_{H^{-1},H^{1}  } dt &= \int_0^{T} \int_{\mathbb{R}^{d} }  \nabla \phi * b(x,u) u dx dt \\
+                                                                 &- \int_0^{T} \int_{\mathbb{R}^{d} }  \nabla u * \nabla \phi  dx dt
+  .\end{align*} 
+\end{definition}
+\subsection{Heat Kernel}
+\begin{definition}[Heat Equation]
+  The following PDE is called Heat Equation (last term is source term)
+ \begin{align*}
+ \partial_t u - \Delta u + \nabla * (b(x,u)*u) = 0
+ .\end{align*}
+  If $K(x,t)$ is the heat kernel, then we can formally rewrite the above equation into 
+  \begin{align*}
+    u(x,t) =  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds 
+  .\end{align*}
+  This is called Duhamels formula.
+\end{definition}
+For standard heat equation with source term $f$
+\begin{align*}
+  \text{(HE)} \coloneqq \partial_t u - \Delta u = f \quad u(0) = u_0
+.\end{align*}
+\begin{align*}
+  u(x,t) = \int  K(x-y,t) u_0(y) dy + \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s)f(y,s) dy ds
+.\end{align*}
+gives the solution formula of the Heat Equation (HE).
+\begin{remark}
+ We say the heat kernel is the density of the Brownian Motion. 
+\end{remark}
+\begin{definition}[Heat equation]
+ The following PDE is called Heat equation with source $f$ 
+ \begin{align*}
+   \text{(HE)}\begin{cases}
+   \partial_t u - \Delta u &=f\\
+   u \rvert_{t=0} &= u_0
+ \end{cases} 
+ .\end{align*}
+\end{definition}
+Using  $x \in  \mathbb{R}^{d} $ the Fourier transform 
+\begin{align*}
+  \mathcal{F} : L^2 \to  L^2 \ u \mapsto \hat{u} 
+.\end{align*}
+where
+\begin{align*}
+  \hat{u} (k) = \int_{\mathbb{R}^{d} } u(x) e^{ix*k}  dx 
+.\end{align*}
+\begin{exercise}
+  Proof
+\begin{align*}
+  - \widehat{\Delta u}  = \abs{k}^2 \hat{u}(k)
+.\end{align*}
+\textit{Hint} 
+\begin{align*}
+  \widehat{\nabla u} = \frac{k}{i} \hat{u}(k)
+.\end{align*}
+\end{exercise}
+then we get the equivalent HE 
+ \begin{align*}
+  \begin{cases}
+    \partial_t \hat{u} - \Delta \hat{u} &=\hat{f}\\
+   \hat{u} \rvert_{t=0} &= \hat{u}_0
+ \end{cases} 
+ .\end{align*}
+ With 
+ \begin{align*}
+   \begin{cases}
+     \partial_t \hat{u}(k)  + \abs{k}^2 \hat{u} (k) &= \hat{f}(k) \\
+     \hat{u}_0(k)
+   \end{cases}
+ .\end{align*}
+ \begin{align*}
+  \hat{u} (k,t)= e^{-\abs{k}^2t} \hat{u}_0(k) + \int_0^{t}  e^{-\abs{k}^2(t-\tau )} \hat{f}(k,\tau ) d \tau 
+ .\end{align*}
+ inverse transform of the Fourier transformation
+ \begin{align*}
+   u(x,t) =  \frac{1}{(4\pi t)^{\frac{d}{2}} }\int_{\mathbb{R}^{d} } e^{-\frac{\abs{x-y}^2}{4t}} u_0(y) dy + \int_0^{t} \int_{\mathbb{R}^{d} }   \frac{1}{(4\pi(t-\tau ))^{\frac{d}{2}} } e^{\frac{-\abs{x-y}^2}{4(t-\tau )}} f(y,\tau )dy d\tau 
+ .\end{align*}
+ Then we get $K$ as 
+ \begin{definition}[Heat Kernel]
+ The following is called Heat Kernel
+ \begin{align*}
+  K(x,t) = \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}} 
+ .\end{align*}
+ \end{definition}
