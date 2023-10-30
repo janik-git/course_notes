@@ -317,6 +317,30 @@ Where
   W_{\mathcal{C}^{d},2 }(\mu ,\tilde{\mu } ) = \inf_{\pi  \in  \Pi(\mu ,\tilde{\mu } )} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \|x-y \|^2 d\pi(x,y)
 .\end{align*}
 \end{definition}
+\begin{corollary}
+  Let us prove the inequality
+\end{corollary}
+We choose concrete $\pi_t =  l_t \# \pi $ for $\pi  \in  \Pi_{\mathcal{C}^{d}  }(\mu ,\tilde{\mu } )$
+\begin{proof}
+  \begin{align*}
+    \sup_{t \in  [0,T]} W(\mu_t,\tilde{\mu }_t ) &\le \sup_{t \in  [0,T]} \int_{\mathbb{R}^{d} \times  \mathbb{R}^{d} } \abs{x-y}^2 d \pi_t(x,y)\\
+                                                 &= \sup_{t \in  [0,T]} \int_{\mathbb{R}^{d} \times  \mathbb{R}^{d} } \abs{x-y}^2 d l_t^2 \# \pi_t(x,y)\\
+                                                 &= \sup_{t \in  [0,T]} \int_{\mathcal{C}^{d}  \times  \mathcal{C}^{d} } \abs{* - *}^2 \circ l^2_t(x,y) d\pi(x,y) \\
+                                                 &= \sup_{t \in  [0,T]} \int_{\mathcal{C}^{d} \times \mathcal{C}^{d}   } \abs{x(t)-y(t)}^2 d\pi(x,y)\\
+                                                 &\le  \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \sup_{t \in  [0,T]} \abs{x(t)-y(t)}^2 d\pi(x,y) \\
+                                                 &= \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \|x-y\|_\infty ^2 d\pi(x,y)
+  .\end{align*}
+  It remains to check that $p_t \in  \Pi(\mu_t,\tilde{\mu}_t )$, let $A \in  \mathcal{B}(\mathbb{R}^{d} )$
+  \begin{align*}
+    \pi_t(A \times  \mathbb{R}^{d} ) &= \pi (l_t^{-1}(A \times  \mathbb{R}^{d} )) \\
+                                     &= \pi(\{(x,y) \in  \mathcal{C}^{d} \times  \mathcal{C}^{d} \ : \ l_t(x) \in  A, l_t(y) \in  \mathbb{R}^{d}   \}  )\\
+                                     &=\pi (\{(x,y) \in  \mathcal{C}^{d} \times  \mathcal{C}^{d} \ : \ l_t(x) \in  A  , y \in  \mathcal{C}^{d}  \}  ) \\
+                                     &= \pi(l_t^{-1}(A) \times \mathcal{C}^{d} )\\
+                                     &= \mu(l_t^{-1}(A)) \\
+                                     &= l_t \# \mu(A)\\
+                                     &= \mu_t(A)
+  .\end{align*}
+\end{proof}
 \begin{remark}
  Note that
  \begin{align*}
