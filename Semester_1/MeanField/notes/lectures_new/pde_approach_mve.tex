@@ -129,7 +129,8 @@ then the regularity of $b$ by convolution depends on either $K$ or $u$
 \begin{remark}
  Let us suppose $K(x,t)$  is a heat kernel, then 
   \begin{align*}
-    u(x,t) =  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds 
+    u(x,t) &=  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds \\
+           &= u_{1}(x,t) + u_{2}(x,t)
   .\end{align*}
   is a solution to the inhomogenous Heat-Equation, this is called Duhamel's principle i.e. we can "add" up solutions
   to homogeneous problems and get the solution to the inhomogenous.
@@ -188,4 +189,197 @@ where
  \begin{align*}
   K(x,t) = \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}} 
  .\end{align*}
+ and for $\forall  t > 0 $ it is a solution to the homogeneous heat equation
+ \begin{align*}
+  \partial_t K - \Delta K  = 0
+ .\end{align*}
+ And 
+ \begin{align*}
+   K \xrightarrow{t \to 0^{+} } \delta 
+ .\end{align*}
+ In the sense of distributions.
 \end{definition}
+\begin{theorem}[Solution To Heat Equation]
+  Let $K$  be the Heat kernel and initial data $u_{0} \in \mathcal{C}_b(\mathbb{R}^{d} )$ and $f \in  \mathcal{C}^{2,1}(\mathbb{R}^{d} \times  [0,T]) $ with compact support (schwarz function would work as well, since they lie dense in compact)
+\begin{align*}
+    u(x,t) &=  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds \\
+           &= u_{1}(x,t) + u_{2}(x,t)
+  .\end{align*}
+  is a solution to the heat equation, in fact $u_{1}$ and $u_{2}$ are solutions to
+  \begin{align*}
+    \text{(P1)}\begin{cases}
+      &\partial_t u_{1} - \Delta u_{1} = 0 \\
+      &u_{1}(0) = u_{0}
+    \end{cases}
+    \qquad 
+    \text{(P2)}\begin{cases}
+      &\partial_t u_{2} - \Delta u_{1} = f \\
+      &u_{2}(0) = u_{0}
+    \end{cases}
+  .\end{align*}
+  respectively
+\end{theorem}
+\begin{proof}
+  We begin by showing that $u_{1}$ is a solution to (P1) by showing
+  \begin{align*}
+    \lim_{t \to 0^{+}}  u_{1}(x,t) = \lim_{t \to 0^{+}} \int_{\mathbb{R}^{d} }K(x-y,t)u_0(y) dy \myS{!}{=} u_{0}
+  .\end{align*}
+  \begin{align*}
+    \lim_{t \to 0^{+} }\int_{\mathbb{R}^{d} }K(x-y,t)u_0(y) dy &= \lim_{t \to 0^{+} } \int_{\mathbb{R}^{d} } \frac{1}{(4\pi t)^{\frac{d}{2}}} e^{-\frac{\abs{x-y}^2}{4t}} u_0(y) dy \\ 
+                                           &=  \lim_{t \to 0^{+} } \int_{\mathbb{R}^{d} } \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\abs{z}^2}  u_{0}(x+2 \sqrt{t} z ) dz \\
+                                           &= \int_{\mathbb{R}^{d}  } \lim_{t \to 0^{+} } \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\abs{z}^2}  u_{0}(x+2 \sqrt{t} z ) dz \\
+                                           &= u_0(x)  
+  .\end{align*}
+  where we used the change of variables 
+  \begin{align*}
+    \frac{x-y}{2 \sqrt{t} }= -z
+  .\end{align*}
+  Then  for $\forall  t > 0$
+  \begin{align*}
+    \partial_t u_{1} - \Delta u_{1} &= (\partial_t -  \Delta) \int_{\mathbb{R}^{d} } K(x-y,t)u_0(y)dy\\
+                                    &= \int_{\mathbb{R}^{d} } (\partial_t - \Delta )K(x-y,t) u_0(y) dy \\
+                                    &= 0
+  .\end{align*}
+  by properties of the Heat-Kernel. \\[1ex]
+  For $u_{2}(x,t)$  
+  \begin{align*}
+    u_{2}(x,t)  = \int_0^{t}  \int_{\mathbb{R}^{d} }K(y,s)f(x-y,t-s) dy ds
+  .\end{align*}
+  First note that  
+  \begin{align*}
+    \lim_{t \to 0^{+}}  u_{2}(x,t) &= 0 
+  .\end{align*}
+  Then by applying 
+  \begin{align*}
+    (\partial_t - \Delta )u_{2}  &= \int_0^{t} \int_{\mathbb{R}^{d} } K(y,s)(\partial_t - \Delta_x)f(x-y,t-s) dy ds \\
+                                 &+ \int_{\mathbb{R}^{d} } K(y,t)f(x-y,0) dy\\
+                                 &=  \int_{0}^{\epsilon} \int_{\mathbb{R}^{d} } K(y,s) \left( -\partial_s - \Delta_y \right)f(x-y,t-s) dy ds +  \int_{\epsilon}^{t} \int_{\mathbb{R}^{d} } \ldots  \\
+                                 &+   \int_{\mathbb{R}^{d} } K(y,t)f(x-y,0) dy\\
+                                 &= I_{\epsilon} +  J_{\epsilon} + L
+  .\end{align*}
+  We are allowed to exchange the order because of the Heat-Kernel since it decays very fast this gives uniform integrability the further away we get from the origin\\
+  We have, since $f \in  \mathcal{C}_b^{2,1}  $ we get that its term is bounded and the integral for the Heat kernel is just 1
+  \begin{align*}
+    \abs{I_\epsilon} &\le  C*\epsilon\\
+    J_{\epsilon} &= \int_{\epsilon}^{t}  \int_{\mathbb{R}^{d} } K(y,s)(-\partial_t - \Delta_y) f(x-y,t-s)dy ds\\
+                 &= \int_{\epsilon}^{t}  \int_{\mathbb{R}^{d} } \underbrace{(-\partial_t - \Delta_y)K(y,s)}_{=0}f(x-y,t-s)dy ds\\ 
+                 &+ \int_{\mathbb{R}^{d} }K(y,\epsilon) - f(x-y,t-\epsilon) dy \\
+                 &-\underbrace{\int_{\mathbb{R}^{d} } K(y,t) f(x-y,0) dy}_{=Li }
+  .\end{align*}
+\end{proof}
+Together we have 
+\begin{align*}
+  \partial_t u_{2} - \Delta u_{2} &= \lim_{\epsilon \to 0} \left( \int_{\mathbb{R}^{d} } \underbrace{K(y,\epsilon)}_{\to \delta} f(x-y,t-\epsilon) dy + \underbrace{C\epsilon}_{\to 0} \right)  \\
+                                  &= f(x,t)
+.\end{align*}
+This shows that 
+\begin{align*}
+  u(x,t) &=  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds \\
+.\end{align*}
+is a solution to the inhomogenous heat equation. 
+\begin{remark}
+  When changing order or variable of derivative one has to be aware of the boundary terms appearing.
+ For example when changing the order for the $\partial_t$  derivative one gets two boundary terms , where one is not well behaved $t=0$
+\end{remark}
+\begin{align*}
+  \begin{cases}
+    &\partial_t u  - \Delta u + \nabla * (b(x,u)*u) = 0\\
+    &u \rvert_{t=0} =u_{0} \in  L^{1} \ \int (1+\abs{x}^2)u_{0} <\infty
+  \end{cases}
+.\end{align*}
+Formally
+\begin{align*}
+  u(x,t)  = \int_{\mathbb{R}^{d} } K(x-y,t)u_{0}(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }K(x-y,t-\tau ) \nabla * (b(y,u(y,\tau ))*u(y,\tau ))dy d\tau 
+.\end{align*}
+Now we start with bounded drift term for a linear equation.
+\begin{definition}[LDE]\label{LDE}
+  For bounded drift term $\overline{b} \in  L^{\infty}  $ we define
+\begin{align*}
+  \text{(LDE)}\begin{cases}
+    &\partial_t - \Delta u + \nabla * (\overline{b}(x,t)u ) = 0 \\ 
+    & u \rvert_{t=0} = u_{0}
+  \end{cases}
+.\end{align*}
+\end{definition}
+\begin{remark}
+  By first proving the existence of a solution to this simpler equation we can then construct an iteration that will yield
+a solution to the more complex non-linear , non-local one.
+\end{remark}
+\begin{theorem}[Uniqueness and Existence of LDE Solution ]
+  If $b \in  L^{\infty}([0,T] \times  \mathbb{R}^{d} ) $  and $u_{0} \in  L^1(\mathbb{R}^{d} )$, then the $LDE$ has a 
+  unique solution $u \in L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) ) $
+  \begin{align*}
+    u(x,t) = \int_{\mathbb{R}^{d} }K(x-y,t)u_{0}(y) dy  + \int_{0}^{t} \int_{\mathbb{R}^{d} } \nabla K(x-y,t-\tau ) * (\overline{b}(y,\tau )u(y,\tau ) ) dy d\tau 
+  .\end{align*}
+\end{theorem}
+\begin{proof}
+ We prove again by Iteration, and fix point argument, consider a map 
+ \begin{align*}
+   &\mathcal{T} : L^{\infty}([0,T];L^1(\mathbb{R}^{d} )) \to L^{\infty}([0,T];L^1(\mathbb{R}^{d} ))\\
+   &u \mapsto \mathcal{T}(u) = \int_{\mathbb{R}^{d} }K(x-y,t)u_{0}(y) dy  + \int_{0}^{t} \int_{\mathbb{R}^{d} } \nabla K(x-y,t-\tau ) * (\overline{b}(y,\tau )u(y,\tau ) ) dy d\tau 
+ .\end{align*}
+ We need to check $\mathcal{T}(u) \in  L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) ) $, for $\forall  t >0$
+ \begin{align*}
+   \int_{\mathbb{R}^{d} }\abs{\mathcal{T}(u)(x,t)} dx &\le \int_{\mathbb{R}^{d} } \int_{\mathbb{R}^{d} } K(x-y,t)\abs{u_0(y)}dy dx \\
+                                                      &+ \int_0^{t}  d\tau \int_{\mathbb{R}^{d} }dx \int_{\mathbb{R}^{d} } dy \abs{\nabla K(x-y,t-\tau )\overline{b} (y,\tau )u(y,\tau )}\\
+                                                      &= I + II
+ .\end{align*}
+  Since we have fixed $t >0$ we use Fubini 
+  \begin{align*}
+    I &\le \int_{\mathbb{R}^{d} }\underbrace{\int_{\mathbb{R}^{d} }K(x-y,t) dx}_{=1} \abs{u_0(y)}dy\\
+      &\le \|u_{0}\|_{L^{1}(\mathbb{R}^{d} ) }
+  .\end{align*}
+  First consider the gradient of $K$
+  \begin{align*}
+    \int_{\mathbb{R}^{d} }\nabla K(x,s) dx  &= \frac{1}{(4 \pi s)^{\frac{d}{2}} } \int_{\mathbb{R}^{d} } \frac{1}{\sqrt{s} }\abs{\frac{4}{2 \sqrt{s} }} e^{-\frac{\abs{x}^2}{4s}} dx \\
+                                            &\le  \frac{1}{\sqrt{s} }C
+  .\end{align*}
+  Then for the second term we get 
+  \begin{align*}
+    II &\le  \|\overline{b} \|_{L^{\infty} }\int_{0}^{t}  d\tau  \int_{\mathbb{R}^{d} } \abs{\nabla K(x,t-\tau )}dx \int_{\mathbb{R}^{d} }u(y,\tau )dy\\
+       &\le \|\overline{b} \|_{L^{\infty} } \|u\|_{L^{\infty}(L^1) } C*\int_0^{t}  \frac{1}{\sqrt{s} } dy \\
+       &=  C*\sqrt{t-\tau } 
+  .\end{align*}
+  Note we we do not need to consider $y$ in $K$ since we can use a translation,$L^{\infty}(L^{1} ) = L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) )  $ \\[1ex]
+  This shows that our map $\mathcal{T}$ is indeed well defined, next we proof $\mathcal{T}(u)$ is a contraction,
+  for $\forall  u_{1},u_{2} \in  L^{\infty}(L^{1} ) $, for $t^{\star }$ s.t. $C \|\overline{b} \|_{\infty} \sqrt{t^{\star }} < \frac{1}{2} $
+  \begin{align*}
+    &\|\mathcal{t^{\star}}(u_{1}) - \mathcal{T}(u_{2})\|_{L^{\infty}(L^{1} ) } \\
+    &= \essup_{0\le t\le t^{\star} }\int_{\mathbb{R}^{d} } \abs{\mathcal{T}(u_{1}) - \mathcal{T}(u_{2})}(x,t)dx \\
+    &\le  \essup_{0\le t\le t^{\star} } \int_0^{t} d\tau  \int_{\mathbb{R}^{d} } dy \abs{\nabla K(x-y,t-\tau )(\overline{b}(y,\tau )(u_{1}-u_{2}) )(y,\tau ) }\\
+    &\le \essup_{0\le t\le t^{\star} } \|\overline{b} \|_{L^{\infty} }  \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) } \int_0^{t} \frac{1}{\sqrt{t-\tau } } d \tau \\
+    &\le \essup_{0\le t\le t^{\star} } C\|\overline{b} \|_{L^{\infty} } \sqrt{t}  \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) }\\
+    &\le C \|\overline{b} \|_{\infty} \sqrt{t^{\star }} \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) }
+  .\end{align*}
+  Then  $\mathcal{T}$ is a contraction. Since $t^{\star }$ only depends on $\|\overline{b} \|_{\infty}$ and dimension d.
+  Then for any given $T>0$ we can repeat the above argument finite many time and obtain
+  \begin{align*}
+    u \in  L^{\infty} ([0,T];L^{1}(\mathbb{R}^{d} ) )
+  .\end{align*}
+\end{proof}
+\begin{exercise}
+ Think about wether you can proof it for $b$   satisfying linear growth condition 
+ \begin{align*}
+  \abs{\overline{b} } \le  C(1+\abs{x})
+ .\end{align*}
+\end{exercise}
+Let us discuss how a solution to the LDE leads back to a solution to the more complex 
+\begin{align*}
+  \partial_t u - \Delta u + \nabla * (b(x,u)u) = 0
+.\end{align*}
+where $u \in  L^{\infty}(L^{1} ) $ under the assumption on $b(x,u)$
+\begin{align*}
+  \abs{b(x,u) - b(\tilde{x},\tilde{u}  )} \le  L(\abs{x-\tilde{x} } + W_2(u,\tilde{u} ))
+.\end{align*}
+By fixing  $\tilde{x} = 0 $
+\begin{align*}
+  \abs{b(x,u) - b(0,\delta_0  )} \le  L(\abs{x} + W_2(u,\delta_0 )) 
+.\end{align*}
+where 
+\begin{align*}
+  W_2(u,\delta_0) \le  \left(\int_{\mathbb{R}^{d} } \abs{x}^2 u(x) dx\right)^{\frac{1}{2}} 
+.\end{align*}
+when $b$ is unbounded we consider , the cutoff  
+\begin{align*}
+  \overline{b}(x,v(x,t))  = \min \{b(x,v(x,t)), M\}  
+.\end{align*}
