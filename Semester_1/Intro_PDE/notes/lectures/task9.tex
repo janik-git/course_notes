@@ -8,20 +8,23 @@
 Suppose that $\Omega $ is a bounded domain. Prove that there is at most one Green's function on $\Omega $  
 \end{exercise}
 \begin{proof}
-Since $\Omega $ is bounded this clearly hints at using the weak maximums principle, using property (i) of greens function we get : \\
-Assume two Green's functions exists and label them $G,\tilde{G} $ then 
+  Since $\Omega $ is bounded by using the  weak maximums principle and  using property (i) of Greens function.\\[1ex]
+Assume two Green's functions for $\Omega $ $G,\tilde{G} $ exist then 
 \begin{align*}
   u(y) &= G(x,y) - \tilde{G}(x,y) = G(x,y)-\tilde{G}(x,y) + (\underbrace{\Phi(x-y) - \Phi(x-y)}_{=0}) \\
        &= G(x,y)-\Phi(x-y)  - (\tilde{G}(x,y) - \Phi(x-y) )
 .\end{align*}
-Then $u(y)$ is harmonic by 3.18 (i) and by the weak maximum principle $u(y)=  0$
+Then $u(y)$ is harmonic by 3.18 (i) and by the weak maximum principle we must have $u(y)=  0$ 
 \end{proof}
 \begin{exercise}
   On the other hand, suppose that $\Omega $  has Green's function $G_{\Omega }$ and that there exists a non-trivial solution to the Dirichlet problem
   \begin{align*}
     \Delta u  = 0 \quad u \rvert_{\partial \Omega } = 0
   .\end{align*}
-  We search for a function that satisfies (i) and (ii) from 3.18, since $u$ is non-trivial 
+
+\end{exercise}
+  \begin{proof} 
+  We search for a function that satisfies properties (i) and (ii) from 3.18, since $u$ is non-trivial 
   \begin{align*}
     \tilde{G}(x,y) = G(x,y) + u(y)  \neq G(x,y)
   .\end{align*}
@@ -30,15 +33,16 @@ Then $u(y)$ is harmonic by 3.18 (i) and by the weak maximum principle $u(y)=  0$
     y \mapsto \tilde{G}(x,y)  - \Phi(x-y) =  (G(x,y)-\Phi(x-y)) + u(y)
   .\end{align*}
   Both parts extend to a harmonic function  for $x \in  \Omega $ , first half  by virtue of being a Green's function , second part is harmonic by properties of being a result to the Dirichlet Problem.\\[1ex]
-  For (ii) we check again for $y \in  \partial \Omega $
+  For (ii) we check for $y \in  \partial \Omega $
   \begin{align*}
     y \mapsto \tilde{G}(x,y)  - \Phi(x-y) =  G(x,y) + u(y)
   .\end{align*}
   is $0$ since $G$ is a  Greens function and we have $u \rvert_{\partial \Omega } = 0$. 
   It follows that $\tilde{G} $ is a second Greens Function.
-\end{exercise}
+  \end{proof}
 \subsection*{28. Do nothing by halves}
-Let $H^{+}_1  = \{x = (x_{1},\ldots ,x_n)\in  \mathbb{R}^{n} | x_{1} >0 \}   $ be the upper half space and $H^{0}_1  = \{x = (x_{1},\ldots ,x_n)\in  \mathbb{R}^{n} | x_{1} =0 \}   $
+Let $H^{+}_1  = \{x = (x_{1},\ldots ,x_n)\in  \mathbb{R}^{n} | x_{1} >0 \}   $ be the upper half space and\\
+$H^{0}_1  = \{x = (x_{1},\ldots ,x_n)\in  \mathbb{R}^{n} | x_{1} =0 \}   $
 be the dividing hyperplane. We call $R_1(x)  = (-x_{1},x_2,\ldots ,x_n)$ reflection in the plane $H^{0} $
 \begin{exercise}[a]
   Let $u \in  \mathcal{C}^{2}(\overline{H_1^{+} } ) $ be a harmonic function that vanishes on $H_1^{0} $. Show that the function 
@@ -55,24 +59,32 @@ be the dividing hyperplane. We call $R_1(x)  = (-x_{1},x_2,\ldots ,x_n)$ reflect
  \begin{align*}
   \Delta v = 0
  .\end{align*}
- We know (by past exercise sheet) that if  $u$ is harmonic then $u(R_{1}(x))$ is harmonic also. 
- We have a possible singularity at $x_{1}=0$ we have for $x_{1}=0$ that 
+ We know (by past exercise sheet) that if  $u$ is harmonic then $u(R_{1}(x))$ is harmonic also, such that
+ $v \rvert_{x_{1}>0}$ and $v \rvert_{x_{1}<0}$ are both harmonic.\\[1ex]
+ We check the partial derivatives, at $x_{1}>0$ we have
  \begin{align*}
-  x \in  H_1^{0} 
+   \frac{\partial v}{\partial x_i}&=  \frac{\partial u}{\partial x_i}\\
+  \frac{\partial ^2 v}{\partial x_i^2}&=  \frac{\partial ^2 u}{\partial x_i^2}
  .\end{align*}
- But for $x\in H_1^{0} $ we have 
+ At $x_1 <0$
  \begin{align*}
-   R_{1}(x) =  \cha_{H_1^{0} }(x) = x
+   \frac{\partial v}{\partial x_i}&=  - \frac{\partial u(R_{1}(x))}{\partial x_i}  \\
+   \frac{\partial v}{\partial x_1} &= \frac{\partial u(R_{1}(x))}{\partial x_1} 
  .\end{align*}
-  And $u(x) = 0$, since $u$ is continuous we also have 
-    for $x \in B(0,\epsilon)$ that $v(x) \equiv 0$. Such that $x_{1} = 0$ is not a singularity and 
-    \begin{align*}
-      v \in \mathcal{C}^{2} 
-    .\end{align*}
-  We check the partial derivatives of $v$ for $x \in  B(0,\epsilon)$
-  \begin{align*}
-    \partial_{x_i} v(x) = \lim_{h\to 0} \frac{v((0,\ldots ,x_i+h,\ldots))-v(x)}{h} = 
-  .\end{align*}
+ and 
+ \begin{align*}
+  \frac{\partial ^2 v}{\partial x_i^2} &= - \frac{\partial ^2 u(R_{1}(x))}{\partial x_i^2}  \\
+   \frac{\partial ^2 v}{\partial x_1^2} &= - \frac{\partial ^2 u(R_{1}(x))}{\partial x_1^2}  
+ .\end{align*}
+ i.e for $i\neq 1$ in the first partial derivative we should get a problem 
+ \begin{align*}
+   \lim_{x_1 \to 0^{+}  }\frac{\partial v}{\partial x_i}  \neq  \lim_{x_1 \to 0^{-}  }\frac{\partial v}{\partial x_i} \Leftrightarrow \lim_{x_1 \to 0^{+}  }\frac{\partial u}{\partial x_i}  &\neq  \lim_{x_1 \to 0^{-}  } -\frac{\partial u}{\partial x_i}
+ .\end{align*}
+ But since $u$ is continuous and vanishes on $H_1^{0} $ we have that both sides of the limit are zero for $i\neq 1$, i.e we get 
+ \begin{align*}
+   \lim_{x_1 \to 0^{+}  }\frac{\partial v}{\partial x_i}  =  \lim_{x_1 \to 0^{-}  }\frac{\partial v}{\partial x_i} 
+ .\end{align*} 
+ We get that the partial derivatives of $v$ extend continuous to $x_{1}=0$ and that $v$ is harmonic.
 \end{proof}
 \begin{exercise}[b]
  Show that Green's function for $H_1^{+} $  is 
@@ -83,21 +95,25 @@ be the dividing hyperplane. We call $R_1(x)  = (-x_{1},x_2,\ldots ,x_n)$ reflect
 \begin{proof}
  We check (i)  and (ii), For (i) we first note
  \begin{align*}
- G(x,y) - \Phi(x-y) =    \Phi(R_1(x)-y)
+ G(x,y) - \Phi(x-y) =  -\Phi(R_1(x)-y)
  .\end{align*}
- we check for singularity at $R_1(x) = y$, since $x \in  H_1^{+} $ then $R_1(x)$ is in $\{x=(x_{1},\ldots ,x_n) \in  \mathbb{R}^{n} \ : \ x_{1}<0 \}  $
- but since $y \in  H^{+}_1 $ the case $R_1(x) = y$ is impossible, and since $\Phi$ is harmonic (without singularity) we get that $G(x,y) - \Phi(x-y)$ extends to a harmonic function.
+ we check for singularity at $R_1(x) = y$, since $x \in  H_1^{+} $ then 
+ \[R_1(x) \in  \{x=(x_{1},\ldots ,x_n) \in  \mathbb{R}^{n} \ : \ x_{1}<0 \}  \]
+ but since $y \in  H^{+}_1 $, then $R_1(x) = y$ is impossible and since $\Phi$ is harmonic we get that $G(x,y) - \Phi(x-y)$ extends to a harmonic function (since we checked for the singularity).\\
  For (ii) we check for $x \in  \Omega $ and $y \in  \partial \Omega $
  \begin{align*}
  G(x,y) = \Phi(x-y) - \Phi(R_{1}(x)-y) 
  .\end{align*}
- The fundamental solution only depends on the Length  $\|R_1(x)-y\|$ which is symmetric i.e.
+ The fundamental solution only depends on the Length  $\|R_1(x)-y\|$ is symmetric i.e.
  \begin{align*}
   \|R_1(x) - y\| = \|x-R_1(y)\|
  .\end{align*}
  Since $y \in  \partial \Omega  \coloneqq  H_1^{0} $  we get $R_1(y) = y$ and 
   \begin{align*}
- G(x,y) = \Phi(x-y) - \Phi(R_{1}(x)-y)  = \Phi(x-y) - \Phi(x-R_1(y))  = \Phi(x-y) - \Phi(x-y) = 0
+    G(x,y) &= \Phi(x-y) - \Phi(R_{1}(x)-y)  \\
+           &= \Phi(x-y) - \Phi(x-R_1(y))  \\
+           &= \Phi(x-y) - \Phi(x-y) \\
+           &= 0
  .\end{align*}
  Thus $G$ is Green's function for $H_1^{+} $
 \end{proof}
@@ -110,7 +126,7 @@ be the dividing hyperplane. We call $R_1(x)  = (-x_{1},x_2,\ldots ,x_n)$ reflect
    G_{B(0,1)}(x,y) = \Phi(x-y) - \Phi(\abs{x}(\tilde{x}-y ))
  .\end{align*}
  where $\tilde{x} = \frac{x}{\abs{x}^2} $\\
- We know that the greens function $B(0,1)$ must be unique, lets say we have a greens function on $B^{+} $ call it $G^{+} $, we expect 
+ We know that the greens function $B(0,1)$ must be unique,then lets say we have a greens function on $B^{+} $ call it $G^{+} $, we expect 
  \begin{align*}
    G_{B(0,1)(x,y)} \rvert_{B^{+} } \equiv G^{+} 
  .\end{align*}
@@ -120,16 +136,21 @@ We consider
 .\end{align*}
 We check (i)
 \begin{align*}
-  G(x,y) - \Phi(x-y) = \Phi(\abs{x}(R_1(x)-y))
-.\end{align*}abs
+  G(x,y) - \Phi(x-y) =-\Phi(\abs{x}(R_1(\tilde{x})-y))
+.\end{align*}
 By similar argument to (b) we know the singularity is not a problem and (i) is satisfied by properties of the fundamental solution\\
 For (ii) we check $x \in  B^{+}  $ and $y \in  \partial B^{+} $ , clearly the boundary $\partial B^{+} $ consists of two parts,
 \begin{align*}
-  \partial B^{+}   = B^{0} \cup \partial B^{+} \cap H^{+}     
+  \partial B^{+}   = B^{0} \cup (\partial B \cap H^{+})     
 .\end{align*}
-We consider the cases separately,for $x \in  B^{+} $ and $y \in  B^{0} $ \\
+We consider the cases separately,for $x \in  B^{+} $ and $y \in  B^{0} $ 
 \begin{align*}
-  G(x,y) = \Phi(x-y) - \Phi(\abs{x}(R_1(\tilde{x})-y))  =  \Phi(x-y) - \Phi(\abs{x}(\tilde{x} - y ))
+  G(x,y) = \Phi(x-y) - \Phi(\abs{x}(R_1(\tilde{x})-y))  &= \Phi(x-y) - \Phi(\abs{x}(\tilde{x}-R_1(y)))\\
+                                                        &=  \Phi(x-y) - \Phi(\abs{x}(\tilde{x} - y ))
+.\end{align*}
+For $x \in  B^{+} $ and $y \notin B^{0} $ it holds 
+\begin{align*}
+  \Phi(R_{1}(x) - y) = \Phi(x-R_{1}(y)) \neq  \Phi(x-y)
 .\end{align*}
 And notice it doesn't work out lol , we choose new Green's function such that the above is 0 ,
 \begin{align*}
@@ -138,19 +159,19 @@ And notice it doesn't work out lol , we choose new Green's function such that th
 then for $x \in  B^{+} $ and $y \in  B^{0} $
 \begin{align*}
  \tilde{G}(x,y) &=   \Phi(x-y) - \Phi(R_{1}(x)-y)  - (\Phi(\abs{x}(\tilde{x} - y )) - \Phi(\abs{x}(R_{1}(\tilde{x})-y)))\\
-                &=\Phi(x-y) - \Phi(x-R_1(y))  - (\Phi(\abs{x}(\tilde{x} - y )) - \Phi(\abs{x}(\tilde{x}-y)))\\
+                &=\Phi(x-y) - \Phi(x-R_1(y))  - (\Phi(\abs{x}(\tilde{x} - y )) - \Phi(\abs{x}(\tilde{x}-R_1(y))))\\
                 &=\Phi(x-y) - \Phi(x-y)  - (\Phi(\abs{x}(\tilde{x} - y )) - \Phi(\abs{x}(\tilde{x}-y)))\\
                 &= 0
 .\end{align*}
-similar argument to (b), for $y \in \partial B^{+} \cap H^{+} \subset  \partial B(0,1)$  we have by lecture 
+similar argument to (b), for $y \in \partial B \cap H^{+} \subset  \partial B(0,1)$  we have by lecture 
 \begin{align*}
   \|\abs{x}(\tilde{x}-y )\| = \abs{x-y}
 .\end{align*}
 and 
 \begin{align*}
-  \|\abs{x}(R_1(\tilde{x} -y ))\| = \abs{R_1(x)-y}
+  \|\abs{x}((R_1(\tilde{x}) -y ))\| = \abs{R_1(x)-y}
 .\end{align*}
-then
+Note that swapping  what $R_{1}(*)$ acts on doesn't give us anything here since $R_1(y) \neq y$.\\[1ex]
 \begin{align*} 
  \tilde{G}(x,y) &=   \Phi(x-y) - \Phi(R_{1}(x)-y)  - (\Phi(\abs{x}(\tilde{x} - y )) - \Phi(\abs{x}(R_{1}(\tilde{x})-y)))\\
                 &= \Phi(x-y) -  \Phi(\abs{x}(\tilde{x} - y ) +   \Phi(\abs{x}(R_{1}(\tilde{x})-y)) -\Phi(R_{1}(x)-y)\\
@@ -177,16 +198,26 @@ then
 \begin{align*}
   u(x) \coloneqq  - \int_{H_1^{0} } g(z) \nabla_z G_{H_1^{+} }(x,z) * N d \sigma(z)
 .\end{align*}
-We calculate for $n>2$
+We calculate for $n>2$ and 
 \begin{align*}
- \nabla G(x,z) = \nabla_z (\Phi(x-z)-\Phi(R_{1}(x)-z))  = \nabla_z (\frac{1}{n(n-2)\omega_n \abs{x-z}^{n-2} }-\frac{1}{n(n-2)\omega_n \abs{x-z}^{n-2} })
+ \nabla_z  G(x,z) &= \nabla_z ( \Phi(x-z) - \Phi(R_{1}(x)-z))\\
+                                         &= \frac{-1}{n \omega_n}*(\frac{x-z}{\abs{x-z}^{n} } + \frac{x-z}{\abs{R_1(x)-z}^{n} })\\
 .\end{align*}
-ja ka rechnen halt,
+If  $z \in  H_1^{0} $ we know $\abs{R_1(x) - z} = \abs{x-z}$
+\begin{align*}
+    \nabla_z G(x,z) &= \frac{-1}{n \omega_n}*(\frac{x-z}{\abs{x-z}^{n} } + \frac{x-z}{\abs{R_1(x)-z}^{n} })\\
+                                         &= \frac{-2}{n \omega_n}\frac{x-z}{\abs{x-z}^{n} }
+.\end{align*}
+\begin{align*}
+  u(x) &=  \frac{-2}{n \omega_n} \int_{H_1^{0} } g(z) * \frac{x-z}{\abs{z-x}^{n} }*\underbrace{N}_{=-x_{1}*\frac{1}{\abs{x-z}}} \sigma(z) \\
+       &=  \frac{2x_{1}}{n \omega_n} \int_{H_1^{0} }  \frac{g(z)}{\abs{z-x}^{n} } \sigma(z)
+.\end{align*}
 \end{proof}
 \begin{exercise}[b]
+  \textcolor{Red}{Fixed the task description}\\
  Show that if $g$ is periodic that is, there is some vector $L \in  \mathbb{R}^{n-1} $)  with 
  \begin{align*}
-  g(x+L) = x
+  g(x+L) = g(x)
  .\end{align*}
  for all $x \in  \mathbb{R}^{n-1} $, then so is the solution
 \end{exercise}
@@ -195,18 +226,56 @@ ja ka rechnen halt,
  \begin{align*}
    u(x) = \frac{2x_{1}}{n \omega_n} \int_{H_1^{0} } \frac{g(z)}{\abs{x-z}^{n} } d \sigma(z)
  .\end{align*}
- We naively pick $L \in  \mathbb{R}^{n-1} $ such that $g(x+L) = x$ for all $x \in  \mathbb{R}^{n-1} $ and check
+ We pick $\tilde{L} \in  \mathbb{R}^{n} = (0,L) $ such that $g(x+L) = g(x)$ for all $x \in  \mathbb{R}^{n-1} $ and check 
  \begin{align*}
-   u(x + L) = \frac{2(x_{1}+L_1)}{n\omega_n} \int_{H_{1}^{0} } \frac{g(z)}{\abs{x+L-z}^{n} }
+   u(x + \tilde{L}) = \frac{2x_{1}}{n\omega_n} \int_{H_{1}^{0} } \frac{g(z)}{\abs{x+\tilde{L}-z}^{n} }
  .\end{align*}
  Consider 
  \begin{align*}
-   y = z-L
+   y = z-\tilde{L}
  .\end{align*}
- then (we techincally have the jacobian but we may ignore that since this preserves volume and sign stays the same)
+ since the above transformation is volume preserving the determinant of the Jacobean is $\pm 1$, and in-fact its $1$
  \begin{align*}
-   u(x+L) &=   \frac{2(x_{1}+L_1)}{n\omega_n} \int_{H_{1}^{0} } \frac{g(y+L)}{\abs{x-y}^{n} } d\sigma(y)\\
-          &= \frac{2(x_{1}+L_1)}{n\omega_n} \int_{H_{1}^{0} } \frac{y}{\abs{x-y}^{n} } d\sigma(y)\\
+   u(x+L) &=   \frac{2x_{1}}{n\omega_n} \int_{H_{1}^{0}-L } \frac{g(y+L)}{\abs{x-y}^{n} } d\sigma(y)\\
+          &= \frac{2x_{1}}{n\omega_n} \int_{H_{1}^{0}} \frac{g(y)}{\abs{x-y}^{n} } d\sigma(y)\\
+          &= u(x)
  .\end{align*}
-
 \end{proof}
+\newpage
+\begin{exercise}[c]
+ Now consider the plane $n=2$  with g function with compact support. Approximate the value of $u(x)$ for large $\abs{x}$.
+ What interesting things can you say about the growth of u
+\end{exercise}
+\begin{proof}
+  All the arguments  made in 3.21 in the script should carry over to this case, if we consider 
+  the inversion through the boundary of the unit circle \\
+  We write 
+  \begin{align*}
+    u(x) &= \frac{2x_{1}}{n \omega_n} \int_{H_1^{0} } \frac{g(z)}{\abs{x-z}^{n} } d \sigma(z)\\
+         &= \int_{H_1^{0} } K(x,z)g(z) d\sigma(z)
+  .\end{align*}
+  Where
+  \begin{align*}
+    K(x,z) =  \frac{2x_{1}}{n \omega_n} \frac{1}{\abs{x-z}^{n} }
+  .\end{align*}
+  One can check 
+  \begin{align*}
+    \int_{H_1^{0} } K(x,z) d\sigma(z) = 1
+  .\end{align*}
+  and $g$ bounded as $g \in  \mathcal{C}(K)$ for some compact set $K \subset  H_1^{0} $\\[1ex]
+  Then we can get a similar approximation like in the script, for some small $\delta >0$ and $\abs{x-x_{0}}<\delta $
+  \begin{align*}
+    \abs{u(x) - g(x_0)} \le 2 \epsilon
+  .\end{align*}
+  i.e we get  for all $x_{0} \in  H_1^{0} $
+  \begin{align*}
+    \lim_{x \to x_{0}} u(x) = g(x_{0})
+  .\end{align*}
+  So if we consider the inversion of $x$ where $\abs{x}$ is large then $\tilde{x} $ should be 
+  very close to the boundary $B_1^0 $ i.e we get 
+  \begin{align*}
+    \lim_{\abs{x} \to  \infty} u(x) = \lim_{x \to x_{0}} u(\tilde{x} ) = g(\tilde{x_{0}} )
+  .\end{align*}
+  For $x_{0} \in  B_1^{0} $\\
+\end{proof}
+

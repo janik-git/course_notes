@@ -108,9 +108,10 @@ is a stopping time if
  \begin{align*}
   \abs{X} + \abs{X_n} - \abs{X-X_n} \ge 0
  .\end{align*}
- Such that  by fatou 
+ Such that  by Fatou 
  \begin{align*}
-   0 \le \E[\lim_{n\to \infty} \abs{X} + \abs{X_n} - \abs{X-X_n}]  =   \E[2 \abs{X}] \le  \liminf \E[\abs{f} + \abs{f_n} - \abs{f-f_n}] = \liminf (\E[\abs{f}] + \E[f_n]) - \limsup \E[\abs{f-f_n}]
+   0 \le \E[\lim_{n\to \infty} \abs{X} + \abs{X_n} - \abs{X-X_n}]  &=   \E[2 \abs{X}] \le  \liminf \E[\abs{f} + \abs{f_n} - \abs{f-f_n}]\\
+                                                                   &= \liminf (\E[\abs{f}] + \E[f_n]) - \limsup \E[\abs{f-f_n}]
  .\end{align*}
  Then we get by rearanging
  \begin{align*}

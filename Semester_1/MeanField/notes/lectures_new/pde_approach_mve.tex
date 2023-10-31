@@ -1,0 +1,191 @@
+\chapter{PDE Approach To Solving the Makean-Vlasov Equation}
+\section{Motivation}
+Above we saw an SDE approach to solving the Makean-Vlasov Equation, in this section we instead focus on a PDE based approach.
+From now on we assume $\sigma(Y(t),\mu(t)) = \sqrt{2} $ is a constant, then the \hyperref[MVE]{(MVE)} can be rewritten as
+ \begin{align*}
+   \text{(MVE*)}\begin{cases}
+    Y(t) &= b(Y(t),\mu(t)) dt + \sqrt{2} dW_t\\
+    Y(0) &= \xi \in  L^{2}(\Omega ) \\
+    \mu_0 &= \mathcal{L}(\xi)
+   \end{cases}
+ .\end{align*}
+ by applying It\^os formula for $\forall \phi  \in  \mathcal{C}_0^{\infty}([0,T)\times \mathbb{R}^{d} ) $
+\begin{align*}
+  \phi(Y(t),t) - \phi(Y(0),0) &= \int_0^{t} \frac{\partial \phi }{\partial t}(Y(s),s) + \nabla \phi(Y(s),s)*b(Y(s),\mu(s))  \\
+                              &+ \frac{1}{2} \underbrace{\sqrt{2}*\sqrt{2})}_{tr(\sigma *\sigma ^{T} )}* \Delta \phi(Y(s),s) ds \\
+                              &+ \int_0^{t} \nabla \phi(Y(s),s)  \sqrt{2} dW_s 
+.\end{align*}
+and taking the expectation  on both sides, such that the last term disappears 
+\begin{align*}
+  &\int_{\mathbb{R}^{d} } \phi(x,t) d\mu(t) - \int_{\mathbb{R}^{d} } \phi(x,0) d\mu_0 \\
+  &= \int_0^{t} \int_{\mathbb{R}^{d} } \frac{\partial \phi }{\partial t}(x,s) + \nabla \phi(x,s)*b(x,\mu(s))* \Delta \phi(x,s)  d\mu(s) ds
+.\end{align*}
+This leads us to formulating the following weak PDE, if $\mu$ is regular enough i.e it has density and the density has enough regularity, then $\mu $ should satisfy 
+\begin{align*}
+  \begin{cases}
+    &\partial_t \mu  - \Delta \mu  + \nabla * (b(x,\mu) * \mu )  =0\\
+    &\mu(0) = \mu_0
+  \end{cases}
+.\end{align*}
+\begin{remark}
+ Compare this weak PDE to the one we got in the discrete case, what do you\\ notice ?
+\end{remark}
+\begin{exercise}
+ Show that the integral equation and the weak formulation are equal.
+\end{exercise}
+\begin{remark}
+ Now suppose we find $\mu $ with density $u$ satisfying the weak PDE, then we can plug it in to the \hyperref[MVE]{(MVE)} equation
+ to get
+ \begin{align*}
+   \begin{cases}
+    &dY_t = b(Y_t,u) dt + \sqrt{2} dW_t \\
+    &Y(t) = \xi \in  L^2(\Omega ) \quad \mathcal{L}(\xi) = u
+  \end{cases}
+ .\end{align*}
+ Now if $b$ is bounded and Lipschitz continuous, then we get a solution $Y_t $. Now if $\overline{u} $ is the Law of $Y_t$.
+ Then by It\^o formula we have for $\forall  \phi \in \mathcal{C}_0^{\infty} $
+\begin{align*}
+  &\int_{\mathbb{R}^{d} } \phi (x,t) d\overline{\mu(t)}  - \int_{\mathbb{R}^{d} } \phi(x,0) u_0(x) dx \\
+  &=  \int_0^{t} \int_{\mathbb{R}^{d} } \left(\frac{\partial \phi }{\partial t}(x,s) + \nabla \phi(x,s)*b(x,u) -  \Delta \phi(x,s)\right)\overline{u}(x,t) dx ds
+.\end{align*}
+Which means $\overline{\mu } $ satisfies
+\begin{align*}
+  \begin{cases}
+    &\partial_t \overline{\mu }  - \Delta \overline{\mu }  + \nabla * (b(x,u)*\overline{\mu } ) = 0\\
+    &\overline{\mu } \rvert_{t=0}  = u_0
+  \end{cases}
+.\end{align*}
+If we can prove $\overline{u} = u $, then we get a solution to the \nameref{MVE}. 
+\end{remark}
+\begin{example}
+ A common choice of $b$ is the following for some kernel $K$
+\begin{align*}
+  b(Y_t,u) = \int K(Y_t-y)u(y) dy = \int K(y)u(Y_t-y) dy
+.\end{align*}
+then the regularity of $b$ by convolution depends on either $K$ or $u$
+\end{example}
+\section{Problem Definition}
+\begin{definition}[Weak PDE]\label{weak_pde_mve}
+  Let $\mu $ have density $u$, then we write 
+  \begin{align*}
+    \text{(PDE)}\begin{cases}
+    &\partial_t u  - \Delta u  + \nabla * (b(x,u)*u )  =0\\
+    &u(0) = u_0
+  \end{cases}
+.\end{align*}
+\todo{Formalize by adding the relevant spaces}
+\end{definition}
+\begin{definition}[Sobolev Spaces]
+ We define roughly  
+ \begin{align*}
+   H^1(\mathbb{R}^{d} ) &= \{u \in  L^2(\mathbb{R}^{d})  :  \nabla u \in  L^2(\mathbb{R}^{d}) \}  \\
+   \|u\|_{H_{1}} &= \|u\|_2 + \|\nabla u\|_2
+ .\end{align*}
+ where the gradient is defined for $\forall  \phi \in  \mathcal{C}_0^{\infty} $ 
+ \begin{align*}
+   \nabla u = \braket{\nabla u , \phi } = -\braket{u,\nabla \phi }
+ .\end{align*}
+ And the dual space
+ \begin{align*}
+  H^{-1}(\mathbb{R}^{d} )  =  (H^{1}(\mathbb{R}^{} ) )' =  \{l : l\text{ is bounded linear functional of } H^{1}(\mathbb{R}^{d} )  \}  
+ .\end{align*}
+ Then  
+ \begin{align*}
+   L^2([0,T];H^{1}(\mathbb{R}^{d} ) ) = \{u : \int_0^{T} \|u(t)\|_{H^1} dt < \infty \}  
+ .\end{align*}
+\end{definition}
+\begin{remark}
+ The Sobolev space $H^1$ is a separable Hilbert space 
+\end{remark}
+\begin{definition}[Weak Solution]
+  We say that a function 
+  \begin{align*}
+    u \in  L^2([0,T];H^{1}(\mathbb{R}^{d} )\cap L^{\infty}([0,T];L^2(\mathbb{R}^{d} ))  )
+  .\end{align*}
+  with $\partial_t u \in  L^2([0,T];H^{-1}(\mathbb{R}^{d} ))$ is a weak solution of the \hyperref[weak_pde_mve]{(PDE)} if for
+  $\forall  \phi  \in \mathcal{C}^{\infty}_0([0,T]\times \mathbb{R}^{d} )  $ it holds 
+  \begin{align*}
+    \int_0^{T} \braket{\partial_t u , \phi }_{(H^{-1},H^{1})} dt &= \int_0^{T} \int_{\mathbb{R}^{d} }  \nabla \phi * (b(x,u)*u) dx dt \\
+                                                                 &- \int_0^{T} \int_{\mathbb{R}^{d} }  \nabla u * \nabla \phi  dx dt
+  .\end{align*} 
+\end{definition}
+\section{Heat Equation and the Heat Kernel}
+\subsubsection{Motivation}
+\begin{definition}[Heat equation]\label{HE}
+ The following PDE is called the inhomogenes Heat equation with source term $f$ 
+ \begin{align*}
+   \text{(HE)}\begin{cases}
+   \partial_t u(x,t) - \Delta u(x,t) &=f(x,t)\\
+   u \rvert_{t=0} &= u_0
+ \end{cases} 
+ .\end{align*}
+\end{definition}
+\begin{remark}
+ Compare this to our PDE which looks similar, but is in fact non-linear 
+\begin{align*}
+ \partial_t u - \Delta u + \nabla * (b(x,u)*u) = 0
+ .\end{align*}
+\end{remark}
+\begin{remark}
+ Let us suppose $K(x,t)$  is a heat kernel, then 
+  \begin{align*}
+    u(x,t) =  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds 
+  .\end{align*}
+  is a solution to the inhomogenous Heat-Equation, this is called Duhamel's principle i.e. we can "add" up solutions
+  to homogeneous problems and get the solution to the inhomogenous.
+\end{remark}
+\begin{remark}
+ We say the heat kernel is the density of the Brownian Motion. 
+\end{remark}
+\subsection{Derivation by Fourier Transform}
+\begin{definition}[Fourier Transform]
+ For $x \in  \mathbb{R}^{d} $ the Fourier transform is defined as
+\begin{align*}
+  \mathcal{F} : L^2 \to  L^2 \ u \mapsto \hat{u} 
+.\end{align*}
+where
+\begin{align*}
+  \hat{u} (k) = \int_{\mathbb{R}^{d} } u(x) e^{ix*k}  dx 
+.\end{align*}
+\end{definition}
+\begin{exercise}
+  Proof
+\begin{align*}
+  - \widehat{\Delta u}  = \abs{k}^2 \hat{u}(k)
+.\end{align*}
+\textit{Hint} 
+\begin{align*}
+  \widehat{\nabla u} = \frac{k}{i} \hat{u}(k)
+.\end{align*}
+\end{exercise}
+\begin{remark}
+ Using the Fourier transformation we can transform our PDE into an ODE 
+\begin{align*}
+  \begin{cases}
+    \partial_t \hat{u} - \widehat{\Delta u} &=\hat{f}\\
+   \hat{u} \rvert_{t=0} &= \hat{u}_0
+ \end{cases} 
+ .\end{align*}
+ that is
+ \begin{align*}
+   \begin{cases}
+     &\partial_t \hat{u}(k)  + \abs{k}^2 \hat{u} (k) = \hat{f}(k) \\
+     &\hat{u}_0(k)= \hat{u}_0
+   \end{cases}
+ .\end{align*}
+ where 
+\begin{align*}
+  \hat{u} (k,t)= e^{-\abs{k}^2t} \hat{u}_0(k) + \int_0^{t}  e^{-\abs{k}^2(t-\tau )} \hat{f}(k,\tau ) d \tau 
+ .\end{align*}
+\end{remark}
+\begin{lemma}[Inverse transformation of the Fourier transformation]
+ \begin{align*}
+   u(x,t) =  \frac{1}{(4\pi t)^{\frac{d}{2}} }\int_{\mathbb{R}^{d} } e^{-\frac{\abs{x-y}^2}{4t}} u_0(y) dy + \int_0^{t} \int_{\mathbb{R}^{d} }   \frac{1}{(4\pi(t-\tau ))^{\frac{d}{2}} } e^{\frac{-\abs{x-y}^2}{4(t-\tau )}} f(y,\tau )dy d\tau 
+ .\end{align*}
+\end{lemma}
+\begin{definition}[Heat Kernel]
+ The following is called Heat Kernel
+ \begin{align*}
+  K(x,t) = \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}} 
+ .\end{align*}
+\end{definition}
