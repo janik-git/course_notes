@@ -121,8 +121,8 @@ for a solution to be unique
     \E[\abs{X_t-\tilde{X}_t}^2] &\le 2\E[\abs{\int_0^{t} \abs{b(X_s,s) - b(\tilde{X}_s,x )} ds}^2 ]  \\
                                 & \qquad + 2 \E[\abs{\int_0^{t} B(X_s,s) - B(\tilde{X}_s,s ) dW_s}^2]\\
                                 &\myS{Hold.}{\le } 2t \E[\int_0^{t} \abs{b(X_s,s) - b(\tilde{X})s,s )}^2 ds ] + 2\E[\int_0^{t} \abs{B(X_s,s)-B(\tilde{X}_s,s )}^2 ds ] \\
-                                &\myS{Lip.}{\le } 2(t+1)L^2 E[\int_0^{t} \abs{X_s-\tilde{X}_s }^2 ds ]\\
-                                &= 2(t+1)L^2 \int_0^{t} E[\abs{X_s-\tilde{X}_s }^2  ]ds\\
+                                &\myS{Lip.}{\le } 2(t+1)L^2 \E[\int_0^{t} \abs{X_s-\tilde{X}_s }^2 ds ]\\
+                                &= 2(t+1)L^2 \int_0^{t} \E[\abs{X_s-\tilde{X}_s }^2  ]ds\\
   .\end{align*}
  Where the following Hoelders inequality was used 
  \begin{align*}
