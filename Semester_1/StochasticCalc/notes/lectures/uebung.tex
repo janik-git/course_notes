@@ -286,3 +286,100 @@ Gives
   \lim_{n \to \infty} \abs{g}_t^{n} = \sup_{\Pi } \sum_{J \in  \Pi }\abs{\Delta_{J \cap [0,t]} g}
 .\end{align*}
 \end{proof}
+\newpage
+\begin{exercise}
+ Show that the difference between the Lefthand Limit and Right hand limit is not necessarily the same for a Continuos function
+ $f \in  \mathcal{C}^{1} $ and a Process $B_t$ , with partition $\Delta_n = \{0=t_0<\ldots , < t_n = T\}  $
+ \begin{align*}
+   L_n &= \sum_{i=1}^{n} f(B_{t_{i-1}})(B_{t_i}-B_{t_{i-1}})\\
+   R_n &= \sum_{i=1}^{n} f(B_{t_i})(B_{t_i}-B_{t_{i-1}})
+ .\end{align*}
+\end{exercise}
+\begin{proof}
+ We have 
+ \begin{align*}
+   \abs{L_n - R_n} &= \abs{\sum_{i=1}^{n} (f(B_{t_{i-1}})-f(B_{t_i}))(B_{t_i}-B_{t_{i-1}})} \\ 
+                   &\le   \sqrt{ \sum_{i=1}^{n} f(B_{t_{i-1}}-f(B_{t_i}))^2}*\sqrt{\sum_{i=1}^{n} (B_{t_i}-B_{t_{i-1}})^2} \\
+                   &\le   C * \sqrt{\sum_{i=1}^{n} (B_{t_i}-B_{t_{i-1}})^2}
+ .\end{align*}
+ If the quadratic variation of $B_t$ is nonzero and finite , then there exists cases where $\abs{L_n - R_n} \neq 0$
+\end{proof}
+\begin{exercise}
+ Stochastic Integral as limit of simple functions is well defined, i.e. does not depend on the choice of limiting sequence. 
+\end{exercise}
+\begin{proof}
+  Let $f \in  \mathcal{H}^{2} $ and take two sequences $(f_n),(g_n) \subset  \mathcal{H}^{2}_0 $ such that 
+  \begin{align*}
+    \|f_n - f\|_{\mathcal{H}^2} \to  0 \text{ and } \|g_m - f\|_{\mathcal{H}^2} \to  0
+  .\end{align*}
+  We check 
+  \begin{align*}
+    \|f_n - g_m\| = \|f_n - f + f-g_m\| &=   \E[\int_0^{t} (f_n - f + f-g_m)^2  ]\\
+                                        &\le \E[\int_0^{t} 2*(f_n-f)^2 + 2*(f-g_m)^2 ] \\
+                                        &= 2*(\|f_n - f\| + \|f-g_m\|) \xrightarrow{n,m\to \infty} 0
+  .\end{align*}
+\end{proof}
+\begin{exercise}
+ Calculate 
+ \begin{align*}
+  \int_a^{b} B(t)dB(t) 
+ .\end{align*}
+\end{exercise}
+\begin{proof}
+ We prove this by picking $f_n$ such that 
+ \begin{align*}
+  f_n \to  B(t)
+ .\end{align*}
+ then we have 
+ \begin{align*}
+   \int_{a}^{b}  B(t) dB(t) = \lim_{n \to \infty} I(f_n) = \lim_{n \to \infty} \sum_{i=1}^{n}  f_n(B(t_{i-1}))(B(t_i)-B(t_{i-1}))
+ .\end{align*}
+ Clearly 
+ \begin{align*}
+   f_n(t,\omega ) = B(t_{i-1})*\cha_{[t_{i-1},t_i)}
+ .\end{align*}
+ Converges to $B(t)$ for a partition $\Delta_n$, we get
+ \begin{align*}
+   \int_{a}^{b}  B(t) dB(t) = \lim_{n\to \infty} \sum_{i=1}^{n} f_n(B(t_{i-1}))(B(t_i)-B(t_{i-1})) = B(t_{i-1}(B(t_i)-B(t_{i-1})))
+ .\end{align*}
+ Where we note that 
+ \begin{align*}
+   L_n &= \sum_{i=1}^{n} f_n(B(t_{i-1}))(B(t_i)-B(t_{i-1}))\\
+  R_n &= \sum_{i=1}^{n} f_n(B(t_{i}))(B(t_i)-B(t_{i-1}))
+ .\end{align*}
+ Such that 
+ \begin{align*}
+   R_n - L_n &=  \sum_{i=1}^{n} (f_n(B(t_{i}))-f_n(B_{t_{i-1}}))(B(t_i)-B(t_{i-1})) = \sum_{i=1}^{n} (B(t_i)-B(t_{i-1}))^2 \\
+   R_n + L_n &=  \sum_{i=1}^{n} (f_n(B(t_{i}))+f_n(B_{t_{i-1}}))(B(t_i)-B(t_{i-1})) = \sum_{i=1}^{n} (B(t_i)^2-B(t_{i-1})^2) = B(b)^2 - B(a)^2\\
+ .\end{align*}
+ Then 
+ \begin{align*}
+   L_n =  \frac{1}{2} (B(b)^2-B(a)^2 -\sum_{i=1}^{n} (B(t_i)-B(t_{i-1}))^2 )
+ .\end{align*}
+ As $n\to \infty$
+ \begin{align*}
+   \lim_{n\to \infty} L_n  = \frac{1}{2}(B(b)^2-B(a)^2 -  (b-a))
+ .\end{align*}
+ Plugging in $b=t$ and $a=0$
+ \begin{align*}
+  \frac{1}{2}(B(t)^2-t)
+ .\end{align*}
+\end{proof}
+\begin{exercise}
+  Show quadratic variation of $B(t)$  over $[a,b]$ is $b-a$
+\end{exercise}
+\begin{proof}
+  First way is by $L^2$ convergence 
+ \begin{align*}
+   \phi_n = \sum_{i=1}^{n} \underbrace{(B(t_i)-B(t_{i-1}))^2 - (\sum_{i=1}^{n}  t_i-t_{i-1})}_{X_i}
+ .\end{align*} 
+ Then 
+ \begin{align*}
+   \E[\phi_n^2] = \sum_{i,j=1}^{n} \E[X_iX_j]
+ .\end{align*}
+ For $i\neq j$ 
+ \begin{align*}
+   \E[X_iX_j] &=  \E[((B(t_i)-B(t_{i-1}))^2 - (t_i-t_{i-1}))((B(t_j)-B(t_{j-1}))^2 - (t_j-t_{j-1}))]\\
+              &= \E[(B(t_i)-B(t_{i-1}))^2(B(t_j)-B(t_{j-1}))^2] \ldots  
+ .\end{align*}
+\end{proof}

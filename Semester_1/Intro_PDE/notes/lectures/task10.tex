@@ -1,0 +1,332 @@
+\begin{align*}
+  &\text{Leon Fiethen 1728330}\\
+ &\text{Janik Sperling 1728567}
+.\end{align*}
+\section*{Sheet 10}
+\subsection*{30}
+\begin{exercise}[a]
+ Solutions of PDEs that are constant in the time variable are called "steady-state"  solutions.
+ Describe steady-state solutions of the inhomogenous heat equation 
+\end{exercise}
+\begin{proof}
+ Suppose we have a steady-state solution $u$, then  by assumption
+ \begin{align*}
+  \dot{u} = 0
+ .\end{align*}
+ such that
+ \begin{align*}
+  \dot{u}  - \Delta u  = f \leftrightarrow  -\Delta u = f
+ .\end{align*}
+ Which are all the solutions to the Poisson equation. 
+\end{proof}
+\begin{exercise}[b]
+ Consider the heat equation $\dot{u} - \Delta  u  =0 $  on $\mathbb{R}^{n} \times  \mathbb{R}^{+}  $ with smooth initial condition 
+ $u(x,0) = h(x)$. Suppose that the Laplacian an of $h$ is a constant. Show that there is a solution whose time derivative is constant
+\end{exercise}
+\begin{proof}
+  If the time derivative is a constant then $u$ is linear in time i.e 
+  \begin{align*}
+    u(x,t) = u_{1} + t*c
+  .\end{align*}
+  where by initial condition 
+  \begin{align*}
+    u(x,0) = h(x) = u_{1}
+  .\end{align*}
+  Then we have 
+  \begin{align*}
+    \dot{u}  - \Delta u = 0 \leftrightarrow c -c_{2} = 0  
+  .\end{align*}
+  So $c = c_{2} = \Delta h$ is a solution.
+\end{proof}
+\begin{exercise}[c]
+ Consider "translational solutions"  to the heat equation on $\mathbb{R} \times  \mathbb{R}^{+} $(i.e. n=1).
+ These are solutions of the form $u(x,t)= F(x-bt)$. Find all such solutions.
+\end{exercise}
+\begin{proof}
+ We have $u(x,t) = F(z(x,t)) = F(x-bt)$
+ \begin{align*}
+   \dot{u}  &=  -b F' \\
+   \frac{du}{dx} &=  F'  \\
+   \frac{d^2u}{dx^2} &= F''  \\
+ .\end{align*}
+ where $F' = \frac{d}{dz} F$, then 
+ \begin{align*}
+  \dot{u}  - \Delta  F = 0 \leftrightarrow -b F' - F^{''}  = 0
+ .\end{align*}
+ By integration we must have 
+ \begin{align*}
+  -b F - F' = c
+ .\end{align*}
+ For some constant $c$, then 
+ \begin{align*}
+  F' = -(c + bF)
+ .\end{align*}
+ Which is a first order linear ode with solution  ...
+\end{proof}
+\begin{exercise}[d]
+  If $u$ is a solution to the heat equation, show for every $\lambda  \in  \mathbb{R}$ that 
+  \begin{align*}
+    u_{\lambda }(x,t) = u(\lambda x, \lambda ^2t)
+  .\end{align*}
+ is also a solution to the heat equation 
+\end{exercise}
+\begin{proof}
+ We check 
+ \begin{align*}
+   \dot{u}_\lambda  &= \lambda^2 \dot{u}   \\
+   \Delta u_\lambda  &= \lambda^2 \Delta u 
+ .\end{align*}
+ Then 
+ \begin{align*}
+  \dot{u}_\lambda - \Delta u_\lambda =  \lambda ^2(\dot{u}- \Delta u  ) =  0
+  .\end{align*}
+\end{proof}
+\newpage
+\subsection*{31. The Fourier transform}
+In this question we expand on some details from Section 4.1. Recall that the Fourier transform
+of a function $h(x) : \mathbb{R}^{n} \to  \mathbb{R} $ is defined to be function $\hat{h}(k) : \mathbb{R}^{n}  \to  \mathbb{R}$  given by 
+\begin{align*}
+  \hat{h}(k) = \int_{\mathbb{R}^{n} } e^{-2\pi ik*x} h(x)dx
+.\end{align*}
+Lemma 4.3 shows that it is well-defined for Schwartz functions.
+\begin{exercise}[a]
+  Argue that $f : \mathbb{R} \to \mathbb{R} $  given by $f(x) = \exp(-x^2)$ is a Schwartz function
+\end{exercise}
+\begin{proof}
+ We want to check that for any $l \in  \mathbb{N}$ and $k \in  \mathbb{N}$ 
+ \begin{align*}
+   \sup_{x \in  \mathbb{R}} \abs{x}^{2l} \abs{f^{(k)}(x) } 
+ .\end{align*}
+ is bounded, first we check a couple derivatives of $f$
+ \begin{align*}
+   f' &=  -2xe^{-x^2}   = -2x*f\\
+   f^{''} &= -2f - 2xf' =  -2f +4x^2 f \\
+   f^{(3)} &= -2f' + 8xf + 4x^2f' = 4xf + 8xf + 4x^2(-2f + 4x^2f)  = 12xf -8x^2f + 16x^{4}f 
+ .\end{align*}
+Or in other words
+\begin{align*}
+  f^{(k)} = p(x)*f = p(x)e^{-x^2} 
+.\end{align*}
+for some $n=k+1$ order polynomial we get 
+\begin{align*}
+  p(x)e^{-x^2} = \frac{p(x)}{e^{x^2} } 
+.\end{align*}
+Where for every $d \in  \mathbb{N}$ we have by cutting off the series
+\begin{align*}
+  e^{x^2} = \sum_{k=0}^{n} \frac{\abs{x^2}^{k} }{k!} \ge  1 + \frac{x^{d}}{l!}
+.\end{align*}
+Now suppose $p(x)$ is a polynomial of order $n \in  \mathbb{N}$ then we have 
+\begin{align*}
+  \abs{p(x)} \le C \abs{x}^{n} 
+.\end{align*}
+For some $C > 0$  and $\abs{x} \ge 1$, Proof
+\begin{align*}
+  \abs{p(x)} = \abs{\sum_{i=0}^{n}  x^{i}*a_i} \le  \sum_{i=0}^{n} \abs{x^{i} a_i} \le  a_0 + \sum_{i=1}^{n} \abs{x^{i} a_i} 
+.\end{align*}
+then 
+\begin{align*}
+  \frac{\abs{p(x)}}{\abs{x}^{n} } \le  a_0 + a_n + \sum_{i=1}^{n-1} \frac{1}{\abs{x}^{n-i}a_i}   \le  C
+.\end{align*}
+For $\abs{x} \ge  1$ and some constant $C>0$ \\[1ex]
+For $x \in  [-1,1]$ we get that $p(x)$ is bounded by some constant , as it is constant and $[-1,1]$ is compact.
+Then 
+\begin{align*}
+  \sup_{x \in \mathbb{R}} \abs{x}^{2l}\abs{p(x)e^{-x^2} } &= \sup_{x \in \mathbb{R}} \frac{\abs{x}^{2l}\abs{p(x)} }{e^{-x^2} } \\
+                                                          &\le  \sup_{x \in \mathbb{R}} \frac{\abs{x}^{2l}C\abs{x^{n} } }{1+\frac{x^{d}}{d!} }\\
+                                                          &=  C\sup_{x \in \mathbb{R}} \frac{\abs{x}^{d} }{1+\frac{x^{d}}{d!} }\\
+                                                          &\le C\sup_{x \in \mathbb{R}} \frac{\abs{x}^{d} }{\frac{x^{d}}{d!} }\\
+                                                          &=  C d!
+.\end{align*}
+where $d  = 2l+n$. Thus $e^{-x^2} $ is a Schwartz function.
+\end{proof}
+\begin{exercise}[b]
+  Consider 
+  \begin{align*}
+    I^2= \left(\int_\mathbb{R} e^{-x^2} dx   \right)^2 =   \int_{\mathbb{R}^{2} } e^{-x^2-y^2} dx dy
+  .\end{align*}
+By changing to polar coordinates, compute this integral
+\end{exercise}
+\begin{proof}
+ Using $\Phi(r,\phi ) = (r \cos \phi ,r \sin \phi ) \coloneqq (x,y)$  then 
+ \begin{align*}
+   J\Phi  = \begin{pmatrix} \cos(\phi ) & \sin(\phi ) \\ -r \sin(\phi ) &  r\cos(\phi )  \end{pmatrix} 
+ .\end{align*}
+ and 
+ \begin{align*}
+   \det{J\Phi } = r \cos^2 + r \sin^2 = r 
+ .\end{align*}
+ Where $r \in  [0,\infty)$ and $\theta \in [0,2\pi ]$
+ \begin{align*}
+   \int_{\mathbb{R}^{2}} e^{-x^2-y^2} dx dy &=  \int_0^{\infty} \int_0^{2\pi } r e^{-r^2(\cos^2(\phi) + \sin^2(\phi ))} d\phi dr \\
+                                            &=\int_0^{\infty} \int_0^{2\pi}   r e^{-r^2} d\phi  dr \\
+                                            &= 2\pi \int_0^{\infty}  r e^{-r^2} dr\\
+                                            &= \pi 
+ .\end{align*}
+\end{proof}
+So $I = \sqrt{\pi} $ like we saw in the lecture ($n=1$).
+\begin{exercise}[c]
+Prove the rescaling law for Fourier transforms:  if $h(x) = g(ax)$   then 
+\begin{align*}
+  \hat{h}(k)  = \abs{a}^{-n} \hat{g}(a^{-1}k ) 
+.\end{align*}
+\end{exercise}
+\begin{proof}
+ We compute 
+ \begin{align*}
+   \hat{h}(k)  &= \int_{\mathbb{R}^{n} } e^{-2\pi ik*x}h(x) dx  \\
+               &=   \int_{\mathbb{R}^{n} } e^{-2\pi ik*x}g(ax) dx  \\
+ .\end{align*}
+ By using the transformation
+ \begin{align*}
+  z = ax \leftrightarrow \begin{pmatrix} z_{1} \\ \vdots \\ z_n \end{pmatrix}  = a*\begin{pmatrix} x_{1} \\ \vdots \\ x_n \end{pmatrix} 
+ .\end{align*}
+ Then we get the determinant 
+ \begin{align*}
+  \frac{1}{a^{n} } 
+ .\end{align*}
+  Then
+ \begin{align*}
+   \int_{\mathbb{R}^{n} } e^{-2\pi ik*x}g(ax) dx  &=   \int_{\mathbb{R}^{n} }\abs{a^{-n}  }e^{-2\pi ik*(z*\frac{1}{a})}g(z) dz \\
+                                                  &=   \int_{\mathbb{R}^{n} }\abs{a^{-n}  }e^{-2\pi \frac{ik}{a}*z}g(z) dz \\
+                                                  &= \abs{a}^{-n}\hat{g}(a^{-1}k ) 
+ .\end{align*}
+\end{proof}
+\begin{exercise}[d]
+ Prove the shift law for Fourier transforms: if $h(x) = g(x-a)$, then
+ \begin{align*}
+  \hat{h}(k) =e^{-2\pi ia*k} \hat{g}(k) 
+ .\end{align*}
+\end{exercise}
+\begin{proof}
+ We compute  
+ \begin{align*}
+  \hat{h}(k)  &= \int_{\mathbb{R}^{n} } e^{-2\pi ik*x}h(x) dx  \\
+               &=   \int_{\mathbb{R}^{n} } e^{-2\pi ik*x}g(x-a) dx  \\
+ .\end{align*}
+ Using the transform 
+ \begin{align*}
+  z = x-a \leftrightarrow \begin{pmatrix} z_{1} \\ \vdots \\ z_n \end{pmatrix}  = \begin{pmatrix} x_{1}-a_{1} \\ \vdots \\ x_n-a_n \end{pmatrix} 
+ .\end{align*}
+ Which has determinant $1$ then 
+ \begin{align*}
+   \int_{\mathbb{R}^{n} } e^{-2\pi ik*x}g(x-a) dx &= \int_{\mathbb{R}^{n} } e^{-2\pi ik*(z+a)}g(z) dx\\
+                                                  &= \int_{\mathbb{R}^{n} } e^{-2\pi ik*z+k*a}g(z) dx\\
+                                                  &= \int_{\mathbb{R}^{n} } e^{-2\pi ik*z}*e^{-2\pi ik*a)}g(z) dx\\
+                                                  &= e^{-2\pi ik*a}\int_{\mathbb{R}^{n} } e^{-2\pi ik*z}g(z) dx\\
+                                                  &= e^{-2\pi ik*a} \hat{g}(k) 
+ .\end{align*}
+\end{proof}
+\begin{exercise}[e]
+ Show that $\delta $  is a tempered distribution
+\end{exercise}
+\begin{proof}
+ We recall \\
+ \begin{Definition}[Tempered]
+   Suppose that $\phi_m$ is a sequence of test functions that converges to zero in $\mathcal{S}$ , i.e. $\lim_{m\to \infty} \rho_{l,\alpha }(\phi_m) = 0$  for all $l \in  \mathbb{N}, \alpha \in \mathbb{N}_0^{n}  $. We say
+that $F$ is a tempered distribution $F \in  \mathcal{S}^{'} $ if $\lim_{m\to \infty} F(\phi_m) = 0$.\\
+Where 
+\begin{align*}
+  \rho_{l,\alpha }(\phi_m) = \sup \abs{x}^{2l}\abs{\partial^\alpha \phi_m}  
+.\end{align*}
+ \end{Definition}
+ Since $\alpha \in \mathbb{N}_0$ in our case we have 
+ \begin{align*}
+   \rho_{l,0}(\phi_m) = \sup \abs{x}^{2l}\abs{\phi_m(x)}  \to 0
+ .\end{align*}
+ and for all $m \in  \mathbb{N}$ we have by properties of $\sup$
+ \begin{align*}
+  \sup \abs{x}^{2l}\abs{\phi_m(x)} \ge \abs{\phi_m(0)} \ge 0
+ .\end{align*}
+ So we have for $\forall  m \in  \mathbb{N}$ 
+ \begin{align*}
+   0\le \abs{\phi_m(0)} = \abs{\delta(\phi_m)} \le \abs{x}^{2l}\abs{\phi_m(x)} \xrightarrow{m \to \infty} 0
+ .\end{align*}
+This shows $\delta $ is a tempered distribution.
+\end{proof}
+\begin{exercise}[f]
+  Compute the Fourier transform of $\delta $
+  \end{exercise}
+  \begin{proof}
+    For $\phi  \in  \mathcal{S} \subset  \mathcal{C}_0^{\infty} $, and since $\delta $ is a tempered distribution by the above $\hat{\delta }(\phi ) = \delta(\hat{\phi } )$
+ \begin{align*}
+   \hat{\delta}(\phi ) &= \delta(\hat{\phi}(k) )\\
+                       &= \delta \left(\int_{\mathbb{R}^{n} } e^{-2\pi i (\star) *x} \phi (x) dx \right)\\
+                       &= \int_{\mathbb{R}^{n} } e^{-2\pi i0 *x} \phi (x) dx \\
+                       &=  \int_{\mathbb{R}^{n} }  \phi (x) dx \\
+ .\end{align*}
+  \end{proof}
+  \begin{exercise}[g]
+   Try to compute the Fourier transform of $1$ using Definition 4.8. What is the difficulty? 
+  \end{exercise}
+  \begin{proof}
+   If we want to use Definition we identify $1$ with the distribution 
+   \begin{align*}
+     F_1(\phi ) = \int_{\mathbb{R}^{n}}  1*\phi 
+   .\end{align*}
+   We recognize this as 
+   \begin{align*}
+    F_1(\phi ) = \hat{\delta}(\phi )=  \delta(\hat{\phi } )
+   .\end{align*}
+   Since $\delta $ is tempered so is $F_1$ and we use 4.8.
+   \begin{align*}
+     \hat{F_1}(\phi )  = F_1(\hat{\phi } ) &= \int_{\mathbb{R}^{n} } 1*\hat{\phi}  dk\\
+                                           &= \int_{\mathbb{R}^{n} } e^{2\pi ik*0} \hat{\phi } dk\\
+                                           &= \mathcal{F}^{-1}(\hat{\phi})(0)\\
+                                           &= \phi(0)\\
+                                           &= \delta(\phi )
+   .\end{align*}
+  \end{proof}
+\subsection*{32 One step at a time}
+\begin{exercise}
+ Prove the following identity for the fundamental solution in one dimension ($n=1$) 
+ \begin{align*}
+  \Phi(x,s+t) = \int_\mathbb{R} \Phi(x-y,t)\Phi(y,s) dy
+ .\end{align*}
+ Interpret this equation in the context of Theorem 4.7.
+\end{exercise}
+\begin{proof}
+  We calculate  for $t,s>0$
+  \begin{align*}
+    \int_\mathbb{R} \Phi(x-y,t)\Phi(y,s) dy &= \int_\mathbb{R} \frac{1}{\sqrt{16\pi^2 ts} } e^{-\frac{\abs{x-y}^2}{4t} - \frac{\abs{y}^2}{4s}} dy
+  .\end{align*}
+  and for simplicity consider first  we want to get ($-A +By - Cy^2$)
+  \begin{align*}
+    -\frac{\abs{x-y}^2}{4t} - \frac{\abs{y}^2}{4s} &= -\frac{x^2-2xy+y^2}{4t} - \frac{y^2}{4s} \\
+                                                   &=  -\frac{x^2}{4t} +\frac{x}{2t}*y - \frac{y^2}{4t} - \frac{1}{4s}y^2\\
+                                                   &= -\underbrace{\frac{x^2}{4t}}_{A} +\underbrace{\frac{x}{2t}}_{B}*y - \underbrace{(\frac{1}{4t} + \frac{1}{4s})}_{C}y^2
+  .\end{align*}
+  Then by the hint we get for the integral $\sqrt{\frac{\pi}{C}} \exp(\frac{B^2}{4C}-A)$ 
+  \begin{align*}
+    \int_\mathbb{R} \Phi(x-y,t)\Phi(y,s) dy &= \int_\mathbb{R} \frac{1}{\sqrt{16\pi^2 ts} } e^{-\frac{\abs{x-y}^2}{4t} - \frac{\abs{y}^2}{4s}} dy\\
+                                            &= \frac{1}{\sqrt{16\pi^2 ts} }  \sqrt{\frac{\pi }{(\frac{1}{4t}+\frac{1}{4s})}} \exp(\frac{x^{2} }{16t^2*(\frac{1}{4t}+\frac{1}{4s})}-\frac{x^2}{t})\\
+                                            % &= \frac{1}{\sqrt{16\pi^2 ts} }  \sqrt{\frac{\pi }{\frac{4(t+s)}{16ts}}} \exp(\frac{x^{2} }{16t^2*\frac{4(t+s)}{16ts}}-\frac{x^2}{t})\\
+                                            % &=  \frac{1}{\sqrt{16\pi^2 ts} }  \sqrt{\frac{4ts\pi }{s+t}} \exp(\frac{x^{2}s }{4t(s+t)}-\frac{(4(s+t))x^2}{4t(s+t)})\\
+                                            % &= \frac{1}{\sqrt{4\pi(s+t) } }  \exp(\frac{x^{2}s - (4(s+t))x^2 }{4t(s+t)})\\
+                                            % &= \frac{1}{\sqrt{4\pi(s+t) } }  \exp(\frac{x^{2}(s - 4(s+t)) }{4t(s+t)})\\
+                                            &\vdots\\
+                                            &= \Phi(x,s+t)
+  .\end{align*}
+  Where we pinky promise we did the intermediate transformations. \\[1ex]
+  Theorem 4.7 says that, for $h \in  \mathcal{C}_b(\mathbb{R}^{n},\mathbb{R} )$
+  \begin{align*}
+    u(x,t) = \int_{\mathbb{R}^{n} } \Phi(x-y,t)h(y) d^{n} y
+  .\end{align*}
+  has the properties 
+  \begin{enumerate}
+    \item $u \in  \mathcal{C}^{\infty}(\mathbb{R}^{n} \times  \mathbb{R}^{+}  ) $
+    \item $\dot{u} - \Delta  u  = 0 $
+    \item $u$ extend continuously to $\mathbb{R}^{n} \times  [0,\infty) $ with $\lim_{t \to 0} u(x,t) = h(x)$
+  \end{enumerate}
+  Now lets say we have $u$ as given by the representation of 4.7., and take $n=1$ since we've only shown the identity for that, then 
+  \begin{align*}
+    u(x,t+s) &= \int_{\mathbb{R} }\Phi(x-y,t+s)h(y) d y  \\
+             &= \int_{\mathbb{R} }\left(\int_{\mathbb{R}} \Phi(x-y-z,t)\Phi(z,s) dz \right)h(y) d y\\
+             &= \int_{\mathbb{R} }\tilde{u}(x-z,t)\Phi(z,s) d z
+  .\end{align*}
+Which by Theorem 4.7 is a solution to the Cauchy problem with initial condition
+\begin{align*}
+  h(y) \coloneqq \tilde{u}(y,t)  
+.\end{align*}
+So we can always construct a new heat equation by taking the previous state as our new initial state i.e. the initial state only matters till the next 
+state.
+\end{proof}

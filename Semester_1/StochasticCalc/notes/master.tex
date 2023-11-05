@@ -14,7 +14,35 @@
 % \include{lectures/ito_integration}
 % \newpage
 % \include{lectures/task4}
-\include{lectures/uebung}
+% \include{lectures/uebung}
 % \include{lectures/appendix}
 % \include{lectures/macro}
+\begin{align*}
+  \abs{Y-Z}_t \le  \abs{Y}_t + \abs{Z}_t
+.\end{align*}
+Where  for $0 = t_{1}\le \ldots \le t_{n} = t$
+\begin{align*}
+  \abs{Y}_t = \sum_{i=1}^{n}  \abs{Y_{t_i} - Y_{t_{i-1}}}
+.\end{align*}
+Lets say we can use the limit structure already
+\begin{align*} 
+  \abs{Y}_t &= \lim_{n \to \infty}\sum_{i=1}^{n}  \abs{Y_{t_i} - Y_{t_{i-1}}} = \lim_{n \to \infty} \sum_{i=1}^{n} \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 -  \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_{i-1}]} X)^2\\
+            &\le  \lim_{n \to \infty} \sum_{i=1}^{n} \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 \\
+            &=  \lim_{n \to \infty} \lim_{m\to \infty}\sum_{i=1}^{n}  \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 \\
+.\end{align*}
+bzw. 
+\begin{align*}
+  \abs{Y}_t  = \lim_{n\to \infty} \sum_{i=1}^{n} \abs{Y_{t_i}-Y_{t_{i-1}}}  &=  \lim_{n\to \infty} \sum_{i=1}^{n} \abs{\braket{X}_{t_i} - \braket{X}_{t_{i-1}}}\\
+                                                                            &\myS{(i)}{\le } \lim_{n\to \infty} \sum_{i=1}^{n} \abs{\braket{X}_{t_i}}\\ 
+                                                                            &= \sum_{i=1}^{k} \braket{X}_{t_i} + \lim_{n \to \infty}  \sum_{k=1}^{n} \braket{X}_{t_i} \\
+                                                                            &= Y_t + 0
+.\end{align*}
+If we know 
+\begin{align*}
+  \sum_{i=1}^{\infty} a_i < \infty 
+.\end{align*}
+Then 
+\begin{align*}
+  \lim_{k\to \infty} \sum_{i=k}^{\infty} a_i \to 0 
+.\end{align*}
 \end{document}
