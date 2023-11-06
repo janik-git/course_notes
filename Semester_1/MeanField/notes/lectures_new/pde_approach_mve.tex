@@ -241,7 +241,7 @@ where
                                     &= 0
   .\end{align*}
   by properties of the Heat-Kernel. \\[1ex]
-  For $u_{2}(x,t)$  
+  For $u_{2}(x,t)$ , we further assume $f$ has compact support
   \begin{align*}
     u_{2}(x,t)  = \int_0^{t}  \int_{\mathbb{R}^{d} }K(y,s)f(x-y,t-s) dy ds
   .\end{align*}
@@ -306,7 +306,7 @@ Now we start with bounded drift term for a linear equation.
 a solution to the more complex non-linear , non-local one.
 \end{remark}
 \begin{theorem}[Uniqueness and Existence of LDE Solution ]
-  If $b \in  L^{\infty}([0,T] \times  \mathbb{R}^{d} ) $  and $u_{0} \in  L^1(\mathbb{R}^{d} )$, then the $LDE$ has a 
+  If $b \in  L^{\infty}([0,T] \times  \mathbb{R}^{d} ) $  and $u_{0} \in  L^1(\mathbb{R}^{d} )$, then the \hyperref[LDE]{(LDE)} has a 
   unique solution $u \in L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) ) $
   \begin{align*}
     u(x,t) = \int_{\mathbb{R}^{d} }K(x-y,t)u_{0}(y) dy  + \int_{0}^{t} \int_{\mathbb{R}^{d} } \nabla K(x-y,t-\tau ) * (\overline{b}(y,\tau )u(y,\tau ) ) dy d\tau 
@@ -373,7 +373,7 @@ where $u \in  L^{\infty}(L^{1} ) $ under the assumption on $b(x,u)$
 .\end{align*}
 By fixing  $\tilde{x} = 0 $
 \begin{align*}
-  \abs{b(x,u) - b(0,\delta_0  )} \le  L(\abs{x} + W_2(u,\delta_0 )) 
+  \abs{b(x,u) - b(0,\delta_0  )} \le  L(\abs{x} + W_2(u,\delta_0 )) \le L(1+\abs{x})
 .\end{align*}
 where 
 \begin{align*}
@@ -383,3 +383,215 @@ when $b$ is unbounded we consider , the cutoff
 \begin{align*}
   \overline{b}(x,v(x,t))  = \min \{b(x,v(x,t)), M\}  
 .\end{align*}
+\begin{assumption}\label{b_special}
+ Assume $b(x,u) $  is given by the convolution
+ \begin{align*}
+  b(x,u) = \nabla V \star u(x)
+ .\end{align*}
+\end{assumption}
+\begin{remark}
+ In the (SDE)  case we would assume 
+\begin{align*}
+   \nabla V \in  \text{Lip} \tag{SDE}
+ .\end{align*}
+ since our (SDE) is given by
+ \begin{align*}
+  d X_i = \nabla V \star  u(x_i) dt + \sqrt{2} dW_t
+ .\end{align*}
+ and we know a solution to the linear SDE exists for Lipschitz continuous coefficients 
+\end{remark}
+\begin{definition}
+ Assume $b(x,u) $  is given by the convolution
+ \begin{align*}
+  b(x,u) = \nabla V \star u(x)
+ .\end{align*}
+ Then let our (PDE) be given by 
+ \begin{align*}
+  \text{(PDE)}\begin{cases}
+    &u_t - \Delta u + \nabla*(\nabla V \star  u \ u) = v\\
+    &u \rvert_{t=0} = u_{0} \in  L^{1}((1+\abs{x}^2)dx) 
+  \end{cases}
+ .\end{align*}
+\end{definition}
+% \begin{definition}[Epsilon Problem]
+%  We consider for $\epsilon > 0$  the problem
+%  \begin{align*}
+%    \text{(PDE)}_{\epsilon}\begin{cases}
+%     &u_t^{\epsilon} - \Delta u^{\epsilon}  + \nabla*(j_{\epsilon}\star \nabla V \star  u^{\epsilon}  \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} ) = v\\
+%     &u^{\epsilon}  \rvert_{t=0} = \tilde{j}_{\epsilon} \star  u_{0} 
+%   \end{cases}
+%  .\end{align*}
+% where  $j_{\epsilon}$ is the mollification kernel in $x,t$ 
+% \begin{align*}
+%   \nabla V \star  u &\leftarrow j_{\epsilon} \star  \nabla V \star  u\\
+%   u &\leftarrow j_{\epsilon} \star (\cha_{\abs{x} \le  \frac{1}{\epsilon}u})\\
+%   u_0 &\leftarrow \tilde{j}_{\epsilon}  \star  u_{0}
+% .\end{align*}
+% where $\tilde{j}_{\epsilon} $ is mollification just in $x$
+% \end{definition}
+\begin{definition}[Epsilon Problem]
+  For $v \in  L^{\infty}(L^{1} )$ consider $j_{\epsilon} \star  \nabla  V \star  v \leftarrow \nabla V \star  v $
+ \begin{align*}
+   \text{(PDE)}_{\epsilon}\begin{cases}
+    &u_t^{\epsilon} - \Delta u^{\epsilon}  + \nabla*(j_{\epsilon}\star \nabla V \star  v \ (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} )) = v\\
+    &u^{\epsilon}  \rvert_{t=0} = \tilde{j}_{\epsilon} \star  u_{0} 
+  \end{cases}
+ .\end{align*}
+where  $j_{\epsilon}$ is the mollification kernel in $x,t$ 
+\begin{align*}
+  \nabla V \star  u &\leftarrow j_{\epsilon} \star  \nabla V \star  u\\
+  u &\leftarrow j_{\epsilon} \star (\cha_{\abs{x} \le  \frac{1}{\epsilon}u})\\
+  u_0 &\leftarrow \tilde{j}_{\epsilon}  \star  u_{0}
+.\end{align*}
+where $\tilde{j}_{\epsilon} $ is mollification just in $x$
+\end{definition}
+\begin{remark}
+  We first solve this problem for $v$, and then construct a fixpoint argument to get a solution for $u$, in order to solve $\text{PDE}$ ,
+  for bounded $\overline{b}$ we already have a solution  
+  \begin{align*}
+    v \in  L^{\infty}(L^{1} ) \xrightarrow{\text{sol for bounded } \overline{b} } u \in  L^{\infty}(L^{1} ) 
+  .\end{align*}
+  Where we know our solution is given by 
+  \begin{align*}
+    u(x,t) = \int_{\mathbb{R}^{d} } K(x-y,t)u_{0}(y) dy + \int_0^{t}  \int_{\mathbb{R}^{d} } K(x-y,t-s) \nabla*(\nabla V \star  v \ u)(s,y) dy ds
+  .\end{align*}
+  We further want that 
+  \begin{align*}
+    \lim_{\abs{x} \to  \infty}u(x,t) = 0
+  .\end{align*}
+\end{remark}
+\begin{remark}
+ For the linear PDE with  term  
+ \begin{align*}
+  j_{\epsilon}\star \nabla V \star  v \ (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} )
+ .\end{align*}
+ We get 
+ \begin{align*}
+   u^{\epsilon}(x,t) = \int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star u_{0}(y) dy + \int_0^{t}  \int_{\mathbb{R}^{d} } K(x-y,t-s) \nabla*(j_{\epsilon} \star \nabla V \star  v \ j_{\epsilon} (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y) dy ds
+ .\end{align*}
+ then $u^{\epsilon} $ satisfies the eq. In the classical sense 
+ \begin{align*}
+  \begin{cases}
+    &\partial_t u^{\epsilon}  - \Delta u^{\epsilon}  + \underbrace{\nabla*(j_{\epsilon}\star \nabla V \star  v \ (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} ))}_{\in \mathcal{C}_0^{2,1} } = 0 \\ 
+    &u^{\epsilon}  \rvert_{t=0} = \tilde{j}_{\epsilon} \star  u_{0}
+  \end{cases}
+ .\end{align*}
+\end{remark}
+\begin{lemma}[Estimates]
+   We have $u \in  L^{\infty}(L^{1} ) =  L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) ) $ 
+\end{lemma}
+   \begin{proof}
+    
+     \begin{align*}
+       \|u^{\epsilon} \|_{L^{\infty}(L^{1} ) } &= \sup_{t} \int_{\mathbb{R}^{d} }\abs*{I(x,t) + II(x,t)}dx\\
+                                               &\le \sup_t \int_{\mathbb{R}^{d} } \abs*{\int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star u_{0}(y)} dy dx + II\\
+                                               &\le \|K(t,*)\|_{L^{1} } * \|j_{\epsilon} \star  u_0\|_{L^{1} } + \|II\|\\
+                                               &\le \|u_0\|_{L^{1} } + \|II\| \\
+                                               &\le C_0 + C \sqrt{t}  \|u^{\epsilon} \|_{L^{\infty}(L^{1} ) }
+     .\end{align*}
+ Then for $C \sqrt{t^{\star }} \le \frac{1}{2}$ we have $\|u^{\epsilon} \|_{L^{\infty}(L^{1} ) } \le C$ 
+ since $\sqrt{t^{\star }}$ does not depend on $\epsilon$ we have for $\forall  T>0$ the bound 
+ \begin{align*}
+   \|u^{\epsilon} \|_{L^{\infty}(L^{1} ) }\le C
+ .\end{align*}
+ where 
+ \begin{align*}
+   I &= \int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star u_{0}(y) dy \\
+   II &= \int_0^{t}  \int_{\mathbb{R}^{d} } K(x-y,t-s) \nabla*(j_{\epsilon} \star \nabla V \star  v \ j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y) dy ds
+ .\end{align*}
+ where 
+ \begin{align*}
+   \|II\| &\le  \sup_t \int_0^{t} ds \int_{\mathbb{R}^{d} }  dx \abs*{\int_{\mathbb{R}^{d} } dy K(x-y,t-s) \nabla*(j_{\epsilon} \star \nabla V \star  v * j_{\epsilon}\star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y)}\\
+          &\le \sup_t \int_0^{t} ds \int_{\mathbb{R}^{d} }  dx \int_{\mathbb{R}^{d} } dy \abs*{\nabla K(x-y,t-s) * (j_{\epsilon} \star \nabla V \star  v * j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y)}\\
+          &\le  \sup_{t} \int_0^{t} ds \|\nabla V\| _{\infty}  \|\nabla K(*,t-s) \|_{L^{1} }* \|j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon}\|\\
+          &\le C \sup_{t} \int_0^{t}  \frac{1}{\sqrt{t-s} } ds *\|u^{\epsilon} \|_{L^{\infty}(L^{1} ) }\\
+          &= C*\sqrt{t} *\|u^{\epsilon} \|_{L^{\infty}(L^{1} ) }
+ .\end{align*}
+   \end{proof}
+   \begin{lemma}[Second Moment Bound]
+   The second moment  of $u^{\epsilon} \in L^{\infty}(L^{1} ) $
+   \begin{align*}
+    \int  \abs{x}^2 u^{\epsilon}  dx < \infty
+   .\end{align*}
+   is bounded
+   \end{lemma}
+   \begin{proof}
+   \begin{align*}
+     \int_{\mathbb{R}^{d} } \abs{x}^2 u^{\epsilon}(x,t) dx &= \int_{\mathbb{R}^{d} } \abs{x}^2   \int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star u_{0}(y) dy dx\\
+                                                           &+  \int_0^{t} \int_{\mathbb{R}^{d} } dx \abs{x}^2  \int_{\mathbb{R}^{d} } \nabla K(x-y,t-s) *(j_{\epsilon} \star \nabla V \star  v \ j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y) dy ds \\
+                                                           &= I + II
+   .\end{align*} 
+   We bound again individually 
+   \begin{align*}
+     I &\le \int_{\mathbb{R}^{d} } dx \int_{\mathbb{R}^{d} } \abs{x-y}^2 K(x-y,t)  j_{\epsilon} \star u_{0}(y) dy dx + \int_{0}^{t} ds \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } dx dy \abs{y}^2 K(x-y,t) j_{\epsilon} \star u_{0}(y)\\
+       &\le \int_{\mathbb{R}^{d} } \abs{x}^2K(x,t) dx * \int  j_{\epsilon} \star u_{0}(y) dy  +  \int_0^{t} ds \int_{\mathbb{R}^{d} }  \abs{y}^2 u_0(y) dy\\
+       &\le  C*t  \left(   \|u_0\|^{L^{1} } + \int \abs{y}^2 u_0(y) dy\right)
+   .\end{align*}
+  Where 
+  \begin{align*}
+    \int \abs{x}^2 K(x,t) dx &=  4t\int \frac{\abs{x}^2}{4t} \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}}  dx\\
+                             &=  C*t 
+  .\end{align*}
+  For 
+  \begin{align*}
+    II &= \int_0^{t} \int_{\mathbb{R}^{d} }  dx \underbrace{2x}_{\abs{x} \le \abs{x-y} + \abs{y}} \int_{\mathbb{R}^{d} } K(x-y,t-s) * (j_{\epsilon} \star \nabla V \star  v \ (j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y) dy ds\\
+       &\le C*\int_0^{t} \sqrt{t-s}  ds  + C * \int_0^{t}  \int_{\mathbb{R}^{d} }K(x,t-s) dx * \underbrace{\int \abs{y} (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} u^{\epsilon} )(y) dy}_{III}\\
+       &\le C(t) + C \int_0^{t}  \int_{\mathbb{R}^{d} } \abs{y} u^{\epsilon} (y) dy ds\\
+       &\le  C(t) + C\int_0^{t} \int  \abs{x}^2 u^{\epsilon}(x) dx ds
+  .\end{align*}
+  where in the above estimate we used for  $III$ that for arbitrary $u_{0}\ge 0$ (just use the absolute value)
+  \begin{align*}
+    \int_{\mathbb{R}^{d} } \abs{y}^2*j_{\epsilon}\star u_{0}(y) dy &\le \int_{\mathbb{R}^{d} } \int_{\mathbb{R}^{d} } \abs{y}^2 j_{\epsilon}j_{\epsilon}(z) u_0(y-z)dz dy\\
+                                                                   &\le  \iint \abs{y-z}^2 j_{\epsilon}(z) u_{0}(y-z) dz dy + \iint \abs{z}^2 j_{\epsilon}(z)u_{0}(y-z) dy dz \\
+                                                                   &\le  \|j_{\epsilon}\|_{L^{1} } \int \abs{y}^2 u_{0}(y) dy  + \epsilon^2 \iint \frac{\abs{z}^2}{\epsilon ^2} \frac{1}{\epsilon ^{d} }j(\frac{z}{\epsilon}) u_0(y-z) dy dz \\
+                                                                   &\le \int \abs{y}^2 u_0(y) dy + C \epsilon^2 \int u_{0}(y) dy
+  .\end{align*}
+   \end{proof}
+   \begin{remark}
+   The proof above main trick is to use the moment estimates we have for the individual parts 
+   \end{remark}
+   \begin{lemma}
+   We have for $u^{\epsilon}(x,t) $  in 
+ \begin{align*}
+  \begin{cases}
+    &\partial_t u^{\epsilon}  - \Delta u^{\epsilon}  + \underbrace{\nabla*(j_{\epsilon}\star \nabla V \star  v \ (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} ))}_{\in \mathcal{C}_0^{2,1} } = 0 \\ 
+    &u^{\epsilon}  \rvert_{t=0} = \tilde{j}_{\epsilon} \star  u_{0}
+  \end{cases}
+ .\end{align*}
+ that 
+ \begin{align*}
+   \lim_{\abs{x} \to \infty} u^{\epsilon}(x,t) = 0
+ .\end{align*}
+   \end{lemma}
+   \begin{proof}
+   we multiply the eq. by $u^{\epsilon} $  and integrate on $\mathbb{R}^{d} $
+   \begin{align*}
+     \int_{\mathbb{R}^{d} } \partial_t u^{\epsilon} * u_{\epsilon} -  \int_{\mathbb{R}^{d} } \Delta u^{\epsilon}  * u^{\epsilon}  &= - \int \nabla * (\ldots )* u^{\epsilon} \\
+     \frac{1}{2}\frac{d}{dt} \int_{\mathbb{R}^{d} } \abs{u^{\epsilon} }^2 dx + \int_{\mathbb{R} } \abs{\nabla u^{\epsilon} }^2  &= \int (\ldots )* \nabla u ^{\epsilon}  \\
+     &\le  \frac{1}{2} \int_{\mathbb{R}^{d} } \abs{ \nabla u^{\epsilon}  }^2 dx +  \frac{1}{2} \int  \abs{\ldots } ^2 dx \\
+     \frac{d}{dt} \int_{\mathbb{R}^{d} } \abs{u^{\epsilon} }^2 dx + \int_{\mathbb{R}^{d} } \abs{\nabla u^{\epsilon} }^2 dx &\le  \|\nabla V\|_{L^{\infty} } * \int_{\mathbb{R}^{} } \abs{j_{\epsilon} \star (\cha_{\abs{x}\le \frac{1}{\epsilon}})}^2 dx\\
+     &\le C \|\nabla V\|^2_{L^{\infty} } * \int_{\mathbb{R}^{d} } \abs{u^{\epsilon} }^2 dx
+   .\end{align*}
+   After applying Grönwall  \textcolor{Red}{Above needs some restructuring}
+   \begin{align*}
+     \sup_{0 \le t \le T} \|u^{\epsilon} \|^2_{L^{2} } + \int_0^{t} \int_{\mathbb{R}^{d} } \abs{\nabla u^{\epsilon} }^2 \le  C(\|u_0\|_{L^{2} })
+   .\end{align*}
+   \end{proof}
+   Now we get for $\forall  \phi  \in  \mathcal{C}_0^{\infty}([0,T];\mathbb{R}^{d} ) $
+   \begin{align*}
+     &\braket{\partial_t u^{\epsilon},\phi  } \\
+    &= \braket{\Delta  u ^{\epsilon} - \nabla * (j_{\epsilon} \star  \nabla V \star  v * j_{\epsilon} \star  (\cha_{\abs{x}\le \frac{1}{\epsilon}}u^{\epsilon} )), \phi  }\\
+    &\le \|\nabla u ^{\epsilon} \|_{L^{2}(L^{2} ) } * \|\nabla \phi \|_{L^{2}(L^{2} ) } + \|u^{\epsilon} \|_{L^{2}(L^{2} ) } * \|\nabla \phi \|_{L^{2}(L^{2} ) }
+   .\end{align*}
+   It means 
+   \begin{align*}
+     \|\partial_t u^{\epsilon} \|_{(L^{2}(H_{1}) )'}\le C
+   .\end{align*}
+   If we take $\epsilon \to  0$ we obtain that there $\exists  u \in L^{\infty}(L^{2} ) \cap L^{2}(H^{1} ) $ s.t. 
+   \begin{align*}
+     u_{\epsilon_j} \xrightharpoonup{\star } u  \quad \text{ in } L^{\infty}(L^{2} ) \cap L^{2}(H^{1} )  
+   .\end{align*}
+   and $u$ satisfies the weak version of the PDE, for $\forall  \phi \in  L^{2}(H^{1} ) $
+   \begin{align*}
+     \int_0^{T}    \braket{\partial_t u , \phi }_{(H^{1},H^{1}  )} dt = \int_0^{T} \int_{\mathbb{R}^{d} }   (\nabla u -\nabla V \star v * u) *\nabla \phi  dx dt
+   .\end{align*}
