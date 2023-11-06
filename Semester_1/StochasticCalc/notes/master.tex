@@ -45,4 +45,11 @@ Then
 \begin{align*}
   \lim_{k\to \infty} \sum_{i=k}^{\infty} a_i \to 0 
 .\end{align*}
+\begin{exercise}
+ Let $f(t,x) = t*\frac{x^2}{2}$  show 
+ \begin{align*}
+   f(t,B_t) &= f(0,0) + \int_{\mathbb{R}} \frac{\partial f}{\partial s}(s,B_s) ds + \int_{\Omega } \frac{\partial f}{\partial x} + \frac{1}{2} \int \frac{\partial ^2f}{\partial x^2}   ds
+            &= 0 + \int_0^{t} \frac{B_s^2}{2} ds + \int_0^{t} s*B_s dB_s + \frac{1}{2}  \int_0^{t} s ds 
+ .\end{align*}
+\end{exercise}
 \end{document}

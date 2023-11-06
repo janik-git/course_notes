@@ -113,7 +113,7 @@ for some $n=k+1$ order polynomial we get
 .\end{align*}
 Where for every $d \in  \mathbb{N}$ we have by cutting off the series
 \begin{align*}
-  e^{x^2} = \sum_{k=0}^{n} \frac{\abs{x^2}^{k} }{k!} \ge  1 + \frac{x^{d}}{l!}
+  e^{x^2} = \sum_{k=0}^{\infty} \frac{\abs{x^2}^{k} }{k!} \ge  1 + \frac{x^{d}}{d!}
 .\end{align*}
 Now suppose $p(x)$ is a polynomial of order $n \in  \mathbb{N}$ then we have 
 \begin{align*}
@@ -128,16 +128,21 @@ then
   \frac{\abs{p(x)}}{\abs{x}^{n} } \le  a_0 + a_n + \sum_{i=1}^{n-1} \frac{1}{\abs{x}^{n-i}a_i}   \le  C
 .\end{align*}
 For $\abs{x} \ge  1$ and some constant $C>0$ \\[1ex]
-For $x \in  [-1,1]$ we get that $p(x)$ is bounded by some constant , as it is constant and $[-1,1]$ is compact.
 Then 
 \begin{align*}
-  \sup_{x \in \mathbb{R}} \abs{x}^{2l}\abs{p(x)e^{-x^2} } &= \sup_{x \in \mathbb{R}} \frac{\abs{x}^{2l}\abs{p(x)} }{e^{-x^2} } \\
-                                                          &\le  \sup_{x \in \mathbb{R}} \frac{\abs{x}^{2l}C\abs{x^{n} } }{1+\frac{x^{d}}{d!} }\\
-                                                          &=  C\sup_{x \in \mathbb{R}} \frac{\abs{x}^{d} }{1+\frac{x^{d}}{d!} }\\
-                                                          &\le C\sup_{x \in \mathbb{R}} \frac{\abs{x}^{d} }{\frac{x^{d}}{d!} }\\
+  \sup_{\abs{x}\ge 1} \abs{x}^{2l}\abs{p(x)e^{-x^2} } &= \sup_{\abs{x}\ge 1} \frac{\abs{x}^{2l}\abs{p(x)} }{e^{-x^2} } \\
+                                                          &\le  \sup_{\abs{x}\ge 1} \frac{\abs{x}^{2l}C\abs{x^{n} } }{1+\frac{x^{d}}{d!} }\\
+                                                          &=  C\sup_{\abs{x}\ge 1} \frac{\abs{x}^{d} }{1+\frac{x^{d}}{d!} }\\
+                                                          &\le C\sup_{\abs{x}\ge 1} \frac{\abs{x}^{d} }{\frac{x^{d}}{d!} }\\
                                                           &=  C d!
 .\end{align*}
-where $d  = 2l+n$. Thus $e^{-x^2} $ is a Schwartz function.
+where $d  = 2l+n$ \\
+For $x \in  [-1,1]$ we get that $p(x)$ is bounded by some constant $\tilde{C} $, as it is continuous and $[-1,1]$ is compact.
+Such that 
+\begin{align*}
+  \sup_{x \in  \mathbb{R}} \abs{x}^{2l}\abs{p(x)e^{-x^2} } \le \max\{\tilde{C},Cd! \}
+.\end{align*}
+for any polynomial $p(x)$ , and thus $e^{-x^2} $ is a Schwartz function.
 \end{proof}
 \begin{exercise}[b]
   Consider 
@@ -327,6 +332,6 @@ Which by Theorem 4.7 is a solution to the Cauchy problem with initial condition
 \begin{align*}
   h(y) \coloneqq \tilde{u}(y,t)  
 .\end{align*}
-So we can always construct a new heat equation by taking the previous state as our new initial state i.e. the initial state only matters till the next 
+So we can always construct a new heat equation by taking the previous state as our new initial state i.e. the initial condition only matters till the immediately following 
 state.
 \end{proof}
