@@ -1,4 +1,5 @@
 \chapter{PDE Approach To Solving the Makean-Vlasov Equation}
+\textcolor{Red}{This entire chapter needs alot of reworking, formulating Theorems etc. so there is more structure}
 \section{Motivation}
 Above we saw an SDE approach to solving the Makean-Vlasov Equation, in this section we instead focus on a PDE based approach.
 From now on we assume $\sigma(Y(t),\mu(t)) = \sqrt{2} $ is a constant, then the \hyperref[MVE]{(MVE)} can be rewritten as
@@ -400,7 +401,7 @@ when $b$ is unbounded we consider , the cutoff
  .\end{align*}
  and we know a solution to the linear SDE exists for Lipschitz continuous coefficients 
 \end{remark}
-\begin{definition}
+\begin{definition}\label{pde_mve_apprach}
  Assume $b(x,u) $  is given by the convolution
  \begin{align*}
   b(x,u) = \nabla V \star u(x)
@@ -589,9 +590,141 @@ where $\tilde{j}_{\epsilon} $ is mollification just in $x$
    .\end{align*}
    If we take $\epsilon \to  0$ we obtain that there $\exists  u \in L^{\infty}(L^{2} ) \cap L^{2}(H^{1} ) $ s.t. 
    \begin{align*}
-     u_{\epsilon_j} \xrightharpoonup{\star } u  \quad \text{ in } L^{\infty}(L^{2} ) \cap L^{2}(H^{1} )  
+     u_{\epsilon} \xrightharpoonup{\star } u  \quad \text{ in } L^{\infty}(L^{2} ) \cap L^{2}(H^{1} )  
    .\end{align*}
    and $u$ satisfies the weak version of the PDE, for $\forall  \phi \in  L^{2}(H^{1} ) $
    \begin{align*}
-     \int_0^{T}    \braket{\partial_t u , \phi }_{(H^{1},H^{1}  )} dt = \int_0^{T} \int_{\mathbb{R}^{d} }   (\nabla u -\nabla V \star v * u) *\nabla \phi  dx dt
+     \int_0^{T}    \braket{\partial_t u , \phi }_{(H^{1},H^{1}  )} dt = -\int_0^{T} \int_{\mathbb{R}^{d} }   (\nabla u -\nabla V \star v * u) *\nabla \phi  dx dt
    .\end{align*}
+   \begin{lemma}
+   Let $u \in L^{\infty}(L^{2} ) \cap L^{2}(H^{1} ) $ s.t. for $\forall  \phi \in  L^{2}(H^{1} ) $ it is a solution to 
+   \begin{align*} 
+     \int_0^{T}    \braket{\partial_t u , \phi }_{(H^{1},H^{1}  )} dt = -\int_0^{T} \int_{\mathbb{R}^{d} }   (\nabla u -\nabla V \star v * u) *\nabla \phi  dx dt
+   .\end{align*}
+   with $u_{0} \ge  0$, then it is non negative $u \ge 0$ a.e. and unique 
+   \end{lemma}
+   \begin{proof}
+     Choose $\phi  = u_{-} = \min \{0,-u\}  $  then we know that $u \in  L^{2}(H^{1} ) \implies u_{-} \in  L^{2}(H^{1} ) $ 
+     \marginnote{That $u_-$ lies in the space is in fact non trivial and is part of the PDE lecture}
+     then 
+     \begin{align*}
+       \int_0^{t}  \partial_t u * u_{-} ds &= \int_0^{t}  \int_{\mathbb{R}^{d} } - \nabla u * \nabla u_{-} dx ds - \int_{0}^{t}  \int_{\mathbb{R}^{d} } \nabla V \star  v * u \nabla u_{-} dx ds \\
+     .\end{align*}
+     And 
+     \begin{align*}
+       \frac{1}{2}\int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \abs{u_{-}}^2 dx ds+ \int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u_{-}}^2 dx ds \le \frac{1}{2}\int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u_{-}}^2 dx ds + \frac{C}{2} \int_0^{t} \int_{\mathbb{R}^{d} }\abs{u_{-}}^2 dx ds
+     .\end{align*}
+     By Grönwall 
+     \begin{align*}
+       \int_{\mathbb{R}^{d} } \abs{u_-}^2 dx \le  e^{Ct} \int_{\mathbb{R}^{d} } \abs{u_{0,-}}^2 dx = 0
+     .\end{align*}
+     Since $u_0 \ge $ we get $u_{0,-} = 0$\\[1ex]
+     The uniqueness of the solution follows also from the $L^2$ estimate,
+   \end{proof}
+   \spewnotes
+   \begin{theorem}[Leray-Schauder Fixed Point Theorem]\label{schauder_fixpoint}
+     Let $U$ be a Banach Space and $T: (u,\sigma ) \in  U \times  [0,1] \to U$ if 
+     \begin{enumerate}
+      \item $T$ is compact 
+      \item $T(u,0) = 0$ for $\forall  u \in  U$
+      \item  $\exists  C >0$ s.t for $\forall  u \in  U$ with $u=T(u,\sigma )$ for some $\sigma  \in  [0,1]$ it holds 
+        \begin{align*}
+          \|u\|_{U} \le C
+        .\end{align*}
+     \end{enumerate}
+     Then the map $T(*,1)$ has a fixed point
+   \end{theorem}
+   \begin{lemma}[Aubin-Lions Lemma (extended version)]\label{aubin}
+    First note that
+   \begin{align*}
+    H^{1} \subset  L^{2}   \subset  H^{-1} 
+   .\end{align*} 
+   If  $(f_n)_n \subset  L^{2}([0,T];H^{1}(\mathbb{R}^{d} ) ) $ satisfying 
+   \begin{enumerate}
+     \item  $\|f_n\|_{L^{2}(H^{1} ) }\le C$ 
+     \item $\|\partial_t f_n\|_{L^{2}(H^{1} ) }\le C$
+     \item $\sup_t \int  \abs{x}^2 \abs{f_n(t,x)} dx \le C$
+   \end{enumerate}
+   Then $f_n$ is relatively compact in $L^{2}([0,T];L^{2}(\mathbb{R}^{d} ) ) $ i.e. there $\exists  f \in  L^{2}(L^{2} ) $ s.t.
+   \begin{align*}
+     \|f_{n_j} - f\|_{L^{2}([0,T];L^{2}(\mathbb{R}^{d} ) ) } \to 0
+   .\end{align*}
+   \end{lemma}
+   \begin{theorem}[Existence of Solution]
+    The nonlinear non-local \hyperref[pde_mve_apprach]{(PDE)} has a solution,
+   \end{theorem}
+   \begin{proof}
+     We show by fix point argument using \autoref{schauder_fixpoint} on the map
+    \begin{align*}
+      M : (v,\sigma) \in  L^{\infty}(L^{1} ) \to X
+    .\end{align*}
+    where  
+    \begin{align*}
+      X = \{u | u \in  L^{\infty}(L^{1}(1+\abs{x}^2) dx) \cap L^2  \cap L^2(H^{1}), \partial_t u \in  L^2(H^{-1} )\}  
+    .\end{align*}
+    where $u$ is a weak Solution of the (PDE), it is then sufficient to show that $M$ has fixed point.\\
+\begin{align*}
+  \text{(PDE)}(\delta)\begin{cases}
+    &u_t - \Delta u + \sigma \nabla*(\nabla V \star  u \ u) = v\\
+    &u \rvert_{t=0} = \sigma u_{0}  \ge 0
+  \end{cases}
+ .\end{align*}
+ Using \nameref{schauder_fixpoint} we obtain a fixed point of $M(*,1)$ which means 
+ \begin{align*}
+ \text{(PDE)}(1) \begin{cases}
+    &u_t - \Delta u + \nabla*(\nabla V \star  u \ u) = v \quad \nabla V \in  L^{\infty} \\
+    &u \rvert_{t=0} =  \ge 0 \quad u_{0} \in  L^{1}((1+\abs{x}^2)dx) \cap L^{2}(dx) 
+  \end{cases}
+ .\end{align*}
+ \textcolor{Red}{Rewatch video and add the arguments why we can apply schauder}
+\end{proof}
+\subsection{Back to the Makean-Vlasov Equation}
+We revisit the MVE 
+\begin{align*}
+  \text{(MVE)}\begin{cases}
+    &dY(t) = (\nabla V \star  u)(Y(t)) dt + \sqrt{2}dW_t \\
+    &Y(0)  = \xi \in  L^{2}(\Omega )\\
+    &\mathcal{L}(\xi) = u_0 \in  L^{1}((1+\abs{x}^2)dx) \cap L^{2}(dx) \\
+    &\mathcal{L}(Y) = u
+  \end{cases}
+.\end{align*}
+Suppose now that $u$ is the solution of the  \hyperref[pde_mve_apprach]{(PDE)} we obtained above, then consider 
+for $\nabla V \in  \text{Lip}$
+\begin{align*} 
+  \text{(SDE)}\begin{cases}
+    &dY(t) = (\nabla V \star  u)(Y(t)) dt + \sqrt{2}dW_t \\
+    &Y(0)  = \xi \in  L^{2}(\Omega )\\
+  \end{cases}
+.\end{align*}
+then by convolution  $(\nabla V \star  u)$ is also Lipschitz, and by SDE theory there $\exists! Y \in  \mathbb{L}^2([0,T])$  solving (SDE).
+Then for $\forall  \phi  \exists  C_0^{\infty}([0,T] \times  \mathbb{R}^{d} ) $, by It\^o's formula 
+\begin{align*}
+  \phi(Y(t),t) - \phi(Y(0),0) &= \int_0^{t}  \partial_t \phi(Y(s),s) + \nabla \phi(Y(s),s)* \nabla V \star u(Y(s),s) +\Delta \phi(Y(s),s) ds \\
+                              &+ \int_0^{t}  \ldots  dW_s
+.\end{align*}
+Then after taking the expectation the stochastic term disappears, suppose $\mu ^{Y} = \mathcal{L}(Y) $ then we get 
+\begin{align*}
+  &\int_{\mathbb{R}^{d} } \phi(x,t) d\mu ^{Y}(x,t) - \int_{\mathbb{R}^{d} } \phi(x,0) u_0(x) dx \\
+  &= \int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \phi(x,s) + \nabla \phi(x,s) *\nabla V \star u(x,s) + \Delta  \phi(x,s) d\mu ^{Y}(x,s)ds 
+.\end{align*}
+Now we want to prove $\mu^Y = u$ i.e. $\forall  \phi  \in  C_b$ a.e. in  $t \in  [0,T]$
+\begin{align*}
+  \int_{\mathbb{R}^{d} }\phi  d\mu ^{Y} = \int_{\mathbb{R}^{d} }  \phi  u dx
+.\end{align*}
+We can rewrite the integral version in the weak sense as follows
+\begin{align*}
+  \partial_t \mu ^{Y} = \Delta \mu ^{Y}   - \nabla * (\nabla V \star  u * \mu ^{Y} )
+.\end{align*}
+How to prove : 
+since $u$ as a solution of (PDE) it is also a solution of the (LDPE) 
+the proof $u = \mu ^{Y}$ can be reduced to show that (LPDE) has a unique measure valued solution.\\
+Let $\tilde{\mu } \in  L^{\infty}(L^{1} )  $ be a solution for $\forall \phi  \in  \mathcal{C}_0^{\infty}([0,T);\mathbb{R}^{d} ) $
+\begin{align*}
+  \int_0^{T} \int_{\mathbb{R}^{d} }  \tilde{u}  (\partial_t \phi  +  \Delta  \phi  - \nabla \phi  * \nabla V \star  u) dx dt = 0
+.\end{align*}
+then $\tilde{u} = 0 $ implies the uniqueness of (LPDE), which means we need to show for $\forall  g \in  \mathcal{C}_c^{\infty}(\mathbb{R}^{d} \times [0,T] )  $
+it holds 
+\begin{align*}
+  \int_0^{T}  \int_{\mathbb{R}^{d } } \tilde{u}  g dx dt = 0
+.\end{align*}
+if $\exists  \phi $ s.t. $g = \partial_t \phi  + \Delta  \phi  - \nabla \phi  * \nabla V \star  u$
