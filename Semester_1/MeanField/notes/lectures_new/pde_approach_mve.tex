@@ -345,7 +345,7 @@ a solution to the more complex non-linear , non-local one.
   This shows that our map $\mathcal{T}$ is indeed well defined, next we proof $\mathcal{T}(u)$ is a contraction,
   for $\forall  u_{1},u_{2} \in  L^{\infty}(L^{1} ) $, for $t^{\star }$ s.t. $C \|\overline{b} \|_{\infty} \sqrt{t^{\star }} < \frac{1}{2} $
   \begin{align*}
-    &\|\mathcal{t^{\star}}(u_{1}) - \mathcal{T}(u_{2})\|_{L^{\infty}(L^{1} ) } \\
+    &\|\mathcal{T}(u_{1}) - \mathcal{T}(u_{2})\|_{L^{\infty}(L^{1} ) } \\
     &= \essup_{0\le t\le t^{\star} }\int_{\mathbb{R}^{d} } \abs{\mathcal{T}(u_{1}) - \mathcal{T}(u_{2})}(x,t)dx \\
     &\le  \essup_{0\le t\le t^{\star} } \int_0^{t} d\tau  \int_{\mathbb{R}^{d} } dy \abs{\nabla K(x-y,t-\tau )(\overline{b}(y,\tau )(u_{1}-u_{2}) )(y,\tau ) }\\
     &\le \essup_{0\le t\le t^{\star} } \|\overline{b} \|_{L^{\infty} }  \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) } \int_0^{t} \frac{1}{\sqrt{t-\tau } } d \tau \\
