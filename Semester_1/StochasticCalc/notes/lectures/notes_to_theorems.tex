@@ -1,0 +1,221 @@
+
+% \begin{align*}
+%   \abs{Y-Z}_t \le  \abs{Y}_t + \abs{Z}_t
+% .\end{align*}
+% Where  for $0 = t_{1}\le \ldots \le t_{n} = t$
+% \begin{align*}
+%   \abs{Y}_t = \sum_{i=1}^{n}  \abs{Y_{t_i} - Y_{t_{i-1}}}
+% .\end{align*}
+% Lets say we can use the limit structure already
+% \begin{align*} 
+%   \abs{Y}_t &= \lim_{n \to \infty}\sum_{i=1}^{n}  \abs{Y_{t_i} - Y_{t_{i-1}}} = \lim_{n \to \infty} \sum_{i=1}^{n} \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 -  \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_{i-1}]} X)^2\\
+%             &\le  \lim_{n \to \infty} \sum_{i=1}^{n} \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 \\
+%             &=  \lim_{n \to \infty} \lim_{m\to \infty}\sum_{i=1}^{n}  \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 \\
+% .\end{align*}
+% bzw. 
+% \begin{align*}
+%   \abs{Y}_t  = \lim_{n\to \infty} \sum_{i=1}^{n} \abs{Y_{t_i}-Y_{t_{i-1}}}  &=  \lim_{n\to \infty} \sum_{i=1}^{n} \abs{\braket{X}_{t_i} - \braket{X}_{t_{i-1}}}\\
+%                                                                             &\myS{(i)}{\le } \lim_{n\to \infty} \sum_{i=1}^{n} \abs{\braket{X}_{t_i}}\\ 
+%                                                                             &= \sum_{i=1}^{k} \braket{X}_{t_i} + \lim_{n \to \infty}  \sum_{k=1}^{n} \braket{X}_{t_i} \\
+%                                                                             &= Y_t + 0
+% .\end{align*}
+% If we know 
+% \begin{align*}
+%   \sum_{i=1}^{\infty} a_i < \infty 
+% .\end{align*}
+% Then 
+% \begin{align*}
+%   \lim_{k\to \infty} \sum_{i=k}^{\infty} a_i \to 0 
+% .\end{align*}
+% \begin{exercise}
+%  Let $f(t,x) = t*\frac{x^2}{2}$  show 
+%  \begin{align*}
+%    f(t,B_t) &= f(0,0) + \int_{\mathbb{R}} \frac{\partial f}{\partial s}(s,B_s) ds + \int_{\Omega } \frac{\partial f}{\partial x} + \frac{1}{2} \int \frac{\partial ^2f}{\partial x^2}   ds
+%             &= 0 + \int_0^{t} \frac{B_s^2}{2} ds + \int_0^{t} s*B_s dB_s + \frac{1}{2}  \int_0^{t} s ds 
+%  .\end{align*}
+% \end{exercise}
+\begin{Lemma}[3.2 It\^o s isometry simple version]
+ For $f \in  \mathcal{H}_0^{2} $  we have 
+ \begin{align*}
+   \|f\|_{\mathcal{H}^2} = \|I(f)\|_{L^2}
+ .\end{align*}
+\end{Lemma}
+\begin{proof}
+ We have 
+ \begin{align*}
+   \|I(f)\|_{L^2} &= \E[(\sum_{i=1}^{n} a_i (B_{t_i} - B_{t_{i-1}}))^2]\\
+                  &= \E[\sum_{i=1}^{n} a_i^2(B_{t_i}-B_{t_{i-1}})^2 + \sum_{i\neq j}^{n} a_ia_j(B_{t_{i}}-B_{t_{i-1}})(B_{t_{j}}-B_{t_{j-1}})  ]\\
+                  &=  \E[\sum_{i=1}^{n} a_i^2(B_{t_i}-B_{t_{i-1}})^2]\\
+                  &=  \sum_{i=1}^{n} \E[\E[a_i^2(B_{t_i}-B_{t_{i-1}})^2 | \mathcal{F}_{t_{i-1}}]]\\
+                  &=  \sum_{i=1}^{n} \E[a_i^2\E[(B_{t_i}-B_{t_{i-1}})^2 | \mathcal{F}_{t_{i-1}}]]\\
+                  &=  \sum_{i=1}^{n} \E[a_i^2\E[(B_{t_i}-B_{t_{i-1}})^2]]\\
+                  &=  \sum_{i=1}^{n} \E[a_i^2]\E[(B_{t_i}-B_{t_{i-1}})^2]\\
+                  &=  \sum_{i=1}^{n} \E[a_i^2](t_i-t_{i-1})\\
+ .\end{align*}
+ Since  w.l.o.g take $i<j$
+ \begin{align*}
+   \E[a_ia_j(B_{t_{i}}-B_{t_{i-1}})(B_{t_{j}}-B_{t_{j-1}})  ] &= \E[\E[a_ia_j(B_{t_{i}}-B_{t_{i-1}})(B_{t_{j}}-B_{t_{j-1}}) | \mathcal{F}_{t_{i-1}}] ]\\
+                                                              &= \E[a_i \underbrace{\E[(B_{t_{i}}-B_{t_{i-1}})]}_{=0}\E[a_j(B_{t_{i}}-B_{t_{i-1}})(B_{t_{j}}-B_{t_{j-1}}) | \mathcal{F}_{t_{i-1}}] ]\\
+ .\end{align*}
+ But 
+ \begin{align*}
+   \|f\|_{\mathcal{H}^2} = \E[\int_0^{T} f^2 ds ] = \sum_{i=1}^{n}\E[a_i^2](t_i-t_{i-1})
+ .\end{align*}
+\end{proof}
+\begin{Prop}[3.5]
+  For every $f \in  \mathcal{H}^2$  there exists a sequence $(f_n)_{n \in  \mathbb{N}}) \subset  \mathcal{H}_0^{2} $ such that 
+  \begin{align*}
+    \|f_n - f\|_{\mathcal{H}^2}\xrightarrow{n\to \infty} 0
+  .\end{align*}
+\end{Prop}
+\begin{proof}
+  
+\end{proof}
+\begin{Theorem}[3.17 Riemann sum approximation]
+ If $f : \mathbb{R} \to \mathbb{R} $  is a continuous function and  $t_i = \frac{i}{n}T$ then for $n\to \infty$ we have
+ \begin{align*}
+   \sum_{i=1}^{n} f(B_{t_{i-1}})(B_{t_i}-B_{t_{i-1}}) \xrightarrow{\P} \int_0^{T} f(B_s) dB_s
+ .\end{align*}
+\end{Theorem}
+\begin{proof}
+By Remark 3.12. we know that for any continuous function $g : \mathbb{R} \to  \mathbb{R}$ 
+\begin{align*}
+  f(\omega ,t) = g(B_t(\omega )) \in  \mathcal{H}^{2}_{\text{loc}} 
+.\end{align*}
+This follows since for a.s. $\omega  \in  \Omega $ the map 
+\[\phi(\omega ) : [0,T] \to  \mathbb{R} : t \mapsto B_t(\omega )\]
+is bounded. This gives us that 
+\begin{align*}
+  \sup_{t \in  [0,T]} \abs{g(B_t(\omega ))} = \sup_{x \le \abs{m}} \abs{g(x)} \le  C
+.\end{align*}
+Where the last inequality follows from the fact that $g$ is continuous and attains a maximum on the compact set $[-m,m]$ then we can check that 
+for 
+\begin{align*}
+  \omega  \in  \{\phi \text{ is bounded } \}  
+.\end{align*}
+The integral 
+\begin{align*}
+  \int_0^{T}  g^2(B_t(\omega )) dt &\le  \int_0^{T}  \abs{g(B_t(\omega ))}\abs{g(B_t(\omega ))} dt\\
+                                   &\le  \underbrace{\sup_{t \in [0,T]} \abs{g(B_t(\omega ))}}_{\le C} \int_0^{T}  \abs{g(B_t(\omega ))} dt\\
+                                   &\le  C^2T
+.\end{align*}
+Since $\P(\{\phi \text{ is bounded } \}) = 1$ we get  immediately 
+\begin{align*}
+  \P(\int_0^{T} g^2(B_t(\omega ))  < \infty) = 1
+.\end{align*}
+This tells us that  for any continuous $f$ and Brownian motion $B$ 
+\begin{align*}
+  f(B) \in  \mathcal{H}_{\text{loc}}^2
+.\end{align*}
+we can rewrite $\{\phi \text{ is bounded } \}$ as a stopping time instead and get 
+\begin{align*}
+  \tau_m = \inf \{t \in [0,T] :  \abs{B_t} \ge  m\}  
+.\end{align*}
+which is a localizing sequence for $f(B)$ since by similar argument to above we have 
+\begin{align*}
+  \abs{f(B_{* \land \tau_m})} \le  \sup_{\abs{x} \le m} \abs{f(x)} < \infty
+.\end{align*}
+and we get 
+\begin{align*}
+  f_m = f*\cha_{[-m,m]}  = f\rvert_{[-m,m]}
+.\end{align*}
+Where 
+\begin{align*}
+  f_m(B) \in  \mathcal{H}^2
+.\end{align*}
+By definition of the It\^o integral for $f \in \mathcal{H}^2$ we already get that  
+\begin{align*}
+  I(f_m^{(n)} ) = \sum_{i=1}^{n} a_i (B_{t_{i}}  - B_{t_{i-1}}) \xrightarrow{L^2} \int_0^{T}  f_m(B_t) dt 
+.\end{align*}
+where $L^2$ convergence implies $\P$ convergence. \\[1ex]
+Thus our goal in Step 2 is to show that  in fact
+\begin{align*}
+  f_m^{(n)}   = \sum_{i=1}^{n}  f_m(B_{t_{i-1}})(\omega )\cha_{(t_{i-1},t_i]}(s) 
+.\end{align*}
+we clearly have
+\begin{align*}
+  f_m^{(n)}   \in  \mathcal{H}_{0}^2
+.\end{align*}
+Then it  remains to show $f_m^{(n)} \xrightarrow{\mathcal{H}^{2} } f_m $ 
+% \begin{align*}
+%   \E[\int_0^{T}  (f_m^{(n)} - f_m )^2 ds] &= \E[\int_0^{T} (\sum_{i=1}^{n} f_m(B_{t_{i-1}})\cha_{(t_{i-1},t_i]}(s) - f_m(s))^2 ] \\
+%                                           &\le   \E[\int_0^{T} 2\sum_{i=1}^{n} (f_m(B_{t_{i-1}})\cha_{(t_{i-1},t_i]}(s) - f_m(s))^2 ] \\
+%                                           &\le   \E[2\sum_{i=1}^{n} \int_0^{T} (f_m(B_{t_{i-1}})\cha_{(t_{i-1},t_i]}(s) - f_m(s))^2 \cha_{(t_{i-1},t_i]}(s)]\marginnote{$t_i$ is partition of $[0,T]$}\\
+%                                           &\le   \E[2\sum_{i=1}^{n} \int_{t_{i-1}}^{t_i} (f_m(B_{t_{i-1}}) - f_m(s))^2 ] \\
+%                                           &\le   \E[2\sum_{i=1}^{n} \int_{t_{i-1}}^{t_i} \sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2 ds] \\
+%                                           &\le   2\sum_{i=1}^{n} \E[\sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2 \int_{t_{i-1}}^{t_i}  ds] \\
+%                                           &\le   2 \frac{T}{n} \sum_{i=1}^{n} \E[\sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2 ] \\
+% .\end{align*}
+\begin{align*}
+  \E[\int_0^{T}  (f_m^{(n)} - f_m )^2 ds] &= \E[\int_0^{T} (\sum_{i=1}^{n} f_m(B_{t_{i-1}})\cha_{(t_{i-1},t_i]}(s) - f_m(B_s))^2 ] \\
+                                          &= \E[\int_0^{T} (\sum_{i=1}^{n} f_m(B_{t_{i-1}})\cha_{(t_{i-1},t_i]}(s) - \sum_{i=1}^{n} f_m(B_s) \cha_{t_{{i-1}},t_i})^2 ] \\
+                                          &= \E\bigg[\int_0^{T} \sum_{i=1}^{n} (f_m(B_{t_{i-1}})-f_{m}(B_s)\cha_{(t_{i-1},t_i]}(s))^2 \\
+                                          &+ \underbrace{\sum_{i,j=1}^{n} \underbrace{(f_m(B_{t_{i-1}})-f_{m}(B_s)\cha_{(t_{i-1},t_i]}(s))(f_m(B_{t_{j-1}})-f_{m}(B_s)\cha_{(t_{j-1},t_j]}(s))}_{{[t_{i-1}},t_i] \cap [t_{j-1},t_{j}] = \emptyset }}_{=0}  ds \bigg] \\
+                                          &= \E\bigg[\int_0^{T} \sum_{i=1}^{n} (f_m(B_{t_{i-1}})-f_{m}(B_s)\cha_{(t_{i-1},t_i]}(s))^2 ds] \\
+                                          &\le   \E[\sum_{i=1}^{n} \int_{t_{i-1}}^{t_i} (f_m(B_{t_{i-1}}) - f_m(B_s))^2 ] \\
+                                          &\le   \E[\sum_{i=1}^{n} \int_{t_{i-1}}^{t_i} \sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2 ds] \\
+                                          &\le   \sum_{i=1}^{n} \E[\sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2 \int_{t_{i-1}}^{t_i}  ds] \\
+                                          &\le    \frac{T}{n} \sum_{i=1}^{n} \E[\sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2 ] \\
+.\end{align*}
+Where we can bound 
+\begin{align*}
+  \sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2 
+.\end{align*}
+further by considering that $f$ is continuous and thus for 
+\begin{align*}  
+  \mu_{f_m}(h)\coloneqq  \sup \{\abs{f_m(x)-f_m(y)} : x,y \in  \mathbb{R} \text{ with } \abs{x-y} \le h \}
+.\end{align*}
+we get that
+\begin{align*}
+  \sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2  \le \mu_{f_m}(\sup_{r \in [t_{i-1},t_i]} \abs{B_{t_{i-1}}-B_r})  
+.\end{align*}
+putting it together
+\begin{align*}
+  \E[\int_0^{T}  (f_m^{(n)} - f_m )^2 ds] &\le    \frac{T}{n} \sum_{i=1}^{n} \E[\sup_{r \in [t_{i-1},t_{i}]}(f_m(B_{t_{i-1}})-f_m(B_r))^2 ] \\
+                                          &\le  \frac{T}{n} \sum_{i=1}^{n} \E[ \mu_{f_m}(\sup_{r \in [t_{i-1},t_i]} \abs{B_{t_{i-1}}-B_r})^2] \\
+                                          &\le  \frac{T}{n} \E[n* \mu_{f_m}(\sup_{r \in [t_{i-1},t_i],i\le n\}  } \abs{B_{t_{i-1}}-B_r})^2] \\
+                                          &\le  T \E[\mu_{f_m}(\sup_{r \in [t_{i-1},t_i],i\le n\}  } \abs{B_{t_{i-1}}-B_r})^2] \\
+.\end{align*}
+Since $f_m$ is continuous the modulus of continuity must tend to 0 as $n\to \infty$.
+Thus we have shown that $f_m^{(n)} \xrightarrow{\mathcal{H}^2} f_m  \implies I(f_m^{(n)} ) \xrightarrow{L^2} I(f_m)$\\
+Now on the set $\{\tau_m = T\}  $ we have 
+\begin{align*}
+  f(B) = f_m(B) 
+.\end{align*}
+and  by persistence of identity also 
+\begin{align*}
+  \int_0^{T} f(B_s) dB_s = \int_0^{T}   f_m(B_s) dB_s
+.\end{align*}
+For 
+\begin{align*}
+  A_{n,\epsilon } = \{\abs{\sum_{i=1}^{n} f(B_{t_{i-1}})*(B_{t_i}-B_{t_{i-1}}))  - \int_0^{T} f(B_s) dB_s } \ge  \epsilon\}  
+.\end{align*}
+Then we get 
+\begin{align*}
+\sum_{i=1}^{n} f(B_{t_{i-1}})*(B_{t_i}-B_{t_{i-1}}))  \xrightarrow{\P} \int_0^{T} f(B_s) dB_s 
+.\end{align*}
+if $\P(A_{n,\epsilon}) \to 0$ 
+\begin{align*}
+  \P(A_{n,\epsilon}) &= \P(A_{n,\epsilon} \cap \{\tau_m < T\} ) + \P(A_{n,\epsilon} \cap \{\tau_m = T\} ) \marginnote{This inequality is just $\P(A) \le  \P(B)$ if $A \subset B$ } \\
+                     &\le  \P(\{\tau_m < T\} ) + \P(A_{n,\epsilon} \cap \{\tau_m = T\} ) \\ 
+                     &\xrightarrow{n\to \infty} 0 
+.\end{align*}
+\end{proof}
+\spewnotes
+\begin{remark}[3.12]
+  For any continuous $g: \mathbb{R}\to \mathbb{R}$  we have $f(\omega ,t) = g(B_t(\omega )) \in  \mathcal{H}^{2}_{\text{loc}} $  since $B$ is a.s. pathwise
+  bounded on $[0,T]$
+\end{remark}
+\begin{proof}
+ Consider $\omega \in  \Omega $ a.s., then 
+ \begin{align*}
+   \sup_{t \in  [0,T]}\abs{g(B_t(\omega ))} \le C 
+ .\end{align*}
+ for some $C\ge 0$, then we have 
+\begin{align*}
+  \int_0^{T}  g^2(B_t(\omega )) dt &=  \int_0^{T}  g(B_t(\omega ))g(B_t(\omega)) dt\\
+                                   &\le \int_0^{T}  \sup_{t \in  [0,T]} \abs{g(B_t(\omega ))}* \abs{g(B_t(\omega))} dt\\
+                                   &\le  \sup_{t \in  [0,T]} \abs{g(B_t(\omega ))}\int_0^{T} \abs{g(B_t(\omega))} dt\\
+                                   &\le C^2*T 
+.\end{align*}
+\end{proof}

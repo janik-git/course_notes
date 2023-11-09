@@ -68,3 +68,14 @@
 
 % \renewcommand\bfseries\ssfamily{b}
 % \bfseries\sffamily
+
+\usepackage{marginnote}
+\usepackage{tablefootnote}
+% fix notes 
+\makeatletter
+\newcommand{\spewnotes}{%
+\tfn@tablefootnoteprintout%
+\global\let\tfn@tablefootnoteprintout\relax%
+\gdef\tfn@fnt{0}%
+}
+\makeatother
