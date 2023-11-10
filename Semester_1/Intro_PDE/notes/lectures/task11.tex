@@ -1,0 +1,189 @@
+\begin{align*}
+  &\text{Leon Fiethen 1728330}\\
+ &\text{Janik Sperling 1728567}
+.\end{align*}
+\section*{Sheet 11}
+\subsection*{33 The distribution of heat}
+Consider the fundamental solution of the heat equation $\Phi(x,t)$ given in Definition 4.5.
+\begin{exercise}[a]
+ Show that this extends to a smooth function on $\mathbb{R}^{n} \times  \mathbb{R} \setminus \{(0,0)\}   $ 
+\end{exercise}
+\begin{proof}
+ We recall 
+ \begin{align*}
+  \Phi(x,t) = \begin{cases}
+    \frac{1}{(4\pi t)^{\frac{n}{2}}}e^{-\frac{\abs{x}^2}{4t}}  &\text{ for } x \in  \mathbb{R}^{n} ,t > 0\\
+    0  &\text{ for } x \in  \mathbb{R}^{n} ,t\le  0\\
+  \end{cases}
+ .\end{align*}
+ Pick $x \in  \mathbb{R}^{n} $ and handle the cases $t>0$ , $t<0$ and $t=0$,
+ for $t=0$ we have that for $n \in  \mathbb{N}$,  $\Phi(x,t)^{(n)} \equiv 0 $ a smooth function,
+ for $t<0$ we also see that $\Phi(x,t)^{(n)} \equiv 0 $ and $t\to 0^{-}  $ are also $0$ and we get no problem here.
+ \\[1ex]
+ We handle $t>0$ by considering that from the last sheet we know that the derivatives of $e^{-x^2} $ are all of the form 
+ \begin{align*}
+  p(x)e^{-x^2} 
+ .\end{align*}
+ For some polynomial $p(x)$ in this case we get extra terms including $t$ i.e 
+ \begin{align*}
+   \Phi^{(n)}(x,t) = q(x,t)e^{-\frac{\abs{x}^2}{4t}}  
+ .\end{align*}
+ similar to last sheet, the exponential growth for $x\neq 0$ (to 0 since $t\to 0^{+} \implies e^{-\frac{\abs{x}^2}{4t}}\to 0 $) 
+ will "outperform" the polynomial growth and force the expression towards 0. For $x=0$ the polynomial is $0$ and thus the whole expression.\\[1ex]
+ We get that the fundamental solution extends to a smooth function.
+\end{proof}
+\newpage
+\begin{exercise}[b]
+ Verify that this obey the heat equation on $\mathbb{R}^{n}  \times  \mathbb{R} \setminus \{(0,0)\}  $  
+\end{exercise}
+\begin{solution}
+ We check 
+ \begin{align*}
+   \partial_t \Phi(x,t) =  -\frac{n}{2 (4\pi)^{\frac{n}{2}}}\frac{1}{  (t)^{\frac{n}{2} + 1} }e^{-\frac{\abs{x}^2}{4t}} + \frac{\abs{x}^2}{4t^2}\frac{1}{(4\pi t)^{\frac{n}{2}} }e^{-\frac{\abs{x}^2}{4t}} 
+ .\end{align*}
+ and 
+ \begin{align*}
+   \partial_{x_i} \Phi(x,t) &=  -\frac{x_i}{2t}\frac{1}{(4\pi t)^{\frac{n}{2}}} e^{-\frac{\abs{x}^2}{4t}} \\
+   \partial_{x^2_i} \Phi(x,t) &=  \frac{x^2_i}{4t^2}\frac{1}{(4\pi t)^{\frac{n}{2}}} e^{-\frac{\abs{x}^2}{4t}}  - \frac{x_i}{2t^2}\frac{1}{(4\pi t)^{\frac{n}{2}} }e^{-\frac{\abs{x}^2}{4t}} 
+ .\end{align*}
+ Then 
+ \begin{align*}
+   \Delta \Phi   = \frac{\abs{x}^2}{}
+ .\end{align*}
+ Kann der Leon aufschreiben
+\end{solution}
+\begin{exercise}[c]
+ Why must there be a constant $T>0$  with 
+ \begin{align*}
+   H(\phi ) = \int_0^{T}  \int_{\mathbb{R}^{n} } \Phi(x,t)\phi(x,t)dx dt
+ .\end{align*}
+\end{exercise}
+\begin{proof}
+ For $t<0$  the Integral vanishes because $\Phi(x,t) = 0$, since $\phi  \in  C_0^{\infty}(K) $ 
+ \begin{align*}
+   \int_{\mathbb{R}} \phi(x,t) dt = \int_{-T}^{T}  \phi(x,t)
+ .\end{align*}
+ For some $T>0$ such that we get 
+ \begin{align*}
+   H(\phi ) &= \int_{\mathbb{R}}  \int_{\mathbb{R}^{n} } \Phi(x,t)\phi(x,t)dx dt\\
+            &= \int_{-T}^{T}   \int_{\mathbb{R}^{n} } \Phi(x,t)\phi(x,t)dx dt\\
+            &= \int_{0}^{T}   \int_{\mathbb{R}^{n} } \Phi(x,t)\phi(x,t)dx dt\\
+ .\end{align*}
+\end{proof}
+\begin{exercise}[d]
+ Conclude with the help of Lemma 4.6 and Theorem 4.7 that 
+ \begin{align*}
+   \abs{H(\phi )}\le T \|\phi \|_{K,0}
+ .\end{align*}
+ Hence $H$ is a continuous linear functional
+\end{exercise}
+\begin{proof}
+ \begin{align*}
+   \abs{H(\phi )}  &= \abs*{\int_{0}^{T}  \int_{\mathbb{R}^{n} }\Phi(x,t)\phi(x,t) dx dt}\\
+                  &\le \int_{0}^{T}  \int_{\mathbb{R}^{n} }\abs{\Phi(x,t)\phi(x,t)} dx dt\\
+                  &\le \int_{0}^{T}  \int_{\mathbb{R}^{n} }\abs{\Phi(x,t)}\|\phi \|_{K,0} dx dt\\
+                  &\le \int_{0}^{T} \|\phi \|_{K,0} \int_{\mathbb{R}^{n} }\abs{\Phi(x,t)} dx dt\\
+ .\end{align*} 
+ Now for $t>0$ we have 
+ \begin{align*}
+   \int_{\mathbb{R}^{n} } \abs{\Phi(x,t)} dx  =  \int_{\mathbb{R}^{n} } \Phi(x,t) dx  = 1
+ .\end{align*}
+ For $t\to 0$ we have by 4.7. that also
+ \begin{align*}
+   \int_{\mathbb{R}^{n} } \abs{\Phi(x,t)} dx  =  \underbrace{\int_{\mathbb{R}^{n} } \Phi(x,t)*1 dx }_{u(x,t)} \to 1
+ .\end{align*}
+ Thus 
+ \begin{align*}
+   \int_{0}^{T} \|\phi \|_{K,0} \int_{\mathbb{R}^{n} }\abs{\Phi(x,t)} dx dt \le T*\|\phi \|_{K,0} 
+ .\end{align*}
+\end{proof}
+\begin{exercise}[e]
+ Extend Theorem 4.7  to show that 
+ \begin{align*}
+   \int_{\mathbb{R}^{n} }\Phi(x-y,t)h(y,s)dy \to h(x,s)
+ .\end{align*}
+ as $t\to 0$ uniformly in $s$
+\end{exercise}
+\begin{proof}
+  In the last step of the proof of (iii) we bound 
+  \begin{align*}
+    \abs{h(y)-h(x)} \le 2 \sup \{\abs{h(y)} , y \in  \mathbb{R}^{n} \}
+  .\end{align*}
+  By making the necessary assumption that $h \in  \mathcal{C}_b(\mathbb{R}^{n} \times  \mathbb{R})$ we instead bound (for our $h$ now)
+    \begin{align*}
+    \abs{h(y,s)-h(x,t)} \le 2 \sup \{\abs{h(y,x)} , y,x \in  \mathbb{R}^{n}\times \mathbb{R} \}
+  .\end{align*}
+  everything else stays the same 
+  \end{proof}
+  \begin{exercise}[f]
+   Hence show that 
+   \begin{align*}
+     \int_{\epsilon}^{\infty} \int_{\mathbb{R}^{n} }\Phi(-\partial_t \phi  - \Delta \phi )dydt \to \phi(0,0)
+   .\end{align*}
+   as $\epsilon \to 0$
+  \end{exercise}
+  \begin{proof}
+   Assuming we mean 
+   \begin{align*}
+     \int_{\epsilon}^{\infty} \int_{\mathbb{R}^{n} }\Phi(y,t)(-\partial_t \phi(y,t)  - \Delta \phi(y,t) )dydt \to \phi(0,0)
+   .\end{align*}
+   Then 
+   \begin{align*}
+     \int_{\epsilon}^{\infty} \int_{\mathbb{R}^{n} }\Phi(y,t)(-\partial_t \phi(y,t)  - \Delta \phi(y,t) )dydt &= \int_{\mathbb{R}^{n} }-\Phi(y,\epsilon)\phi(y,\epsilon) dy  \\
+                                                                                                              &  \quad -\int_{\epsilon}^{\infty}\int_{\mathbb{R}^{n} }  \partial_t \Phi(y,t) (-\phi - \Delta \phi(y,t) )dy\\
+                                                                                                              &=\int_{\mathbb{R}^{n} }-\Phi(y,\epsilon)\phi(y,\epsilon) dy  \\
+                                                                                                              & \quad  -\int_{\epsilon}^{\infty}\int_{\mathbb{R}^{n} }  \underbrace{\partial_t \Phi(y,t)-\Delta}_{=0} (-\phi)dy dt\\
+                                                                                                              &= \int_{\mathbb{R}^{n} }-\Phi(y,\epsilon)\phi(y,\epsilon) dy  \\
+   .\end{align*}
+   Some sign is wrong but if we ignore that then in the end we have, since $\Phi $ only depends on the length of the $x$ variable
+   \begin{align*}
+     u(0,\epsilon) &= \int_{\mathbb{R}^{n} }\Phi(-y,\epsilon)\phi(y,\epsilon) dy  \\
+   .\end{align*}
+   which by e) tends to
+   \begin{align*}
+    \phi(0,0)
+   .\end{align*}
+   as $\epsilon\to 0$
+  \end{proof}
+  \begin{exercise}[g]
+   Prove that as $\epsilon \to 0$  
+   \begin{align*}
+     \int_0^{\epsilon} \int_{\mathbb{R}^{n} } \Phi(y,t)h(y,t) dy dt \to 0
+   .\end{align*}
+  \end{exercise}
+  \begin{proof}
+   We have 
+   \begin{align*}
+     \abs*{\int_0^{\epsilon} \int_{\mathbb{R}^{n} } \Phi(y,t)h(y,t) dy dt - 0} &\le \abs*{\int_0^{\epsilon} \int_{\mathbb{R}^{n} } \Phi(y,t)h(y,t) dy dt}\\
+                                                                               &\le \int_0^{\epsilon} \int_{\mathbb{R}^{n} } \abs*{\Phi(y,t)h(y,t)} dy dt\\
+                                                                               &\le  \int_0^{\epsilon}  \sup_{x \in  \mathbb{R}^{n} } \abs{h(x,t)} \int_{\mathbb{R}^{n} }\Phi(y,t) dy dt\\
+                                                                               &\le  \int_0^{\epsilon}  \sup_{(x,s) \in  \mathbb{R}^{n} \times \mathbb{R}^{+}  } \abs{h(x,s)} \int_{\mathbb{R}^{n} }\Phi(y,t) dy dt\\
+                                                                               &\le  \sup_{(x,s) \in  \mathbb{R}^{n} \times \mathbb{R}^{+}  } \abs{h(x,s)} \int_0^{\epsilon}  \int_{\mathbb{R}^{n} }\Phi(y,t) *1 dy dt\\
+                                                                               &\le \epsilon \sup_{(x,s) \in  \mathbb{R}^{n} \times \mathbb{R}^{+}  } \abs{h(x,s)} \\
+                                                                               &\to  0
+   .\end{align*}
+   Where we used similar argument to part d for handling the $\Phi $ integral
+  \end{proof}
+  \subsection*{34. Heat death of the universe}
+  \begin{exercise}[a]
+   Suppose that $h \in  \mathcal{C}_b(\mathbb{R}^{n} ) \cap L^{1}(\mathbb{R}^{n} ) $ and u is defined as in Theorem 4.7. Show
+   \begin{align*}
+     \sup_{x \in  \mathbb{R}^{n} } \abs{u(x,t)} \le \frac{1}{(4\pi t)^{\frac{n}{2}} }\|h\|_{L^{1} }
+   .\end{align*}
+  \end{exercise}
+  \begin{proof}
+    Take $t>0$
+   \begin{align*}
+     \sup_{x \in  \mathbb{R}^{n} } \abs{u(x,t)} &\le   \sup_{x \in  \mathbb{R}^{n} }\int_{\mathbb{R}^{n} }\abs{\Phi(x-y,t)h(y)} dy\\
+                                                &\le  \|h\|_{L^{1} }  \sup_{x \in  \mathbb{R}^{n} } \int_{\mathbb{R}^{n} } \abs{\Phi(x-y,t)} dy\\
+   .\end{align*} 
+   and use the transformation  $z=\frac{1}{\sqrt{4t} }(x-y)$ which has determinant $-(4t)^{\frac{n}{2}} $
+   \begin{align*}
+     \frac{1}{(4\pi t)^{\frac{n}{2}} } \int_{\mathbb{R}^{n} } e^{\frac{-\abs{x-y}^2}{4t}} dy   = \frac{1}{\pi^{\frac{n}{2}} } \int_{\mathbb{R}^{n} } e^{-z^2}  dz = 1
+   .\end{align*}
+   So i don't quite see where the $\frac{1}{(4\pi t)^{\frac{n}{2}} }$ term comes from and get
+   \begin{align*}
+    \sup_{x \in  \mathbb{R}^{n} } \abs{u(x,t)} \le \|h\|_{L^{1} }
+   .\end{align*}
+  \end{proof}
+
