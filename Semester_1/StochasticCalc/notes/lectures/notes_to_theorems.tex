@@ -1,39 +1,4 @@
 
-% \begin{align*}
-%   \abs{Y-Z}_t \le  \abs{Y}_t + \abs{Z}_t
-% .\end{align*}
-% Where  for $0 = t_{1}\le \ldots \le t_{n} = t$
-% \begin{align*}
-%   \abs{Y}_t = \sum_{i=1}^{n}  \abs{Y_{t_i} - Y_{t_{i-1}}}
-% .\end{align*}
-% Lets say we can use the limit structure already
-% \begin{align*} 
-%   \abs{Y}_t &= \lim_{n \to \infty}\sum_{i=1}^{n}  \abs{Y_{t_i} - Y_{t_{i-1}}} = \lim_{n \to \infty} \sum_{i=1}^{n} \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 -  \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_{i-1}]} X)^2\\
-%             &\le  \lim_{n \to \infty} \sum_{i=1}^{n} \lim_{m\to \infty} \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 \\
-%             &=  \lim_{n \to \infty} \lim_{m\to \infty}\sum_{i=1}^{n}  \sum_{J \in  \Pi_m} (\Delta_{J \cap [0,t_i]} X)^2 \\
-% .\end{align*}
-% bzw. 
-% \begin{align*}
-%   \abs{Y}_t  = \lim_{n\to \infty} \sum_{i=1}^{n} \abs{Y_{t_i}-Y_{t_{i-1}}}  &=  \lim_{n\to \infty} \sum_{i=1}^{n} \abs{\braket{X}_{t_i} - \braket{X}_{t_{i-1}}}\\
-%                                                                             &\myS{(i)}{\le } \lim_{n\to \infty} \sum_{i=1}^{n} \abs{\braket{X}_{t_i}}\\ 
-%                                                                             &= \sum_{i=1}^{k} \braket{X}_{t_i} + \lim_{n \to \infty}  \sum_{k=1}^{n} \braket{X}_{t_i} \\
-%                                                                             &= Y_t + 0
-% .\end{align*}
-% If we know 
-% \begin{align*}
-%   \sum_{i=1}^{\infty} a_i < \infty 
-% .\end{align*}
-% Then 
-% \begin{align*}
-%   \lim_{k\to \infty} \sum_{i=k}^{\infty} a_i \to 0 
-% .\end{align*}
-% \begin{exercise}
-%  Let $f(t,x) = t*\frac{x^2}{2}$  show 
-%  \begin{align*}
-%    f(t,B_t) &= f(0,0) + \int_{\mathbb{R}} \frac{\partial f}{\partial s}(s,B_s) ds + \int_{\Omega } \frac{\partial f}{\partial x} + \frac{1}{2} \int \frac{\partial ^2f}{\partial x^2}   ds
-%             &= 0 + \int_0^{t} \frac{B_s^2}{2} ds + \int_0^{t} s*B_s dB_s + \frac{1}{2}  \int_0^{t} s ds 
-%  .\end{align*}
-% \end{exercise}
 \begin{Lemma}[3.2 It\^o s isometry simple version]
  For $f \in  \mathcal{H}_0^{2} $  we have 
  \begin{align*}
@@ -69,7 +34,93 @@
   .\end{align*}
 \end{Prop}
 \begin{proof}
-  
+ The rough outline of the proof can be split up as follows
+ \begin{enumerate}
+  \item Show that we can assume $f$ is bounded 
+  \item Show that we can assume $f$ is bounded adapted and continuous
+  \item Construct simple sequence that approximates $f$
+ \end{enumerate}
+ For step 1 we can simply consider that for any (potentially ) unbounded function $f$ 
+ \begin{align*}
+  f_n = -n \lor (f \land n)
+ .\end{align*}
+ is bounded and apply DCT
+ \begin{align*}
+   \lim_{n\to \infty}\|f_n - f\|_{\mathcal{H}^2} = \lim_{n\to \infty}\E[\int_0^{T}(f_n-f)^2 dt ] =  \E[\int_0^{T} \lim_{n \to \infty}(f_n-f)^2 dt ] = 0
+ .\end{align*}
+ Thus we may assume $f$ bounded \\[1ex]
+ For step 2 we can use that we can get the height of a rectangle by dividing by its base s.t.
+ \begin{align*}
+   f_n(*,t) \coloneqq  \frac{1}{(t-(t-\frac{1}{n})_+)} \int_{(t-\frac{1}{n})_+}^{t} f(*,s) ds =  n \int_{(t-\frac{1}{n})_+}^{t} f(*,s) ds
+ .\end{align*}
+ Now we note that since we work with random variables we condition $\omega $ on the set where
+ \begin{align*}
+   \lim_{n\to \infty}  f_n(\omega ,t) = f(\omega ,t)
+ .\end{align*}
+ We need this set to have measure 1, such that 
+ \begin{align*}
+   A \coloneqq  \{(\omega ,t) \in  \Omega  \times  [0,T] : \lim_{n\to \infty} f_n(\omega ,t) \neq  f(\omega ,t)\}  
+ .\end{align*}
+ Has measure zero with respect to $\P \otimes \lambda $, we have by the fundamental theorem of calculus that
+ \begin{align*}
+   \lambda(\{t \in  [0,T] : (\omega,t) \in  A\}) = 0
+ .\end{align*}
+Or rather Lebesgue Differentiation theorem, otherwise we'd need the condition that $f(\omega ,*)$ only has countable many discontinuities.
+Thus we get that we may assume $f$ is bounded and continuous.\\[1ex]
+We now construct our simple function $f_n$ as 
+\begin{align*}
+  f_{n,s}(\omega ,t) \coloneqq  f(\omega ,(s+\phi_n(t-s)_+))
+.\end{align*}
+where
+\begin{align*}
+  \phi_n = \sum_{i=1}^{2^n} \frac{j-1}{2^{n} }\cha_{(\frac{j-1}{2^{n}  },\frac{j}{2^{n} }]}
+.\end{align*}
+makes our time interval discrete (standard argument really), then we wanna show 
+\begin{align*}
+  \|f_n-f\|_{\mathcal{H}^2}&= \E[\int_0^{T} \abs{f_{n,s}-f}^2 dt ] \to 0
+.\end{align*}
+We have 
+\begin{align*}
+  \E[\int_0^{T} \abs{f_{n,s}-f}^2 dt ] &\le \E[\int_0^{T} \int_0^{1} \abs{f_{n,s}-f}^2 ds dt]\\
+                                       &= \E[\int_0^{T} \int_0^{1} \abs{f(*,(s+\phi_n(t-s))_+)-f}^2 ds dt]\\
+                                       &=  \sum_{j\in \mathbb{Z}}\E[\int_0^{T} \int_{[t-\frac{j}{2^{n} },t-\frac{j-1}{2^{n} }] \cap [0,1]} \abs{f(*,(s+\frac{j-1}{2^{n} })-f}^2 ds dt]\\
+                                       &\le (2^{n}+1 )2^{-n}  \int_{(0,1]} \E[\int_0^{T}\abs{f(*,t-2^{-n}h )-f(*,t)}^2 dt ]dh 
+.\end{align*}
+Where we can show that the Expectation term goes to 0
+\end{proof}
+\begin{align*}
+  \int_0^{T}  \abs{f_n(*,(t-h)_+)-f(*,(t-h)_+)}^2 dt = \int_0^{h} \abs{f_n(*,0)-f(*,0)}^2 dt + \int_h^{t} \ldots \le h\abs{f_n(*,0)-f(*,0)}^2 + \|f-f_n\|_{\mathcal{H}^2}
+.\end{align*}
+\begin{Theorem}[3.7.]
+  For any $f \in  \mathcal{H}^2$ there is a continuous martingale $X = (X_t)_{t \in  [0,T]}$ with 
+  respect to $\mathcal{F}_t$ such that for all $t \in  [0,T]$
+  \begin{align*}
+    X_t = I(f \cha_{[0,t]})
+  .\end{align*} 
+\end{Theorem}
+\begin{proof}
+ We first consider the simple case with 
+ \begin{align*}
+   f_n = \sum_{i=0}^{m_n - 1} a_i^{n}  \cha_{(t_i^{n},t_{i+1}^{n}  ]}
+ .\end{align*}
+ Then 
+ \begin{align*}
+   \E[X_{t}^{n} - X_{s}^{n} | \mathcal{F}_s  ] &= \E[\sum_{t_i > s} a_i(B_{t_{i+1}}-B_{t_i})]\\
+                                               &=  0
+ .\end{align*}
+Our end goal is to use a triangular inequality to use the simple case to bound the normal one i.e.
+\begin{align*}
+  \abs{\E[X_t-X_s|\mathcal{F}_s]} &= \abs{\E[X_t-X_{t}^{n}+X_{t}^{n} -X_s +X_{s}^{n} -X_{s}^{n}  |\mathcal{F}_s]}\\
+                                  &\le \abs{\E[X_t-X_{t}^{n}|\mathcal{F}_s]} + \underbrace{\abs{\E[X_{t}^{n} -X_{s}^{n}  |\mathcal{F}_s]}}_{=0} + \abs{\E[X_{s}^{n}-X_s|\mathcal{F}_s ]}
+                                  &= \abs{\E[X_t-X_{t}^{n}|\mathcal{F}_s]} + \abs{\E[X_{s}^{n}-X_s|\mathcal{F}_s ]}\\
+                                  &\myS{Jen}{\le } \E[\abs{X_t-X_{t}^{n}}|\mathcal{F}_s] + \E[\abs{X_{s}^{n}-X_s}|\mathcal{F}_s ]\\
+.\end{align*}
+We consider $A \in  \mathcal{F}_s$
+\begin{align*}
+  \E[\abs{X_t-X_{t}^{n}}\cha_A] + \E[\abs{X_{s}^{n}-X_s}\cha_A ] &\le \E[\abs{X_t-X_{t}^{n}}] + \E[\abs{X_{s}^{n}-X_s} ]\\
+                                                                 &\le 2*\|f-f_n\|_{\mathcal{H}^2}
+.\end{align*}
+So we have $\E[X_t |\mathcal{F}_s] = X_s$
 \end{proof}
 \begin{Theorem}[3.17 Riemann sum approximation]
  If $f : \mathbb{R} \to \mathbb{R} $  is a continuous function and  $t_i = \frac{i}{n}T$ then for $n\to \infty$ we have
