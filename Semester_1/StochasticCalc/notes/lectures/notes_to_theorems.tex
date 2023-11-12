@@ -120,7 +120,38 @@ We consider $A \in  \mathcal{F}_s$
   \E[\abs{X_t-X_{t}^{n}}\cha_A] + \E[\abs{X_{s}^{n}-X_s}\cha_A ] &\le \E[\abs{X_t-X_{t}^{n}}] + \E[\abs{X_{s}^{n}-X_s} ]\\
                                                                  &\le 2*\|f-f_n\|_{\mathcal{H}^2}
 .\end{align*}
-So we have $\E[X_t |\mathcal{F}_s] = X_s$
+So we have $\E[X_t |\mathcal{F}_s] = X_s$\\[1ex]
+For $(f_n)_{n \in  \mathbb{N}} \subset \mathcal{H}^2_0 $ we have 
+\begin{align*}
+  \lim_{n\to \infty}f_n = f \in \mathcal{H}^2
+.\end{align*}
+And 
+\begin{align*}
+  \lim_{n \to \infty} I(f_n) = I(f) \in L^2
+.\end{align*}
+Which should be equivalent to for fixed $t \in  [0,T]$
+\begin{align*}
+  X_t^n &\xrightarrow{L^2}  X_t \\
+  I(f_n\cha_{[0,t]}) &\xrightarrow{L^2} I(f\cha_{[0,t]})
+.\end{align*}
+We need to make the argument uniform in $t \in  [0,T]$, which is Step 2 in the script i guess.\\[1ex]
+We have
+\begin{align*}
+  \P(\sup_{0\le t\le T} \abs{X_t^n - X_t^m} \ge  \epsilon)  \le  \epsilon^{-2} \E[\abs{X_T^n - X_T^m}^2] = \epsilon^{-2} \|f_n-f_m\|^2_{\mathcal{H}^2}
+.\end{align*}
+since  for all $p>1$
+\begin{align*}
+  \P(\sup_{0\le t\le T} \abs{X_t} \ge  \epsilon) \frac{1}{\epsilon^p} \E[\abs{X}_T^p]
+.\end{align*}
+By choosing a subequence we can get 
+\begin{align*}
+  \P(\sup_{0\le t\le T} \abs{X_t^n - X_t^m} \ge  2^{-k} )  \le  2^{2k} \E[\abs{X_T^n - X_T^m}^2] = \epsilon^{-2} \|f_n-f_m\|^2_{\mathcal{H}^2} \le  2^{-k} 
+.\end{align*}
+Then we can apply Borel-Cantelli since
+\begin{align*}
+  \sum_{k=0}^{\infty}   \P(\sup_{0\le t\le T} \abs{X_t^n - X_t^m} \ge  2^{-k} ) < \infty
+.\end{align*}
+and get $\Omega_0 \in  \mathcal{F}$ such that $\P(\Omega_0) = 1$ and $X^{n_k} $ is a pathwise cauchy sequence.
 \end{proof}
 \begin{Theorem}[3.17 Riemann sum approximation]
  If $f : \mathbb{R} \to \mathbb{R} $  is a continuous function and  $t_i = \frac{i}{n}T$ then for $n\to \infty$ we have
@@ -270,3 +301,46 @@ if $\P(A_{n,\epsilon}) \to 0$
                                    &\le C^2*T 
 .\end{align*}
 \end{proof}
+\begin{example}[5.1]
+ Consider the SDE 
+ \begin{align*}
+  dX_t = \mu X_t dt + \sigma X_t dB_t
+ .\end{align*}
+ then we can solve this SDE by making the ansatz $X_t = f(B_t,t)$ and using It\^os formula
+ \begin{align*}
+   df(B_t,t) &= f(0,0) + f_x(B_t)dB_t + (\frac{1}{2}f_{x x}+f_{t}) dt\\
+           &\triangleq  \mu  f(B_t) dt + \sigma f(B_t)dB_t
+ .\end{align*}
+ This implies 
+ \begin{align*}
+  f_x(B_t) = \sigma  f
+ .\end{align*}
+ Such that 
+ \begin{align*}
+  f = \exp(\sigma*x + g(t))
+ .\end{align*}
+ then 
+ \begin{align*}
+   g'(t)*f + \frac{1}{2} \sigma^2 f &= \mu  f\\
+                                g'(t)   &= \mu  - \frac{\sigma^2}{2}\\
+                                g(t)&= (\mu  - \frac{\sigma^2}{2})t + g_{0}
+ .\end{align*}
+ Which gives the solution 
+ \begin{align*}
+  X_t = \exp(\sigma B_t + (\mu -\frac{\sigma^2}{2})t + g_{0})
+ .\end{align*}
+\end{example}
+\begin{Definition}
+ In general a linear SDE has the form
+ \begin{align*}
+  X_t = (\alpha (t)X_t + \beta(t) )dt + (\phi(t)X_t + \psi(t))dB_t
+ .\end{align*}
+ and a solution is given by 
+ \begin{align*}
+  X_t  = x_{0}\exp(Y_t) + \int_0^{t} \exp(Y_t-Y_s)(\beta(s)-\psi(s)\phi(s))  ds + \int_0^{t}  \exp(Y_t-Y_s)\psi(s)dB_s
+ .\end{align*}
+ Where
+ \begin{align*}
+  Y_t = \int_0^{t} \phi(s) dB_s + \int_0^{t}(\alpha(s)-\frac{1}{2}\phi^2(s))   ds
+ .\end{align*}
+\end{Definition}

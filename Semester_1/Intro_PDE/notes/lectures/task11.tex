@@ -37,20 +37,22 @@ Consider the fundamental solution of the heat equation $\Phi(x,t)$ given in Defi
  Verify that this obey the heat equation on $\mathbb{R}^{n}  \times  \mathbb{R} \setminus \{(0,0)\}  $  
 \end{exercise}
 \begin{solution}
- We check 
- \begin{align*}
-   \partial_t \Phi(x,t) =  -\frac{n}{2 (4\pi)^{\frac{n}{2}}}\frac{1}{  (t)^{\frac{n}{2} + 1} }e^{-\frac{\abs{x}^2}{4t}} + \frac{\abs{x}^2}{4t^2}\frac{1}{(4\pi t)^{\frac{n}{2}} }e^{-\frac{\abs{x}^2}{4t}} 
- .\end{align*}
- and 
- \begin{align*}
-   \partial_{x_i} \Phi(x,t) &=  -\frac{x_i}{2t}\frac{1}{(4\pi t)^{\frac{n}{2}}} e^{-\frac{\abs{x}^2}{4t}} \\
-   \partial_{x^2_i} \Phi(x,t) &=  \frac{x^2_i}{4t^2}\frac{1}{(4\pi t)^{\frac{n}{2}}} e^{-\frac{\abs{x}^2}{4t}}  - \frac{x_i}{2t^2}\frac{1}{(4\pi t)^{\frac{n}{2}} }e^{-\frac{\abs{x}^2}{4t}} 
- .\end{align*}
- Then 
- \begin{align*}
-   \Delta \Phi   = \frac{\abs{x}^2}{}
- .\end{align*}
- Kann der Leon aufschreiben
+  Let us calculate 
+  \begin{align*}
+    \partial_t \Phi  &= \frac{1}{(4\pi)^{\frac{n}{2}}  }(-\frac{n}{2} \frac{1}{t^{\frac{n}{2}+1}}*e^{-\frac{\abs{x}^2}{4t}} + \frac{1}{t^{\frac{n}{2}}} \frac{\abs{x}^2}{4t^2}e^{-\frac{\abs{x}^2}{4t}} )\\
+                     & \Phi (-\frac{n}{2}\frac{1}{t} + \frac{\abs{x}^2}{4t^2})
+  .\end{align*}
+  and 
+  \begin{align*}
+    \partial_{x_i} \Phi  &= - \frac{x_i}{2t}*\Phi \\
+    \partial_{x_i^2} \Phi  &=  \frac{x_i^2}{4t^2}\Phi  -  \frac{1}{2t}\Phi \\
+                           &= \Phi ( \frac{x_i^2}{4t^2} -  \frac{1}{2t})
+  .\end{align*}
+  Then 
+  \begin{align*}
+    \partial_t - \Delta  \Phi  &= \Phi (-\frac{n}{2t}+\frac{\abs{x}^2}{4t^2} -\frac{\abs{x}^2}{4t^2} + \frac{n}{2t} )\\
+                               &= \Phi *0
+  .\end{align*}
 \end{solution}
 \begin{exercise}[c]
  Why must there be a constant $T>0$  with 
@@ -172,18 +174,91 @@ Consider the fundamental solution of the heat equation $\Phi(x,t)$ given in Defi
    .\end{align*}
   \end{exercise}
   \begin{proof}
-    Take $t>0$
+    Take $t>0$ and check  with 4.7.
+    \begin{align*}
+      \sup_{x \in  \mathbb{R}^{n} } \abs{u(x,t} &\le  \sup_{x \in \mathbb{R}^{n} } \int_{\mathbb{R}^{n} }\abs{\Phi(x-y,t)h(y)} dy\\
+                                                &\le  \sup_{x \in \mathbb{R}^{n} } \int_{\mathbb{R}^{n} }\abs{\Phi(x-y,t)} \abs{h(y)} dy\\
+                                                &= \sup_{x \in \mathbb{R}^{n} } \int_{\mathbb{R}^{n} } \frac{1}{(4\pi t)^{\frac{n}{2}} }e^{-\frac{\abs{x-y}^2}{4t}}  \abs{h(y)} dy\\
+                                                &= \frac{1}{(4\pi t)^{\frac{n}{2}} } \sup_{x \in \mathbb{R}^{n} } \int_{\mathbb{R}^{n} } \underbrace{e^{-\frac{\abs{x-y}^2}{4t}}}_{\le 1}  \abs{h(y)} dy\\
+                                                &= \frac{1}{(4\pi t)^{\frac{n}{2}} } \sup_{x \in \mathbb{R}^{n} } \underbrace{\int_{\mathbb{R}^{n} } \abs{h(y)}}_{\|h\|_{L^{1} }} dy\\
+                                                &\le  \frac{1}{(4\pi t)^{\frac{n}{2}} } \|h\|_{L^{1}} 
+    .\end{align*}
+  \end{proof}
+  \begin{exercise}[b]
+   Let $l_m$ be the function from Theorem 4.7. that solves the heat equation on $\mathbb{R}^{n} $ with $l_m(x,0) = mk(x)$ for m a constant
+   and $k : \mathbb{R}^{n} \to [0,1]$ a smooth function of compact support such that 
    \begin{align*}
-     \sup_{x \in  \mathbb{R}^{n} } \abs{u(x,t)} &\le   \sup_{x \in  \mathbb{R}^{n} }\int_{\mathbb{R}^{n} }\abs{\Phi(x-y,t)h(y)} dy\\
-                                                &\le  \|h\|_{L^{1} }  \sup_{x \in  \mathbb{R}^{n} } \int_{\mathbb{R}^{n} } \abs{\Phi(x-y,t)} dy\\
-   .\end{align*} 
-   and use the transformation  $z=\frac{1}{\sqrt{4t} }(x-y)$ which has determinant $-(4t)^{\frac{n}{2}} $
-   \begin{align*}
-     \frac{1}{(4\pi t)^{\frac{n}{2}} } \int_{\mathbb{R}^{n} } e^{\frac{-\abs{x-y}^2}{4t}} dy   = \frac{1}{\pi^{\frac{n}{2}} } \int_{\mathbb{R}^{n} } e^{-z^2}  dz = 1
+     k \rvert_{\Omega } \equiv 1
    .\end{align*}
-   So i don't quite see where the $\frac{1}{(4\pi t)^{\frac{n}{2}} }$ term comes from and get
+   why must k exist ? Why does $l_m \to 0$ as $t\to \infty$? What boundary conditions on $\Omega $ does it obey ?
+  \end{exercise}
+  \begin{proof}
+   Let us first assume that we find $l_m$ such that 
    \begin{align*}
-    \sup_{x \in  \mathbb{R}^{n} } \abs{u(x,t)} \le \|h\|_{L^{1} }
+    l_m(x,0) = mk(x)
    .\end{align*}
+   with $k$ smooth and compact support, then $k \in  \mathcal{C}_b(\mathbb{R}^{n} ) \cap L^{1}(\mathbb{R}^{n} ) $ 
+   % \begin{align*}
+   %   \int_{\mathbb{R}^{n} } \abs{k(x)} dx  = \int_{K} \abs{k(x)} dx \le \int_{K} \sup_{x \in  K} \abs{k(x)} dx \le  \sup_{x \in  K} \abs{k(x)} * \lambda(K) \le \infty
+   % .\end{align*}
+   and by part a) we get that 
+   \begin{align*}
+     \sup_{x \in  \mathbb{R}^{n} }\abs{u(x,t)} \le  \frac{m}{(4\pi t)^{\frac{n}{2}} }\|k\|_{L^{1} } \xrightarrow{t\to \infty} 0
+   .\end{align*}
+   For the boundary conditions
+   \begin{align*}
+    \partial \Omega_T = (\partial \Omega  \times  (0,T]) \cup (\overline{\Omega } \times  0 )
+   .\end{align*}
+   we check individually
+   $t = 0$ and $x \in  \Omega $ then we have by (iii) (or rather assumption)
+   \begin{align*}
+     l_m(x,0)  = mk(x) = m \marginnote{$k\rvert_{\Omega } \equiv 1$}
+   .\end{align*}
+   For $x \in  \partial \Omega $ and $t \in  (0,T]$
+   \begin{align*}
+     u(x,t) = \int_{\mathbb{R}^{n} }\Phi(x-y,t)mk(y) dy &=  \int_{K} \Phi(x-y,t)mk(y) dy\\
+   .\end{align*}
+   We have $k(y) \ge 0$ and for $\Phi(x-y,t) > 0$ , ($t>0$), so the sign of $u$ depends on the sign of $m$\\[1ex]
+   For the existence of $k$ we consider that since $\Omega $ is bounded, then it can be contained in a compact set $K$ such that 
+   we set $\supp k = K$ and $k \rvert_{\Omega } \equiv 1$ which is smooth, for $\Omega  \setminus K$ let $k \to  0$ in a smooth way.
+  \end{proof}
+  \begin{exercise}[c]
+   Use the monotonicity property to show that u tends to zero. 
+  \end{exercise}
+  \begin{proof}
+   We learned that if we have two problems with 
+   \begin{align*}
+     h_{1} &\ge h_{2}\\
+     g_{1} &\ge g_{2}
+   .\end{align*}
+   then 
+   \begin{align*}
+    u_{1} \ge u_{2}
+   .\end{align*}
+  Let $u$ be a solution to the homogeneous heat equation such that, for some $h \in  \mathcal{C}_b(\mathbb{R}^{n} ) \cap L^{1} $
+  \begin{align*}
+    u(x,0) = h(x)
+  .\end{align*}
+  and  on $\partial \Omega  \times  \mathbb{R}^{+} $
+  \begin{align*}
+    u(x,t) = 0
+  .\end{align*}
+  we can then construct two solutions by considering
+  \begin{align*}
+   a\coloneqq  \sup_{x \in  \Omega } \abs{u(x,0)} =  \sup_{x \in  \Omega } \abs{h(x)}
+  .\end{align*}
+  Then 
+  \begin{align*}
+    l_{-a}(x,0) \le u(x,0) \le l_{a}(x,0)
+  .\end{align*}
+  so we must also have
+  \begin{align*}
+    l_{-a}(x,t) \le u(x,t) \le l_{a}(x,t)
+  .\end{align*}
+  but as shown above we have 
+  \begin{align*}
+    \lim_{t \to \infty} l_{-a}(x,t) = 0 = \lim_{t \to \infty} l_a(x,t)
+  .\end{align*}
+  thus $u(x,t) \to 0$ as well.
   \end{proof}
 
