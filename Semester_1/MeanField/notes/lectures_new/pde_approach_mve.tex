@@ -384,12 +384,6 @@ when $b$ is unbounded we consider , the cutoff
 \begin{align*}
   \overline{b}(x,v(x,t))  = \min \{b(x,v(x,t)), M\}  
 .\end{align*}
-\begin{assumption}\label{b_special}
- Assume $b(x,u) $  is given by the convolution
- \begin{align*}
-  b(x,u) = \nabla V \star u(x)
- .\end{align*}
-\end{assumption}
 \begin{remark}
  In the (SDE)  case we would assume 
 \begin{align*}
@@ -406,7 +400,7 @@ when $b$ is unbounded we consider , the cutoff
  \begin{align*}
   b(x,u) = \nabla V \star u(x)
  .\end{align*}
- Then let our (PDE) be given by 
+ And let our (PDE) be given by 
  \begin{align*}
   \text{(PDE)}\begin{cases}
     &u_t - \Delta u + \nabla*(\nabla V \star  u \ u) = v\\
@@ -599,31 +593,44 @@ where $\tilde{j}_{\epsilon} $ is mollification just in $x$
    \begin{lemma}
    Let $u \in L^{\infty}(L^{2} ) \cap L^{2}(H^{1} ) $ s.t. for $\forall  \phi \in  L^{2}(H^{1} ) $ it is a solution to 
    \begin{align*} 
-     \int_0^{T}    \braket{\partial_t u , \phi }_{(H^{1},H^{1}  )} dt = -\int_0^{T} \int_{\mathbb{R}^{d} }   (\nabla u -\nabla V \star v * u) *\nabla \phi  dx dt
+     \int_0^{T}    \braket{\partial_t u , \phi }_{\braket{H^{-1},H^{1}  }} dt = -\int_0^{T} \int_{\mathbb{R}^{d} }   \nabla u \nabla \phi -\nabla V \star v * u \nabla \phi   dx dt
    .\end{align*}
-   with $u_{0} \ge  0$, then it is non negative $u \ge 0$ a.e. and unique 
+   with $u_{0} \ge  0$, then  $u \ge 0$ a.e. and unique 
    \end{lemma}
    \begin{proof}
-     Choose $\phi  = u_{-} = \min \{0,-u\}  $  then we know that $u \in  L^{2}(H^{1} ) \implies u_{-} \in  L^{2}(H^{1} ) $ 
+     Choose $\phi  = u^{-} = \min \{0,-u\}  $  then we know that $u \in  L^{2}(H^{1} ) \implies u^{-} \in  L^{2}(H^{1} ) $ 
      \marginnote{That $u_-$ lies in the space is in fact non trivial and is part of the PDE lecture}
      then 
      \begin{align*}
-       \int_0^{t}  \partial_t u * u_{-} ds &= \int_0^{t}  \int_{\mathbb{R}^{d} } - \nabla u * \nabla u_{-} dx ds - \int_{0}^{t}  \int_{\mathbb{R}^{d} } \nabla V \star  v * u \nabla u_{-} dx ds \\
+       \int_0^{t}  \partial_t u * u^{-} ds &= \int_0^{t}  \int_{\mathbb{R}^{d} } - \nabla u * \nabla u^{-} dx ds - \int_{0}^{t}  \int_{\mathbb{R}^{d} } \nabla V \star  v * u \nabla u^{-} dx ds \\
      .\end{align*}
      And 
      \begin{align*}
-       \frac{1}{2}\int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \abs{u_{-}}^2 dx ds+ \int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u_{-}}^2 dx ds \le \frac{1}{2}\int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u_{-}}^2 dx ds + \frac{C}{2} \int_0^{t} \int_{\mathbb{R}^{d} }\abs{u_{-}}^2 dx ds
+       \frac{1}{2}\int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \abs{u^{-}}^2 dx ds+ \int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u^{-}}^2 dx ds \le \frac{1}{2}\int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u^{-}}^2 dx ds + \frac{C}{2} \int_0^{t} \int_{\mathbb{R}^{d} }\abs{u^{-}}^2 dx ds
      .\end{align*}
      By Grönwall 
      \begin{align*}
-       \int_{\mathbb{R}^{d} } \abs{u_-}^2 dx \le  e^{Ct} \int_{\mathbb{R}^{d} } \abs{u_{0,-}}^2 dx = 0
+       \int_{\mathbb{R}^{d} } \abs{u^-}^2 dx \le  e^{Ct} \int_{\mathbb{R}^{d} } \abs{u_{0,-}}^2 dx = 0
      .\end{align*}
      Since $u_0 \ge $ we get $u_{0,-} = 0$\\[1ex]
      The uniqueness of the solution follows also from the $L^2$ estimate,
    \end{proof}
-   \spewnotes
+   % \spewnotes
+   \begin{definition}[Sigma PDE]\label{sigma_pde}
+   To solve \hyperref[pde_mve_apprach]{(PDE)} we introduce a new $\sigma $ problem
+  \begin{align*}
+  \text{(PDE)}(\sigma)\begin{cases}
+    &u_t - \Delta u + \sigma \nabla*(\nabla V \star  u \ u) = v\\
+    &u \rvert_{t=0} = \sigma u_{0}  \ge 0
+  \end{cases}
+ .\end{align*}
+   \end{definition}
    \begin{theorem}[Leray-Schauder Fixed Point Theorem]\label{schauder_fixpoint}
-     Let $U$ be a Banach Space and $T: (u,\sigma ) \in  U \times  [0,1] \to U$ if 
+     Let $U$ be a Banach Space and 
+     \begin{align*}
+      T: (u,\sigma ) \in  U \times  [0,1] \to U
+     .\end{align*}
+     If 
      \begin{enumerate}
       \item $T$ is compact 
       \item $T(u,0) = 0$ for $\forall  u \in  U$
@@ -634,6 +641,9 @@ where $\tilde{j}_{\epsilon} $ is mollification just in $x$
      \end{enumerate}
      Then the map $T(*,1)$ has a fixed point
    \end{theorem}
+   \begin{remark}
+   Many fix point theorems do not guarantee uniqueness, the Banach fix point theorem is an outlier since it requires a contraction.
+   \end{remark}
    \begin{lemma}[Aubin-Lions Lemma (extended version)]\label{aubin}
     First note that
    \begin{align*}
@@ -650,33 +660,64 @@ where $\tilde{j}_{\epsilon} $ is mollification just in $x$
      \|f_{n_j} - f\|_{L^{2}([0,T];L^{2}(\mathbb{R}^{d} ) ) } \to 0
    .\end{align*}
    \end{lemma}
+   \newpage
    \begin{theorem}[Existence of Solution]
     The nonlinear non-local \hyperref[pde_mve_apprach]{(PDE)} has a solution,
    \end{theorem}
    \begin{proof}
-     We show by fix point argument using \autoref{schauder_fixpoint} on the map
+     We show by fix point argument using \autoref{schauder_fixpoint} on the map, where 
+ $u$ is a weak solution
+    \begin{align*}
+      X = \{u | u \in  L^{\infty}(L^{1}(1+\abs{x}^2dx)  \cap L^2 )   \cap L^2(H^{1}), \partial_t u \in  L^2(H^{-1} )\} 
+    .\end{align*}
     \begin{align*}
       M : (v,\sigma) \in  L^{\infty}(L^{1} ) \to X
     .\end{align*}
-    where  
+ %     \begin{center}
+ %   \begin{figure}[H]
+ %     \includegraphics[scale=0.2]{figures/compactness.png}
+ %  \end{figure}
+ % \end{center}
+    Let us check the that $M$ fulfills the conditions 1-3.
+    For 1. note that for $v $ in a bounded subset of $L^{\infty}(L^{1} ) $
     \begin{align*}
-      X = \{u | u \in  L^{\infty}(L^{1}(1+\abs{x}^2) dx) \cap L^2  \cap L^2(H^{1}), \partial_t u \in  L^2(H^{-1} )\}  
+      \|\nabla V \star  v\|_{L^{\infty} }\le C
     .\end{align*}
-    where $u$ is a weak Solution of the (PDE), it is then sufficient to show that $M$ has fixed point.\\
+    Then by \autoref{aubin} $M(v,\sigma )$ is relatively compact in  $L^{2}(L^{2} ) $i.e $\exists  (v_j,\sigma_j)_{j \in  \mathbb{N}}$ s.t.
 \begin{align*}
-  \text{(PDE)}(\delta)\begin{cases}
-    &u_t - \Delta u + \sigma \nabla*(\nabla V \star  u \ u) = v\\
-    &u \rvert_{t=0} = \sigma u_{0}  \ge 0
+  \|M(v_j,\sigma_j) - u \|_{L^{2}(L^{2})} \xrightarrow{j \to \infty} 0 \quad \implies \quad  u_j \to  u \text{ a.e. }
+.\end{align*}
+we need to show 
+\begin{align*}
+  \|M(v_j,\sigma_j) - u\|_{L^{\infty}(L^{1} ) }  = \sup_t \int_{\mathbb{R}^{d} } \abs{u_j - u}(x) dx \xrightarrow{DCT}  0
+.\end{align*}
+
+    We check property 2. and note that if $\sigma=0$ our problem reduces to 
+  \begin{align*}
+  \begin{cases}
+    &u_t - \Delta u + 0*\nabla*(\nabla V \star  u \ u) = v\\
+    &u \rvert_{t=0} = 0*u_{0} 
+  \end{cases}
+  =  
+  \begin{cases}
+    &u_t - \Delta u  = v\\
+    &u \rvert_{t=0} = 0  
   \end{cases}
  .\end{align*}
- Using \nameref{schauder_fixpoint} we obtain a fixed point of $M(*,1)$ which means 
+ which is just a Heat-Equation which when solved using the fundamental solution representation shows us that 
  \begin{align*}
- \text{(PDE)}(1) \begin{cases}
-    &u_t - \Delta u + \nabla*(\nabla V \star  u \ u) = v \quad \nabla V \in  L^{\infty} \\
-    &u \rvert_{t=0} =  \ge 0 \quad u_{0} \in  L^{1}((1+\abs{x}^2)dx) \cap L^{2}(dx) 
+  M(v,0) =  0 \quad \forall  v \in  L^{\infty}(L^{1} )
+ .\end{align*}
+ Property (3) is true since we chose $U = L^{\infty} $\\[1ex]
+ This means we can apply \nameref{schauder_fixpoint}and get a fix point  $M(*,1)$ which is a solution  to 
+ \begin{align*}
+  \begin{cases}
+    &u_t - \Delta u + \nabla*(\nabla V \star  u \ u) = 0 \quad  \\
+    &\nabla V \in  L^{\infty}\\
+    &u \rvert_{t=0} = u_{0}\ge 0  \quad \\
+    &u_{0} \in L^{1}((1+\abs{x}^2)) \cap L^{2} 
   \end{cases}
  .\end{align*}
- \textcolor{Red}{Rewatch video and add the arguments why we can apply schauder}
 \end{proof}
 \subsection{Back to the Makean-Vlasov Equation}
 We revisit the MVE 
@@ -689,7 +730,7 @@ We revisit the MVE
   \end{cases}
 .\end{align*}
 Suppose now that $u$ is the solution of the  \hyperref[pde_mve_apprach]{(PDE)} we obtained above, then consider 
-for $\nabla V \in  \text{Lip}$
+for $\nabla V \in  \text{Lip}$ 
 \begin{align*} 
   \text{(SDE)}\begin{cases}
     &dY(t) = (\nabla V \star  u)(Y(t)) dt + \sqrt{2}dW_t \\
