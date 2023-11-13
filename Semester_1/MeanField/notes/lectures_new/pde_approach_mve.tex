@@ -404,7 +404,7 @@ when $b$ is unbounded we consider , the cutoff
  \begin{align*}
   \text{(PDE)}\begin{cases}
     &u_t - \Delta u + \nabla*(\nabla V \star  u \ u) = v\\
-    &u \rvert_{t=0} = u_{0} \in  L^{1}((1+\abs{x}^2)dx) 
+    &u \rvert_{t=0} = u_{0} \in  L^{1}((1+\abs{x}^2)dx) \cap L^{2}(dx) 
   \end{cases}
  .\end{align*}
 \end{definition}
@@ -599,7 +599,7 @@ where $\tilde{j}_{\epsilon} $ is mollification just in $x$
    \end{lemma}
    \begin{proof}
      Choose $\phi  = u^{-} = \min \{0,-u\}  $  then we know that $u \in  L^{2}(H^{1} ) \implies u^{-} \in  L^{2}(H^{1} ) $ 
-     \marginnote{That $u_-$ lies in the space is in fact non trivial and is part of the PDE lecture}
+     \marginnote{\footnotesize That $u_-$ lies in the space is in fact non trivial and is part of the PDE lecture}
      then 
      \begin{align*}
        \int_0^{t}  \partial_t u * u^{-} ds &= \int_0^{t}  \int_{\mathbb{R}^{d} } - \nabla u * \nabla u^{-} dx ds - \int_{0}^{t}  \int_{\mathbb{R}^{d} } \nabla V \star  v * u \nabla u^{-} dx ds \\
@@ -719,8 +719,40 @@ we need to show
   \end{cases}
  .\end{align*}
 \end{proof}
+\begin{theorem}[Uniqueness]
+ If the nonlinear non-local \hyperref[pde_mve_apprach]{(PDE)} has a (weak) solution $u$ is unique.
+\end{theorem}
+\begin{proof}
+ We suppose there are two (weak) solutions $u_{1},u_{2} \in  X$, then consider the difference 
+ \begin{align*}
+  w = u_{1} - u_{2}
+ .\end{align*}
+ which satisfies  (in a weak sense)
+ \begin{align*}
+  \begin{cases}
+    &\partial_t w - \Delta w + \nabla *(\nabla V \star  u_{1} * w) + \nabla*(\nabla V \star w * u_{2}) = 0\\
+    &w \rvert_{t=0} = 0
+  \end{cases}
+ .\end{align*}
+take $w$ as a test function 
+\begin{align*}
+  \frac{1}{2} \frac{d}{dt} \int_{\mathbb{R}^{d} } w^2+ \int_{\mathbb{R}^{d} } \abs{\nabla w}^2 &\le \int_{\mathbb{R}^{d} } \abs{\nabla w *(\nabla V \star  u_{1})w}   + \int  \abs{\nabla w * (\nabla V \star  w)u_{2}} \\
+                                                                                               &\le  \frac{1}{2} \int_{\mathbb{R}^{d} } \abs{\nabla w}^2 + C\int_{\mathbb{R}^{d} } (\abs{\nabla V \star  u_{1}}^2 \abs{w}^2 + \abs{\nabla V \star  w}^2 \abs{u_{2}}^2)\\
+                                                                                               &\le  \|\nabla V \star  u_{1}\|_{L^{\infty}}^2 \int_{\mathbb{R}^{d} }  \abs{w}^2 + \|\nabla V \star  w\|_{L^\infty}^2 \|u_2\|_{L^{2} }^2\\
+                                                                                               &\le C \int \abs{w}^2 %+ \|\nabla V\|_2^{2}\|w\|_2^{2}
+.\end{align*}
+where we used
+\begin{align*}
+  \essup_{x} \abs*{\int  \nabla V(x-y)w(y) dy}^2 \le \|\nabla V\|_2^{2}\|w\|_2^{2}  
+.\end{align*}
+then by Grönwalls inequality for $\forall  t \in  [0,\infty)$
+\begin{align*}
+  \frac{d}{dt} \int \abs{w}^2 \le C*\int \abs{w}^2 \implies \int_{\mathbb{R}^{d} }\abs{w(x,t)^2}dx \le  e^{Ct} \int_{\mathbb{R}^{d} } \abs{w(x,0)}^2 dx = 0
+.\end{align*}
+it follows $u_{1}=u_{2}$ a.e.
+\end{proof}
 \subsection{Back to the Makean-Vlasov Equation}
-We revisit the MVE 
+Let us see how all this ties back to the Makean-Vlasov Equation
 \begin{align*}
   \text{(MVE)}\begin{cases}
     &dY(t) = (\nabla V \star  u)(Y(t)) dt + \sqrt{2}dW_t \\
@@ -729,7 +761,7 @@ We revisit the MVE
     &\mathcal{L}(Y) = u
   \end{cases}
 .\end{align*}
-Suppose now that $u$ is the solution of the  \hyperref[pde_mve_apprach]{(PDE)} we obtained above, then consider 
+Suppose now that $u$ is the solution of the  \hyperref[pde_mve_apprach]{(PDE)} obtained above, then consider 
 for $\nabla V \in  \text{Lip}$ 
 \begin{align*} 
   \text{(SDE)}\begin{cases}
@@ -737,35 +769,128 @@ for $\nabla V \in  \text{Lip}$
     &Y(0)  = \xi \in  L^{2}(\Omega )\\
   \end{cases}
 .\end{align*}
-then by convolution  $(\nabla V \star  u)$ is also Lipschitz, and by SDE theory there $\exists! Y \in  \mathbb{L}^2([0,T])$  solving (SDE).
-Then for $\forall  \phi  \exists  C_0^{\infty}([0,T] \times  \mathbb{R}^{d} ) $, by It\^o's formula 
+then the law of $\mathcal{L}(Y) = u$ satisfies 
+then by convolution  $(\nabla V \star  u)$ is also Lipschitz, and by SDE theory there exists a unique solution $\exists! Y \in  \mathbb{L}^2([0,T])$  solving the (SDE).\\[1ex]
+For $\forall  \phi  \in   C_0^{\infty}([0,T] \times  \mathbb{R}^{d} ) $, we have by It\^o's formula 
 \begin{align*}
   \phi(Y(t),t) - \phi(Y(0),0) &= \int_0^{t}  \partial_t \phi(Y(s),s) + \nabla \phi(Y(s),s)* \nabla V \star u(Y(s),s) +\Delta \phi(Y(s),s) ds \\
                               &+ \int_0^{t}  \ldots  dW_s
 .\end{align*}
-Then after taking the expectation the stochastic term disappears, suppose $\mu ^{Y} = \mathcal{L}(Y) $ then we get 
+Taking the expectation the stochastic term disappears, now suppose $\mu ^{Y} = \mathcal{L}(Y) $ then
 \begin{align*}
   &\int_{\mathbb{R}^{d} } \phi(x,t) d\mu ^{Y}(x,t) - \int_{\mathbb{R}^{d} } \phi(x,0) u_0(x) dx \\
-  &= \int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \phi(x,s) + \nabla \phi(x,s) *\nabla V \star u(x,s) + \Delta  \phi(x,s) d\mu ^{Y}(x,s)ds 
+  &= \int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \phi(x,s) + \nabla \phi(x,s) *(\nabla V \star u(x,s)) + \Delta  \phi(x,s) d\mu ^{Y}(x,s)ds 
 .\end{align*}
-Now we want to prove $\mu^Y = u$ i.e. $\forall  \phi  \in  C_b$ a.e. in  $t \in  [0,T]$
+Now to show that $\mu^Y = u$ which means that $\forall  \phi  \in  C_b$ 
 \begin{align*}
   \int_{\mathbb{R}^{d} }\phi  d\mu ^{Y} = \int_{\mathbb{R}^{d} }  \phi  u dx
 .\end{align*}
+We show that the above PDE has a unique solution with $u_{0} \equiv 0$\\
 We can rewrite the integral version in the weak sense as follows
 \begin{align*}
   \partial_t \mu ^{Y} = \Delta \mu ^{Y}   - \nabla * (\nabla V \star  u * \mu ^{Y} )
 .\end{align*}
-How to prove : 
-since $u$ as a solution of (PDE) it is also a solution of the (LDPE) 
-the proof $u = \mu ^{Y}$ can be reduced to show that (LPDE) has a unique measure valued solution.\\
-Let $\tilde{\mu } \in  L^{\infty}(L^{1} )  $ be a solution for $\forall \phi  \in  \mathcal{C}_0^{\infty}([0,T);\mathbb{R}^{d} ) $
+\begin{remark}
+There are two ways to prove $\mu^Y = 0$ \\
+If $\phi  \in  \mathcal{C}_0^{\infty}([0,T)\times \mathbb{R}^{d} )$ and 
 \begin{align*}
-  \int_0^{T} \int_{\mathbb{R}^{d} }  \tilde{u}  (\partial_t \phi  +  \Delta  \phi  - \nabla \phi  * \nabla V \star  u) dx dt = 0
+  &\int_{\mathbb{R}^{d} } \phi(x,T) d\mu ^{Y} - \underbrace{\int_{\mathbb{R}^{d} } \phi(x,0) d\mu^Y_0}_{=0}\\ \\
+  &= \int_0^{T}\int_{\mathbb{R}^{d} }  (\partial_t \phi  + \Delta \phi  - \nabla \phi \nabla V \star u) d\mu^Y 
 .\end{align*}
-then $\tilde{u} = 0 $ implies the uniqueness of (LPDE), which means we need to show for $\forall  g \in  \mathcal{C}_c^{\infty}(\mathbb{R}^{d} \times [0,T] )  $
-it holds 
+for $\forall  g \in  \mathcal{C}_0^{\infty}((0,T)\times \mathbb{R}^{d} ) $ we need to show 
 \begin{align*}
-  \int_0^{T}  \int_{\mathbb{R}^{d } } \tilde{u}  g dx dt = 0
+  \int_0^{T} \int_{\mathbb{R}^{d}}   g(x,t) \mu^Y  = 0
 .\end{align*}
-if $\exists  \phi $ s.t. $g = \partial_t \phi  + \Delta  \phi  - \nabla \phi  * \nabla V \star  u$
+the problem is reduced to  show that
+\begin{align*}
+  \begin{cases}
+    &\partial_t \phi  + \Delta  \phi  - \nabla \phi  * \nabla V \star  u = g\\
+    &\phi(x,T) = 0
+  \end{cases}
+.\end{align*}
+solving this backwards PDE would go beyond the scope of this lecture and is just mentioned for completeness.\\[1ex]
+\end{remark}
+Instead we use a secondary method, for $\forall  \phi  \in  C_0^{\infty}([0,T)\times \mathbb{R}^{d} ) $
+\begin{align*}
+  \text{(\#)} &\int_{\mathbb{R}^{d} } \phi(x,t)  d\mu^Y(x) - \underbrace{\int_{\mathbb{R}^{d} } \phi(x,0) d\mu^Y_0}_{=0}\\
+  &= \int_0^{t}\int_{\mathbb{R}^{d} }  (\partial_t \phi  + \Delta \phi  - \nabla \phi \nabla V \star u) d\mu^Y 
+\end{align*}
+then for fixed $\tilde{t} \in  (0,T)$ we want to show for $\forall  g \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $
+\begin{align*}
+  \int_{\mathbb{R}^{d} }g(x) d\mu^Y(x) = 0
+.\end{align*}
+now if we can find for any given $g$ the following problem 
+\begin{align*}
+  \begin{cases}
+    &\partial_t \phi  + \Delta  \phi  - \nabla \phi *(\nabla V \star u) = 0\\
+    &\phi(x,t) = g(x)
+  \end{cases}
+.\end{align*}
+has a solution $\phi$, which can be viewed as a test function to be plugged into \# then 
+\begin{align*}
+  \mu ^{Y}  = 0 \text{ a.e. in }  \mathbb{R}^{d} 
+.\end{align*}
+The idea is now to suppose $\supp g \subset  B_{\frac{R}{2}}$, then we consider the corresponding problem 
+\begin{align*}
+  \begin{cases}
+    &\partial_t w_{R,\epsilon} + \Delta w_{R,\epsilon} -\nabla w_{R,\epsilon} * j_{\epsilon} \star  (\nabla V \star  u) = 0\\
+    &w_{R,\epsilon} \rvert_{\partial B_{R}} =  0\\
+    &w_{R,\epsilon} \rvert_{t = \tilde{t} }  = g
+  \end{cases}
+.\end{align*}
+how to solve this linear parabolic equation is part of the lecture PDE, here we just use the result i.e.
+there exists a unique solution 
+\begin{align*}
+  w_{R,\epsilon} \in  C^{\infty}(\overline{B_R} \times  [0,\tilde{t} ] ) \text{ with } w_{R,\epsilon} \rvert_{\partial B_R} = 0
+.\end{align*}
+$w_{R,\epsilon}$ should be a candidate  for $\phi $, however it is not in $C_0^{\infty}(\mathbb{R}^{d} \times  [0,\tilde{t} ] ) $,
+To overcome this difficulty we introduce a cutoff function  
+\begin{align*}
+  C_0^{\infty}(\mathbb{R}^{d} ) \ni \psi_{R} &=  \begin{cases}
+      1 &\abs{x} \le \frac{R}{2}\\
+      \text{smooth in between} & \\
+      0 &\abs{x} \ge R
+    \end{cases}\\
+    \abs{\nabla \psi_R} &\le \frac{C}{R} \\
+    \abs{\Delta  \psi_R} &\le \frac{C}{R}
+.\end{align*}
+we use $\psi_R * w_{R,\epsilon}$ as a test function, then it holds
+\begin{align*}
+  \psi_{R}*w_{R,\epsilon} \rvert_{t = \tilde{t} } = g
+.\end{align*}
+and 
+\begin{align*}
+  &\int_{\mathbb{R}^{d} } g(x)d\mu^{Y}(x,\tilde{t} ) - 0 = \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} }  (\partial_t  + \Delta -  \nabla V \star  j_{\epsilon} \star u * \nabla)(w_{R,\epsilon} \psi_R) d\mu^Y(x,t)\\
+.\end{align*}
+using that $w_{R,\epsilon}$ is solution to the above equation 
+\begin{align*}
+  &\int_{0}^{\tilde{t} } \int_{\mathbb{R}^{d} } \underbrace{(\partial_t  + \Delta -  \nabla V \star j_{\epsilon} \star u * \nabla) w_{R,\epsilon}}_{=0}*\psi_{R} d\mu^Y \\
+  &+  \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} } (2 \nabla \psi_R * \nabla w_{R,\epsilon} + w_{R,\epsilon} \Delta \psi_{R} - \nabla V \star  u *w_{R,\epsilon}*\nabla \psi_{R}) d\mu^Y \\
+  &+ \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} }  (\nabla V \star  j_{\epsilon} \star  u - \nabla V \star  u) * \nabla w_{R,\epsilon}\psi_{R} d\mu^Y\\
+  &= I + II + III
+.\end{align*}
+if we have that $\|\nabla w_{R,\epsilon}\|_{L^{\infty} } + \|w_{R,\epsilon}\|_{L^{\infty} } \le  C$ uniformly in $R$ and $\epsilon$ (Omit the proof),
+then $II$ can be bounded as follows
+\begin{align*}
+  \abs{II}\le \|\mu^Y\|_{L^{\infty}(L^{1} ) } (\|\nabla w_{R,\epsilon}\|_{\infty}*\|\nabla \psi_R\|_{\infty}+\|w_{R,\epsilon}\|_{\infty}*\|\Delta  \psi_R\|_{\infty} +\|\nabla V \star  u\|_{\infty} * \|w_{R,\epsilon}\|\|\nabla \psi_R\|_{\infty})
+.\end{align*}
+For $III$ 
+\begin{align*}
+  \abs{III}&\le C*\|\nabla V \star  j_{\epsilon} \star u - \nabla V \star  u \|_{\infty} \\
+           &= \abs*{\int j_{\epsilon}(x-y)(\nabla V \star  u (y) - \nabla V \star  u(x)) dy}\\
+           &\le  \|D^2 V \star  u \|_{\infty} C \epsilon ^2 \\
+           \xrightarrow{} 0
+.\end{align*}
+
+% since $u$ as a solution of (PDE) it is also a solution of the (LDPE) 
+% the proof $u = \mu ^{Y}$ can be reduced to show that (LPDE) has a unique measure valued solution.\\
+% Let $\tilde{\mu } \in  L^{\infty}(L^{1} )  $ be a solution for $\forall \phi  \in  \mathcal{C}_0^{\infty}([0,T);\mathbb{R}^{d} ) $
+% \begin{align*}
+%   \int_0^{T} \int_{\mathbb{R}^{d} }  \tilde{u}  (\partial_t \phi  +  \Delta  \phi  - \nabla \phi  * \nabla V \star  u) dx dt = 0
+% .\end{align*}
+% then $\tilde{u} = 0 $ implies the uniqueness of (LPDE), which means we need to show for $\forall  g \in  \mathcal{C}_c^{\infty}(\mathbb{R}^{d} \times [0,T] )  $
+% it holds 
+% \begin{align*}
+%   \int_0^{T}  \int_{\mathbb{R}^{d } } \tilde{u}  g dx dt = 0
+% .\end{align*}
+% if $\exists  \phi $ s.t. $g = \partial_t \phi  + \Delta  \phi  - \nabla \phi  * \nabla V \star  u$
