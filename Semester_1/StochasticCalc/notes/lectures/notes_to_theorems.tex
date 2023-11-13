@@ -88,9 +88,6 @@ We have
 .\end{align*}
 Where we can show that the Expectation term goes to 0
 \end{proof}
-\begin{align*}
-  \int_0^{T}  \abs{f_n(*,(t-h)_+)-f(*,(t-h)_+)}^2 dt = \int_0^{h} \abs{f_n(*,0)-f(*,0)}^2 dt + \int_h^{t} \ldots \le h\abs{f_n(*,0)-f(*,0)}^2 + \|f-f_n\|_{\mathcal{H}^2}
-.\end{align*}
 \begin{Theorem}[3.7.]
   For any $f \in  \mathcal{H}^2$ there is a continuous martingale $X = (X_t)_{t \in  [0,T]}$ with 
   respect to $\mathcal{F}_t$ such that for all $t \in  [0,T]$
@@ -111,7 +108,7 @@ Where we can show that the Expectation term goes to 0
 Our end goal is to use a triangular inequality to use the simple case to bound the normal one i.e.
 \begin{align*}
   \abs{\E[X_t-X_s|\mathcal{F}_s]} &= \abs{\E[X_t-X_{t}^{n}+X_{t}^{n} -X_s +X_{s}^{n} -X_{s}^{n}  |\mathcal{F}_s]}\\
-                                  &\le \abs{\E[X_t-X_{t}^{n}|\mathcal{F}_s]} + \underbrace{\abs{\E[X_{t}^{n} -X_{s}^{n}  |\mathcal{F}_s]}}_{=0} + \abs{\E[X_{s}^{n}-X_s|\mathcal{F}_s ]}
+                                  &\le \abs{\E[X_t-X_{t}^{n}|\mathcal{F}_s]} + \underbrace{\abs{\E[X_{t}^{n} -X_{s}^{n}  |\mathcal{F}_s]}}_{=0} + \abs{\E[X_{s}^{n}-X_s|\mathcal{F}_s ]}\\
                                   &= \abs{\E[X_t-X_{t}^{n}|\mathcal{F}_s]} + \abs{\E[X_{s}^{n}-X_s|\mathcal{F}_s ]}\\
                                   &\myS{Jen}{\le } \E[\abs{X_t-X_{t}^{n}}|\mathcal{F}_s] + \E[\abs{X_{s}^{n}-X_s}|\mathcal{F}_s ]\\
 .\end{align*}
@@ -152,6 +149,205 @@ Then we can apply Borel-Cantelli since
   \sum_{k=0}^{\infty}   \P(\sup_{0\le t\le T} \abs{X_t^n - X_t^m} \ge  2^{-k} ) < \infty
 .\end{align*}
 and get $\Omega_0 \in  \mathcal{F}$ such that $\P(\Omega_0) = 1$ and $X^{n_k} $ is a pathwise cauchy sequence.
+\end{proof}
+\begin{Prop}[3.10]
+ Let $f \in  \mathcal{H}^2$ and $\nu $ be a stopping time satisfying 
+ \begin{align*}
+   f \cha_{[0,\nu]} = 0
+ .\end{align*}
+ The integral process $X=(X_t)_{t \in  [0,T]}$ with $X_t = \int_0^{t} f(*,s) dB_s $, the fulfills 
+ \begin{align*}
+   X \cha_{[0,\nu ]} = 0
+ .\end{align*}
+ In particular for two functions $f,g \in  \mathcal{H}^2$ with $f \cha_{[0,\nu ]} = g \cha_{[0,\nu ]}$ the integral processes coincide on $[0,\nu ]$
+\end{Prop}
+\begin{remark}
+  This proposition is mostly used to prove that the same holds for $\mathcal{H}^2_{\text{loc}}$  functions as well since this allows us 
+  to use localizing sequences $\tau_m$ and use the fact that on 
+  \begin{align*}
+    \{\tau_m = T\}  
+  .\end{align*}
+  The processes must coincide.
+\end{remark}
+\begin{proof}
+ The proof follows similarly to before where we first prove the simple case, for that suppose
+ \begin{align*}
+   X_t &= I(f\cha_{[0,t]})\\
+   Y_t &= I(f\cha_{[0,\nu ]}\cha_{[0,t]})
+ .\end{align*}
+ Then it suffices to consider the simplification $f = a\cha_[(r,s]] $ for $0\le r < s \le T$.\\
+ The important thing to note now is that 
+ \begin{align*}
+   Y_t =  I(f\cha_{[0,\nu ]}\cha_{[0,t]}) = \int_0^{t}\underbrace{(f \cha_{[0,\nu ]}}_{\notin \mathcal{H}_0^2}
+ .\end{align*}
+ For a function $h = f\cha_{[0,\nu ]}$ to be in $\mathcal{H}_0^2$ there needs to be a representation 
+ \begin{align*}
+   h =  \sum_{i=0}^{n-1} a_i \cha_{[t_{i-1},t_{i}]}  
+ .\end{align*}
+ But $\nu$ is continuous, such that there cannot exist such a representation, which means we first 
+ need to consider the discrete stopping time $\nu^n$ as follows 
+ \begin{align*}
+   s_{i,n} &= r+(s-r)\frac{i}{2^{n} }\\
+   \nu ^{n} &= \sum_{i=0}^{2^{n} - 1 } s_{i+1,n}\cha_{(s_{i,n},s_{i+1,n}]}(\nu )
+ .\end{align*}
+ We show 
+ \begin{align*}
+   f \cha_{[0,\nu ^{n} ]} &=  f- f \cha_{\nu ^{n},T }\\
+                          &= f - f \sum_{i=0}^{2^{n} - 1 } \cha_{(s_{i,n},s_{i+1,n}]}(\nu)\cha_{(s_{i+1,n},T]} \in  \mathcal{H}_0^{2} 
+ .\end{align*}
+ then by definition of the integral for simple functions it follows
+ \begin{align*}
+   Y_t^N = \int_0^{t} f(*,s) \cha_{[0,\nu^n]}(u) dB_u = a(B_{s \land \nu ^{n} \land t } - B_{r \land \nu ^{n} \land t })
+ .\end{align*}
+ And by continuity of $B$ we can do
+ \begin{align*}
+   Y_t  = \lim_{n\to \infty}Y_t^n = a(B_{s \land \nu \land t } - B_{r \land \nu  \land t })
+ .\end{align*}
+ But this is clearly $X_t\cha_{[0,\nu ]}$, it follows
+ \begin{align*}
+   X\cha_{[0,\nu ]} =  Y\cha_{[0,\nu ]}
+ .\end{align*}
+ Note that for $X\cha_{[0,\nu ]}$  there is no difficulty since we can first apply the definition of the simple integral,
+ and then consider the stopping time\\[1ex]
+ For general $f \in  \mathcal{H}^2$ we choose $(f_n) \subset  \mathcal{H}_0^{2} $ such that 
+ \begin{align*}
+   \|f -f_n\|_{\mathcal{H}^2} \to 0
+ .\end{align*}
+ then we already know that $X^n = Y^n$ such that 
+ \begin{align*}
+   X \cha_{[0,\nu ]} = \lim_{n\to \infty}X^n\cha_{[0,\nu ]} = \lim_{n \to \infty} Y^n\cha_{[0,\nu ]} = Y \cha_{[0,\nu ]}
+ .\end{align*}
+\end{proof}
+\begin{Prop}[3.13]
+  For every $f \in  \mathcal{H}^2_{\text{loc}}$  there is a localizing sequence $(\nu_n)_{n \in  \mathbb{N}}$
+\end{Prop}
+\begin{proof}
+  We want $\nu_n$ such that for $f \in  \mathcal{H}^2_{\text{loc}}$ it holds 
+  \begin{align*}
+    f \cha_{[0,\nu_n]} \in  \mathcal{H}^2
+  .\end{align*}
+  and 
+  \begin{align*}
+    \P(\bigcup_{n=1}^{\infty} \{\nu_n = T\}   ) = 1
+  .\end{align*}
+  We already have 
+  \begin{align*}
+    \P(\int_0^{T} f^2(*,s) ds < \infty) = 1 
+  .\end{align*}
+  a natural choice of localizing sequence is then 
+  \begin{align*}
+    \nu_n = \inf \{t \in  [0,T] : \int_0^{t}  f^2 ds \ge  n\}  
+  .\end{align*}
+ we have
+  \begin{align*}
+    \|f\cha_{[0,\nu_n]}\|_{\mathcal{H}^2} < \infty
+  .\end{align*}
+  since $\nu_n$ conditions on a set such that we only have $\omega$ where we are bounded.
+  Since $f$ is adapted the hitting time is a stopping time, and we consider
+  \begin{align*}
+    \bigcup_{n=1}^{\infty} \{\nu_n = T\}  =  \{\int_0^{T} f^2  < \infty\}   = 1
+  .\end{align*}
+\end{proof}
+\begin{Definition}[3.14]
+  Let $f \in  \mathcal{H}^2_{\text{loc}} $ and $\nu_n$ be a localizing sequence for $f$. The It\^o integral process 
+  $(\int_0^{t} f(*,s) dB_s )$ is defined as the continuous process $X = (X_t)_{t \in  [0,T]}$ such that 
+  \begin{align*}
+    \int_0^{t} f(*,s) dB_s = X_t = \lim_{n\to \infty}\int_0^{t} f(*,s) \cha_{[0,\nu_n]}(s) dB_s \quad \P\text{-a.s.}
+  .\end{align*}
+\end{Definition}
+\begin{Theorem}[3.15]
+  For $f \in  \mathcal{H}^2_{\text{loc}}$  there exists a continous local martingale $(X_t)_{t \in  [0,T]}$ such that 
+  for any localizing sequence $(\nu_n)_{n \in  \mathbb{N}}$ of $f$ it holds 
+  \begin{align*}
+    \int_0^{t} f(*,s) \cha_{[0,\nu_n]}(s) dB_s \xrightarrow{n\to \infty}  X_t
+  .\end{align*}
+  for $t \in  [0,T]$. In particular this is well defined and $(X_t)$ does not depend on the choice of localizing sequence.
+\end{Theorem}
+\begin{proof}
+  Remember that any proof involving local Martingales or $\mathcal{H}^2_{\text{loc}}$ processes we need to work through 
+  a localizing sequence. Let $f \in  \mathcal{H}_\text{loc}^2$ and $(\nu_n)$ be a corresponding localizing sequence (it exists),
+  define the localized integral process 
+  \begin{align*}
+    X_t^n = \int_0^{t} f(*,s)\cha_{[0,\nu_n]}(s)dB_s 
+  .\end{align*}
+  we first show that $X_t^n$ has a continuous limit $(X_t)$ i.e 
+  \begin{align*}
+    &X_t = \lim_{n\to \infty}X_t^n\\
+    &X_t = \lim_{n\to \infty} \int_0^{t} f(*,s)\cha_{[0,\nu_n]}(s) dB_s
+  .\end{align*}
+  The expression above is only useful if we view it on the set such that 
+  \begin{align*}
+    &t \mapsto X_t^n(\omega ) \text{ is continous} \\
+    &\min \{n \in  \mathbb{N} :  \nu_n(\omega ) = T\} <\infty
+  .\end{align*}
+  The first gives us that 
+  \begin{align*}
+    t \mapsto \int_0^{t} f(*,s)\cha_{[0,\nu_n]}(s) dB_s
+  .\end{align*}
+  Show $X$ is continuous \\ 
+  For $\epsilon > 0 $ and $t \in  [0,T]$ find $\delta  > 0 $ such that
+  \begin{align*}
+    s \in  B_\delta(t) \implies \abs{X_t(\omega ) - X_s(\omega )} < \epsilon
+  .\end{align*}
+  suppose  w.l.o.g $s<t$
+  \begin{align*}
+    \abs{X_t(\omega ) -X_s(\omega )} &= \abs*{\lim_{n\to \infty} \left(  \int_0^{t} f\cha_{[0,\nu_n]}  - \int_0^{s} f\cha_{[0,\nu_n]} \right)  } \\
+                                     &=  \abs*{\lim_{n\to \infty} \int_s^{t} f\cha_{[0,\nu_n]} dB_s} \\ 
+                                     &\le \lim_{n\to \infty} \int_s^t \abs{f\cha_{[0,\nu_n]}}  dB_s
+  .\end{align*}
+  Since $X_t^n$ is continuous the integral can be made arbitrarily small and $f*\cha_{[0,\nu_n]} \in  \mathcal{H}^2$.
+  Thus the limit exists and is continuous, for the independence of localizing sequence we get immediately by prop 3.10 (identity) that for $\tau_n \coloneqq  \nu_n \land \tilde{\nu }_n $ 
+  \begin{align*}
+    X^n \cha_{[0,\tau_m]} =   \tilde{X}^n \cha_{[0,\tau_m ]}
+  .\end{align*}
+  where 
+  \begin{align*}
+    \tilde{X}^n = \int_0^{*}  f(*,s)\cha_{[0,\tilde{\nu }_n ]}(s)
+  .\end{align*}
+then
+\begin{align*}
+  \lim_{n\to \infty}X^{n}  = \lim_{n\to \infty}\tilde{X}^{n}  
+.\end{align*}
+on $[0,\tau_m]$ and $\tau_m \uparrow T$.\\[1ex]
+It remains to show that $(X_t)$ is a local martingale, 
+this is simply to show that $f \in \mathcal{H}^2$ then we already know that $\int  f$ is a martingale,
+\begin{align*}
+  \sigma_n = \inf \{t \in [0,T]  : \int_0^{t} f^2(*,s) \ge n \}   \land T
+.\end{align*}
+clearly this is a localizing sequence for $f$ then 
+\begin{align*}
+  X_{t \land \sigma_n} = \int_{0}^{t} \underbrace{f(*,s)\cha_[0,\sigma_n]}_{\in  \mathcal{H}^2} dB_s
+.\end{align*}
+and we conclude with Theorem 3.7
+\end{proof}
+\begin{Theorem}[3.17]
+  Let $f,g \in  \mathcal{H}^2_{\text{loc}}$   and $\nu $ be a stopping time such that 
+  \begin{align*}
+    f\cha_{[0,\nu ]} = g \cha_{[0,\nu ]}
+  .\end{align*}
+  then 
+  \begin{align*}
+    \int_0^{t} f(*s)dB_s \cha_{[0,\nu ]}  \myS{\P}{=} \int_0^{t} g(*s)dB_s \cha_{[0,\nu ]}  
+  .\end{align*}
+\end{Theorem}
+\begin{proof}
+ You know the drill, localizing sequence and then apply the result for the normal, we have that 
+ \begin{align*}
+   \tau_n  = \inf \{t \in  [0,T] : \int_0^{t} f(*,s)^2 ds \ge  n \lor \int_0^{t} g(*,s)^2 ds \ge n   \}  \land T
+ .\end{align*}
+ Clearly $f\cha_{[0,\tau_n]} \in  \mathcal{H}^2$ since we stop the moment one of the integral processes exceeds $n$ then we have 
+ \begin{align*}
+   X^{n}  &= \int_0^{*}  \underbrace{f(*,s)\cha_{[0,\tau_n]}}_{\in  \mathcal{H}^2} \\
+   Y^{n}  &= \int_0^{*}  \underbrace{g(*,s)\cha_{[0,\tau_n]}}_{\in  \mathcal{H}^2} 
+ .\end{align*}
+ then prop 3.10 gives 
+ \begin{align*}
+   X^{n}\cha_{[0,\nu ]} = Y^{n} \cha_{[0,\nu ]}
+ .\end{align*}
+ Theorem 3.15 gives us the existence of the limit 
+ \begin{align*}
+   \lim_{n\to \infty}X^{n} 
+ .\end{align*}
 \end{proof}
 \begin{Theorem}[3.17 Riemann sum approximation]
  If $f : \mathbb{R} \to \mathbb{R} $  is a continuous function and  $t_i = \frac{i}{n}T$ then for $n\to \infty$ we have
@@ -300,6 +496,56 @@ if $\P(A_{n,\epsilon}) \to 0$
                                    &\le  \sup_{t \in  [0,T]} \abs{g(B_t(\omega ))}\int_0^{T} \abs{g(B_t(\omega))} dt\\
                                    &\le C^2*T 
 .\end{align*}
+\end{proof}
+\begin{Theorem}[3.18]
+ For any twice continuous differentiable function $f : \mathbb{R} \to \mathbb{R}$  we have 
+ \begin{align*}
+   f(B_t) = f(0) + \int_0^{t}  f'(B_s)dB_s + \frac{1}{2} \int_0^{t} f^{''}(B_s) ds  \quad \P \text{-a.s.}
+ .\end{align*}
+\end{Theorem}
+\begin{proof}
+ The main tools used are a second order Taylor expansion then using our Riemann Sum convergence for the first integral 
+ and for the second we have a normal (pointwise) Riemann sum.\\
+ We write 
+ \begin{align*}
+   f(B_t) - f(0) &= \sum_{i=0}^{n-1} f(B_{t_i})-f(B_(t_{i-1})))\\
+                 &= \sum_{i=0}^{n-1} f'(B_{t_{i-1}})(B_{t_i}-B_{t_{i-1}}) + \frac{1}{2}\sum_{i=0}^{n-1} f''(B_{t_{i-1}})(B_{t_i}-B_{t_{i-1}})^2 + \sum_{i=0}^{n} r(B_{t_i},B_{t_{i-1}}) 
+ .\end{align*}
+ The first sum converges by 3.17  to 
+ \begin{align*}
+  \sum_{i=0}^{n-1} f'(B_{t_{i-1}})(B_{t_i}-B_{t_{i-1}}) \to  \int f'(B_s) dB_s
+ .\end{align*}
+ The second one we write as 
+ \begin{align*}
+   \frac{1}{2}\sum_{i=0}^{n-1} f''(B_{t_{i-1}})(B_{t_i}-B_{t_{i-1}})^2 = \frac{1}{2}\sum_{i=0}^{n-1} f''(B_{t_{i-1}})((B_{t_i}-B_{t_{i-1}})^2-(t_i-t_{i-1})) + \frac{1}{2}\sum_{i=0}^{n-1} f''(B_{t_{i-1}})(t_i-t_{i-1})
+ .\end{align*}
+ Then the second term is the integral we want i.e.
+ \begin{align*}
+   \frac{1}{2}\sum_{i=0}^{n-1} f''(B_{t_{i-1}})(t_i-t_{i-1}) \to  \frac{1}{2}\int f''(B_{s}) ds
+ .\end{align*}
+ Such that we need to show the first part converges against 0 $\P$-a.s., we do so by showing it converges to 0 in $L^2$ instead
+ where we again make use of the independence of Brownian increments , and that they have mean 0, plus the fact that 
+ \begin{align*}
+   \E[(B_{t_i}-B_{t_{i-1}})^2] = t_i - t_{i-1}
+ .\end{align*}
+ the remainder term is a little more complicated, we rewrite 
+ \begin{align*}
+   r(x,y) &= \int_{x}^{y} (y-u)(f''(u)-f''(x)) du\\
+          &= (y-x)^2 \int_0^{1} (1-t)(f''(x+t(y-x))f''(x))dt
+ .\end{align*}
+ then  if $f$ has compact support it holds 
+ \begin{align*}
+  \abs{r(x,y)} \le \abs{y-x}^2 \abs{h(x,y)}
+ .\end{align*}
+ for bounded $h$ with $h(x,x) = 0$ and compact support (that is $\supp f$),
+ we show that the error term converges to 0 in $L^{1} $ by bounding $h$, that consists of splitting up $\Omega $ as follows
+ \begin{align*}
+  \Omega  = \{\abs{x-y} < \delta  \}  \cup \{\abs{x-y} \ge \delta \}  
+ .\end{align*}
+ on the first set we know by continuity $h(x,y) < \epsilon$ on the second we bound by using the $\|h\|_{\infty}$ which exists
+ since $h$ continuous and of compact support,bounding the probability of the second set by Markov inequality ($f(x) = x^2$).
+ Since we can choose $\delta $ as we want we may take $\epsilon=0$\\[1ex]
+ Now we need to argue that we are allowed to assume $f$ compact support, this follows by similar argument to Riemann approximation.
 \end{proof}
 \begin{example}[5.1]
  Consider the SDE 
