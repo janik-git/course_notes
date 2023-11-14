@@ -1,0 +1,265 @@
+\chapter{Mean Field Limits For Systems With Non Lipschitz Interaction Potential}
+\section{Motivation}
+In this chapter we study what happens for "less nice" interaction potentials, let us first 
+remember how our Mean Field Particle System and the associated Mean Field Problem are defined.
+\begin{Definition}[Mean Field problem]
+ As $N\to \infty$  what happens to 
+ \begin{align*}
+\begin{cases}
+  &\partial_t u - \Delta u + \nabla * (\nabla V \star  u * u) = 0\\
+  &u(0) = u_{0}
+\end{cases}
+ .\end{align*}
+\end{Definition}
+\begin{Definition}
+\begin{align*}
+  (\text{SDE})\begin{cases}
+    &dX_i^n = \nabla V \star  \mu_N(X_i^{N} ) dt + \sqrt{2}dW_t^i\\
+    &X_i^N(0) = \xi_i \text{ i.i.d } u_{0}=\mathcal{L}(\xi_i)
+  \end{cases}
+.\end{align*}  
+where $\mu_N$ is the empirical measure
+\begin{align*}
+  \mu_N = \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i^N}
+.\end{align*}
+where $\nabla V$ is not Lipschitz continuous
+\end{Definition}
+To solve this there are two approaches, one of which is to first consider the mollified problem i.e 
+replace $V$ with
+\begin{align*}
+  V_\epsilon = j_{\epsilon}\star V
+.\end{align*}
+and consider 
+\begin{Definition}[Mollified SDE]
+  For a mollificator $j_\epsilon$ we consider 
+  \begin{align*}
+  (\text{SDE}_\epsilon)\begin{cases}
+    &dX_i^n = \nabla V_\epsilon \star  \mu_N(X_i^{N} ) dt + \sqrt{2}dW_t^i\\
+    &X_i^N(0) = \xi_i \text{ i.i.d } u_{0}=\mathcal{L}(\xi_i)
+  \end{cases}
+.\end{align*}  
+where 
+\begin{align*}
+  V_\epsilon = j_{\epsilon}\star V
+.\end{align*}
+\end{Definition}
+now we can either consider a limit for fixed $\epsilon > 0$ take $N\to \infty$ and see what happens, this is a simpler case since we get that 
+\begin{align*}
+  \nabla V_\epsilon \star  u  \text{ is bounded }
+.\end{align*}
+\\[1ex]beta
+Or the more complex case is to consider a combined limit $\epsilon(N) \xrightarrow{N\to \infty} 0$ we consider two possible epsilon
+\begin{align*}
+  \begin{cases}
+    &\epsilon \sim (\frac{1}{\ln N})^{a} \\
+    &\epsilon \sim N^{-\beta }  \quad \beta  > 0
+  \end{cases}
+.\end{align*}
+The second approach is to consider a many particle PDE 
+\begin{definition}[Many Particle PDE/High Dimensional PDE]
+\begin{align*}
+  \begin{cases}
+    &dX_i^n = \frac{1}{N} \sum_{j=1}^{N}   \nabla V(X_i^{N}-X_j^{N}  )dt + \sqrt{2}dW_t^i 
+  \end{cases}
+.\end{align*}  
+let $u^{N} (x_{1},x_{2},\ldots,x_N ) $ be the law of $(X_1^{N},X_2^{N},\ldots ,X_N^{N})$ then we get an equation for $u$ by 
+\begin{align*}
+  \text{(HPDE) }\partial_t u^{N}  - \sum_{i=1}^{N}  \Delta_{x_i} u + \nabla * (\frac{1}{N} \sum_{j=1}^{N} \nabla V(x_i-x_j) u^{N} ) = 0
+.\end{align*}
+As $N\to \infty$ we expect 
+\begin{align*}
+  \int_{\mathbb{R}^{(n-1)d} } u^{N} (x_{1},x_{2},\ldots,x_N ) dx_{2}\ldots dx_N \to u
+.\end{align*}
+Where $u$ is a soltuion to 
+\begin{align*}
+  \partial_t u - \Delta  u  + \nabla * (\nabla V \star u * u) = 0
+.\end{align*}
+\end{definition}
+\begin{remark}
+ We know that if the drift term in the above is bounded, then we get for fixed $N$ a solution i.e. if 
+ \begin{align*}
+  \nabla V < \infty
+ .\end{align*}
+\end{remark}
+\begin{remark}
+ The above approach is called relative entropy method, by considering the tensor product
+ \begin{align*}
+  u^{\otimes N}  = u(x_{1})u(x_{2})\ldots u(x_N)
+ .\end{align*}
+and the tensor product then satisfies 
+\begin{align*}
+  \partial_t u^{\otimes N}  -\sum_{i=1}^{N}  \Delta_{x_i}u^{\otimes N} + \nabla * (\nabla V \star  u * u^{\otimes N} )  = 0
+.\end{align*}
+then one needs to consider the difference between the (HPDE) and the above.
+\end{remark}
+\section{$\epsilon$-Problem Approach}
+\begin{definition}[Mollified SDE]\label{eps_sde}
+  For a mollifier  $j_\epsilon$ we consider 
+  \begin{align*}
+  (\text{SDE}_\epsilon)\begin{cases}
+    &dX_i^{N,\epsilon} = \nabla V_\epsilon \star  \mu_N(X_i^{N,\epsilon} ) dt + \sqrt{2}dW_t^i\\
+    &X_i^{N,\epsilon}(0) = \xi_i \text{ i.i.d } u_{0}=\mathcal{L}(\xi_i)
+  \end{cases}
+.\end{align*}  
+where 
+\begin{align*}
+  V_\epsilon = j_{\epsilon}\star V
+.\end{align*}
+and 
+\begin{align*}
+  \mu_N = \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i^{N,\epsilon}}
+.\end{align*}
+\end{definition}
+\begin{definition}
+ And our problem is to solve 
+\begin{align*}
+  \widehat{\text{(SDE)}}=\begin{cases}
+   &d \hat{X}_i = \nabla V \star  u(\hat{X}_i )  dt + \sqrt{2}dW_t^i\\
+   &\hat{X}_i = \xi_i \\
+   &u = \mathcal{L}(\hat{X}_i )
+  \end{cases} 
+  \longleftarrow\begin{cases}
+  &\partial_t u - \Delta  u+ \nabla* (\underbrace{\nabla V \star  u}_{\text{Lip}} u) = 0 \marginnote{If $V=\delta $ then $\nabla V \star  u = u$}\\
+  &u \rvert_{t=0} = u_{0}
+  \end{cases}
+.\end{align*}
+\end{definition}
+We introduce the intermediate problem 
+\begin{definition}
+For fixed $\epsilon$ we already know that \autoref{eps_sde} converges against 
+\begin{align*}
+  \begin{cases}
+  &\partial_t u^{\epsilon}  - \Delta  u^{\epsilon} + \nabla* (\nabla V_\epsilon \star  u^{\epsilon}  u^{\epsilon} ) = 0 \\
+  &u^{\epsilon}  \rvert_{t=0} = u_{0}
+  \end{cases}
+.\end{align*}
+with the corresponding SDE 
+\begin{align*}  
+  \overline{\text{(SDE)}}=\begin{cases}
+   &d \overline{X}_i^{\epsilon} = \nabla V_{\epsilon} \star  u^{\epsilon} (\overline{X}^{\epsilon} _i )  dt + \sqrt{2}dW_t^i\\
+   &\overline{X}^{\epsilon} _i = \xi_i \\
+   &u_{0} = \mathcal{L}(\xi_i )
+  \end{cases}
+.\end{align*}
+\end{definition}
+Now we choose 
+\begin{align*}
+  \epsilon(N) \xrightarrow{N\to \infty} 0   \quad &\text{SDE}_\epsilon - \overline{\text{SDE}} \to 0 \\ 
+                                                  &\overline{\text{SDE}} - \widehat{\text{SDE}} \to 0
+.\end{align*}
+For that end we compute 
+\begin{align*}
+  \abs{X_i^{N,\epsilon}(t) - \overline{X}_i^{\epsilon}(t)   }^2 &=  \abs*{\int_0^{t} \nabla V_\epsilon \star  \mu_N(X_{i}^{N,\epsilon}(s) ) - \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{\epsilon}(s)  )  ds }^2\\
+                                                                &\le t \int_0^{t} \abs{\nabla V_\epsilon \star  \mu_N(X_{i}^{N,\epsilon}(s) ) - \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{\epsilon}(s)  ) }^2 ds \\
+                                                                &\le t \int_0^{t} \abs{\nabla V_{\epsilon} \star  \mu_N(X_i^{N,\epsilon}(s))-\nabla V_{\epsilon} \star \mu_N(\overline{X}_i^{\epsilon}(s)  )  }^2 ds\\
+                                                                &+ t \int_0^{t} \abs{\nabla V_\epsilon \star  \mu_N(\overline{X}_i^{\epsilon}(s)) - \nabla V_{\epsilon} \star  \overline{\mu }_N(\overline{X}_i^{\epsilon}(s)  ) }^2 ds \\
+                                                                &+ t \int_0^{t} \abs{\nabla V_\epsilon \star  \overline{\mu}_N(\overline{X}_i^{\epsilon}(s)) - \nabla V_{\epsilon} \star  u_{\epsilon}(\overline{X}_i^{\epsilon}(s)   ) }^2 ds \\
+                                                                &\le t* \|\nabla^2 V_\epsilon \star  \mu_N\|_{\infty}  \int_0^{\infty}  \abs{X_i^{N,\epsilon}(s)-\overline{X}_i^{\epsilon}(s)   }^2 ds\\
+                                                                &+ t \int_0^{t} \|\nabla ^2 V_\epsilon\|^2_{\infty} (\frac{1}{N} \sum_{j=1}^{N} \abs{X_j^{N,\epsilon}(s) - \overline{X}^{\epsilon}_j(s)   })^2 ds + III
+.\end{align*}
+\begin{exercise}
+ Show that the $III$ term above can be bounded as follows
+ \begin{align*}
+  III \le  C(T)\frac{1}{N}\|\nabla V_\epsilon\|_{\infty}^2
+ .\end{align*}
+\textit{Hint:} Law of Large numbers
+\end{exercise}
+where 
+\begin{align*}
+  \overline{\mu}_N = \frac{1}{N} \sum_{i=1}^{N}   \delta_{\overline{X}_i^{\epsilon}  }
+.\end{align*}
+\begin{align*}
+  \abs{\nabla V_\epsilon \star  \mu_N(\overline{X}_i^{\epsilon}(s)) - \nabla V_{\epsilon} \star  \overline{\mu }_N(\overline{X}_i^{\epsilon}(s)  ) } = \frac{1}{N}\sum_{j=1}^{N} \nabla V_\epsilon(\overline{X}_i^{\epsilon}(s) - X_j^{N,\epsilon}(s)   )  - \frac{1}{N}\sum_{j=1}^{N} \nabla V_{\epsilon}(\overline{X}_i^{\epsilon}(s)-\overline{X}_j^{\epsilon}(s)    ) 
+.\end{align*}
+Taking the expectation yields 
+\begin{align*}
+  \max_{1 \le i \le N}\E[\abs{X_i^{N,\epsilon}(t) - \overline{X}_{i}^{\epsilon}(t)}^2  ]\le \|D^2 V_{\epsilon}\|_{\infty}^2 T \int_0^{t}  \max_{1\le j\le N} \E[\abs{X_j^{N,\epsilon}(s) - \overline{X}_j^{\epsilon}(s)  }^2] ds + C(T)\frac{1}{N}\|\nabla V_\epsilon\|_{\infty}^2
+.\end{align*}
+by Grönwall we can obtain 
+\begin{align*}
+  \max_{1 \le i \le N}\E[\abs{X_i^{N,\epsilon}(t) - \overline{X}_{i}^{\epsilon}(t)}^2  ] &\le e^{C_{1} * \|D^2 V_{\epsilon}\|_{\infty}^2 t+1} *\frac{C_{2}}{N}\|\nabla V_\epsilon\|^2_{\infty}
+.\end{align*}
+\textbf{Goal} choose $\epsilon(N)$ s.t. the above quantity converges to zero, remember 
+\begin{align*}
+  V_\epsilon = \int_{\mathbb{R}^{d} }\frac{1}{\epsilon^d}j(\frac{x-y}{\epsilon})V(y) dy
+.\end{align*}
+\begin{example}
+ Two examples for $V$ are 
+ \begin{enumerate}
+   \item $V= \delta_0$
+    \item $V = \frac{1}{\abs{x}^{d-2} }$
+ \end{enumerate}
+\end{example}
+\begin{remark}
+  We then get  for 1.
+ \begin{align*}
+  &\|D^2 V_{\epsilon}\|_{\infty}^2 \le  \frac{C}{\epsilon^{d+2}}\\
+  &\|\nabla V_{\epsilon}\|_{\infty}^2 \le  \frac{C}{\epsilon ^{(d+1)2} }
+ .\end{align*}
+ and  for $ \forall \eta  \in  (0,1)$ choose $\epsilon$ s.t.
+ \begin{align*}
+   e^{\frac{1}{\epsilon ^{2(d+2)} }} &= N^{\eta} \\
+   \epsilon &= (\frac{1}{\eta  \ln  N})^{\frac{1}{2(d+2)}}  
+ .\end{align*}
+ then 
+ \begin{align*}
+  J \le  e^{\frac{C}{\epsilon ^{(d+1)2} }} \frac{\frac{1}{\epsilon ^{(d+1)2} }}{N}  \le \frac{C}{N^{1-\eta } }
+ .\end{align*}
+\end{remark}
+\begin{exercise}
+ For the second example we have, $V_\epsilon(x) = \frac{1}{\epsilon}^{d} \int  j(\frac{x-y}{\epsilon})\frac{1}{\abs{y}^{d-2} } dy $,
+ proof that the following two bounds holds
+ \begin{align*}
+   \|D^2 V_{\epsilon}\|_{\infty}&\le C*\epsilon^{-d}\\
+   \|D V_{\epsilon}\|_{\infty}&\le C*\epsilon ^{-(d-1)}  \\
+   \|V_{\epsilon}\|_{\infty}&\le C*\epsilon ^{-(d-2)}  \\
+ .\end{align*}
+ \textit{Hint:} split the domain $\mathbb{R}^{d} = \{y | \abs{y} \le 1\}  \cup \{y | \abs{y} >1\}  ] $
+\end{exercise}
+Now for reasonably chosen $\epsilon \sim (\ln N)^{-\alpha } $ one can prove that 
+\begin{align*}
+  \max_{1\le 1\le N} \E[\abs{X_i^{N,\epsilon} -\overline{X}^{\epsilon}_i  }^2]\le \frac{C}{N^{1-\eta } } \to  0
+.\end{align*}
+This concludes the first step
+\begin{align*}
+  \epsilon(N) \xrightarrow{N\to \infty} 0   \quad &\text{SDE}_\epsilon - \overline{\text{SDE}} \to 0 
+.\end{align*}
+For the second step 
+\begin{align*}
+  \abs{\overline{X}_i^{\epsilon}(t) - \hat{X}_i(t)    }^2 &= \abs*{\int_0^{t} \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}^{\epsilon} (s))- \nabla V  \star  u(\hat{X}(s)  ) ds }^2\\
+                                                                     &\le t \int_0^{t} \abs{\nabla V_\epsilon \star  u^{\epsilon}(\overline{X}^{\epsilon}(s)  ) - \nabla V_{\epsilon} \star  u(\overline{X}^{\epsilon}(s)  ) }^2    \\
+                                                                     &+ \abs{\nabla V_\epsilon \star  u(\overline{X}^{\epsilon}(s)  ) - \nabla V_{\epsilon} \star  u(\hat{X}(s)  )}^2 \\
+                                                                     &+ \abs{\nabla V_\epsilon \star u(\hat{X}^{\epsilon}(s)  ) - \nabla V \star  u(\hat{X}(s)  )}^2 ds\\
+                                                                     &= \int_0^{t}  I + II + III dt \\
+                                                                     &\le C \underbrace{\|\nabla V_\epsilon \star (u^{\epsilon}-u )\|^2_{\infty}}_{\le  \|\nabla(u^{\epsilon}-u )\|_{\infty}^{2} } +C\underbrace{\|D^2 V_\epsilon \star  u\|}_{\le \|V \star  D^2u\|_{\infty}^2}  \int_0^{t} \abs{\overline{X}_i^{\epsilon}(s) - \hat{X}_i(s) }^2 ds + \|(V_\epsilon - V) \star  \nabla u\|_{\infty}^2\\
+                                                                     &\le  \|V\star D^2u\|_{\infty}^2 \int_0^{t} \abs{\overline{X}_i^{\epsilon}(s)-\hat{X}_i(s)   }^2 ds + \|V \star (u^{\epsilon}-u )\|_{\infty}^2 + \|(V_{\epsilon}-V) \star  \nabla u\|_{\infty}^2
+.\end{align*}
+Then Grönwall 
+\begin{align*}
+  \E[\abs{\overline{X}_i^{\epsilon}(t) - \hat{X}_i(t)    }^2] &\le  e^{\|V \star  D^2u\|_{\infty}^2t} \left( \|V \star (u^{\epsilon}-u )\|_{\infty}^2 + \|(V_{\epsilon}-V) \star  \nabla u\|_{\infty}^2 \right) \\
+                                                              &=e^{\|V \star  D^2u\|_{\infty}^2t} (II + III)
+.\end{align*}
+we get for 
+\begin{align*}
+  II \le  C*\epsilon ^{2}  \quad  \text{ PDE estimates}
+.\end{align*}
+and 
+\begin{align*}
+  III &\le\bigg[\frac{1}{\epsilon ^{d} }  \int \abs*{j(\frac{x-y}{\epsilon})\left((V\star \nabla u)(y) -  (V \star  \nabla u)(x)\right)} dy\bigg]^2\\
+      &\le \bigg[ \|V \star  D^2u\|_{\infty} \epsilon * \frac{1}{\epsilon ^{d} } \int  j(\frac{x-y}{\epsilon})*\frac{\|x-y\|}{\epsilon} dy \bigg ]^2
+.\end{align*}
+As a summary:  we need  the following PDE estimates
+\begin{align*}
+  \| V \star  D^2u\|_{\infty} < \infty, \|V \star (u^{\epsilon}- u )\|_{\infty} \xrightarrow{\epsilon\to 0} 0
+.\end{align*}
+All together this gives us 
+\begin{align*}
+  I &\coloneqq \max_{i} \E[\abs{X_i^{N,\epsilon} -\overline{X}_i^{\epsilon}  }^2] \le \ldots \\
+  II &\coloneqq \max_{i} \E[\abs{\overline{X}_i^{\epsilon}-\hat{X}_i   }^2] \le \ldots \\
+.\end{align*}
+What we now want is 
+\begin{align*}
+  \max_i \E[\abs{X_i^{N,\epsilon} -\hat{X}_i }] \le  I +II \to 0
+.\end{align*}
+\textcolor{Red}{I think above only holds for $\delta $ case , so it should be grouped up appropriately, Formulate a Theorem for it}
+
