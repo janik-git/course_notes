@@ -547,6 +547,199 @@ if $\P(A_{n,\epsilon}) \to 0$
  Since we can choose $\delta $ as we want we may take $\epsilon=0$\\[1ex]
  Now we need to argue that we are allowed to assume $f$ compact support, this follows by similar argument to Riemann approximation.
 \end{proof}
+\begin{Theorem}[3.21]
+  For any $f \in  \mathcal{C}^{1,2}([0,T]\times \mathbb{R}) $  we have
+  \begin{align*}
+    f(t,B_t) = f(0,0) + \int_{0}^{t} f_x(s,B_s) dB_s + \int_0^{t} f_t(s,B_s) + \frac{1}{2} f_{x x}(s,B_s) ds    
+  .\end{align*}
+  for $t \in [0,T]$ , $\P$-a.s.
+\end{Theorem}
+\begin{proof}
+ We do a second order Taylor expansion in space and 1 in time  
+\end{proof}
+\begin{align*}
+  f(t,B_t) - f(0,0) &= \sum_{i=1}^{n} f(t_{i},B_{t_i}) - f(t_{i-1},B_{t_{i-1}})\\
+                    &= \sum_{i=1}^{n} f(t_{i-1},B_{t_{i}})-f(t_{i-1},B_{t_i}) + \sum_{i=1}^{n} f(t_{i},B_{t_{i-1}}) - f(t_{i},B_{t_{i-1}})\\
+                    &= \sum_{i=1}^{n} f_t(t_{i-1},B_{t_{i}})(t_i -t_{i-1}) \\
+                    &+ \sum_{i=1}^{n} f_x(t_i,B_{t_{i-1}})(B_{t_i}-B_{t_{i-1}})\\
+                    &+ \sum_{i=1}^{n} \frac{1}{2}f_{x x}(t_i,B_{t_{i-1}})(B_{t_i}-B_{t_{i-1}})^2\\
+                    &+ \sum_{i=1}^{n} r(t_{i-1},t_i,B_{t_{i-1}},B_{t_i})
+.\end{align*}
+where 
+\begin{align*}
+  r(s,t,x,y) = \int_s^{t} (f_t(r,y)-f_{t}(s,y))  dr + \int_x^y (y-u)(f_{x x}(s,u) - f_{x x}(s,x) du
+.\end{align*}
+Now if $f$ has compact we get a bound again and use the same arguments
+\begin{Lemma}
+  Proof that if $X_n \xrightarrow{L^{p} } X$  then $X_n \xrightarrow{\P}  X$
+\end{Lemma}
+\begin{proof}
+ Let us first remember what the two convergences mean, for the first we have that
+ \begin{align*}
+   \|X_n - X\|_{L^{p} }^{p}  = \int_{\Omega} \abs{X_n - X}^{p}  \to 0
+ .\end{align*}
+ The second means that for $\forall  \epsilon >0$ : 
+ \begin{align*}
+  \P(\abs{X_n-X} \ge \epsilon) \to  0
+ .\end{align*}
+ Using Markov 
+ \begin{align*}
+   \P(\abs{X_n-X} \ge \epsilon) \le \frac{\E[\abs{X_n-X}^p]}{\epsilon^p} \to 0
+ .\end{align*}
+\end{proof}
+\begin{Lemma}
+  If $ X_n \xrightarrow{L^p} X$ then $X_n \xrightarrow{L^q} X$ for $p>q$
+\end{Lemma}
+\begin{proof}
+ We recall Hölder for $p,q>1 : \frac{1}{p}+\frac{1}{q} = 1$ it holds
+ \begin{align*}
+   \E[XY] \le \E[X^{p} ]^{\frac{1}{p}} \E[X^{q} ]^{\frac{1}{q}} 
+ .\end{align*}
+ We want to get :
+ \begin{align*}
+   \E[\abs{X_n-X}^{q}] = \int_{\Omega } \abs{X_n-X}^{q} d\P  \le  \int_{\Omega } \abs{X_n-X}^{p} d\P * 1 \to 0
+ .\end{align*}
+ i.e we need $r,s\ge 1$ such that $\frac{1}{r}+\frac{1}{s} = 1$ and 
+ \begin{align*}
+  q*r = p \implies r = \frac{p}{q}
+ .\end{align*}
+ and 
+ \begin{align*}
+   1&=\frac{1}{s}+\frac{q}{p} \\
+   \frac{p-q}{q} &= \frac{1}{s}
+ .\end{align*}
+ Note that any finite measure space suffices.
+\end{proof}
+\begin{Definition}[4.1]
+  A stochastic process $X = (X_t)_{t \in  [0,T]}$  is called It\^o process if there is a a.s. 
+  representation
+  \begin{align*}
+    X_t = X_{0} + \int_0^{t} a(*,s) ds + \int_0^{t} b(*,s) dB_s  
+  .\end{align*}
+  where $X_{0} \in  \mathbb{R}$ and $a,b : \Omega \times [0,T] \to \mathbb{R}$ are adapted, measurable processes satisfying 
+  \begin{align*}
+    \P(\int_0^{t} \abs{a(\omega ,s)} ds  <\infty) = 1 \text{ and }  \P(\int_0^{t} \abs{b(\omega ,s)}^2 ds  <\infty) = 1
+  .\end{align*}
+\end{Definition}
+\begin{remark}
+  The stochastic integral process $A = (\int_0^{t} a(*,s) ds )_{t \in [0,T]}$  is continuous, adapted process of finite variation.
+\end{remark}
+\begin{proof}
+  We show that it has finite variation, let $\Pi_n \subset  \Pi_{[0,T]}$  such that $\abs{\Pi_n} \to 0$,
+  and $\omega  \in  \{\int_0^{t} \abs{a(\omega ,s)} ds  <\infty\}$
+  \begin{align*}
+    \lim_{n\to \infty} \sum_{J \in  \Pi_n} \Delta_{J \cap [0,T]} A &=  \lim_{n\to \infty} \sum_{J \in  \Pi_n : J = (s,t]} \abs*{\int_{s}^{t} a(\omega ,r) dr }\\
+                                                                   &\le  \lim_{n\to \infty} \sum_{J \in  \Pi_n : J = (s,t]} \int_{s}^{t} \abs{a(\omega ,r)} dr \\
+  .\end{align*}
+  We can show this for any process $X_s$ such that $X_s$ is FV since 
+  \begin{align*}
+    X = X_{1}-X_{2}
+  .\end{align*}
+  By definition of FV where  $X_{1},X_{2}$are monotone increasing then 
+  \begin{align*}
+    \int_0^{t} a(*,s) dX_s &= \int_0^{t} a^{+}(*,s) - a^{-}(*,s)   dX_s \\
+                           &= \int_0^{t} a^{+} dX^{(1)}_s + \int_{0}^{t}  a^{-}(*,s) dX^{(2)}_s - (\int_0^{t} a^{+} dX^{(2)}_s + \int_{0}^{t}  a^{-}(*,s) dX^{(1)}_s)
+  .\end{align*}
+  Which is the difference of two monotone increasing functions for $X_s = s$ we could just pick $s-0$
+\end{proof}
+\begin{Lemma}[4.2]
+  Let $X  = (X_t)_{t \in  [0,T]}$  be an It\^o process with representation
+  \begin{align*}
+    X_t = X_{0} + \int_0^{t} a(*,s) ds + \int_0^{t} b(*,s) dB_s = \tilde{X}_0 +\int_0^{t} \tilde{a}(*,s) ds + \int_0^{t} \tilde{b}(*,s) dB_s
+  .\end{align*}
+  for $t \in  [0,T]$ and $X_{0} = \tilde{X}_0 $. Then we have $a = \tilde{a}  $ and $b = \tilde{b} $ $\P \otimes \lambda $-a.s.
+\end{Lemma}
+\begin{proof}
+ We have by linearity 
+ \begin{align*}
+  0 =  \int_0^{t} a(*,s)-\tilde{a}  ds + \int_0^{t} b(*,s)-\tilde{b}  dB_s
+ .\end{align*}
+ this implies 
+ \begin{align*}
+   -\int_0^{t} a(*,s)-\tilde{a}  ds &=\underbrace{\int_0^{t} b(*,s)-\tilde{b}  dB_s}_{B_t}
+ .\end{align*}
+ Right is a local martingale, and left is a process of finite variation. Then we know that 
+\begin{align*}
+  B_t = 0 \quad \P\text{-a.s.}
+.\end{align*}
+Then we have  by Ito-isometry that 
+\begin{align*}
+  0 = \|B\|_{\mathcal{H}^2} = \E[\int (b(*,s)-b(*,s))^2 ds ] = \int \E[(b(*,s)-b(*,s))^2] ds 
+.\end{align*}
+Which gives the implication, since we can split up the integral into two parts, 1 where they are equal i.e 0 and the other one where
+they are not equal to each other, for $a$ we do the same
+\end{proof}
+\begin{Prop}[4.3]
+  For any It\^o process $X = (X_t)$ with rep
+  \begin{align*}
+    X_t = X_{0} + \int_0^{t} a(*,s) ds + \int_0^{t} b(*,s) dB_s
+  .\end{align*}
+ the quadratic variation of $X$ is given by 
+ \begin{align*}
+   \braket{X}_t = \lim_{n\to \infty} \sum_{J \in  \Pi_n}(\Delta_{J \cap [0,t]} X)^2 = \int_0^{t} b^2(*,s)  ds
+ .\end{align*}
+\end{Prop}
+\begin{proof}
+ We have that 
+ \begin{align*}
+  X_t = A_t + M_t
+ .\end{align*}
+ For $A_t$ continuous adapted and of Finite variation and $M_t$ a local martingale,
+ we first note that 
+ \begin{align*}
+  (\Delta_{J \cap [0,T]} X)^2 =   (\Delta_{J \cap [0,T]} A)^2 + 2(\Delta_{J \cap [0,T]} M)(\Delta_{J \cap [0,T]} A) + (\Delta_{J \cap [0,T]} M)^2
+ .\end{align*}
+ We have 
+ \begin{align*}
+   \lim_{n\to \infty}\sum_{J \in  \Pi_n} (\Delta_{J \cap [0,T]} A)^2  = \lim_{n\to \infty}\sum_{J \in  \Pi_n} (\Delta_{J \cap [0,T]} A) (\Delta_{J \cap [0,T]} A) \le  \lim_{n\to \infty}  \sup_{J \in  \Pi_n} (\Delta_{J \cap [0,T]} A) \sum_{J \in  \Pi_n} (\Delta_{J \cap [0,T]} A) \to 0
+ .\end{align*}
+ Since the first part is a bounded constant, and the second goes to 0 since $A$ is of FV.\\
+ By the same logic we have that the middle term goes to 0 and all that remains is 
+ \begin{align*}
+   \braket{X}_t = \lim_{n\to \infty}\sum_{J \in  \Pi_n} (\Delta_{J \cap [0,T]} X)^2  = \lim_{n\to \infty}\sum_{J \in  \Pi_n} (\Delta_{J \cap [0,T]} M)^2 = \braket{M}_t
+ .\end{align*}
+Thus we have to show 
+\begin{align*}
+  \braket{M}_t =   \int_0^{t} b^2(*,s)  ds
+.\end{align*}
+For that we know it suffices to show that 
+\begin{align*}
+  (M_t^2 - \int_0^{t} b^2(*,s)  ds)_{t \in  [0,T]}
+.\end{align*}
+is a Martingale, first take a localizing sequence $\tau $ for $M_t$ (for notation sake we leave it out)
+\begin{align*}
+  &\E[M_t^2 - \int_0^{t} b^2(*,s)  -  M_s^2 + \int_0^{s} b^2(*,s) ds  ] \\
+  &=\E[M_t^2-M_s^2 - \int_s^{t} b^2 ds ] \\
+  &= \E[(M_t-M_s)^2 - \int_s^{t} b^2 ds]
+.\end{align*}
+We have $M_t - M_s$ (localized) is a martingale such that we can use Ito isometry 
+\begin{align*}
+  (M_t^{\tau_n} - M_s^{\tau_n})\cha_A &=  (M_t^{\tau_n} - M_s)\cha_A \cha_{\tau_n \ge s} \\
+                                      &\int_s^{t} \cha_A\cha_{\tau_n\ge s}b()
+.\end{align*}
+which is in $\mathcal{H}^2$ then we have directly 
+\begin{align*}
+  \E[(M_{t\land \tau_n}-M_{s \land \tau_n})^2 \cha_A] &= \E[(\int_0^{T} \cha_A\cha_{\ldots } b dB_r)^2]\\
+                                                      &=  \E[(\int_0^{T} \cha_A\cha_{\ldots } b^2 dr\\
+                                                      &= \E[\cha_A \int_{s\land \tau_n}^{t \land t }b^2 dr ]
+.\end{align*}
+which with the before discussion concludes the proof
+\end{proof}
+\begin{Lemma}[4.5]
+  Let $X = (X_t)_{t \in [0,T]}$  be an Ito process with rep 
+  \begin{align*}
+    X_t = X_0 + \int_0^{t} b(*,s) dB_s
+  .\end{align*}
+  Then the integral process $(\int_0^{t} f(*,s) dX_s )$ is a continous local martingale  and 
+  If $\E[\int_0^{T} f^2 b^2 ds] <\infty$ then Ito isometry holds true
+\end{Lemma}
+\begin{proof}
+ For (i)  we have by definition $f \in \mathcal{L}(X)$ that 
+ \begin{align*}
+   \int_0^{t} f(*,s)dX_s = \int_0^{t} \underbrace{f(*,s)b(*,s)}_{\in  \mathcal{H}^2_{\text{loc}}}dB_s   
+ .\end{align*}
+ Thus its  a continuous local martingale
+\end{proof}
 \begin{example}[5.1]
  Consider the SDE 
  \begin{align*}
