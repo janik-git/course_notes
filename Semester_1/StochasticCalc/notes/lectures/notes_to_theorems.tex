@@ -738,8 +738,93 @@ which with the before discussion concludes the proof
  \begin{align*}
    \int_0^{t} f(*,s)dX_s = \int_0^{t} \underbrace{f(*,s)b(*,s)}_{\in  \mathcal{H}^2_{\text{loc}}}dB_s   
  .\end{align*}
- Thus its  a continuous local martingale
+ Thus its  a continuous local martingale\\
+ For (ii) we see that
+ \begin{align*}
+   \E[(\int_0^{T} f dX_t)^2 ] &= \E[\int_0^{T} f^2b^2(*,s)ds ]\\
+                              &= \E[\int_0^{T} f^2(*,s) d\braket{X}_s]
+ .\end{align*}
 \end{proof}
+\begin{Lemma}[4.7.]
+  Let $g \in  \mathcal{C}(\mathbb{R}^{2} ) $  , $(Z_t)_{t \in  [0,T]}$ be a continuous adapted $\mathbb{R}^{2} $-valued stochastic process
+  and $(X_t)_{t \in  [0,T]}$ be an It\^o process. For any $t \in  [0,T]$ and $t_i = t \frac{i}{n}$ we have 
+  \begin{align*}
+    \sum_{i=1}^{n} g(Z_{t_{i-1}})(X_{t_i}-X_{t_{i-1}})^2 \to \int_0^{t} g(Z_s)d\braket{X}_s 
+  .\end{align*}
+\end{Lemma}
+\begin{proof}
+ We compare this to the Riemann approximation theorem , which for $f \in  \mathcal{C}$ gives us 
+ \begin{align*}
+   \sum_{i=1}^{n}f(B_{t_{i-1}}) (B_{t_i}-B_{t_{i-1}}) \to  \int_0^{t} f(B_s) dB_s 
+ .\end{align*}
+ usually when we deal with stochastic integrals it is most convenient to show $L^2$ convergence since we can use Ito-isometry,
+ in the riemann proof, the main step was showing that our $f_n \in \mathcal{H}_{0}^2$ sequence actually looks like the one above, to 
+ that end we localized it onto a compact support and showed that convergence.\\[1ex]
+Let us first note that 
+\begin{align*}
+  X_t = M_t + A_t
+.\end{align*}
+where $M_t$ is a local martingale and $A_t$ is of finite variation , that means 
+\begin{align*}
+  \sum_{i=1}^{n}g(Z_{t_{i-1}})(X_{t_i} - X_{t_{i-1}})^2 =  \sum_{i=1}^{n}g(Z_{t_{i-1}})(M_{t_i} - M_{t_{i-1}})^2 + \sum_{i=1}^{n}g(Z_{t_{i-1}})(A_{t_i} - A_{t_{i-1}})^2 + 2 \sum_{i=1}^{n}g(Z_{t_{i-1}})(M_{t_i} - M_{t_{i-1}})(A_{t_i} - A_{t_{i-1}})
+.\end{align*}
+Where similar to the proof for quadratic variation we know that only the first term doesn't go to 0, \textcolor{Red}{Important} the above argument is only valid if $g$ is bounded 
+otherwise we cannot pull it out.
+\begin{align*}
+  \lim_{n\to \infty} \sum_{i=1}^{n}g(Z_{t_{i-1}})(X_{t_i} - X_{t_{i-1}})^2 = \lim_{n\to \infty}  \sum_{i=1}^{n}g(Z_{t_{i-1}})(M_{t_i} - M_{t_{i-1}})^2
+.\end{align*}
+Now if $g $ is bounded and $X$ is a bounded martingale with bounded variation then DCT yields
+\begin{align*}
+  \int_0^{t} g(Z_s) d\braket{X}_s &= \int_0^{t} \lim_{n\to \infty} \sum_{i=1}^{n}g(Z_{t_{i-1}})\cha_{(t_{i-1},t_i]}(s) d\braket{X}_s\\
+                                  &= \lim_{n\to \infty} \int_0^{t} \sum_{i=1}^{n}g(Z_{t_{i-1}})\cha_{(t_{i-1},t_i]}(s) d\braket{X}_s\\
+                                  &= \lim_{n\to \infty}  \sum_{i=1}^{n}g(Z_{t_{i-1}}) (\braket{X}_{t_i} - \braket{X}_{t_{i-1}})
+.\end{align*}
+We show that 
+\begin{align*}
+  \|\sum_{i=1}^{n}g(Z_{t_{i-1}}) (\braket{X}_{t_i} - \braket{X}_{t_{i-1}}) - \sum_{i=1}^{n}g(Z_{t_{i-1}}) (X_{t_i} -X_{t_{i-1}})^2\|_{L^2} \to 0
+.\end{align*}
+we show this goes to $0$ by using Cauchy-Schwartz and $(a+b)^2 \le 2a^2+2b^2$
+\begin{align*}
+  &\E[(\sum_{i=1}^{n}g(Z_{t_{i-1}}) (\braket{X}_{t_i} - \braket{X}_{t_{i-1}}) - \sum_{i=1}^{n}g(Z_{t_{i-1}}) (X_{t_i} -X_{t_{i-1}})^2)^2]\\
+  &= \E[(\sum_{i=1}^{n}g(Z_{t_{i-1}}) (\braket{X}_{t_i} - \braket{X}_{t_{i-1}}-(X_{t_i} -X_{t_{i-1}})^2)^2]\\
+.\end{align*}
+and we note that for $i\neq j$ and assume $j<i$ then
+\begin{align*}
+  &\E[g(Z_{t_{i-1}})g(Z_{t_{j-1}})(\braket{X}_{t_i} - \braket{X}_{t_{i-1}}-(X_{t_i} -X_{t_{i-1}})^2)(\ldots )]\\
+  &=\E[g(Z_{t_{i-1}})g(Z_{t_{j-1}})(\braket{X}_{t_i} - \braket{X}_{t_{i-1}}-(X_{t_i} -X_{t_{i-1}})^2)(\ldots )]\\ 
+  &= \E[\E[g(Z_{t_{i-1}})g(Z_{t_{j-1}})(\braket{X}_{t_i} - \braket{X}_{t_{i-1}}-(X_{t_i} -X_{t_{i-1}})^2)(\ldots )|\mathcal{F}_{t_{i-1}}]]\\ 
+  &= \E[ g(Z_{t_{i-1}})g(Z_{t_{j-1}})\E[(\braket{X}_{t_i} - \braket{X}_{t_{i-1}}-(X_{t_i} -X_{t_{i-1}})^2)|\mathcal{F}_{t_{i-1}}](\ldots )]\\ 
+  &= 0
+.\end{align*}
+since the conditional expectation is 0, this means the cross terms get eliminated and we have 
+\begin{align*}
+  &\E[(\sum_{i=1}^{n}g(Z_{t_{i-1}}) (\braket{X}_{t_i} - \braket{X}_{t_{i-1}}) - \sum_{i=1}^{n}g(Z_{t_{i-1}}) (X_{t_i} -X_{t_{i-1}})^2)^2]\\
+  &= \E[\sum_{i=1}^{n}g^2(Z_{t_{i-1}}) (\braket{X}_{t_i} - \braket{X}_{t_{i-1}}-(X_{t_i} -X_{t_{i-1}})^2)^2]\\
+  &\le \|g\|^2_{\infty} \sum_{i=1}^{n}\E[(\braket{X}_{t_i} - \braket{X}_{t_{i-1}}-(X_{t_i} -X_{t_{i-1}})^2)^2]\\
+  &\le 2\|g\|^2_{\infty} \sum_{i=1}^{n}\left(  \E[(\braket{X}_{t_i} - \braket{X}_{t_{i-1}})^2]+\E[(X_{t_i} -X_{t_{i-1}})^4]\right) \\
+.\end{align*}
+then arguing using the modulus of continuity twice and that $X$ is bounded such that DCT applies we get that everything goes to 0\\
+Last step is just the argument that all the assumptions above are well formed by localizing we  get
+\begin{align*}
+  \tau_m \coloneqq  \inf \{t \in [0,T] : \abs{X_t}\ge m \text{ or } \abs{\braket{X}_t} \ge  m \text{ or } \abs{Z_t} \ge m\}  \land T
+.\end{align*}
+which gives us again that the two coincide on $\{\tau_m = T\}  $ and step 2 gives us the $L^2$ convergence for $X^{m} $
+\end{proof}
+\begin{Theorem}][4.8]
+  Let $f : \mathbb{R}^{2} \to  \mathbb{R} $ be a twice continuous differentiable function, and $X,Y$ be two It\^o processes with representation 
+  \begin{align*}
+    X_t = X_{0} + \int_0^{t} a(*,s) ds + \int_0^{t} b(*,s)dB_s \quad \text{ and } \quad Y_t = Y_{0} + \int_0^{t} a(*,s) ds + \int_0^{t} \beta(*,s) dB_s
+  .\end{align*}
+  Then we have 
+  \begin{align*}
+    f(X_t,Y_t) &= f(0,0) + \int_0^{t} f_x(X_t,Y_t) dX_t + \int_0^{t} f_y(X_t,Y_t) dY_t + \frac{1}{2}\int_0^{t} f_{x x}(X_t,Y_t) d\braket{X}_t + \frac{1}{2}\int_0^{t} f_{y y}(X_t,Y-t) d\braket{Y}_t \\
+               &+ \int_0^{t} f_{xy}(X_t,Y_t) d\braket{X,Y}_t 
+  .\end{align*}
+  where 
+  \begin{align*}
+    \braket{X,Y}_t = \frac{1}{4}(\braket{X+Y}_t - \braket{X-Y}_t)
+  .\end{align*}
+\end{Theorem}
 \begin{example}[5.1]
  Consider the SDE 
  \begin{align*}
@@ -769,7 +854,7 @@ which with the before discussion concludes the proof
   X_t = \exp(\sigma B_t + (\mu -\frac{\sigma^2}{2})t + g_{0})
  .\end{align*}
 \end{example}
-\begin{Definition}
+\begin{Prop}[5.2.]
  In general a linear SDE has the form
  \begin{align*}
   X_t = (\alpha (t)X_t + \beta(t) )dt + (\phi(t)X_t + \psi(t))dB_t
@@ -782,4 +867,65 @@ which with the before discussion concludes the proof
  \begin{align*}
   Y_t = \int_0^{t} \phi(s) dB_s + \int_0^{t}(\alpha(s)-\frac{1}{2}\phi^2(s))   ds
  .\end{align*}
-\end{Definition}
+\end{Prop}
+\begin{proof}
+ This proof is straight forward computation, since if 
+ \begin{align*}
+  H_t \coloneqq  \exp(Y_t)
+ .\end{align*}
+ and 
+ \begin{align*}
+  Z_t = x_{0} + \int_0^{t} H^{-1}_s(\beta(s)-\psi(s)\phi(s)) ds + \int_0^{t}H_s^{-1}\psi(s)dB_s    
+ .\end{align*}
+ then we observe that 
+ \begin{align*}
+  X_t = H_tZ_t
+ .\end{align*}
+ we use It'os formula for Ito processes 
+ \begin{align*}
+   H_t = f(Y_t) &= f(0) + \int_0^{t} f_y(Y_t) d_Ys + \frac{1}{2} \int_0^{t} f_{yy}(Y_t) d\braket{Y_s}  \\
+                &= 1 + \int_0^{t} \exp(Y_s) d_Ys + \frac{1}{2 } \int_0^{t} \exp(Y_s) d\braket{Y}_s   
+ .\end{align*}
+\end{proof}
+\begin{Lemma}[5.5]
+  For $T \in  (0,\infty)$  let $g : [0,T] \to \mathbb{R}$ be a bounded and measurable function.
+  If there are constants $A,B \in  \mathbb{R}$ such that  
+  \begin{align*}
+    g(t) \le  A + B \int_0^{t} g(s) ds 
+  .\end{align*}
+  then $g(t) \le  A e^{Bt} $ for all $t \in [0,T]$
+\end{Lemma}
+\begin{Theorem}[5.3.]
+ Let $\mu ,\sigma $  be two measurable functions satisfying the following conditions 
+ \begin{align*}
+  \abs{\mu(t,x) - \mu(t,y)} + \abs{\sigma(t,x)-\sigma(t,y)} \le  L \abs{x-y}
+ .\end{align*}
+ and 
+ \begin{align*}
+  \abs{\mu(t,x)} + \abs{\sigma(t,x)} \le L(1+\abs{x}^2)
+ .\end{align*}
+ then there exists a solution $X_t$  to 
+ \begin{align*}
+  dX_t = \mu(t,X_t) dt + \sigma(t,X_t) dB_t 
+ .\end{align*}
+\end{Theorem}
+\begin{proof}
+  Let us first summarize the proof steps and the difficulties 
+  \begin{enumerate}
+    \item Uniqueness for uniqueness we want indistinguishable but grönwall only yields modification, 
+      such that we argue with continuity that they are also indistinguishable (continuous lets you rewrite the sets as finite unions.)
+    \item Existence, for existence we use a picard iteration,  but similarly to the proof that the stochastic integral is a martingale 
+      we need to argue a strong Cauchy case i.e. that the supremum over all t is bounded, this relies on borell cantelli.
+    \item further more showing that the limit is in $L^2$ is not completly tribial
+  \end{enumerate}
+ We proof first uniqueness in $L^2$ by checking  for two solutions $X_t , Y_t$,
+ \begin{align*}
+   \E[\abs{X_t-Y_t}^2]  &=\E[\abs*{\int_0^{t} \mu(s,X_s)-\mu(s,Y_s) ds + \int_0^{t} \sigma(s,X_s) -\sigma(s,Y_s) dB_s }^2 ]\\
+                        &\le 2\E[(\int_0^{t}\mu(s,X_s) - \mu(s,Y_s) ds )^2] + 2\E[(\int_0^{t}\sigma (s,X_s) - \sigma(s,Y_s) dB_s )^2]\\
+                        &\le 2t\E[(\int_0^{t}(\mu(s,X_s) - \mu(s,Y_s))^2 ds] + 2\E[(\int_0^{t}(\sigma (s,X_s) - \sigma(s,Y_s))^2 ds ]\\
+                        &\le 2(t+1)L\E[\int_0^{t} \abs{X_s-Y_s}^2 ds ]
+ .\end{align*}
+ Where the first part is Hölder with 1 and $p=q=2$ and the second follows by Ito Isometry, and last step is Lipschitz
+ then we have that $A=0$ in grönwall and the entire thing is $0$
+\end{proof}
+
