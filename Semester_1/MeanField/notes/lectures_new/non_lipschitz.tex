@@ -262,4 +262,101 @@ What we now want is
   \max_i \E[\abs{X_i^{N,\epsilon} -\hat{X}_i }] \le  I +II \to 0
 .\end{align*}
 \textcolor{Red}{I think above only holds for $\delta $ case , so it should be grouped up appropriately, Formulate a Theorem for it}
+\begin{exercise}
+ Do the $\log$ scaling by repeating  the proof with this $ W_{2,\mathcal{C}^{d} }$
+\end{exercise}
+\section{Part 2}
+We consider the same problem setting but instead of $\log$ scaling ($\epsilon = \ln(N)^{-alp} $) we instead consider $\epsilon = N^{-\beta } $ for $\beta  \in  (0,\frac{1}{2})$ to be determined
+\begin{remark}
+  For $\epsilon \sim (\frac{1}{\ln(n)})^{C(d)} $ we got the following result
+ \begin{align*}
+   \sup_{t,i} \E[\abs{X^{N,\epsilon}_i(t) - \overline{X}^{N}_i(t)} ] \le  \frac{C}{N^{\eta } } \text{ for some } \eta  \in (0,1)
+ .\end{align*} 
+\end{remark}
+\begin{remark}
+ Since the growth of $\ln $  is so slow, we can get such a strong result, for the faster growing $N^{-\beta } $ we expect a weaker convergence  
+ \begin{align*}
+   \sup_{t} \P(\max_{i} \abs{X^{N,\epsilon}_i(t) - \overline{X}_i^{N}(t)   } \ge N^{-\alpha } ) \le \frac{C(\gamma )}{N^{\gamma } } \quad \forall  \gamma  > 0
+ .\end{align*}
+\end{remark}
+\begin{theorem}[$\epsilon = N^{-\beta}$ Convergence]
+ For $\epsilon = N^{-\beta } $,  for $\forall  \gamma  > 0$  and $0 < \alpha  < \frac{1}{2}$, it holds that 
+ \begin{align*}
+   \sup_{t} \P(\max_{i} \abs{X^{N,\epsilon}_i(t) - \overline{X}_i^{N}(t)   } \ge N^{-\alpha } ) \le \frac{C(\gamma )}{N^{\gamma } } 
+ .\end{align*}
+\end{theorem}
+\begin{proof}
+  First remember that both $X_i^{N,\epsilon} $ and $\overline{X}^{N}_i  $ are solutions to SDE's, they are continuous (in fact they are up to $\frac{1}{2}$ Hölder continuous) \\[1ex]
+ We define first a stopping time 
+ \begin{align*}
+   \tau(\omega )  = \inf  \{t \in  (0,T] : \max_{i} \abs{X^{N,\epsilon}_i(t) - \overline{X}_i^{N}(t)} \ge  N^{-\alpha}  \}   \land T 
+ .\end{align*}
+Then using the stopping time we define , the cut-off process 
+\begin{align*}
+  S(\omega,t) =  N^{2\alpha k } \max_{i} \abs{(X^{N,\epsilon}_i - \overline{X}_i^{N})(t \land \tau(w))}^{2k}  \le  1
+.\end{align*}
+ We have by Markovs inequality  
+ \begin{align*}
+   \sup_{0 < t \le  T} \P( \max_{i} \abs{X^{N,\epsilon}_i(t) - \overline{X}_i^{N}(t)   } \ge N^{-\alpha } ) &\le  \sup_{0 < t \le T} \P(S_t \equiv 1)\\
+                                                                                                            &\myS{Mrkv.}{\le } \sup_{0 < t \le T} \E[S_t] \\
+ .\end{align*}
+ First note that
+\begin{align*}
+  X_i^{N,\epsilon} (t \land \tau ) - X_i^{N,\epsilon} (0) &= \int_0^{t \land \tau }  \nabla V_{\epsilon} \star  \mu_N(X_i^{N,\epsilon}(s) ) ds + \int_0^{t \land \tau }  \sqrt{2} dW_s^{i}  \\
+  \overline{X}_i^{N} (t \land \tau ) - \overline{X}_i^{N} (0) &= \int_0^{t \land \tau }  \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{N}(s) ) ds + \int_0^{t \land \tau }  \sqrt{2} dW_s^{i}  
+.\end{align*}
+Then 
+\begin{align*}
+  \E[S(t)] &= N^{2\alpha k } \E[\max_{i} \abs{(X^{N,\epsilon}_i - \overline{X}_i^{N})(t \land \tau(w))}^{2k}] \\
+           &\le  N^{2 \alpha  k}  \E\left[ \max_{i}\abs*{\int_0^{t \land \tau }  \nabla V_{\epsilon} \star  \mu_N(X_i^{N,\epsilon}(s) ) -  \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{N}(s) )ds}^{2k}  \right]\\
+           &\myS{Höld.}{\le} N^{2 \alpha  k} C(t,k)  \E\left[ \max_{i}\int_0^{t \land \tau }  \abs*{\nabla V_{\epsilon} \star  \mu_N(X_i^{N,\epsilon}(s) ) -  \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{N}(s) ) }^{2k} ds  \right]\marginnote{Add smart 0 $\pm \nabla V_\epsilon \star  \overline{\mu }_N $ }\\
+           &= N^{2 \alpha  k}  C(t,k)  \E\left[ \max_{i}\int_0^{t \land \tau }  \abs*{\frac{1}{N} \sum_{j} \nabla V_{\epsilon}(X_i^{N,\epsilon}(s) - X_{j}(s)^{N,\epsilon}  ) - \frac{1}{N} \sum_{j} \nabla V_{\epsilon}(\overline{X}_i^{N} - \overline{X}_j^{N} ) }^{2k} ds  \right]\\
+           &+ N^{2 \alpha  k} C(t,K) \E\left[ \max_{i}\int_0^{t \land \tau }  \abs*{\frac{1}{N} \sum_{j} \nabla V_{\epsilon}(\overline{X}_i^{N}(s) - \overline{X}_{j}(s)^{N}  ) - \nabla V_{\epsilon} \star  u_{\epsilon}(\overline{X}_i^{N}(s) )}^{2k} ds  \right]\\
+           &= I + II
+.\end{align*}
+we bound individually 
+\begin{align*}
+  I  &\le   N^{2 \alpha  k } C(t,k)   \E\left[ \max_{i}\int_0^{t \land \tau }  \abs*{\frac{1}{N} \sum_{j} D^{2} V_{\epsilon}(\overline{X}_i^{N} (s) - \overline{X}_j^{N}(s)   )*(X_i^{N,\epsilon} -\overline{X}_i^{N} - (X_j^{N,\epsilon} - \overline{X}_j^{N}   )  ) }^{2k}  ds  \right]\\ 
+     &\qquad + N^{2 \alpha  k}   C(t,k)   \E\left[ \max_{i}\int_0^{t \land \tau }\abs*{ \|D^{3} V_{\epsilon} \|_{\infty} \frac{1}{N} \sum_{j} \abs{X_i^{N,\epsilon} -\overline{X}_i^{N} - (X_j^{N,\epsilon} - \overline{X}_j^{N}   )  }^2}^{2k}  ds \right]  \\
+     &= I_1 +  I_2
+.\end{align*}
+where 
+\begin{align*}
+  I_2 \le  \frac{C(t,k)}{N^{2 \alpha  k} } \underbrace{\|D^{3}V_{\epsilon} \|_{\infty}^{2k}}_{\frac{1}{\epsilon ^{(d+3)2k} }}  \int_0^{t} \E[S(s)] ds \marginnote{\footnotesize   $\epsilon = \frac{1}{N^{\beta } }$}
+.\end{align*}
+For $I_{1}$ we get 
+\begin{align*}
+  I_{1} &\le  N^{2 \alpha  k}  C(t,k) \E\left[\max_{i} \int_0^{t \land \tau } \abs*{\frac{1}{N} \sum_{j=1}^{N} D^2V_{\epsilon}(\overline{X}_i^{N} - \overline{X}_j^{N}    )(X_i^{N,\epsilon}-\overline{X}_i^{N}  - (X_j^{N,\epsilon} - \overline{X}_j^{N}  ) ) }^{2k} ds \right]\\
+        &\le  N^{2 \alpha  k } C(t,k)  \E\left[\max_{i} \int_0^{t \land \tau } \frac{1}{N} \sum_{j=1}^{N} \abs*{D^2V_{\epsilon}(\overline{X}_i^{N} - \overline{X}_j^{N})}^{2k}  2\max_i \abs{(X_i^{N,\epsilon}-\overline{X}_i^{N}  }^{2k} ds \right]\\
+        &\le C(t,k)  \E \left[ \max_i \int_0^{t \land \tau } (D^{2}V_{\epsilon} \star  u^{\epsilon})(\overline{X}_i^{N}  )^{2k}   S(s) ds \right] \marginnote{\footnotesize By adding in the one term we can use the regularity of the SDE soltuion $u^{\epsilon} $ to bound} \\
+        &\qquad + 2 C(t,k) \E\left[\max_{i} \int_0^{t \land \tau } \left( \frac{1}{N} \sum_{j=1}^{N} \abs{D^2 V_\epsilon}(\overline{X}_i^{N} - \overline{X}_{j}^{N}   ) - \abs{D^{2}V_\epsilon } \star  u^{\epsilon}(\overline{X}_i^{N}  )  \right)^{2k} S(s) ds \right] \\
+        &\le  2 C(t,k) \|\abs{D^2 V_\epsilon} \star  u ^{\epsilon} \|_{\infty}^{2k}  \int_0^{t} \E[(S(s))]  ds \\
+        &\qquad + \underbrace{2 C(t,k) \E\left[\max_{i} \int_0^{t \land \tau } \left( \frac{1}{N} \sum_{j=1}^{N} \abs{D^2 V_\epsilon}(\overline{X}_i^{N} - \overline{X}_{j}^{N}   ) - \abs{D^{2}V_\epsilon } \star  u^{\epsilon}(\overline{X}_i^{N}  )  \right)^{2k} S(s) ds \right]}_{I_{12}} \\
+.\end{align*}
+Using \autoref{version_of_lln} with $U = \abs{D^2V_{\epsilon}}$ and $v = u^{\epsilon}(*,s) $
+\begin{align*}
+  I_{12} &\le  2 C(t,k) \int_0^{t}  \E\left[\max_{i} \left( \frac{1}{N} \sum_{j=1}^{N} \abs{D^2 V_\epsilon}(\overline{X}_i^{N} - \overline{X}_{j}^{N}   ) - \abs{D^{2}V_\epsilon } \star  u^{\epsilon}(\overline{X}_i^{N}  )  \right)^{2k} S(s) ds \right]\\
+         &\le  2 C(t,k) \int_0^{t} \frac{1}{N^{\theta } }  \E{S(s)} ds  + 2 C(t,k)t N^{1+2 \tilde{k}(\theta  - \frac{1}{2}) } - C(\tilde{k} )  \|D^2V_{\epsilon}\|_{\infty}^{2 \tilde{k} } \|D^2 V_{\epsilon}\|^{2k}_{\infty} 
+.\end{align*}
+\textcolor{Red}{Will be finished tomorrow}
+\end{proof}
+\begin{remark}[Video Discussion Paper]
+ In the relevant Paper   they assumed 
+ \begin{align*}
+   \abs{\nabla V_{\epsilon}(x) - \nabla V_{\epsilon}(y)} \le  C \abs{D^{2} V_{\epsilon}(y) }\abs{x-y}
+ .\end{align*}
+\end{remark}
+\begin{lemma}[A version of l.l.n]\label{version_of_lln}
+  Suppose $(\overline{Y}_i )_{i \le N}$ is a collection of i.i.d random variables with law $\mathcal{L}(Y_0) = v \in  L^{1}(\mathbb{R}^{d} ) $,
+  and $U \in  L^{\infty} $ be a given function, then 
+  \begin{align*}
+    A_{\theta }^{i} (U,v) &= \{w \in  \Omega  : \abs{\frac{1}{N} \sum_{j} U(\overline{Y}_i - \overline{Y}_j  )- U \star  v (\overline{Y}_i )} \ge \frac{1}{N^{\theta} }\}  \\
+    A_{\theta }^{N} &= \bigcup_{i=1}^{N}   A_{\theta }^{i} (U,v)
+  .\end{align*}
+  then $\forall  \tilde{k} \in  \mathbb{N} $. $\theta \in  (0,\frac{1}{2})$ it holds 
+  \begin{align*}
+    \P(A_{\theta }^{N}(U,v) ) &\le N \max_{i} \P(A_{\theta }^{i}(U,v) )\\
+                              &\le N * N^{2 \tilde{k}(\theta  - \frac{1}{2}) }  C(\tilde{k} ) \|U\|_{L^{\infty} }^{2 \tilde{k} } 
+  .\end{align*}
+\end{lemma}
 
