@@ -1,0 +1,147 @@
+\chapter{First Oder PDEs}
+The main Method of solving first order PDE's is the method of characteristics
+\section{Homogeneous Transport Equation}
+\begin{definition}
+ For a function $u : \mathbb{R}^{n} \times  \mathbb{R} \to \mathbb{R} $  with 
+ $b \in  \mathbb{R}^{n} $ the transport equation is defined as 
+ \begin{align*}
+  \dot{u}  + b*\nabla u = 0
+ .\end{align*}
+\end{definition}
+\begin{Theorem}[1.2.]
+ For a continuous differentiable function $g : \mathbb{R}^{n} \to \mathbb{R} $  the transport equation 
+ \begin{align*}
+  \dot{u}  + b*\nabla u = 0
+ .\end{align*}
+ with 
+ \begin{align*}
+  u(x,0) = g(x)
+ .\end{align*}
+ has a solution
+\end{Theorem}
+\begin{proof}
+ By method of characteristics we have for 
+ \begin{align*}
+  z(s) = u(x(s),t(s))
+ .\end{align*}
+ that 
+ \begin{align*}
+  z'(s) = \nabla \frac{\partial x}{\partial s} + \dot{u} \frac{\partial t}{\partial s}
+ .\end{align*}
+ Thus 
+ \begin{align*}
+   x'(s) &= b\\
+   t'(s) &= 1
+ .\end{align*}
+ then 
+ \begin{align*}
+  x(s) = b*s + x_{0}
+ .\end{align*}
+and 
+\begin{align*}
+  z' = 0
+.\end{align*}
+Since at $s=0$ we have 
+\begin{align*}
+  z(0) = u(x_{0},0) = g(x_{0})
+.\end{align*}
+we get a solution for any $x,t$ by 
+\begin{align*}
+  x = b*s+x_{0}
+.\end{align*}
+thus 
+\begin{align*}
+  x_{0} = x-b*s
+.\end{align*}
+and 
+\begin{align*}
+  u(x,t) = g(x-b*t)
+.\end{align*}
+\end{proof}
+\begin{corollary}
+  The solution is unique if the characteristics do not cross,
+  that means if for any $x$ , $x_{0} = x-b*t$ is unique.
+\end{corollary}
+\section{Inhomogeneous Transport Equation}
+\begin{Theorem}
+ Given a vector $b \in  \mathbb{R}^{n}$ a function $f : \mathbb{R}^{n} \times \mathbb{R}$ and an initial value 
+ $g : \mathbb{R}^{n} \to \mathbb{R} $ the Cauchy problem for the inhomogenous transport equation is given by 
+ \begin{align*}
+  \dot{u} + b * \nabla u = f \qquad u(x,0)=g(x)
+ .\end{align*}
+ We could either , use the method of characteristics to arrive at 
+ \begin{align*}
+  u(x,t) = g(x-tb) + \int_0^{t} f(x+(s-t)b,s) ds
+ .\end{align*}
+ Again we chose $t(s) = s$ and $x(s) = x_{0} + sb$ then integrating, and the initial condition tells us what $z_{0}$ is.\\
+ Alternatively we recognize that this is Duhamels Principle, since 
+ \begin{align*}
+  f(x_{0}+sb,s)
+ .\end{align*}
+ is a solution to the Homogeneous Cauchy problem with initial condition 
+ \begin{align*}
+  u(x,0) =f(x)
+ .\end{align*}
+\end{Theorem}
+\section{Scalar Conservation Laws}
+\begin{definition}
+ For a smooth function $f : \mathbb{R} \to \mathbb{R}$  the following is called scalar conservation law 
+ \begin{align*}
+  \dot{u} + \frac{\partial f(u(x,t))}{\partial x}   = \dot{u} + f'(u(x,t)) *\frac{\partial u(x,t )}{\partial x}  = 0
+ .\end{align*}
+\end{definition}
+\begin{corollary}
+ The name conservation law comes form the fact, that if $u : \mathbb{R} \times  \mathbb{R} \to  \mathbb{R}$   is a solution then 
+ \begin{align*}
+  \frac{d}{dt} \int_a^{b} u(x,t)  = \int_a^{b} \dot{u}(x,t) dx = -\int_a^{b} \frac{\partial f(u(x,t))}{\partial x}   dx = f(u(a,t)) - f(u(b,t)) 
+ .\end{align*}
+\end{corollary}
+\begin{Theorem}[1.4]
+ If $f \in  \mathcal{C}^{2}(\mathbb{R},\mathbb{R}) $  and $g \in  \mathcal{C}^{1}(\mathbb{R},\mathbb{R}) $ with $f''(g(x),g'(x)) > - \alpha $ for all $x \in  \mathbb{R}$
+ and some $\alpha  \ge 0$ then there is a unique $\mathcal{C}^{1} $ solution of the initial value problem for the scalar conservation law 
+ \begin{align*}
+  \dot{u} + f' \nabla u = 0  \qquad u(x,0) = g(x)
+ .\end{align*}
+ on $(x,t) \in  \mathbb{R} \times  [0,\alpha ^{-1} )$ for $\alpha  > 0 $ and on $(x,t) \in  \mathbb{R} \times  [0,\infty)$ for $\alpha  = 0$
+\end{Theorem}
+\begin{proof}
+ When looking at PDE's or IVP's we generally ask three questions 
+ \begin{enumerate}
+  \item Existence of  a solution 
+  \item Uniqueness of a solution 
+  \item Regularity of a solution 
+ \end{enumerate}
+ For the existence part we get by method of characteristics that 
+ \begin{align*}
+  u(x+t f'(g(x)),t) =  g(x)
+ .\end{align*}
+ so a solution exists, this solution is unique if the characteristics do not cross, we check that 
+ \begin{align*}
+  \frac{d}{dx} x + t f'(g(x)) = 1 + t f''(g(x))g'(x)
+ .\end{align*}
+ which by assumption 
+ \begin{align*}
+  1 + t f''(g(x))g'(x) \ge  1- t \alpha  > 0
+ .\end{align*}
+ for all $t \in  [0,\alpha ^{-1} )$ this means the characteristic curves are strictly monotone increasing,
+ thus for two points $x\neq y$ $x_{0} \neq y_{0}$ and the curves never cross.\\
+ For regularity, we have that $u \in  \mathcal{C}^{1,1} $, since 
+ \begin{align*}
+  u(y,t) = g(x) 
+ .\end{align*}
+ where 
+ \begin{align*}
+  x + t f'(g(x)) = y
+ .\end{align*}
+\end{proof}
+\section{Non characteristic Hyper surfaces }
+The goal of this section is to generalize the method of characteristics to general first oder PDEs 
+\begin{align*}
+  F(\nabla u(x),u(x),x)=0
+.\end{align*}
+In the end the goal is to reduce the problem to some problem on a Hyper surface on which the solution is given by the initial value problem, then by studying how the solution behaves when leaving the hypersurface
+we attain a general solution. For that we first show that we can reduce every Cauchy problem  to the form 
+\begin{align*}
+  u(y) = g(y) \text{ for all } y \in  \Omega  \cap H \text{ where } H = \{x \in  \mathbb{R}^{n} | x*e_n  = x_{0}*e_n \}  
+.\end{align*}
+where  $e_n = (0,\ldots ,0,1)$ 
