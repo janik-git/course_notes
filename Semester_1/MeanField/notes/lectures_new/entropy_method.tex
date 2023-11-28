@@ -59,7 +59,7 @@ using $\phi  = u \log u$ as a test function then  we get that
  .\end{align*}
 \end{definition}
 \begin{align*}
-  \mathcal{H}(u_N | u^{\otimes N}) = \mathcal{H}_N(u_N | u^{\otimes N} ) = \frac{1}{N} \int_{\mathbb{R}^{dN} } \frac{u_N}{u^{\otimes n} } \log \frac{u_N}{u^{\otimes N} } u^{\otimes N}  dx_{1}\ldots dx_N
+  \mathcal{H}(u_N | u^{\otimes N}) = \mathcal{H}_N(u_N | u^{\otimes N} ) = \frac{1}{N} \int_{\mathbb{R}^{dN} } u_N \log \frac{u_N}{u^{\otimes N} }   dx_{1}\ldots dx_N
 .\end{align*}
 We study
 \begin{align*}
@@ -142,10 +142,117 @@ the Csisz\`ar-Kullback-Pinsker inequality says
   r \log  r - r + 1 \ge  \frac{3}{2} \frac{(r-1)^2}{r+2} \quad \forall  r \ge 0
 .\end{align*}
 \end{proof}
+\begin{exercise}
+ Calculate the relative entropy for the second order system 
+ \begin{align*}
+  \begin{cases}
+    &dX_t^i = V_t^i \\
+    &dV_t^i = \frac{1}{N} = \sum_{j=1}^{N} \nabla V(X_i-X_j)  dt + \sqrt{2}dW_t^i 
+  \end{cases}
+ .\end{align*}
+\end{exercise}
 \begin{note}
  Two points remain 
  \begin{enumerate}
-   \item $\mathcal{H}_k(u_N^{(k)}|u^{\otimes k}  ) \le  C \mathcal{H}_N(u_N | u^{\otimes N} )$
+   \item $\mathcal{H}_k(u_N^{(k)}|u^{\otimes k}  ) \le  C(k) \mathcal{H}_N(u_N | u^{\otimes N} )$
    \item  $\E \left[ \braket{\mu_N,\abs{\nabla V \star (\mu_N - u)}^2} \right] \le  \frac{C}{N^{\theta } } $
  \end{enumerate}
 \end{note}
+\begin{prop}[super-Additivity Of Relative Entropy]
+ Let $F_N$  be symmetric probability density on $\mathbb{R}^{dN} $ and denote 
+ by $F_N^{(k)} $ the $k$-th marginal density then for any probability density $u$ on $\mathbb{R}^{d} $ then
+ \begin{align*}
+   \mathcal{H}_{k}(F_N^{(k)},u^{\otimes k}  ) = \int_{\mathbb{R}^{dk} } F_n^{(k)}  \log \frac{F_N^{(k)} }{u^{\otimes k} } dx_{1}\ldots dx_k
+ .\end{align*}
+ Then 
+ \begin{align*}
+   \mathcal{H}_{k}(F_N^{(k)},u^{\otimes k}  )  + \mathcal{H}_{N-k}(F_N^{(N-k)} | u^{\otimes (n-k)}  ) \le \mathcal{H}_{N}(F_N | u^{\otimes N} )
+ .\end{align*}
+ and 
+ \begin{align*}
+   \frac{1}{N} \mathcal{H}_N(F_N | u^{\otimes N} )  \ge \frac{1}{N} \floor{\frac{N}{k}} \mathcal{H}_k(F^{(k)}|u^{\otimes k}  ) \ge  \frac{1}{2k} \mathcal{H}_k(F_N^{(k)} | u^{\otimes k}  )
+ .\end{align*}
+\end{prop}
+\begin{proof}
+ We compute 
+ \begin{align*}
+   &\mathcal{H}_N - \mathcal{H}_{N-k}  - \mathcal{H}_{k}\\
+   &= \int_{\mathbb{R}^{dN} }F_N \log  \frac{F_N}{u^{\otimes N} } dX_N - \int_{\mathbb{R}^{k} }\int_{\mathbb{R}^{d(N-k)} } F_N^{n-k} \log \frac{F_N^{(n-k)}}{u^{\otimes (n-k)} } dX_{n-k} dx_{k+1},\ldots dx_N\\
+   & \quad - \int_{\mathbb{R}^{d(N-k)}} \int_{\mathbb{R}^{dk} } F_N^{(k)}  \log  \frac{F_N^{(k)} }{u^{\otimes k} } dX_k \\
+   &= \int_{\mathbb{R}^{dN} }F_N (\log  \frac{F_N}{u^{\otimes N} } - \log  \frac{F_N^{(N-k)} }{u^{\otimes N-k} } - \log \frac{F_N^{(k)} }{u^{\otimes k} }) dx_{1},\ldots dx_N\\
+   % &= \int _{\mathbb{R}^{dN} } F_N \log \frac{F_N(x_{1},\ldots ,x_N)}{F_N^{(n-k)}(x_{k+1},\ldots ,x_N)F_N^{(k)}_{x_{1},\ldots ,x_k}}  dx_{1},\ldots dx_N \\
+   &\ge 0
+ .\end{align*}
+\end{proof}
+\begin{note}
+ In our case $F_N = u_N$ 
+\end{note}
+\begin{align*}
+  \E[\braket{\mu_N , \abs{\nabla V \star (\mu_N - u)}^2}]  \xrightarrow{N\to \infty} 0 
+\end{align*}
+We have 
+\begin{align*} 
+  \E[\braket{\mu_N , \abs{\nabla V \star (\mu_N - u)}^2}]  = \E[\frac{1}{N} \sum_{i=1}^{N} \abs{\nabla V \star  u (X_i^{N} ) - \frac{1}{N} \sum_{j=1}^{N} \nabla V (X_i^{N}-X_j^{N}  ) }^2 ]
+.\end{align*}
+\begin{note}
+ What conditions do we need on $\nabla V$ 
+\end{note}
+\begin{theorem}
+  If $\|D^2V\|_{\infty} \le  C$  then 
+  \begin{align*}
+    \|u_N^{(1)} - u \|_{L^{1}(\mathbb{R}^{d} ) } \le  \sqrt{2 \mathcal{H}(u_N^{(1)}|u)}  \le  \frac{C}{N^{\frac{1}{2}} }
+  .\end{align*}
+\end{theorem}
+For "good" potential $\nabla V$ is Lipschitz continuous, $\|D^2 V\|_{\infty} \le  C$, then 
+\begin{align*}
+  &\E\left[\frac{1}{N} \sum_{i=1}^{N} \abs{\nabla V \star  u (X_i^{N} ) - \frac{1}{N} \sum_{j=1}^{N} \nabla V (X_i^{N}-X_j^{N}  ) }^2 \right] \\
+  &\le  \E\left[\frac{1}{N} \sum_{i=1}^{N} \abs{\nabla V \star  u(X_i^{N}) - \nabla V \star  u(\overline{X}_i^{N}  )} \right] + \E\left[\frac{1}{N} \sum_{i=1}^{N} \abs{\nabla V \star  u(\overline{X}_i^{N}  ) - \frac{1}{N} \sum_{j=1}^{N} \nabla V(\overline{X}_i^{N} - \overline{X}_j^{N}    ) }^2 \right]\\
+  &\quad +  \E\left[\frac{1}{N} \sum_{i=1}^{N} \abs{ \frac{1}{N} \sum_{j=1}^{N}\nabla V(\overline{X}_i^{N} - X_j^{N} ) \nabla V (X_i^{N} - X_j^{N}  )}^2 \right]  \\
+  &\le \|\nabla V \star  u \|_{\text{Lip}}^{2} \max){i} \E[\abs{X_i^{N} -\overline{X}_i^{N}  }^2]  +  \frac{\|\nabla V\|^2_{\infty}}{N} + \|\nabla V\|_{\text{Lip}} \max_{i} \E[\abs{\overline{X}^{N}_i - X_i^{N}   }^2]\\
+  &\le  C*\frac{1}{N} \\
+  &\to 0
+.\end{align*}
+\begin{corollary}
+ If $V$ is "not good" , up to Coulomb.  $\frac{1}{\abs{x}^{\alpha } } , 0\le  \alpha  < d-2$ then 
+ \begin{align*}
+  D^2 \frac{1}{\abs{x}^{\alpha } } \sim \frac{1}{\abs{x}^{d-} }
+ .\end{align*}
+ s.t. 
+ \begin{align*}
+   \int_{B(0,\epsilon)} \frac{1}{\abs{x}^{d-} } < \infty
+ .\end{align*}
+ If we have non-good $V$ we compare with the \nameref{eps_sde}, and we have already shown 
+ \begin{align*}
+   \P(\max_{i} \abs{X_i^{N,\epsilon} -\overline{X}_i^{N}  } > N^{-\alpha } ) \le \frac{C}{N^{\gamma } }  \quad \forall \gamma  >0
+ .\end{align*}
+ where 
+ \begin{align*}
+  \epsilon = \frac{1}{N^{\beta } }
+ .\end{align*}
+ we have 
+ \begin{align*}
+   &\E\left[\frac{1}{N} \sum_{i=1}^{N} \abs*{\nabla V_{\epsilon} \star  u_\epsilon(X_i^{N,\epsilon} ) - \frac{1}{N} \sum_{j=1}^{N} \nabla V_{\epsilon}(X_i^{N,\epsilon} - X_j^{N,\epsilon} )}^2  \right]\\
+   &\le \E\left[\frac{1}{N} \sum_{i=1}^{N} \abs*{\nabla V_{\epsilon} \star  u_\epsilon(X_i^{N,\epsilon} ) - \nabla V_{\epsilon} \star  u_{\epsilon}(\overline{X}_i^{N}  )}^2  \right]\\ 
+   & \quad +  \E\left[\frac{1}{N} \sum_{i=1}^{N} \abs*{\nabla V_{\epsilon} \star  u_\epsilon(X_i^{N,\epsilon} ) - \frac{1}{N} \sum_{j=1}^{N} \nabla V_{\epsilon}(\overline{X}_i^{N} - \overline{X}_j^{N} )}^2  \right]\\
+   & \quad +  \E\left[\frac{1}{N} \sum_{i=1}^{N} \abs*{ \frac{1}{N} \sum_{j=1}^{N} \nabla V_{\epsilon}(\overline{X}_i^{N} - \overline{X}_j^{N} )- \nabla V_{\epsilon}(X_i^{N,\epsilon} - X_j^{N,\epsilon} )}^2  \right]\\
+   &= I + II + III
+ .\end{align*}
+ We again consider  
+ \begin{align*}
+   A_{\alpha }(t) = \{\omega  \in  \Omega  | \max_{i} \abs{X_i^{N,\epsilon}  - \overline{X}_i^{N}  } > N^{-\alpha } \}   \implies \P(A_{\alpha }(t)) \le  \frac{C}{N^{\gamma } }
+ .\end{align*}
+ and condition the different terms on it (i.e. $\cha_{A_\alpha ^{C}} + \cha_{A_\alpha}  $ ) and attain 
+ \begin{align*}
+   III &\le  4 \|\nabla V_{\epsilon}\|_{\infty}^{2} \E[\cha_{A_\alpha}]  + 4\E[\|D^2_{\epsilon}\|_{\infty}^{2} * \max_{i}  \abs{X^{N,\epsilon}_i - \overline{X}^{N}_i   } \cha_{A_{\alpha }^{C} }] \\
+       &\le  \frac{4 \|\nabla V_{\epsilon}\|_{\infty}^{2}}{N^{\gamma} } +  4 \frac{\|D^2 V_{\epsilon}\|_{\infty}^2}{N^{2 \alpha }  } \frac{N^{2\beta } }{N^{2\alpha } }\\
+       &\to  0
+ .\end{align*}
+\end{corollary}
+\begin{example}
+  How to estimate  $\|D^2 V_\epsilon\|_{\infty} $  for $V = \frac{1}{\abs{x}^{\alpha } }$ where $\alpha  \in  (0,d-2)$
+  \begin{align*}
+    \abs*{\int_{\mathbb{R}^{d} }  j_{\epsilon}(x-y)*D^2 \frac{1}{\abs{y}^{\alpha } } dy}_{\infty} &\le \abs*{\int_{B_1(0) \cup B_1(0)^{C} } \frac{1}{\epsilon ^{d} } j(\frac{x-y}{\epsilon}) \frac{1}{\abs{y}^{\alpha +2} } dy }_{\infty} \\ 
+                                                                                                  &\le  \abs*{\int_{B_1^{C}(0) } \frac{1}{\epsilon ^{d} } j(\frac{x-y}{\epsilon}) dy}_{\infty} + \abs*{\int_{B_1(0)} \frac{1}{\epsilon ^{d} } j(\frac{x-y}{\epsilon})*\frac{1}{\abs{y}^{\alpha +2} } dy}_{\infty}\\
+                                                                                                  &\le  \frac{\|j\|_{\infty}}{\epsilon ^{d} } 
+  .\end{align*}
+\end{example}
