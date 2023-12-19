@@ -1,0 +1,137 @@
+\chapter{Model description and Introduction}
+The following chapter will outline how the relevant particle models 
+are defined, we differentiate between first and second order systems
+focusing here on first order systems while leaving the second order setting
+as exercises 
+\section{1st Order Particle Systems}
+\begin{definition}[1st Order Particle System]
+  We consider a system of $N$ particles and denote by $(x_{1}(t),x_{2}(t),\ldots,x_N(t)) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ),\ i=1,\ldots ,N $ 
+  the trajectories of the particles.\\[1ex]
+  Our first order system is then governed by the system of ordinary differential equations 
+  \begin{align*}
+    \begin{cases}
+      d x_i(t) &= \frac{1}{N}\sum_{j=1}^{N} K(x_{i},x_{j}) dt + \sigma dW_i(t), \quad 1\le i \le N \\
+        x_i(t)\rvert_{t=0} &= x_i(0)
+    \end{cases}
+  .\end{align*}
+  where $K : \mathbb{R}^{2d} \to \mathbb{R}^{d}  $ is a given function.\\[1ex]
+  For $\sigma  = 0$ we say the system is deterministic
+\end{definition}
+We consider the following examples for $K$ 
+\begin{example}
+A common example for a well-behaved $K$ is 
+\begin{align*}
+  K(x,y) =  \nabla (\abs{x-y}^2)
+.\end{align*}
+which is a locally Lipschitz continuous function. \\[1ex]
+Another typical interaction force which is not continuous 
+is the potential field given by Coulomb potential, namely 
+\begin{align*}
+  K(x,y) = \nabla \frac{1}{\abs{x-y}^{d-2}} = \frac{x-y}{\abs{x-y}^{d} }
+.\end{align*}
+\end{example}
+\begin{definition}[Empirical Measure]\label{empirical_measure}
+ For a set of particles\\
+ $(x_{1}(t),x_{2}(t),\ldots,x_N(t)) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ),\ i=1,\ldots ,N $ we define the empirical measure by 
+ \begin{align*}
+   \mu^{N}(t) \triangleq \frac{1}{N} \sum_{j=1}^{N} \delta_{x_i(t)} 
+ .\end{align*}
+\end{definition}
+Our goal is the study of the limit of this system as $N \to  \infty$. An appropriate quantity is to consider the empirical measure \ref{empirical_measure}.
+If the initial empirical measure converges in some sense to a measure $\mu(0)$ i.e. 
+\begin{align*}
+  \mu^{N}(0) \to \mu(0)
+.\end{align*}
+would $\mu^N(t)$ also converge to some measure $\mu(t)$ ?
+\begin{align*}
+  \mu^N(t) \xrightarrow{?} \mu(t)
+.\end{align*}
+Furthermore, can we find an equation which $\mu(t)$ satisfies and in which sense does it satisfy this equation?\\[1ex]
+\begin{note}
+  Consider the following case when the limit measure $\mu(t)$ is absolutely continuous with respect the Lebesgue measure, this means that 
+\begin{align*}
+  d\mu(0,x) = \rho_0(x) dx \quad \rho_0 \in  L^{1}(\mathbb{R}^{d} ) 
+.\end{align*}
+would the limit function have the same property ?
+\end{note}
+\newpage
+\section{Motivation For Partial Differential Equation}
+Let the following Proposition serve as a motivation on which partial differential equation $\mu(t)$ should satisfy
+and consider only the deterministic case for now.
+\begin{prop}
+  We say $\mu(t)$ solves the following partial differential equation (in the sense of distribution)
+\begin{align*}
+  \partial_t \mu(t,x) + \nabla * \left( \mu(t,x) \int_{\mathbb{R}^{d} } K(*,y) d\mu(t,y) \right)  = 0
+.\end{align*}  
+\end{prop}
+\begin{proof}
+  Take $\phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $ and calculate
+\begin{align*}
+  \frac{d}{dt} \braket{\mu^N(t),\phi } &\triangleq \frac{d}{dt} \int_{\mathbb{R}^{d} } \phi(x) d\mu^N(t,x)  \\
+                                       &\myS{Def.}{=} \frac{d}{dt} \int_{\mathbb{R}^{d} } \frac{1}{N} \sum_{j=1}^{N} \phi(x)d\delta_{x_{i}(t)}\\
+                                       &\myS{Lin.}{=} \frac{1}{N} \sum_{j=1}^{N}  \frac{d}{dt} \phi (x_i(t))\\
+                                       &= \frac{1}{N} \sum_{j=1}^{N} \nabla \phi(x_i(t)) *\frac{d}{dt} x_i(t)\\
+                                       &= \frac{1}{N} \sum_{j=1}^{N} \nabla \phi(x_i(t)) *\frac{1}{N}\sum_{j=1}^{N} K(x_{i},x_{j}) \\
+                                       &= \frac{1}{N} \sum_{j=1}^{N} \nabla \phi(x_i(t)) *\frac{1}{N}\sum_{j=1}^{N} \int_{\mathbb{R}^{d}} K(x_{i},y) d \delta_{x_i(t)}(y) \\ 
+                                       &\myS{Emp.}{=}  \frac{1}{N} \sum_{j=1}^{N} \nabla \phi(x_i(t)) * \int_{\mathbb{R}^{d}} K(x_{i},y) d\mu^{N}(t,y) \\ 
+                                       &= \frac{1}{N} \sum_{j=1}^{N} \int_{\mathbb{R}^{d} } \nabla \phi(x) * \int_{\mathbb{R}^{d} } K(x,y) d\mu^N(t,y) d\delta_{x_i(t)}(x)\\
+                                       &= \int_{\mathbb{R}^{d} } \nabla \phi (x) * \int_{\mathbb{R}^{d} } K(x,y) d\mu^N(t,y)d\mu^N(t,x)\\
+                                       &= -\braket*{\nabla*\left(\mu^N(t,*)\int_{\mathbb{R}^{d}}K(*,y) d\mu^N(t,y) \right),\phi }
+.\end{align*}  
+i.e $\mu^N$ is a solution to 
+\begin{align*}
+  \partial_t \mu^N(t,x) + \nabla * \left( \mu^N(t,x) \int_{\mathbb{R}^{d} } K(*,y) d\mu^N(t,y) \right)  = 0
+.\end{align*}  
+If we can now take the limit $N\to \infty$ we obtain that $\mu $ should satisfy the proposed PDE
+\end{proof}
+\begin{corollary}
+  If $\sigma  > 0$ i.e our system is stochastic then we expect the limit partial differential equation to share a similar structure
+  \begin{align*}
+    \partial_t \mu(t,x) + \nabla * \left( \mu(t,x) \int_{\mathbb{R}^{d} } K(*,y) d\mu(t,y) \right)  = \Delta \mu(t,x)
+  .\end{align*}
+  We define the stochastic case in detail later 
+\end{corollary}
+\section{2nd Order Particle Systems}
+We define a second order particle system as follows 
+\begin{definition}
+ Given the $N$ particles 
+ \begin{align*}
+   ((x_{1}(t),v_{1}(t)),\ldots ,(x_N(t),v_N(t))) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{2d} ) 
+ .\end{align*}
+ with initial values  $x_i(0)$  for $i = 1,\ldots ,N$\\[1ex]
+  Then our second order system is then governed by  
+  \begin{align*}
+    \text{(MPS)}\begin{cases}
+      \frac{d}{dt} x_i(t) &= v_i(t) \\
+      \frac{d}{dt} v_i(t) &= \frac{1}{N} \sum_{j=1}^{N} F(x_{i}(t),v_i(t) ; x_j(t),v_j(t) )  \quad 1\le i\le N
+    \end{cases}
+  .\end{align*}
+\end{definition}
+In this setting $(x_{i}(t),v_i(t))$ mean the position and velocity of the $i$-th particle respectively.
+An example for $F$ would be 
+\begin{align*}
+  F(x,v;y,u) = \frac{x-y}{\abs{x-y}^{d} }
+.\end{align*}
+The empirical measure from \autoref{empirical_measure} can be rewritten to include the velocity as well 
+\begin{align*}
+  \mu^N \triangleq \frac{1}{N} \sum_{j=1}^{N} \delta_{x_i(t),v_i(t)} 
+.\end{align*}
+\begin{exercise}
+ Calculate  for $\forall  \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{2d} ) $  the following in  the second order case
+ \begin{align*}
+   \frac{d}{dt} \braket{\mu^N(t),\phi }
+ .\end{align*}
+\end{exercise}
+\newpage
+\section{Lecture Structure}
+In Chapter 1, we are going to discuss the deterministic case for ”Good”
+interaction forces (2-3 weeks) while giving a brief review of the well-posedness theory of ordinary
+differential equation. And prove the mean field limit in the framework of 1-Wasserstein distance.\\[1ex]
+The stochastic case will be studied in Chapter 2. Where we first review the mandatory concepts
+of probability theory, the definition of the It\^{o} integral, and the well-posedness of stochastic
+differential equations. Then the propagation of chaos result of the interacting SDE system
+is studied, where the well-posedness of Mckean-Vlasov equation plays an important role.
+If time allows, we will study non-smooth interaction forces in chapter 3.\\[1ex]
+The first result is the convergence in probability, which implies the weak convergence of propagation of
+chaos. The second topic is to introduce the relative entropy method to get the convengence
+in $L^{1}$ space.

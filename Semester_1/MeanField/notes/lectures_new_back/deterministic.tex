@@ -2,39 +2,33 @@
 In this chapter we focus on the deterministic version of the mean-field limit. Namely, we
 start from a system of deterministic interacting particle system with mean-field structure
 and prove that the corresponding empirical measure converges weakly to the measure valued solution of 
-the corresponding partial differential equation. 
-
-We are going to work only with the first order system formulation, in deterministic case the second order system can be rewritten into a first order system, for which the whole argument remains the same.
-
-Recall a system of $N$ particles and denote by $x_{1}(t),x_{2}(t),\ldots,x_N(t) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ),\ i=1,\ldots ,N $ 
+the corresponding partial differential equation. We are going to work only with the first order system, recall
+\begin{Definition}[1st Order Particle System]
+  We consider a system of $N$ particles and denote by $(x_{1}(t),x_{2}(t),\ldots,x_N(t)) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ),\ i=1,\ldots ,N $ 
   the trajectories of the particles.\\[1ex]
- The so-called first order system is then governed by the system of ordinary differential equations 
-  \begin{align}\label{MPS1st}
+  Our first order system is then governed by the system of ordinary differential equations 
+  \begin{align*}
     \begin{cases}
       d x_i(t) &= \frac{1}{N}\sum_{j=1}^{N} K(x_{i},x_{j}) dt  \quad 1\le i \le N \\
         x_i(t)\rvert_{t=0} &= x_i(0) \in \mathbb{R}^{d} 
     \end{cases}
-  .\end{align}
+  .\end{align*}
   where $K : \mathbb{R}^{2d} \to \mathbb{R}^{d}  $ is a given function.\\[1ex]
-
-In the case of higher dimensional vectors we sometimes  use the following notation 
+\end{Definition}
+ In the case of higher dimensional vectors we sometimes  use the following notation 
  \begin{align*}
   X_N(t) = \begin{pmatrix} x_{1}(t),x_2(t),\ldots ,x_N(t) \end{pmatrix}^{T}  \in \mathbb{R}^{dN} 
  .\end{align*}
- 
- 
 \section{Review Of ODE Theory}
-
-We review the well-postedness theory of ODE system with a general setting.
-
-For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $, we consider the following initial value problem
-  \begin{align}\label{ivp}
+\begin{definition}[Intial Value Problem]\label{ivp}
+  For $\forall T > 0$ and\\ $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $ we consider the initial value problem given by
+  \begin{align*}
     \text{(IVP)} \begin{cases}
      \frac{d}{dt} x(t) &= f(t,x) \quad t \in  [0,T]\\
      x \rvert_{t=0} &= x_{0} \in  \mathbb{R}^d
      \end{cases}
-  .\end{align}
-
+  .\end{align*}
+\end{definition}
 \begin{assumption}\label{assumption_a}
   $f \in  \mathcal{C}([0,T] \times  \mathbb{R}^{d} ; \mathbb{R}^{d}  )$  and 
   $f$ is Lipschitz continuous in $x$, which means there $\exists L >0$ such that 
@@ -44,10 +38,10 @@ For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $,
   .\end{align*}
 \end{assumption}
 \begin{theorem}[Existence and uniqueness of IVP]\label{existence_uniqueness}
-  If \autoref{assumption_a} holds then the \autoref{ivp} has a unique solution $x \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ) $.
+  If \autoref{assumption_a} holds then the (IVP) has a unique solution $x \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ) $
 \end{theorem}
 \begin{proof}
- We use Picard iteration to prove the existence, we can define the equivalent way of solving the \autoref{ivp} by considering the integral equation
+ We use Picard iteration to prove the existence, we can define the equivalent way of solving the (IVP) by considering the integral equation
  \begin{align*}
    x(t) - x_{0} = \int_0^{t} f(s,x(s)) ds \quad \forall t \in  [0,T]
  .\end{align*}
@@ -59,7 +53,7 @@ For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $,
    x_m(t) &= x_{0} + \int_0^{t} f(s,x_{m-1}(s))  ds
  .\end{align*}
  By \autoref{assumption_a} and properties of integration we have $x_m(t) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ) $.\\[1ex]
- Due to completeness of $\mathcal{C}([0,T];\mathbb{R}^{d} )$ we only need to show that $(x_m(t))_{m \in  \mathbb{N}}$ is a Cauchy sequence 
+ Due to completeness of $\mathcal{C}^{1}([0,T];\mathbb{R}^{d} )$ we only need to show that $(x_m(t))_{m \in  \mathbb{N}}$ is a Cauchy sequence 
  to get the existence. We first prove by induction that for $m\ge 2$ it holds for some constant $M$ that
  \begin{align*}
    \abs{x_m(t) - x_{m-1}(t)} \le \frac{ML^{m-1}\abs{t}^{m}  }{m!}
@@ -88,13 +82,16 @@ For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $,
  Now take arbitrary $p,m \in  \mathbb{N}$  then by triangle inequality we obtain for $\forall  t \in  [0,T]$ that 
  \begin{align*}
    \abs{x_{m+p} - x_{m}(t)} &\le  \sum_{k=m+1}^{m+p}  \abs{x_k(t) - x_{k-1}(t)} \\
-                            &\le \sum_{k=m+1}^{m+p} M \frac{L^{k-1}T^{k}  }{k!} 
-                            = \frac{M}{L} \sum_{k=m+1}^{m+p} \frac{(LT)^{k} }{k!}\\ 
-                            &\le \frac{M}{L} \frac{(LT)^{m+1} }{(m+1)!} \sum_{k=0}^{p-1}\frac{(LT)^{k} }{k!} 
-                            \le \frac{M}{L}\frac{(LT)^{m+1} }{(m+1)!}\sum_{k=0}^{\infty} \frac{(LT)^{k} }{k!} \\
+                            &\le \sum_{k=m+1}^{m+p} M \frac{L^{k-1}T^{k}  }{k!} \\
+                            &= \frac{M}{L} \sum_{k=m+1}^{m+p} \frac{(LT)^{k} }{k!}\\
+ .\end{align*}
+ Continuing on the next page
+ \begin{align*}
+  \frac{M}{L} \sum_{k=m+1}^{m+p} \frac{(LT)^{k} }{k!} &\le \frac{M}{L} \frac{(LT)^{m+1} }{(m+1)!} \sum_{k=0}^{p-1}\frac{(LT)^{k} }{k!} \\
+                                                      &\le \frac{M}{L}\frac{(LT)^{m+1} }{(m+1)!}\sum_{k=0}^{\infty} \frac{(LT)^{k} }{k!} \\
                                                       &= \frac{M}{L}\frac{(LT)^{m+1} }{(m+1)!} e^{LT} \xrightarrow{m\to \infty} 0 \text{ uniformly in } t\in [0,T]
  .\end{align*}
- Therefore $x_m(t)$ has a limit $x(t) \in  \mathcal{C}([0,T];\mathbb{R}^{d} ) $ with 
+ Therefore $x_m(t)$ has a limit $x(t) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ) $ with 
  \begin{align*}
    \max_{t \in  [0,T]} \abs{x_m(t) - x(t)} \xrightarrow{m\to \infty} 0
  .\end{align*}
@@ -106,8 +103,8 @@ For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $,
  \begin{align*}
    x(t) = x_{0} + \int_{t_{0}}^{t} f(s,x(s)) ds
  .\end{align*}
- which means $x(t) \in  \mathcal{C}([0,T];\mathbb{R}^{d} ) $ is a solution of the equivalent integral equation. Furthermore because of the continuity of $f$, we also obtain that  $x(t) \in  \mathcal{C}^1([0,T];\mathbb{R}^{d} ) $ \\[1ex]
- To prove the uniqueness suppose we have two solutions $x(t),\tilde{x}(t) \in  \mathcal{C}([0,T];\mathbb{R}^{d} )  $ then they satisfy 
+ which means $x(t) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ) $ is a solution of the equivalent integral equation.\\[1ex]
+ To prove the uniqueness suppose we have two solutions $x(t),\tilde{x}(t) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} )  $ then they satisfy 
  \begin{align*}
    x(t) &= x_{0} + \int_{t_{0}}^{t} f(s,x(s))  ds \\
    \tilde{x}(t) &= x_{0} + \int_{t_{0}}^{t} f(s,\tilde{x}(s) )   ds
@@ -123,7 +120,7 @@ For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $,
    \abs{x(t) - \tilde{x}(t) } &\le L \int_0^{t} \max_{0 \le s\le t}  \{e^{-\alpha  s}\abs{x(s)-\tilde{x}(s) } \} e^{\alpha  s}    ds \\
                               &\le  L \max_{0\le s\le t} \{e^{-\alpha s}\abs{x(s)-\tilde{x}(s) } \}   \int_0^{t} e^{\alpha s}  ds
  .\end{align*}
-This implies that
+ We obtain 
  \begin{align*}
    P(t) = e^{-\alpha t} \abs{x(t)-\tilde{x}(t) } \le \max_{t \in  [0,T]} P(t) \le  \frac{L}{\alpha } \max_{t \in  [0,T]} P(t) \quad \forall t \in [0,T]
  .\end{align*}
@@ -139,14 +136,14 @@ This concludes the uniqueness proof
 \end{proof}
 \begin{remark}
  An alternative proof for uniqueness uses  Gronwall's inequality
- which we will give in the next lemma. Furthermore similar to the uniqueness proof, one can 
+ which we give in the following. Furthermore similar to the uniqueness proof, one can 
  obtain that the solution $x(t; t_{0},x_{0})$ is continuously dependent on initial data
 \end{remark}
 \begin{lemma}[Gronwall's inequality]\label{gronwall_lemma}
   Let $\alpha ,\beta ,\phi  \in  \mathcal{C}([a,b];\mathbb{R}^{d} )$  and $\beta (t) \ge 0$ for $\forall t \in [a,b]$ 
   such that 
   \begin{align*}
-    0 \le  \phi(t) \le  \alpha(t) + \int_a^{t} \beta(s)\phi(s) ds \quad \forall t \in [a,b] 
+    0 \le  \phi(t) \le  \alpha(t) + \int_a^{t} b(s)\phi(s) ds \quad \forall t \in [a,b] 
   .\end{align*}
   then 
   \begin{align*}
@@ -178,8 +175,8 @@ This concludes the uniqueness proof
  Integrate the above inequality from  $a$ to $t$ to get 
  \begin{align*}
   e^{-\int_a^{t} \beta(\tau ) d\tau  }\psi(t) - e^{-\int_a^{t} \beta(\tau ) d\tau  }\psi (a) \le \int_a^{t} \beta(s)\alpha(s) e^{-\int_a^{s} \beta(\tau ) d\tau  }  ds
- ,\end{align*}
- which implies 
+ .\end{align*}
+ Which implies 
  \begin{align*}
   \psi(t) \le \int_a^{t} \beta(s)\alpha(s)  e^{\int_s^{t} \beta(\tau ) d\tau  } ds
  .\end{align*}
@@ -194,27 +191,33 @@ This concludes the uniqueness proof
            &= Me^{\int_a^{t}\beta(\tau ) d\tau  } 
  .\end{align*}
 \end{proof}
-
-\begin{exercise}
-	In the many particle setting \autoref{MPS1st} which assumptions for K are needed so that the
-interacting particle system has a unique global solution?
-\end{exercise}
 \newpage
 \section{Mean-field particle system, well-posedness and problem setting}
-In the setting of first order system \autoref{MPS1st}, we give the assumption for interaction force: 
+Let us again give the model and problem setting
+\begin{definition}[1st Order Particle System]\label{first_order_system}
+  We consider a system of $N$ particles and denote by $(x_{1}(t),x_{2}(t),\ldots,x_N(t)) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ),\ i=1,\ldots ,N $ 
+  the trajectories of the particles.\\[1ex]
+  Our first order system is then governed by the system of ordinary differential equations 
+  \begin{align*}
+    \text{(MPS)}\begin{cases}
+      d x_i(t) &= \frac{1}{N}\sum_{j=1}^{N} K(x_{i},x_{j}) dt  \quad 1\le i \le N \\
+        x_i(t)\rvert_{t=0} &= x_i(0) \in \mathbb{R}^{d} 
+    \end{cases}
+  .\end{align*}
+  where $K : \mathbb{R}^{2d} \to \mathbb{R}^{d}  $ is anti-symmetric i.e
+  \begin{align*}
+    K(x,y) = -K(y,x) \quad K(x,x) = 0
+  .\end{align*}
+\end{definition}
 \begin{assumption}\label{assumption_b}
-  $K : \mathbb{R}^d\times\mathbb{R}^d \to \mathbb{R}^{d}  $ is anti-symmetric i.e
- \begin{align*}
- K(x,y) = -K(y,x) \quad K(x,x) = 0
- .\end{align*} 
- Furthermore, $K \in  \mathcal{C}^{1}(\mathbb{R}^{d} \times \mathbb{R}^{d} ; \mathbb{R}^{d}   ) $ and there exists some $L>0$ such that
+  $K \in  \mathcal{C}^{1}(\mathbb{R}^{d} \times \mathbb{R}^{d} ; \mathbb{R}^{d}   ) $ and there exists some $L>0$ such that
   $\forall x,y \in \mathbb{R}^{d} $ it holds 
   \begin{align*}
     \sup_y \abs{\nabla_x K(x,y)} + \sup_x \abs{\nabla_yK(x,y)} \le L
   .\end{align*}
 \end{assumption}
 \begin{lemma}
-  Suppose \autoref{assumption_b} holds, then $\forall T>0$ the many particle system \autoref{MPS1st} has a unique solution 
+  When \autoref{assumption_b} holds for $K$ then for $\forall T>0$ the (MPS) has a unique solution 
   \begin{align*}
     X_N(t) = (x_{1}(t),x_{2}(t),\ldots ,x_{N}(t)) \in  \mathcal{C}^{1} ([0,T];\mathbb{R}^{dN} )
   .\end{align*}
@@ -222,13 +225,15 @@ In the setting of first order system \autoref{MPS1st}, we give the assumption fo
   \begin{align*}
     X_N(t,*): \mathbb{R}^{dN} \to \mathbb{R}^{dN}  \ :\ x \mapsto X_N(t,x)
   \end{align*}
-  is a bijection.
+  is a bijection 
 \end{lemma}
-
-\vskip5mm
-
-Let $\mu ^{N }(t) \triangleq \frac{1}{N}  \sum_{j=1}^{N} \delta_{x_i(t)}$ be the empirical measure given in \autoref{empirical_measure} .
-In the introduction we showed that the empirical measure satisfies a partial differential equation in the following sense: $\forall \phi  \in \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $  it holds
+In the introduction we saw that the empirical measure satisfies a partial differential equation
+\begin{definition}[PDE Problem]
+  Let $\mu ^{N}(t) $ be the empirical measure 
+  \begin{align*}
+    \mu ^{N }(t) \triangleq \frac{1}{N}  \sum_{j=1}^{N} \delta_{x_i(t)} 
+  .\end{align*}
+Then from the introduction we know that for $\forall \phi  \in \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $  the empirical measure satisfies
 \begin{align*}
   \frac{d}{dt} \braket{\mu^N(t),\phi } = \braket{\mu^N(t),\nabla \phi *\mathcal{K}\mu ^{N}(t) }
 .\end{align*}
@@ -236,29 +241,24 @@ where
 \begin{align*}
   \mathcal{K}\mu ^{N}(*) = \int_{\mathbb{R}^{d} }  K(*,y) d\mu ^{N}(y) 
 .\end{align*}
-
-We expect: if $\mu ^{N} \to \mu  $  in some sense, then the limiting measure $\mu $ should also satisfy 
+\end{definition}
+\begin{idea}
+ If $\mu ^{N} \to \mu  $  in some sense, then the limiting measure $\mu $ should also satisfy 
  \begin{align*}
   \begin{cases}
     &\partial_t \mu  + \nabla * (\mu \mathcal{K} \mu ) = 0 \\
-    & \mu_0=\lim_{N\to\infty}\mu^N(0)
+    & \mu^N(0)   \to \mu_0
   \end{cases}
-\end{align*}
-in the same sense. This weak sense is understood in the "sense of distributions", which we define in the following section.
-
+ .\end{align*}
+ in the sense weak sense i.e. the "sense of distributions" which we define in the following section
+\end{idea}
 \section{A short introduction for Distributions}
-
-As an conventional notation, we use $\alpha \in \N_0^n$ of length $\abs{\alpha } = \sum_{i} \alpha_i$ as a multi-index, with which the partial derivatives in multi-dimension can be written in a short version
-	\begin{align*}
-	\partial^{\alpha } = \prod^n_i \frac{\partial^\alpha_i}{\partial x_i^{\alpha_i}}
-	.\end{align*}
-
 \begin{definition}
- Let $\Omega  \subset  \mathbb{R}^{d} $  be an open subset, the space of test functions $\mathcal{D}(\Omega )$
- consists of all the functions in $\mathcal{C}_0^{\infty}(\Omega ) $ supplemented by the following convergence: \\[1ex]
+ Let $\Omega  \subset  \mathbb{R}^{d} $  be an open subset then the space of test functions $\mathcal{D}(\Omega )$
+ consists of all the functions in $\mathcal{C}_0^{\infty}(\Omega ) $ supplemented by the following convergence \\[1ex]
  We say $\phi_m \to  \phi \in  \mathcal{C}_0^{\infty}(\Omega ) $ iff 
  \begin{enumerate}
-   \item There exists a compact set $K \subset  \Omega $ such that $\supp \phi_m \subset  K$ for all $ m$
+   \item There exists a compact set $\exists K \subset  \Omega $ such that $\supp \phi_m \subset  K$ for $\forall m$
    \item For all multi indices $\alpha $ it holds 
      \begin{align*}
        \sup_K \abs{\partial ^{\alpha } \phi_m - \partial ^{\alpha } \phi   } \xrightarrow{m\to \infty}  0 
@@ -268,13 +268,19 @@ As an conventional notation, we use $\alpha \in \N_0^n$ of length $\abs{\alpha }
 \begin{remark}
  $\mathcal{D}(\Omega )$  is a linear space
 \end{remark}
-
+\begin{definition}[Multi-Index]
+A multi-index $\alpha \in \N_0^n$ of length $\abs{\alpha } = \sum_{i} \alpha_i$
+for example $\alpha  = (0,2,1) \in \N^3_0$  can be used to denote partial derivatives of higher order as such : 
+\begin{align*}
+  \partial^{\alpha } = \prod_i (\frac{\partial}{\partial x_i})^{\alpha_i}
+.\end{align*}
+\end{definition}
 \begin{definition}[Distribution]
  The space of Distributions is denoted by $\mathcal{D}'(\Omega )$  and is the dual space of $\mathcal{D}(\Omega)$
- i.e. it is the linear space of all continuous linear functionals on $\mathcal{D}(\Omega )$ \\[1ex]
+ i.e. it is the linear space of all continuous linear functions on $\mathcal{D}(\Omega )$ \\[1ex]
  We say a functional $T :\mathcal{D}(\Omega ) \to \mathbb{C}$ is continuous linear iff 
  \begin{enumerate}
-   \item $\braket{T,\alpha \phi_1+ \beta \phi_2} = \alpha \braket{T,\phi_1} + \beta \braket{T,\phi_2}$, $\forall \alpha,\beta\in \R$ and $\forall \phi_1,\phi_2\in\mathcal{D}(\Omega)$
+   \item $\braket{T,\alpha \phi_1+ \beta \phi_2} = \alpha \braket{T,\phi_1} + \beta \braket{T,\phi_2}$ 
    \item If $\phi_m \to  \phi $ in $\mathcal{D}(\Omega )$ then $\braket{T,\phi_m} \to \braket{T,\phi }$
  \end{enumerate}
 \end{definition}
@@ -287,19 +293,17 @@ For a smooth function $f \in  \mathcal{C}^{\infty} $ and a distribution $T \in \
 .\end{align*}
 \end{definition}
 \begin{remark}
- Multiplication between two Distributions $T,F \in  \mathcal{D}'$ is not well defined.
-% instead the convolution of two Distributions can be defined 
+ Multiplication between two Distributions $T,F \in  \mathcal{D}'$ is not well defined, 
+ instead the convolution of two Distributions is defined 
 \end{remark}
-
-Next we give a list of examples for distributions.
 \begin{example}
-  For functions $f \in  L^{1}_{\text{loc}}(\Omega ) $  we can define the associated distribution $T_f \in  \mathcal{D}'(\Omega )$ by 
+  For functions $f \in  L^{1}_{\text{loc}}(\Omega ) $  we can define the associated distribution $T_f \in  \mathcal{D}'(\Omega )$ is defined by 
   \begin{align*}
     \braket{T_f,\phi } = \int_\Omega  f(x)\phi(x) dx \quad \forall \phi  \in \mathcal{D}(\Omega )
   .\end{align*}
-  With this meaning we say $L_{\text{loc}}^{1}(\Omega ) \subset \mathcal{D}'(\Omega )  $\\[1ex]
+  and say $L_{\text{loc}}^{1}(\Omega ) \subset \mathcal{D}'(\Omega )  $\\[1ex]
   Similarly $L^{p}_{\text{loc}} \subset  \mathcal{D}'(\Omega ) $, using Hölder's inequality one obtains
-  $L_{\text{loc}}^{p}(\Omega ) \subset L_{\text{loc}}^{q}(\Omega )   $ for $1\leq q<p\leq \infty$.
+  $L_{\text{loc}}^{p}(\Omega ) \subset L_{\text{loc}}^{q}(\Omega )   $ for $1<q<p<\infty$
 \end{example}
 \begin{remark}
  The support of a distribution is also well-defined 
@@ -312,14 +316,15 @@ Next we give a list of examples for distributions.
   .\end{align*}
   then $f = g$ a.e. in $\Omega $
 \end{theorem}
+\begin{proof}
  This proof is left as an exercise  
-
+\end{proof}
 \begin{example}
  The set of probability density functions on $\mathbb{R}$ is a subset of $\mathcal{D}'(\mathbb{R} )$.
- For any probability density function $\rho(x)$ the associated distribution  $T_\rho \in \mathcal{D}'(\mathbb{R})$
+ For any probability density function $P(x)$ the associated distribution  $T_P \in \mathcal{D}'(\mathbb{R})$
  is defined by
  \begin{align*}
-   \braket{T_\rho,\phi } = \int_\mathbb{R} \phi(x) \rho(x) dx \quad \forall  \phi  \in \mathcal{D}(\mathbb{R})
+   \braket{T_P,\phi } = \int_\mathbb{R} \phi(x) P(x) dx \quad \forall  \phi  \in \mathcal{D}(\mathbb{R})
  .\end{align*}
 \end{example}
 \begin{example}
@@ -330,7 +335,8 @@ Next we give a list of examples for distributions.
  .\end{align*}
 \end{example}
 \begin{example}
- An important example of a distribution, which is not defined within the framework of locally integrable functions, is the Delta distribution $\delta_y(x)$  (concentrated on $y \in  \mathbb{R}^{d} $) 
+ An important example of a distribution which is not defined in the above way
+ is the Delta distribution $\delta_y(x)$  (concentrated on $y \in  \mathbb{R}^{d} $) 
  \begin{align*}
    \braket{\delta_y,\phi } = \int_{\mathbb{R}^{d} } \phi(x) d \delta_y(x) = \phi(y) \quad \forall \phi  \in \mathcal{D}(\Omega )
  .\end{align*}
@@ -348,8 +354,8 @@ The empirical measure $\mu ^{N} $ is actually given by using the Delta distribut
 .\end{align*}
 We define the convergence for a sequence of distributions as follows 
 \begin{definition}
-  For a sequence of distributions $(T_m)_{m \in  \mathbb{N}} \subset  \mathcal{D}'(\Omega )$  we say that it converges against
-  a limit $T \in \mathcal{D}'(\Omega )$ if and only if
+  For a sequence of distributions $(T_m)_{m \in  \mathbb{N}} \subset  \mathcal{D}'(\Omega )$  we was it converges against
+  a limit $T \in \mathcal{D}'(\Omega )$ iff 
   \begin{align*}
     \braket {T_m,\phi } \to \braket{T,\phi } \quad \forall \phi  \in \mathcal{D}(\Omega )
   .\end{align*}
@@ -377,16 +383,16 @@ Based on this convergence we give some examples in the approximation of $\delta_
 \end{figure}
 \end{example}
 \begin{lemma}
-  The sequence of distributions associated to the heat kernel converge to the Delta distribution.
+  The sequence of distributions associated to the heat kernel converge to the Delta distribution 
 \end{lemma}
 \begin{proof}
  We consider the limit $t\to 0^+$  and obtain $\forall \phi  \in  \mathcal{C}_0^{\infty}(\Omega ) $
  \begin{align*}
-   \lim_{t \to 0^+} \int_\mathbb{R} f_t(x) \phi(x) &= \lim_{t \to  0^+} \int_\mathbb{R} \frac{1}{(4\pi t)^{\frac{1}{2}} } e^{-\frac{\abs{x}^2}{4t}} \phi(x)dx\\
+   \lim_{t \to 0^+} \int_\mathbb{R} f_t(x) \phi(x) &= \lim_{t \to  0^+} \int_\mathbb{R} \frac{1}{(4\pi t)^{\frac{1}{2}} } e^{-\frac{\abs{x}^2}{4t}} \phi(x)\\
                                                    &= \lim_{t \to 0^+} \int_{-\infty}^{\infty} \frac{1}{\sqrt{\pi} }  e^{-y^2}  \phi(2 \sqrt{t}y) dy \\
                                                    &= \phi(0) = \braket{\delta_0,\phi }
  .\end{align*}
- where we used the substitution $x = 2\sqrt{t}y $. 
+ where we used $x = 2\sqrt{t}y $ 
 \end{proof}
 \begin{example}
   For the rectangular functions 
@@ -416,14 +422,16 @@ Based on this convergence we give some examples in the approximation of $\delta_
   \caption{Rectangular functions for different $n$}
 \end{figure}
 \end{example}
-We leave the proof as an exercise.
-
+\newpage
 \begin{example}
  The Dirichlet kernel 
  \begin{align*}
   D_n(x) = \frac{\sin(n+\frac{1}{2})x}{\sin \frac{x}{2}} = 1+2 \sum_{k=1}^{n} \cos(kx) 
  .\end{align*}
- Then $D_n \xrightarrow{n\to \infty}2\pi \delta_0(x)$ in the sense of distribution
+ Then 
+ \begin{align*}
+   D_n \xrightarrow{n\to \infty}2\pi \delta_0(x)
+ .\end{align*}
 \begin{figure}[H]
   \begin{center}
     
@@ -453,22 +461,22 @@ We leave the proof as an exercise.
 \caption{Dirichlet kernel for different $n$}
 \end{figure}
 \end{example}
-We leave the proof also as an exercise.
 \section{Weak Derivative Of Distributions}
 \begin{definition}
- For all distributions  $T \in  \mathcal{D}'(\Omega )$  we define the derivative $\partial_i T$ by 
+ For all distributions  $\forall  T \in  \mathcal{D}'(\Omega )$  we define the derivative $\partial_i T$ by 
  \begin{align*}
-   \braket{\partial_i T,\phi } &\coloneqq -\braket{T,\partial_i \phi } \quad \forall \phi  \in \mathcal{D}(\Omega)\\
-   \braket{\partial_i^{\alpha }  T,\phi } &\coloneqq (-1)^{\abs{\alpha }} \braket{T,\partial_i^{\alpha }  \phi } \quad \forall \phi  \in \mathcal{D}(\Omega),
-\end{align*}
-where we use the notation of multi index $\alpha $.
+   \braket{\partial_i T,\phi } &\coloneqq -\braket{T,\partial_i \phi } \quad \forall \phi  \in \mathcal{D}(\Omega)
+   \braket{\partial_i^{\alpha }  T,\phi } &\coloneqq (-1)^{\abs{\alpha }} \braket{T,\partial_i^{\alpha }  \phi } \quad \forall \phi  \in \mathcal{D}(\Omega)
+ .\end{align*}
+ For multi index $\alpha $ 
 \end{definition}
 \begin{exercise}
- Show that $\partial_i T\in \mathcal{D}'(\Omega )$. Namely prove that the function $-\braket{T,\partial_i \phi }$  is a continuous and linear functional of $\phi\in\mathcal{D}(\Omega )$.  
+  Prove the function $-\braket{T,\partial_i \phi }$  is a continuous and linear function  \\[1ex]
+  \textit{Hint:} Consider the case where $T \coloneqq T_f$ for $f \in  L_{\text{loc}}^{1} $
 \end{exercise}
 We give a couple examples 
 \begin{example}
- The weak derivative of the Dirac Delta distribution is given by:  $\forall \phi  \in  \mathcal{D}(\Omega )$,
+ For  $\forall \phi  \in  \mathcal{D}(\Omega )$ the weak derivative of the Dirac Delta distribution is given by 
  \begin{align*}
    \braket{\delta'_0,\phi } &= - \braket{\delta_0,\phi'} = -\phi(0)\\
    \braket{\delta_0^{(k)},\phi  } &= (-1)^{k} \phi ^{(k)}  (0)
@@ -482,26 +490,32 @@ We give a couple examples
     0,&x<0
   \end{cases}
  .\end{align*}
- is the Dirac Delta distribution.
+ is the Dirac Delta distribution
 \end{lemma}
 \begin{proof}
- For $\forall  \phi  \in \mathcal{D}(\Omega )$,  it holds 
+ For $\forall  \phi  \in \mathcal{D}(\Omega )$  it holds 
  \begin{align*}
-   \braket{H',\phi } &\myS{Def.}{=} -\braket{H,\phi'}= - \int_{-\infty}^{\infty} H(x)\phi'(x)  dx = - \int_0^{\infty} \phi'(x) dx \\
-                     &= \phi(0) = \braket{\delta_0,\phi }
+   \braket{H',\phi } &\myS{Def.}{=} -\braket{H,\phi'}\\
+                     &= - \int_{-\infty}^{\infty} H(x)\phi'(x)  dx \\
+                     &= - \int_0^{\infty} \phi'(x) dx \\
+                     &= \phi(0) \\
+                     &= \braket{\delta_0,\phi }
  .\end{align*}
- Therefore  $ H' = \delta_0$ in the sense of distribution.
+ Therefore 
+ \begin{align*}
+  H' = \delta_0
+ .\end{align*}
 \end{proof}
-
+We can now go on to properly formulate the mean field partial differential equation in a weak sense
 \section{Weak Formulation Of The Mean Field Partial Differential Equation}
-We can now go on to properly formulate the mean field partial differential equation in a weak sense. Using the notation of the empirical measure we can rewrite our earlier definition of the \autoref{MPS1st} as follows
+Using the notation of the empirical measure we can rewrite our earlier definition of the (MPS) as follows
 \begin{align*}
   \begin{cases}
     \frac{d}{dt} x_i(t) &= \braket{K(x_i,*),\mu^N(t,*)} = \int_{\mathbb{R}^{d} } K(x_{i},y) d\mu ^{N} (t,y)\\
     x_i(0)&=x_{i,0} \in \mathbb{R}^{d} , t \in [0,T]
   \end{cases}
 .\end{align*}
-As has been discussed before, the empirical measure satisfies for $\forall  \phi  \in \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $ 
+As has been discussed before, the empirical measure satisfies for $\forall  \phi  \in \mathcal{C}_0^{\infty}(\mathbb{R}^{D} ) $ 
 \begin{align*}
   \frac{d}{dt} \braket{\mu ^{N},\phi  } = \braket{\mu ^{N}\mathcal{K}\mu ^{N},\nabla \phi   } = \braket{- \divergence(\mu^N \mathcal{K} \mu ^{N} ),\phi }
 .\end{align*}
@@ -517,85 +531,91 @@ sense of distribution
 \begin{exercise}
  Show $\mu ^{N}\mathcal{K}\mu ^{N}  $  is a distribution for smooth $K(x,y)$ 
 \end{exercise}
-\vskip5mm
-Next we concentrate on the following mean field PDE
- \begin{align}\label{MFE}
+Next we concentrate on the following PDE 
+\begin{definition}[Mean Field Equation (MFE)]\label{mfe}
+ Define the mean field equation as 
+ \begin{align*}
   \text{(MFE)}\begin{cases}
-    \partial_t\mu + \divergence (\mu \mathcal{K}\mu ) &= 0\\
+    \partial_t + \divergence (\mu \mathcal{K}\mu ) &= 0\\
     \mu \rvert_{t=0} &= \mu_0
   \end{cases}
- ,\end{align}
+ .\end{align*}
  where
 \begin{align*}
-  \mathcal{K}\mu (x) = \int_{\mathbb{R}^{d} }  K(x,y) d\mu (y)
-.\end{align*}
-We give the definition of the weak solution of \autoref{MFE}:
-\begin{definition}[Weak Solution of \autoref{MFE}]\label{weak_solution_of_mfe}
+  \mathcal{K}\mu ^{N}(x) = \int_{\mathbb{R}^{d} }  K(x,y) d\mu ^{N} (y)
+,\end{align*}
+\end{definition}
+We give the definition of the weak solution of (MFE)
+\begin{definition}[Weak Solution of MFE]\label{weak_solution_of_mfe}
   For all $t \in [0,T]$ , $\mu (t) \in  \mathcal{M}(\mathbb{R}^{d} )$ is called a 
-  weak solution of \autoref{MFE}, where $\mathcal{M}(\mathbb{R}^{d} )$ denotes the space of measures on $\mathbb{R}^{d}$, if $\forall  \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $ it holds 
+  weak solution of (MFE), where $\mathcal{M}(\mathbb{R}^{d} )$ denotes the space of measures on $\mathbb{R}^{d} $\\[1ex]
+  For $\forall  \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $ it holds 
   \begin{align*}
-    \braket{\mu(t),\phi } - \braket{\mu_0,\phi } = \int_0^{t} \braket{\mu (s)\mathcal{K}\mu(s),\nabla \phi } ds
+    \braket{\mu(t),\phi } - \braket{\mu_0,\phi } = \int_0^{t} \braket{\mu (s)\mathcal{K}\mu(s),\nabla \phi } 
   .\end{align*}
 \end{definition}
 \begin{remark}
  If $\mu_0 =  \mu ^{N}(0) $  i.e. the initial data is given by an empirical measure, then 
- $\mu ^{N}(t,*) $ is a weak solution of the \autoref{MFE}.
+ $\mu ^{N}(t,*) $ is a weak solution of the (MFE)
 \end{remark}
-
+We define the following initial value problem, the so called characteristics equation
 \begin{definition}[Push Forwad Measure]
- For a measurable function $X$ and a measure $\mu_0 \in  \mathcal{M}(\mathbb{R}^{d} )$, the push forward measure $X_\# \mu_0$ is given by: for any Borel set $B \subset \mathbb{R}^{d} $, it holds
+ For a measurable function $X$ and a measure $\mu_0 \in  \mathcal{M}(\mathbb{R}^{d} )$ 
+ denote the push forward measure for any Borel set $B \subset \mathbb{R}^{d} $ by
  \begin{align*}
-  X_\# \mu_0  \coloneqq  \mu_0(X^{-1}(B) ) 
+  X \# \mu_0  \coloneqq  \mu_0(X^{-1}(B) ) 
  .\end{align*}
 \end{definition}
-We consider the following initial value problem, the so called characteristics flow,
- \begin{align}\label{characteristics_equation}
+\begin{definition}[Characteristics equation]\label{characteristics_equation}
+  \begin{align*}
     \begin{cases}
-  \displaystyle\frac{d}{dt} x(t,x_{0},\mu_0) = \int_{\mathbb{R}^{d} } K(x(t,x_{0},\mu_0),y)d\mu(y,t)\\
-      x(0,x_{0},\mu_{0} )=x_{0}, \quad \forall  x_{0} \in  \mathbb{R}^{d} \\ 
-     \mu(*,t) = x(t,*,\mu_0)_\# \mu_0.
+      \frac{d}{dt} x(t,x_{0},\mu_0) &= \int_{\mathbb{R}^{d} } K(x(t,x_{0},\mu_0),y)d\mu(y,t)\\
+      x(0,x_{0},\mu_{0} )&=x_{0} \quad \forall  x_{0} \in  \mathbb{R}^{d} \\ 
+      \mu(*,t) &= x(t,*,\mu_0) \# \mu_0
     \end{cases}
-  \end{align}
-The solution flow $x(t,*,\mu_0)$ gives for any time $t>0$ a map 
+  .\end{align*}
+  The solution flow $x(t,*,\mu_0)$ gives for any time $t>0$ a map 
   \begin{align*}
     x(t,*,\mu_0) \ : \ \mathbb{R}^{d} \to  \mathbb{R}^{d} 
   .\end{align*}
-
+\end{definition}
 \begin{remark}
   It can be easily checked that the push forward measure $\mu(t)$ obtained in the \nameref{characteristics_equation} is a 
- weak solution of the \autoref{MFE}.
+ weak solution of the (MFE)
 \end{remark}
-\vskip5mm
-
-  The solution of the \nameref{characteristics_equation} is going to be proved in the following space: 
+\begin{remark}
+  The solution space  of the \nameref{characteristics_equation} is  given by 
   \begin{align*}
     \mathcal{P}_1(\mathbb{R}^{d} ) = \{\mu \in \mathcal{P}(\mathbb{R}^{d} ) \ : \ \int_{\mathbb{R}^{d} } \abs{x} d \mu(x) <\infty\}  
   .\end{align*}
   where $\mathcal{P}(\mathbb{R}^{d} )$ is the space of all probability measures
-
-
-\begin{assumption}\label{K_regularity}
+\end{remark}
+\begin{assumption}[Regularity]\label{regularity}
  We say an interaction force $K$ is regular if $K \in  \mathcal{C}^{1}(\mathbb{R}^{d} \times  \mathbb{R}^{d} ; \mathbb{R}^{d}   ) $ and there exists
  an $L > 0$ such that 
  \begin{align*}
    \sup_{y} \abs{\nabla_x K(x,y)} + \sup_{x} \abs{\nabla_y K(x,y)} \le L
  .\end{align*}
 \end{assumption}
-Actually this assumption is also needed to in order to show the well-posedness of the particle system, which is a direct application of the ODE theory.
-We will use the same assumption to solve the \autoref{MFE} and \autoref{characteristics_equation}.
-\begin{theorem}[Existence and Uniqueness of \autoref{characteristics_equation}]\label{existence_uniqueness_char}
-  Let \autoref{K_regularity} hold for K and $\mu_0 \in \mathcal{P}_1(\mathbb{R}^{d} )$ then the 
-  \autoref{characteristics_equation}  has a unique solution $x(t,x_{0},\mu_0) \in  \mathcal{C}^{1}(\mathbb{R};\mathbb{R}^{d}  ) $
-  and $x(t,*,\mu_0)_\# \mu_0 \in  \mathcal{P}_1 $ for $\forall t > 0$.
+Actually this assumption has already been used in order to show the well-posedness of the particle system
+\newpage
+\begin{theorem}[Existence and Uniqueness of Characteristics Equation]\label{existence_uniqueness_char}
+  Let \autoref{regularity} hold for K and $\mu_0 \in \mathcal{P}_1(\mathbb{R}^{d} )$ then the 
+  \nameref{characteristics_equation}  has a unique solution $x(t,x_{0},\mu_0) \in  \mathcal{C}^{1}(\mathbb{R};\mathbb{R}^{d}  ) $
+  and $x(t,*,\mu_0) \# \mu_0 \in  \mathcal{P}_1 $ for $\forall t > 0$
 \end{theorem}
 \begin{proof}
   The proof is based on Picard iteration. \\[1ex] 
   Let $C_1 = \int_{\mathbb{R}^{d} } \abs{x} d\mu_0(x)$ and define the following Banach space 
   \begin{align*}
-    X \coloneqq  \{v \in  \mathcal{C}(\mathbb{R}^{d};\R^d) \: \ \|v\|_{X} < \infty\},  \quad  \|v\|_X \coloneqq \sup_{x \in  \mathbb{R}^{d} } \frac{\abs{v(x)}}{1+\abs{x}}.
+    X \coloneqq  \{v \in  \mathcal{C}(\mathbb{R}^{d}) \: \ \|v\|_{X} < \infty\}  
   .\end{align*}
-  As preparations we need the following estimates for the nonlocal term, by using \autoref{K_regularity} for $K$
-  we have $\forall  v , w \in  X$ 
+  Where 
+  \begin{align*}
+    \|v\|_X \coloneqq \sup_{x \in  \mathbb{R}^{d} } \frac{\abs{v(x)}}{1+\abs{x}}
+  .\end{align*}
+  As preparations we need the following estimates for the nonlocal term, by using \autoref{regularity} for $K$
+  we have for $\forall  v , w \in  X$ 
   \begin{align*}
     &\abs*{\int_{\mathbb{R}^{d} }K(v(x),v(y)) d\mu_0(y) - \int_{\mathbb{R}^{d} }K(w(x),w(y)) d\mu_0(y)}\\
     &\le L \int_{\mathbb{R}^{d} } \abs{v(x)-w(x)} + \abs{v(y) - w(y)} d\mu_0(y)\\
@@ -607,8 +627,8 @@ We will use the same assumption to solve the \autoref{MFE} and \autoref{characte
     x_0(t,y) &= y \\
     x_1(t,y) &= y + \int_0^{t} \int_{\mathbb{R}^{d}} K(x_{0}(s,y),x_0(s,z))d\mu_0(z)ds\\
              &\vdots \\
-    x_m(t,y) &= y + \int_0^{t} \int_{\mathbb{R}^{d}} K(x_{m-1}(s,y),x_{m-1}(s,z))d\mu_0(z)ds.
-  \end{align*}
+    x_m(t,y) &= y + \int_0^{t} \int_{\mathbb{R}^{d}} K(x_{m-1}(s,y),x_{m-1}(s,z))d\mu_0(z)ds\\
+  .\end{align*}
   Then we can bound the difference between $x_{1}$ and $x_{0}$ by 
   \begin{align*}
     \abs{x_1(t,y) - x_{0}(t,y)} &= \abs*{\int_0^{t} \int_{\mathbb{R}^{d} }  K(x_{0}(s,y),x_{0}(s,z)) d\mu_0(z) ds} \\
@@ -640,12 +660,12 @@ We will use the same assumption to solve the \autoref{MFE} and \autoref{characte
   \begin{align*}
     x(t,y) = y + \int_0^{t} \int_{\mathbb{R}^{d} } K(x(s,y),x(s,z)) d\mu_0(z) ds
   .\end{align*}
-  By the fundamental theorem of calculus and \autoref{K_regularity} we know that for $y \in  \mathbb{R}^{d} $ and $x(t,y) \in  \mathcal{C}^{1}(\mathbb{R};\mathbb{R}^{d} ) $
+  By the fundamental theorem of calculus and \autoref{regularity} we know that for $y \in  \mathbb{R}^{d} $ and $x(t,y) \in  \mathcal{C}^{1}(\mathbb{R};\mathbb{R}^{d} ) $
   \begin{align*}
     \frac{d}{dt} x(t,y) = \int_{\mathbb{R}^{d} } K(x(t,y),x(t,z)) d\mu_0(z) = \int_{\mathbb{R}^{d} }K(x(t,y),z')d\mu(z',t)
   .\end{align*}
   where $\mu(*,t)$ is the push forward measure of $\mu_0$ along $x(t,*)$\\[1ex]
-  For uniqueness, we consider two solutions $x,\tilde{x} $. By taking the difference we have 
+  For uniqueness consider two solutions $x,\tilde{x} $ then by taking the difference we have 
   \begin{align*}
     x(t,y) - \tilde{x}(t,y)  = \int_0^{t} \int_{\mathbb{R}^{d} } \left( K(x(s,y),x(s,z)) - K(\tilde{x}(s,y),\tilde{x}(s,z)  )\right)  d\mu_0(z)ds
   .\end{align*}
@@ -655,17 +675,17 @@ We will use the same assumption to solve the \autoref{MFE} and \autoref{characte
   .\end{align*}
   By applying Gronwall's inequality we get 
   \begin{align*}
-    \|x(t,*) - \tilde{x}(t,*) \|_X = 0,
-\end{align*}
-considering the fact that $\|x(0,*) - \tilde{x}(0,*) \|_X = 0$.
+    \|x(t,*) - \tilde{x}(t,*) \|_X = 0
+  .\end{align*}
+  where clearly $\|x(0,*) - \tilde{x}(0,*) \|_X = 0$
 \end{proof}
 \subsection{Stability}
-Let's remind us of the $N$-particle system \autoref{MPS1st}, the Mean field equation \autoref{MFE} and its weak solution as defined in \autoref{weak_solution_of_mfe}.
+Let's remind us of the $N$-particle system (MPS), the Mean field equation (MFE) and its weak solution as defined in \autoref{weak_solution_of_mfe}.
 We have thus far done the following things 
 \begin{enumerate}
-  \item If $\mu_0 = \mu_N(0)$  then $\mu_N(t)$ is a weak solution of \autoref{MFE}
-  \item If $\mu_0 = \mathcal{P}_1(\mathbb{R}^{d} )$ and the assumption on \nameref{K_regularity} hold for K,then\\
-    $x(t,*,\mu_0)_\# \mu_0 \in  \mathcal{P}_1$ is the solution of \autoref{MFE}.
+  \item If $\mu_0 = \mu_N(0)$  then $\mu_N(t)$ is a weak solution of (MFE)
+  \item If $\mu_0 = \mathcal{P}_1(\mathbb{R}^{d} )$ and the assumption on \nameref{regularity} hold for K,then\\
+    $x(t,*,\mu_0) \# \mu_0 \in  \mathcal{P}_1$ is the solution of (MFE)
 \end{enumerate}
 We will prove the stability of the mean field PDE, which means directly that 
 \begin{align*}
@@ -673,24 +693,24 @@ We will prove the stability of the mean field PDE, which means directly that
 .\end{align*}
 by using the so called Monge-Kantorovich distance (or Wasserstein distance) 
 \begin{definition}[Monge-Kantorovich Distance]
-Let
+ For two measures $\mu ,\nu  \in  \mathcal{P}_p(\mathbb{R}^{d} )$  $p\ge 1$ with 
  \begin{align*}
-   \mathcal{P}_p(\mathbb{R}^{d} ) = \{\mu  \in  \mathcal{P}(\mathbb{R}^{d}) \ : \ \int_{\mathbb{R}^{d} } \abs{x}^{p} d\mu(x) <\infty  \} , \quad p\geq 1
+   \mathcal{P}_p(\mathbb{R}^{d} ) = \{\mu  \in  \mathcal{P}(\mathbb{R}^{d}) \ : \ \int_{\mathbb{R}^{d} } \abs{x}^{p} d\mu(x) <\infty  \}  
  .\end{align*}
- For two measures $\mu ,\nu  \in  \mathcal{P}_p(\mathbb{R}^{d} )$, the Monge-Kantorovich distance $\dist_{\text{MK},p}(\mu ,\nu )$ or $W^{p}(\mu ,\nu ) $ is defined by 
+ the Monge-Kantorovich distance $\dist_{\text{MK},p}(\mu ,\nu )$ or $W^{p}(\mu ,\nu ) $ is defined by 
  \begin{align*}
    \dist_{\text{MK},p}(\mu ,\nu ) = W^{p}(\mu ,\nu )  = \inf_{\pi  \in  \Pi(\mu ,\nu )}\left( \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } \abs{x-y}^{p} d\pi(x,y) \right)^{\frac{1}{p}} 
  .\end{align*}
  where 
  \begin{align*}
-   \Pi(\mu ,\nu ) = \Big\{\pi  \in  \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) \ : \ \int_{\mathbb{R}^{d} }\pi(*,dy) = \mu(*) \text{ and } \int_{\mathbb{R}^{d} } \pi(dx,*) = \nu(*)\Big\}. 
+   \Pi(\mu ,\nu ) = \{\pi  \in  \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) \ : \ \int_{\mathbb{R}^{d} }\pi(*,dy) = \mu(*) \text{ and } \int_{\mathbb{R}^{d} } \pi(dx,*) = \nu(*)\}  
  .\end{align*}
 \end{definition}
 \begin{remark}
  For $\forall \phi ,\psi  \in  \mathcal{C}(\mathbb{R}^{d} )$  such that $\phi(x) \sim O(\abs{x}^{p} )$ for $\abs{x} \gg 1$ and $\psi(y) \sim O(\abs{y}^{p} )$ for 
  $\abs{y} \gg 1$, for $\pi \in  \Pi(\mu,\nu ) $ it holds 
  \begin{align*}
-   \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } (\phi(x)+\psi(y)) d\pi(x,y) = \int_{\mathbb{R}^{d} } \phi(x)  d\mu(x) + \int_{\mathbb{R}^{d} } \psi(y) d\nu(y)
+   \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } (\phi(x)+\psi(y)) d\pi(x,y) = \int_{\mathbb{R}^{d} } \phi(x) + d\mu(x) + \int_{\mathbb{R}^{d} } \psi(y) d\nu(y)
  .\end{align*}
 \end{remark}
 \begin{remark}[Kantorovich-Rubinstein duality]
@@ -700,22 +720,22 @@ Let
  .\end{align*}
 \end{remark}
 \begin{theorem}[Dobrushin's stability]\label{dobrushin_stability}
-  Let $\mu_0,\overline{\mu }_0 \in  \mathcal{P}_1(\mathbb{R}^{d} ) $  and
-  $(x(t,*,\mu_0),\mu(*,t))$ , $(x(t,*,\overline{\mu}_0)$, $\overline{\mu}_0 (*,t))$ be solutions of 
-  \autoref{existence_uniqueness_char}. Then $\forall t >0$ it holds 
+  Let $\mu_0,\overline{\mu }_0 \in  \mathcal{P}_1(\mathbb{R}^{d} ) $  and\\
+  $(x(t,*,\mu_0),\mu(*,t))$ , $(x(t,*,\overline{\mu}_0),\overline{\mu}_0 (*,t))$ be solutions of 
+  \autoref{existence_uniqueness_char}. Then $\forall t >0$ it hold 
   \begin{align*}
     \dist_{\text{MK},1}(\mu(*,t),\overline{\mu }(*,t) ) \le e^{2 \abs{t} L} \dist_{\text{MK},1} (\mu_0,\overline{\mu }_0 )
   .\end{align*}
 \end{theorem}
 \begin{proof}
-  Let $(x_{0},\mu_0)$  and $(\overline{x}_0,\overline{\mu }_0  )$ be two initial data pairs of problem \autoref{characteristics_equation}
-  and $\pi_0 \in  \Pi (\mu_0,\overline{\mu }_0 )$. By taking the difference of these two problems, we have 
+  Let $(x_{0},\mu_0)$  and $(\overline{x}_0,\overline{\mu }_0  )$ be two initial data pairs of problem \autoref{existence_uniqueness_char}
+  and $\pi_0 \in  \Pi (\mu_0,\overline{\mu }_0 )$ taking the difference of these two problems, we have 
   \begin{alignat*}{3}
     &x(t,x_{0},\mu_0) &&- x(t,\overline{x}_0,\overline{\mu }_0  ) \\
     &= x_{0}-\overline{x}_0 &&+ \int_0^{t} \int_{\mathbb{R}^{d} }   K(x(s,x_{0},\mu_0),y) d\mu(s,y) ds  \\
     & &&- \int_0^{t} \int_{\mathbb{R}^{d} } K(x(s,\overline{x}_0,\overline{\mu }_0),y) d \overline{\mu }(s,y)ds
   .\end{alignat*}
-where $\mu(*,t) = x(t,*,\mu_0)_\# \mu_0$ and $\overline{\mu }(*,t) = x(t,*,\overline{\mu }_0 )_\# \overline{\mu }_0$. Now we compute further and get 
+where $\mu(*,t) = x(t,*,\mu_0) \# \mu_0$ and $\overline{\mu }(*,t) = x(t,*,\overline{\mu }_0 ) \# \overline{\mu }_0$. Now we compute further and get 
 \begin{alignat*}{3}
   &x(t,x_{0},\mu_0) &&- x(t,\overline{x}_0,\overline{\mu }_0  )\\
   &= x_{0}-\overline{x}_0 &&+ \int_0^{t} \int_{\mathbb{R}^{d} } K(x(s,x_{0},\mu_0),x(s,z,\mu_0)) d\mu_0(z) ds \\
@@ -723,11 +743,11 @@ where $\mu(*,t) = x(t,*,\mu_0)_\# \mu_0$ and $\overline{\mu }(*,t) = x(t,*,\over
   &= x_0 - \overline{x_0}  &&+ \int_0^{t} \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } \left(K(x(s,x_{0},\mu_0),x(s,z,\mu_0)) \right.\\
   & &&-\left. K(x(s,\overline{x}_0,\overline{\mu }_0  ),x(s,\overline{z},\overline{\mu }_0  ))\right) d\pi_0(z,\overline{z} ) ds
 .\end{alignat*}
-There for by assumption on \autoref{K_regularity} for K, we have 
+There for by assumption on \nameref{regularity} for K, we have 
 \begin{alignat*}{3}
   &\abs{x(t,x_{0},\mu_0) - x(t,\overline{x}_0,\overline{\mu }_0  )}  \\
-  &\le \abs{x_{0}-\overline{x}_0 } + L \int_0^{t} \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  }&&\Big(\abs{x(s,x_{0},\mu_0)- x(s,\overline{x}_0,\overline{\mu }_0  )}  \\
-  &  &&+ \abs{x(s,z,\mu_0) - x(s,\overline{z},\overline{\mu }_0  )}\Big)  d\pi_0(z,\overline{z} ) ds
+  &\le \abs{x_{0}-\overline{x}_0 } + L \int_0^{t} \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  }&&\abs{x(s,x_{0},\mu_0)- x(s,\overline{x}_0,\overline{\mu }_0  )}  \\
+  &  &&+ \abs{x(s,z,\mu_0) - x(s,\overline{z},\overline{\mu }_0  )}  d\pi_0(z,\overline{z} ) ds
 \end{alignat*}
 \vspace{-\baselineskip}
 \begin{alignat*}{3}
@@ -755,13 +775,13 @@ which implies by Gronwall's inequality that
 .\end{align*}
 Now let $\phi_t : \mathbb{R}^{d} \times  \mathbb{R}^{d} \to  \mathbb{R}^{d} \times  \mathbb{R}^{d}    $ be the map such that 
 \begin{align*}
-  \phi_t(x_{0},\overline{x}_0 ) = (x(t,x_{0},\mu_0),x(t,\overline{x}_0,\overline{\mu }_0  )),
-\end{align*}
-and for arbitrary $\pi_0 \in  \Pi(\mu_0,\nu_0)$, $\pi_t \coloneqq  (\phi_t)_\# \pi_0$ be the push forward measure of $\pi_0$ by $\phi_t$.
+  \phi_t(x_{0},\overline{x}_0 ) = (x(t,x_{0},\mu_0),x(t,\overline{x}_0,\overline{\mu }_0  ))
+.\end{align*}
+and for arbitrary $\pi_0 \in  \Pi(\mu_0,\nu_0)$ , $\pi_t \coloneqq  \phi_t \# \pi_0$ be the push forward measure of $\pi_0$ by $\phi_t$.
 It is obvious that 
 \begin{align*}
-  \pi_t = (\phi_t)_\# \pi_0 \in  \Pi(\mu(*,t),\overline{\mu }(*,t) )
-\end{align*}
+  \pi_t = \phi_t \# \pi_0 \in  \Pi(\mu(*,t),\overline{\mu }(*,t) )
+.\end{align*}
 Therefore 
 \begin{align*}
   \dist_{\text{MK},1}(\mu(*,t),\overline{\mu }(*,t) ) &= \inf_{\pi \in \Pi(\mu(*,t),\overline{\mu }(*,t) ) } \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } \abs{z-\overline{z} } d\pi(z,\overline{z} )\\
@@ -771,11 +791,7 @@ Therefore
                                                       &= e^{2Lt} \dist_{\text{MK},1}(\mu_0,\overline{\mu }_0 )
 .\end{align*}
 \end{proof}
-
-
-
 \section{Mollification Operator}
-In this section, we give a short introduction of the mollification operator. It will be used to prove the conservation of mass on the PDE level, instead of using the concept of push-forward measure.
 \begin{definition}[Mollification-Kernel]
 A function $j(x) \in  \mathcal{C}_0^{\infty} $ is called a mollification kernel  if it satisfies
 the following properties
@@ -785,7 +801,6 @@ the following properties
   \item $\int_{\mathbb{R}^{d} } j(x) dx = 1$
 \end{enumerate} 
 \end{definition}
-\vskip5mm
 A typical example of a smooth kernel is  given by 
 \begin{example}
  \begin{align*}
@@ -822,11 +837,12 @@ A typical example of a smooth kernel is  given by
     J_{\epsilon}(u)(x) = \int_{B_{\epsilon}(0)}j_{\epsilon}(x-y)u(y) dy < \infty
   .\end{align*}
 \end{remark}
-\begin{lemma}The following statements are true for the mollification operator:
+\begin{lemma}\hspace{0mm}\\
   \begin{enumerate}
-    \item If $u(x) \in  L^{1}(\mathbb{R}^{d} ) $  and $\supp u(x)$ is compact in $\mathbb{R}^{d} $ then $\forall  \epsilon > 0$ it holds
+    \item If $u(x) \in  L^{1}(\mathbb{R}^{d} ) $  and $\supp u(x)$ is compact in $\mathbb{R}^{d} $ then 
       \begin{align*}
-        J_{\epsilon}(u) = j_{\epsilon} \star  u \in \mathcal{C}_0^{\infty}      .\end{align*}
+        J_{\epsilon}(u) = j_{\epsilon} \star  u \in \mathcal{C}_0^{\infty} \quad \forall  \epsilon > 0
+      .\end{align*}
     \item if $u \in  C_0(\mathbb{R}^{d} )$ then 
       \begin{align*}
         J_{\epsilon}(u) \xrightarrow{\epsilon \to 0} u \text{ uniformly on } \supp u
@@ -834,7 +850,7 @@ A typical example of a smooth kernel is  given by
   \end{enumerate}
 \end{lemma}
 \begin{proof}
- 1. Let $K = \supp u \subset  \mathbb{R}^{d} $, which is compact by assumption, then we have 
+ 1. Let $K = \supp u \subset  \mathbb{R}^{d} $ be compact , then we have 
  \begin{align*}
    \supp j_{\epsilon} \star  u = \{x \in  \mathbb{R}^{d} \ | \ \dist(x,K) \le \epsilon  \}  
  .\end{align*}
@@ -846,10 +862,10 @@ A typical example of a smooth kernel is  given by
  .\end{align*}
  where we have used the fact that 
  \begin{align*}
-   \abs{\frac{\partial }{\partial x_i} j_{\epsilon}(x-y)u(y)} \le \abs{\frac{\partial }{\partial x_i}j_{\epsilon}(x-y) } \Big|_K\|u\|_{L^{1} } \le  \frac{Cj'}{\epsilon ^{d} }
+   \abs{\frac{\partial }{\partial x_i} j_{\epsilon}(x-y)u(y)} \le \abs{\frac{\partial }{\partial x_i}j_{\epsilon}(x-y) } \|u\|_{L^{1} } \le  \frac{Cj'}{\epsilon ^{d} }
  .\end{align*}
  to show the uniform integrability of $\frac{\partial }{\partial x_i}j_{\epsilon}(x-y)u(y) $\\[1ex]
-2. we need to prove that for $u \in  \mathcal{C}_0(\mathbb{R}^{d} )$ it holds 
+ For (2) we need to prove that for $u \in  \mathcal{C}_0(\mathbb{R}^{d} )$ it holds 
  \begin{align*}
    \|J_{\epsilon}(u)-u\|_{L^{\infty}(\supp u) } \xrightarrow{\epsilon \to 0} 0
  .\end{align*}
@@ -859,43 +875,52 @@ A typical example of a smooth kernel is  given by
                                        &= \abs*{\int_{\supp u} j_{\epsilon}(x-y)(u(y)-u(x)) dy}\\
                                        &\le \max_{\substack{x,y \in \supp u \\ \abs{x-y} < \epsilon}} \abs{u(y)-u(x)} \int_{\mathbb{R}^{d} }j_{\epsilon}(x-y)dy \xrightarrow{\epsilon \to 0} 0
  .\end{align*}
- where we have used the fact that $u \in  \mathcal{C}(\supp u)$ which means u is uniformly continuous to obtain the limit in the last step above.
+ where we have used the fact that $u \in  \mathcal{C}(\supp u)$ which means u is uniformly continuous to obtain the limit in the last step above
 \end{proof}
-\section{Conservation of Mass}
-Let $\mu(t)$ be the push forward measure obtained from \autoref{characteristics_equation}, one can check that is is a weak solution of \autoref{MFE} by using 
-test functions.
-
-
-
-As a consequence of \autoref{existence_uniqueness_char}, we obtain if the initial measure has a probability density, then the solution is also integrable 
-for any fixed time $t$. 
+\subsection{Conservation of Mass}
+Let $u(t)$ be the push forward measure obtained from \autoref{characteristics_equation}, one can check that is is a weak solution of (MFE) by using 
+test functions. Furthermore we obtain that if the initial measure has a probability density, then the solution is also integrable 
+for any fixed time $t$ 
 \begin{corollary}
  Let $f_{0}$ be a probability density of $\mu_0$ on $\mathbb{R}^{d}$ with 
-$  \int_{\mathbb{R}^{d} } \abs{x} f_0(x) dx < \infty$,
-then the Cauchy problem 
+ \begin{align*}
+   \int_{\mathbb{R}^{d} } \abs{x} f_0(x) dx < \infty
+ .\end{align*}
+ Then the Cauchy problem 
  \begin{align*}
   \begin{cases}
-    &\partial_t f + \nabla * (f \mathcal{K} f)  = 0\\
-    &f\rvert_{t=0} = f_{0}
+    \partial_t f + \nabla * (f \mathcal{K} f)  &= 0\\
+    f\rvert_{t=0} &= f_{0}
   \end{cases}
- \end{align*}
- has a unique weak solution $f(t,*) \in  L^{1}(\mathbb{R}^{d} ) $ and $\|f(t,*)\|_{L^{1}(\mathbb{R}^{d} ) } = 1$.
+ .\end{align*}
+ has a unique weak solution $f(t,*) \in  L^{1}(\mathbb{R}^{d} ) $ and $\|f(t,*)\|_{L^{1}(\mathbb{R}^{d} ) } = 1$. The weak solution in 
+ the sense of distribution means that $\forall  \phi  \in  \mathcal{C}_0^{\infty} $ it holds for all $0\le \tilde{t}<t<\infty$
+ \begin{align*}
+   \int_{\mathbb{R}^{d} }\phi(x) f(t,x) dx - \int_{\mathbb{R}^{d} }\phi(x)f(\tilde{t},x )dx = \int_{\tilde{t} }^{t} \int_{\mathbb{R}^{d} }  f(s,x) \mathcal{K}f(s,x) dx ds
+ .\end{align*}
 \end{corollary}
 \begin{proof}
  We need to prove $\forall  t \in  \mathbb{R}$ and $\mu_t \in  \mathcal{P}_1(\mathbb{R}^{d} )$ absolutely continuous with respect to the 
- Lebesgue measure i.e. $\forall  B \in  \mathcal{B}$ and $\int_{B} d\lambda  = 0$, where $\lambda$ denotes the Lebesgue measure on $\R^d$, it holds $\mu_t(B) = 0$. This comes from that the solution flow of \autoref{characteristics_equation} is bijective.
- The mass conservation property, $\|f(t,*)\|_{L^{1}(\mathbb{R}^{d} ) } = 1$  comes from the definition of probability measures.
+ Lebesgue measure i.e. $\forall  B \in  \mathcal{B}$ and $\int_{B} d\lambda  = 0$ it holds $\mu_t(B) = 0$.
+ The mass conservation property, $\|f(t,*)\|_{L^{1}(\mathbb{R}^{d} ) } = 1$  comes from the definition of probability measures
 \end{proof}
-\vskip5mm
+\begin{exercise}
+ Let $\mu_t \in  \mathcal{P}_1(\mathbb{R}^{d} )$  be an absolutely continuous measure with respect to the Lebesgue measure,
+ then proof that for $\forall  B \in  \mathcal{B}$ such that 
+ \begin{align*}
+  \int_B d\lambda  = 0
+ .\end{align*}
+ it holds that $\mu_t(B) = 0$
+\end{exercise}
 In the next we give an alternative proof of the conservation of mass without using the characteristics presentation and instead only use 
 the definition of a weak solution\\[1ex]
 \begin{proof}
-	 The weak solution in 
-	the sense of distribution means that $\forall  \phi  \in  \mathcal{C}_0^{\infty} $ it holds for all $0\le \tilde{t}<t<\infty$
+ In the weak solution formulation  it holds 
  \begin{align*}
    \int_{\mathbb{R}^{d} }\phi(x) f(t,x) dx = \int_{\mathbb{R}^{d} }\phi(x)f(\tilde{t},x ) dx + \int_{\tilde{t} }^{t} \iint_{\mathbb{R}^{2d} } f(s,x)K(x,y)f(s,y)\nabla \phi (x) dx dy ds
  .\end{align*}
-Now we take a sequence of test functions defined as follows. For $ R >0$ 
+ where the test function $\phi  \in  \mathcal{C}_0^{\infty} $ is chosen arbitrarily. Now we take a sequence of test functions defined as follows. \\[1ex]
+ For $\forall  R >0$ 
  \begin{align*}
   \phi_R(x) = \begin{cases}
     1 ,& \abs{x} \le R\\
@@ -937,8 +962,7 @@ Now we take a sequence of test functions defined as follows. For $ R >0$
  One obtains directly for the gradient estimate $\abs{\nabla \phi_R(x)} \le  \frac{C}{R}$. Therefore with this
  test function, we obtain from the weak solution formula that 
  \begin{align*}
-   &\abs*{\int_{\mathbb{R}^{d} }f(t,x)\phi_R(x)dx - \int_{\mathbb{R}^{d} } f(\tilde{t},x )\phi_R(x) dx}\\
-    &= \abs*{\int_{\tilde{t} }^{t}\iint_{\mathbb{R}^{2d} }f(s,x)K(x,y)f(s,y)\nabla \phi_R(x)dxdyds }\\
+   \abs*{\int_{\mathbb{R}^{d} }f(t,x)\phi_R(x)dx - \int_{\mathbb{R}^{d} } f(\tilde{t},x )\phi_R(x) dx} &= \abs*{\int_{\tilde{t} }^{t}\iint_{\mathbb{R}^{2d} }f(s,x)K(x,y)f(s,y)\nabla \phi_R(x)dxdyds }\\
                                                                                                        &\le \frac{CL}{R}  \int_{\tilde{t} }^{t}\iint_{\mathbb{R}^{2d} } (1+\abs{x} + \abs{y})f(s,x)f(s,y) \abs{\nabla \phi_R(x)} dx dy ds \\
                                                                                                        &\le  \frac{C}{R}\abs{t - \tilde{t}}
  .\end{align*}
@@ -952,7 +976,7 @@ Now we take a sequence of test functions defined as follows. For $ R >0$
  .\end{align*}
  Therefore passing to the limit $R \to \infty$ we have 
  \begin{align*}
-   \int_{\mathbb{R}^{d} } f(t,x) dx =  \int_{\mathbb{R}^{d} } f(\tilde t,x) dx=\int_{\mathbb{R}^{d} }f_0(x) dx
+   \int_{\mathbb{R}^{d} } f(t,x) dx = \int_{\mathbb{R}^{d} }f_0(x) dx
  .\end{align*}
 \end{proof}
 \section{Mean Field Limit}
@@ -961,7 +985,7 @@ Now we take a sequence of test functions defined as follows. For $ R >0$
   \begin{align*}
     \dist_{\text{MK},1}(\mu_0^{N},f_{0} ) \xrightarrow{N\to \infty} 0
   .\end{align*}
-  Let $X_N(t)$ be the solution of the N particle system \autoref{MPS1st} with its empirical measure   
+  Let $X_N(t)$ be the solution of the N particle system \hyperref[first_order_system]{(MPS)} with its empirical measure   
   \begin{align*}
     \mu ^{N}(t) = \frac{1}{N}  \sum_{i=1}^{N}  \delta_{x_i(t,X_{N,0})}
   .\end{align*}
@@ -984,17 +1008,18 @@ Now we take a sequence of test functions defined as follows. For $ R >0$
   .\end{align*}
   where $\pi_t \in  \Pi(\mu ^{N}(t),f(t,*) )$\\[1ex]
   Since $\text{Lip}(\mathbb{R}^{d} )$ is dense in $C_{0}(\mathbb{R}^{d} )$ and because the total mass is 1, the above also holds for test functions in 
-  $\mathcal{C}_b(\mathbb{R}^{d} )$. Hence the weak convergence in measure is true. The fact that $\text{Lip}(\mathbb{R}^{d} )$ is dense in $\mathcal{C}_0(\R^d)$ 
+  $\mathcal{C}_b(\mathbb{R}^{d} )$. Hence the weak convergence in measure is true. The fact that $\text{Lip}(\mathbb{R}^{d} )$ is dense in $\mathcal{C}_0$ 
   can be obtained by using the mollification operator introduced in \autoref{mollification_operator}. More precisely we have to show that $\forall  \phi \in C_b^{\infty} $ it holds 
   \begin{align*}
     \int_{\mathbb{R}^{d} }\phi(x) d\mu ^{N}(t,x)  \xrightarrow{N\to \infty} \int_{\mathbb{R}^{d} }\phi(X)f(t,x)dx
   .\end{align*}
-  Notice we have shown that the above convergence holds for all $\phi  \in  \text{Lip}(\mathbb{R}^{d} )$. Then for any fixed $ \phi  \in  \mathcal{C}_b^{\infty} $ and $\forall \epsilon > 0$ we choose $R>1$ s.t.
+  Notice we have shown that the above convergence holds for all $\phi  \in  \text{Lip}(\mathbb{R}^{d} )$.\\[1ex]
+  For $\forall \phi  \in  \mathcal{C}_b^{\infty} $ and $\forall \epsilon > 0$ we choose $R>1$ s.t.
   \begin{align*}
     \frac{2 \|\phi \|_{L^{\infty}(\mathbb{R}^{d} ) }M_1}{R} \le  \frac{\epsilon}{2}
   .\end{align*}
   where $M_{1} = \int_{\mathbb{R}^{d} } \abs{x} d\mu ^{N}(t,x) $. Let $\phi_m \in \mathcal{C}_0^{\infty}(B_{2R}) $ be the approximation of $\phi $ on $B_{\frac{3R}{2}}$. This means
-  that $\exists  M > 0$ such that for $\forall m > M$ it holds 
+  that $\exists  M > )$ such that for $\forall m > M$ it holds 
   \begin{align*}
     \|\phi_m - \phi \|_{L^{\infty}(B_R) } < \frac{\epsilon}{4}
   .\end{align*}
@@ -1004,18 +1029,19 @@ Now we take a sequence of test functions defined as follows. For $ R >0$
     \abs*{\int_{\mathbb{R}^{d} }\phi_{M+1}(x)(d\mu ^{N}(t,x) - f(t,x) )dx}< \frac{\epsilon}{4}
   .\end{align*}
   To summarize we obtain that 
-  \begin{alignat*}{1}
-    &\abs*{\int_{\mathbb{R}^{d} }\phi(x) d\mu ^{N}(t,x) - \int_{\mathbb{R}^{d} }\phi(x) f(t,x) dx}\\
-    \leq & \abs*{\int_{B_R }\phi(x)(d\mu ^{N}(t,x) - f(t,x)dx ) } 
-    +\abs*{\int_{B_R^{c} } \phi(x)(d\mu ^{N}(t,x)-f(t,x)dx )}\\
-   \leq  & \abs*{\int_{B_R }\phi_{M+1}(x)(d\mu ^{N}(t,x) - f(t,x)dx ) }  + \abs*{\int_{B_R} (\phi_{M+1}(x)-\phi(x))(d\mu ^{N}(t,x)-f(t,x)dx )}\\
-    & + \abs*{\int_{B^{c}_R }\abs{\phi(x)} \frac{\abs{x}}{R}(d\mu ^{N}(t,x) + f(t,x) dx)}\\
-    & < \frac{\epsilon}{4} + \|\phi_{M+1}-\phi \|_{L^{\infty}(B_R) } + \frac{2}{R}\|\phi \|_{L^{\infty}(\mathbb{R}^{d} ) }M_1 < \frac{\epsilon}{4} +\frac{\epsilon}{4} +\frac{\epsilon}{2} \le \epsilon
+  \begin{alignat*}{3}
+    &\abs*{\int_{\mathbb{R}^{d} }\phi(x) d\mu ^{N}(t,x) - \int_{\mathbb{R}^{d} }\phi(x) f(t,x) dx} &&\le \abs*{\int_{B_R }\phi(x)(d\mu ^{N}(t,x) - f(t,x)dx ) } \\
+    & &&+\abs*{\int_{B_R^{c} } \phi(x)(d\mu ^{N}(t,x)-f(t,x)dx )}\\
+    & &&\le \abs*{\int_{B_R }\phi_{M+1}(x)(d\mu ^{N}(t,x) - f(t,x)dx ) } \\
+    & &&+ \abs*{\int_{B_R} (\phi_{M+1}(x)-\phi(x))(d\mu ^{N}(t,x)-f(t,x)dx )}\\
+    & &&+ \abs*{\int_{B^{c}_R }\abs{\phi(x)} \frac{\abs{x}}{R}(d\mu ^{N}(t,x) + f(t,x) dx)}\\
+    & &&< \frac{\epsilon}{4} + \|\phi_{M+1}-\phi \|_{L^{\infty}(B_R) } + \frac{2}{R}\|\phi \|_{L^{\infty}(\mathbb{R}^{d} ) }M_1\\
+    & &&< \frac{\epsilon}{4} +\frac{\epsilon}{4} +\frac{\epsilon}{2} \le \epsilon
   .\end{alignat*}
 \end{proof}
 \hspace{0mm}\\[3ex]
 This concludes the chapter on the Mean-field Limit in the deterministic setting, we have thus far 
-reviewed the basics of relevant ODE Theory, introduced the Mean-Field particle system \autoref{MPS1st} and the 
-associated Mean-Field equation \autoref{MFE} and finished by proving a convergence
-result for the Mean-Field Limit.
+reviewed the basics of relevant ODE Theory, introduced the Mean-Field particle system \hyperref[first_order_system]{(MPS)} and the 
+associated Mean-Field equation \hyperref[mfe]{(MFE)} and finished by proving a convergence
+result for the Mean-Field Limit
 

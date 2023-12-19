@@ -1,206 +1,221 @@
-\section{Relation To The Mean Field Limit}
-To find out how all this translates to our Mean field Limit we consider the particle system given by 
+\section{PDE Version of Many particle system by It\^o's formula}
+Recall the particle system in the following:
 \begin{align*}
   \begin{cases}  
-  d X_i &=  \frac{1}{N} \sum K(x_i,x_j) dt + \sqrt{2} dW_t^1  \qquad 1\le i\le N \ N\to \infty\\
-  X_i(0)    &= x_{0,i} \\
-  \mu_N(t) &= \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i(t)} 
+  d X_i &=  \frac{1}{N} \sum_{j=1}^N K(x_i,x_j) dt + \sqrt{2} dW_t^i  \qquad 1\le i\le N ,\\
+  X_i(0)    &= x_{0,i}   
   \end{cases}
 .\end{align*}
-And denote 
+Notice that in the deterministic case, we consider the empirical measure $\mu_N(t) = \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i(t)} $ and expect that the empirical measure converges in the weak sense to the corresponding solution of nonlocal PDE. Actually by using the It\^o's formula, one can consider the time evolution of the joint measure and study the limit of its one-particle marginal. More details in this topic will be explained in the chapter with relative entropy later. 
+
+We derive within this part only the higher order linear PDE.
+By denoting  
 \begin{align*}
-  \mathbb{X}_N = F(\mathbb{X}_N) dt + \sqrt{2}dW_{t} 
-.\end{align*}
+&\mathbb{X}_N(t)= (X_{1}(t),\ldots ,X_N(t)),\\
+&F(\mathbb{X}_N)=\begin{pmatrix} \vdots \\ \frac{1}{n} \sum_{j=1}^{N} K(X_i,X_j) \\ \vdots  \end{pmatrix},
+\end{align*}
+the particle system is rewritten into
+\begin{align*}
+  d\mathbb{X}_N(t) = F(\mathbb{X}_N(t)) dt + \sqrt{2}d\mathbb{W}_{t},
+\end{align*}
+where $\mathbb{W}_t$ is the $dN$ dimensional Brownian motion.
+
 At time $t = 0$ the $X_i$ are independent random variables, at any time $t>0$ they are dependent and the particles have joint law 
 \begin{align*}
-  (X_{1}(t),\ldots ,X_N(t)) \sim  u(X_{1},\ldots ,X_n)
+  \mathbb{X}_N(t) \sim  u^N(\cdot,t)
 .\end{align*}
-Where $u \in  \mathcal{M}(\mathbb{R}^{dN})$, then by It\^o's formula we get for arbitrary test function $\forall  \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{dN} ) $ 
+Here $u^N(\cdot,t) \in  \mathcal{M}(\mathbb{R}^{dN})$, and by It\^o's formula we get for arbitrary test function $\forall  \phi  \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{dN} ) $ 
 \begin{align*}
-  \phi(\mathbb{X}_N(t)) &=  \phi(\mathbb{X}_N(0)) + \int_0^{t} \nabla\phi  *\begin{pmatrix} \vdots \\ \frac{1}{n} \sum_{j=1}^{N} K(X_i,X_j) \\ \vdots  \end{pmatrix} \\
-                        &+ \int_0^{t}  \Delta{\mathbb{X}_N} \phi  dt + \int_0^{t} \sqrt{2} \nabla \phi  dW_t^{i} 
+  \phi(\mathbb{X}_N(t)) &=  \phi(\mathbb{X}_N(0)) + \int_0^{t} \nabla\phi (\mathbb{X}_N(s)) *F(\mathbb{X}_N(s))ds \\
+                        &+ \int_0^{t}  \Delta \phi(\mathbb{X}_N(s))  ds + \int_0^{t} \sqrt{2} \nabla \phi(\mathbb{X}_N(s))  d\mathbb{W}_s^{i} 
 .\end{align*}
-Taking the expectation on both sides, then the last term disappears by definition of It\^o processes 
+Taking the expectation on both sides, then the last term disappears by definition of It\^o processes, we obtain that $u^N$ satisfies the following partial differential equation in the weak sense,
 \begin{align*}
-  \partial_t - \sum_{i=1}^{N} \Delta_i u  + \sum_{i=1}^{N} \nabla_{X_i} \left( \frac{1}{N} \sum_{j=1}^{N} K(X_i,X_j) u \right)  = 0
+  \partial_t u^N- \sum_{i=1}^{N} \Delta_{x_i} u^N  + \sum_{i=1}^{N} \nabla_{x_i} \left( \frac{1}{N} \sum_{j=1}^{N} K(x_i,x_j) u^N \right)  = 0
 .\end{align*}
-Now consider the Mean-Field-Limit, if the joint particle law can be rewritten as the tensor product of a single $\overline{u}$ 
-\begin{align*}
- u(X_{1},\ldots ,X_N)  = \overline{u}^{\otimes N}  
-.\end{align*}
-the equation simplifies
-\begin{align*}
-  \partial_t - \sum_{i=1}^{N} \Delta_i u  + \sum_{i=1}^{N} \nabla_{X_i} \left( \overline{u}^{\otimes N}k \star \overline{u}(X_i)   \right)  = 0
-.\end{align*}
+%Now consider the Mean-Field-Limit, if the joint particle law can be rewritten as the %tensor product of a single $\overline{u}$ 
+%\begin{align*}
+% u(X_{1},\ldots ,X_N)  = \overline{u}^{\otimes N}  
+%.\end{align*}
+%the equation simplifies
+%\begin{align*}
+%  \partial_t - \sum_{i=1}^{N} \Delta_i u  + \sum_{i=1}^{N} \nabla_{X_i} \left( %\overline{u}^{\otimes N}k \star \overline{u}(X_i)   \right)  = 0
+%.\end{align*}
 \newpage
 \section{Solving Stochastic Differential Equations}
-The setup of the following section will be the following 
-\begin{definition}[Basic Setup]
- We consider the probability space $(\Omega ,\mathcal{F},\mathbb{P})$, With a $m$-$D$ dimensional Brownian motion $W(*)$.
- Let $X_0$ be an $n$-$D$ dimensional random variable independent of $W(0)$, then our Filtration is given by
+In this section, we review the existence and uniqueness results in solving stochastic differential equation in the general setting. The main techniques is again the Picard iteration.
+
+We use $(\Omega ,\mathcal{F},\mathbb{P})$ as the probability space, with $W(*)$ as a given $m$-$D$ dimensional Brownian motion. Let $X_0$ be an $n$-$D$ dimensional random variable independent of $W(0)$, in the rest of this section, we use the Filtration given by
  \begin{align*}
-  \mathcal{F}_t = \sigma(X_{0}) \cup \sigma(W(s) , 0\le s\le t)
+  \mathcal{F}_t = \mathcal{ U}(X_{0}) \cup \mathcal{ U}(W(s) , 0\le s\le t)
  .\end{align*}
-\end{definition}
-\begin{definition}[SDE]\label{sde}
- Given the above basic setup we are trying to solve equations of the type 
- \begin{align*}
+
+Given the above basic setup we review the solution theory of stochastic differential equations of the type for $X \ : \ (t,\omega ) \to  \mathbb{R}^{n} $:
+ \begin{align}\label{sde}
   \begin{cases}
-    d\underbrace{X_t}_{n \times 1} &= \underbrace{b}_{n \times 1}(X_t,t) dt + \underbrace{B}_{n \times m}(X_t,t) d\underbrace{W_t}_{m \times 1} \quad 0\le t\le T \\
-    X_{t}\rvert_{t=0} &= X_{0} \quad X \ : \ (t,\omega ) \to  \mathbb{R}^{n} 
+    d\underbrace{X(t)}_{n \times 1} &= \underbrace{b(X(t),t)}_{n \times 1} dt + \underbrace{B(X(t),t)}_{n \times m} d\underbrace{W_t}_{m \times 1} \quad 0\le t\le T \\
+    X_{t}\rvert_{t=0} &= X_{0} 
   \end{cases}
- .\end{align*}
+ .\end{align}
  Where 
  \begin{align*}
    b &: \mathbb{R}^{n} \times [0,T] \to \mathbb{R}^{n}   \\
    B &: \mathbb{R}^{n} \times [0,T] \to  M^{n\times m}  
  .\end{align*}
-\end{definition}
-\begin{remark}
- The differential equation should always be understood as the Integral equation 
- \begin{align*}
-  X_t - X_{0} = \int_0^{t}  b(X_s,s) ds + \int_0^{t} B(X_s,s) dW_s 
- .\end{align*}
-\end{remark}
-\begin{definition}[Solution]
- We say an $\mathbb{R}^{n}$-valued stochastic process $X(*)$ is a solution of the SDE if 
+
+\begin{definition}[Solution]\label{DefSol}
+ We say an $\mathbb{R}^{n}$-valued stochastic process $X(*)$ is a solution of the \autoref{sde} if 
  \begin{enumerate}
-  \item $X_t$ is progressively measurable w.r.t $\mathcal{F}_t$
-  \item (drift) $F\coloneqq b(X_t,t) \in  \mathbb{L}_{n}^{1}([0,T]) \ \Leftrightarrow \  \int_0^{t} \E[F_s] ds < \infty $ 
-  \item (diffusion) $G\coloneqq B(X_t,t) \in  \mathbb{L}_{n \times m}^{2}([0,T]) \Leftrightarrow \  \int_0^{t} \E[\abs{G_s}^2] ds < \infty $ 
+  \item $X(t)$ is progressively measurable w.r.t $\mathcal{F}_t$
+  \item (Drift) $F\coloneqq b(X(t),t) \in  \mathbb{L}_{n}^{1}([0,T]) \ \Leftrightarrow \  \int_0^{t} \E[F(s)] ds < \infty $ 
+  \item (Diffusion) $G\coloneqq B(X(t),t) \in  \mathbb{L}_{n \times m}^{2}([0,T]) \Leftrightarrow \  \int_0^{t} \E[\abs{G(s)}^2] ds < \infty $ 
+  \item (Equation) $X(t) - X(0) = \int_0^{t}  b(X(s),s) ds + \int_0^{t} B(X(s),s) dW_s $.
  \end{enumerate}
 \end{definition}
 \begin{remark}
-  (1) implies that for any given $t \in  [0,T]$ $X_t$ is random variable measurable with respect to $\mathcal{F}_t$.
+  ``$X(t)$ is progressively measurable w.r.t $\mathcal{F}_t$'' means that for any given $t \in  [0,T]$, $X(t)$ is random variable measurable with respect to $\mathcal{F}_t$.
 \end{remark}
 \hspace{0mm}\\
-The goal from now on is to prove the existence and uniqueness of such solutions, for that we first define what it means 
+The goal from now on is to prove the existence and uniqueness of such solution, for that we first define what it means 
 for a solution to be unique
 \begin{definition}
  For two solution $X,\tilde{X} $ we say they are unique if
  \begin{align*}
-   \P(X(t) = \tilde{X}(t), \ \forall  t \in  [0,T] ) = 1 \Leftrightarrow \max_{0\le t \le T} \abs{x(t)-\tilde{x}(t) }  = 0 \text{ a.s.}
+   \P(X(t) = \tilde{X}(t), \ \forall  t \in  [0,T] ) = 1 \Leftrightarrow \max_{0\le t \le T} \abs{X(t)-\tilde{X}(t) }  = 0 \text{ a.s.}
  .\end{align*}
  i.e they are indistinguishable.
 \end{definition}
+\vskip5mm
+The following assumptions for $b,B$ are needed:
 \begin{assumption}\label{assumption_sde_sol}\hspace{0mm}\\
   Let $b : \mathbb{R}^{n} \times  [0,T] \to  \mathbb{R}^{n}  $ and 
   $B : \mathbb{R}^{n} \times  [0,T] \to  M^{n \times m}  $,
-  be continuous (in $(t,x)$) and Lipschitz continuous with respect to $x$ for some $L > 0$.
-  Furthermore assume they fulfill the linear growth condition
+  be continuous and Lipschitz continuous with respect to $x$ with Lipschitz constant $L > 0$, namely $\forall x,\tilde{x}\in \R^n$, it holds
   \begin{align*}
-    \abs{b(x,t)} + \abs{B(x,t)} \le  L(1+\abs{x}) 
+  \abs{b(x,t) - b(\tilde{x},t )} +  \abs{B(x ,t) - B(\tilde{x},t )} \le  L \abs{x - \tilde{x} }
   .\end{align*}
-\end{assumption}
-\begin{remark}
-  Note the Lipschitz continuity from \autoref{assumption_sde_sol} implies that there $\exists L >0$ such that
+\end{assumption} 
+\begin{remark} 
+	It is obvious that $b,B$ fulfill the linear growth condition
   \begin{align*}
-    \abs{b(x,t) - b(\tilde{x},t )} +  \abs{B(x ,t) - B(\tilde{x},t )} \le  L \abs{x - \tilde{x} }
-  .\end{align*}
+    \abs{b(x,t)} + \abs{B(x,t)} \le  \abs{b(0,t)} + \abs{B(0,t)}+ L(\abs{x}) \leq L(1+\abs{x}),
+  \end{align*}
+  where for simplicity, we use the same notation $L$ for the bound of $\abs{b(0,t)} + \abs{B(0,t)}$.
 \end{remark}
+
 \begin{theorem}[Existence and Uniqueness of Solution]\label{sde_solution_theorem}
-  Let \autoref{assumption_sde_sol} hold for an \nameref{(SDE)} and assume the initial data $X_0$ is  
-  square integrable and independent of $W^{t}(0)$.
-  Then there exists a unique solution $X \in  \mathbb{L}^2_n([0,T])$ of the \nameref{sde}.
+  Let \autoref{assumption_sde_sol} hold for \autoref{sde} and assume the initial data $X_0$ is  
+  square integrable and independent of $W(0)$.
+  Then there exists a unique solution $X \in  \mathbb{L}^2_n([0,T])$ of the \autoref{sde}.
 \end{theorem}
 \begin{proof}
-  We begin with the uniqueness prove.\\[1ex] 
-  Suppose we have two solutions $X$ and $\tilde{X} $ of the SDE then the goal is to show that they are indistinguishable,
-  then by using the definition of a solution 
+  We begin with the uniqueness proof.\\[1ex] 
+  Suppose there are two solutions $X$ and $\tilde{X} $ of the SDE,
+  then by using the definition of solution \autoref{DefSol} we have
   \begin{align*}
-    X_t - \tilde{X}_t = \int_0^{t} (b(X_s,s) - b(\tilde{X}_s,s )) ds + \int_0^{t} B(X_s,s) - B(\tilde{X}(s),s )  dW_s
+    X(t) - \tilde{X}(t) = \int_0^{t} (b(X(s),s) - b(\tilde{X}(s),s )) ds + \int_0^{t} B(X(s),s) - B(\tilde{X}(s),s )  dW_s
   .\end{align*}
-  If the diffusion term were 0 we could use a Grönwall type inequality and get the uniqueness.\\[1ex]
-  Instead we consider the square of the above and apply It\^os isometry. Note that
-  generally $\abs{a+b}^2 \nleqslant  (a^2+b^2)$  but  $\abs{a+b}^2 \le  2(a^2+b^2)$
+  If the diffusion term $B$ were 0 (i.e. the deterministic case) we could use a Grönwall type inequality and get the uniqueness directly.\\[1ex]
+  In stochastic setting, we consider the square integrable solutions and apply It\^os isometry. Note that
+$\abs{a+b}^2 \le  2(a^2+b^2)$
   \begin{align*}
-    \abs{X_t - \tilde{X}_t}^2 \le  2\abs{\int_0^{t} (b(X_s,s) - b(\tilde{X}_s,s )) ds}^2 + \abs{\int_0^{t} B(X_s,s) - B(\tilde{X}(s),s )  dW_s}^2
+    \abs{X(t) - \tilde{X}(t)}^2 \le  2\Big|\int_0^{t} (b(X(s),s) - b(\tilde{X}(s),s )) ds\Big|^2 + \Big|\int_0^{t} B(X(s),s) - B(\tilde{X}(s),s )  dW_s\Big|^2
   .\end{align*}
   Now consider the following 
   \begin{align*}
-    \E[\abs{X_t-\tilde{X}_t}^2] &\le 2\E[\abs{\int_0^{t} \abs{b(X_s,s) - b(\tilde{X}_s,x )} ds}^2 ]  \\
-                                & \qquad + 2 \E[\abs{\int_0^{t} B(X_s,s) - B(\tilde{X}_s,s ) dW_s}^2]\\
-                                &\myS{Hold.}{\le } 2t \E[\int_0^{t} \abs{b(X_s,s) - b(\tilde{X})s,s )}^2 ds ] + 2\E[\int_0^{t} \abs{B(X_s,s)-B(\tilde{X}_s,s )}^2 ds ] \\
-                                &\myS{Lip.}{\le } 2(t+1)L^2 \E[\int_0^{t} \abs{X_s-\tilde{X}_s }^2 ds ]\\
-                                &= 2(t+1)L^2 \int_0^{t} \E[\abs{X_s-\tilde{X}_s }^2  ]ds\\
-  .\end{align*}
- Where the following Hoelders inequality was used 
+    \E\Big[\abs{X(t)-\tilde{X}(t)}^2\Big] &\le 2\E\Big[\Big|\int_0^{t} (b(X(s),s) - b(\tilde{X}(s),s )) ds\Big|^2 \Big]  \\
+                                & \qquad + 2 \E\Big[\Big|\int_0^{t} B(X(s),s) - B(\tilde{X}(s),s ) dW_s\Big|^2\Big]\\
+                                &\myS{Hold.}{\le } 2t \E\Big[\int_0^{t} \Big|b(X(s),s) - b(\tilde{X})((s),s )\Big|^2 ds \Big] + 2\E\Big[\int_0^{t} \Big|B(X(s),s)-B(\tilde{X}(s),s )\Big|^2 ds \Big] \\
+                                &\myS{Lip.}{\le } 2(t+1)L^2 \E\Big[\int_0^{t} \abs{X(s)-\tilde{X}(s) }^2 ds \Big]\\
+                                &= 2(t+1)L^2 \int_0^{t} \E\Big[\abs{X(s)-\tilde{X}(s) }^2  \Big]ds\\
+  ,\end{align*}
+where the following H\"older's inequality was used 
  \begin{align*}
-   \left( \int_0^{t} 1 \abs{f} ds  \right)^2 &\le  \left( \int_0^{t} 1^2 ds  \right)^{\frac{1}{2}*2}*\left( \int_0^{t} \abs{f}^2 ds  \right)^{\frac{1}{2}*2}  \\
-                                             &\le t \int_0^{t} \abs{f}^2 ds 
+   \left( \int_0^{t} 1 \abs{f} ds  \right)^2 &\le  \left( \int_0^{t} 1^2 ds  \right)^{\frac{1}{2}*2}*\left( \int_0^{t} \abs{f}^2 ds  \right)^{\frac{1}{2}*2} \le t \int_0^{t} \abs{f}^2 ds 
  .\end{align*}
- Now by Gronwalls inequality we have 
+Notice that $\E\Big[\abs{X(0)-\tilde{X}(0)}^2\Big]=0$, by Gronwall's inequality we have 
  \begin{align*}
-   \E[\abs{X_t-\tilde{X}_t }^2] = 0
+   \E\Big[\abs{X(t)-\tilde{X}(t) }^2\Big] = 0
  .\end{align*}
- i.e $X_t$ and $\tilde{X}_t $ are modifications of each other and it remains to show that they are actually
+ i.e $X(t)$ and $\tilde{X}(t) $ are modifications of each other and it remains to show that they are actually
  indistinguishable.\\[1ex]
- Define 
+The above results shows that for any $t\in [0,T]$,
  \begin{align*}
-  A_t = \{ \omega  \in  \Omega  \ | \ \abs{X_t - \tilde{X}_t  } > 0\}   \qquad \P(A_t) = 0
+ \P(A_t) = 0, \mbox{ where } A_t = \{ \omega  \in  \Omega  \ | \ \abs{X(t) - \tilde{X}(t)  } > 0\}
  .\end{align*}
+ This implies further that
  \begin{align*}
-   \P(\max_{t \in  \mathbb{Q} \cap [0,T]} \abs{X_t-\tilde{X}_t } > 0 ) = \P(\bigcup_{k=1}^{\infty} A_{t_k} ) = 0
+   \P(\max_{t \in  \mathbb{Q} \cap [0,T]} \abs{X(t)-\tilde{X}(t) } > 0 ) = \P(\bigcup_{k=1}^{\infty} A_{t_k} ) = 0
  .\end{align*}
- Now since $X_t(\omega )$ is continuous in $t$ we can extend the maximum over the entire interval $[0,T]$ 
+Since for any fixed $\omega$, $X(t,\omega )$ is continuous in $t$, we can extend the maximum over the entire interval $[0,T]$ for any fixed $\omega$,
  \begin{align*}
-   \max_{t \in  \mathbb{Q} \cap [0,T]} \abs{X_t - \tilde{X}_t} = \max_{t \in  [0,T]} \abs{X_t - \tilde{X}_t}
+   \max_{t \in  \mathbb{Q} \cap [0,T]} \abs{X(t) - \tilde{X}(t)} = \max_{t \in  [0,T]} \abs{X(t) - \tilde{X}(t)}
  .\end{align*}
  Then the probability over the entire interval must also be 0 
  \begin{align*}
-   \P(\max_{t \in  [0,T]} \abs{X_t - \tilde{X}_t} >0)  = 0 \quad \text{ i.e. } X_t = \tilde{X}_t \ \forall  t \text{ a.s.} 
+   \P(\max_{t \in  [0,T]} \abs{X(t) - \tilde{X}(t)} >0)  = 0 \quad \text{ i.e. } X(t) = \tilde{X}(t) \ \forall  t \text{ a.s.} 
  .\end{align*}
- This concludes the uniqueness proof, for existence similar to the deterministic case we use Picard iteration.\\[1ex]
- First define the Picard iteration by  
+ This concludes the uniqueness proof.
+ 
+ For the existence,  we use first the Picard iteration imilar to the deterministic case given in the following
  \begin{align*}
-   X_t^{0} &= X_0  \\
+   X_{0}(t) &= X(0)  \\
            &\vdots\\
-   X_t^{n+1} &= X_0 + \int_0^{t} b(X_s^{n},s ) ds + \int_0^{t} B(X_s^{n},s ) dW_s   
+   X_{n+1}(t) &= X(0) + \int_0^{t} b(X_{n}(s),s ) ds + \int_0^{t} B(X_{n}(s),s ) dW_s   
  .\end{align*}
- Let $d(t)^{n} = \E[\abs{X_t^{n+1}-X_t^{n}}^2] $, then we claim by induction that $d^{n}(t) \le  \frac{(Mt)^{n+1} }{(n+1)!} $ for some $M>0$.\\
+ Let $d_{n}(t) = \E[\abs{X_{n+1}(t)-X_{n}(t)}^2] $, then we claim by induction that 
+ $$
+ d_{n}(t) \le  \frac{(Mt)^{n+1} }{(n+1)!} \mbox{ for some } M>0.
+ $$
   \textbf{IA:} For $n=0$ we have
   \begin{align*}
-    d(t)^{0} = \E[\abs{X_t^1-X_t^0}^2] &\le  \E[2 (\int_0^{t} b(X_0,s) ds )^2 + 2 (\int_0^{t} B(X_0,s )dW_s )^2]  \\
-                                       &\le  2t \E[\int_0^{t} L^2(1+X_{0}^2) ds ] + 2\E[\int_0^{t} L^2(1+X_{0}) ds ] \\
-                                       &\le  tM \qquad \text{ where } M\ge 2L^2(1+\E[X_{0}^2]) +2L^2(1+T)
+    d_0(t) = \E[\abs{X_1(t)-X_0(t)}^2] &\le  \E\Big[2 \Big(\int_0^{t} b(X_0(s),s) ds \Big)^2 + 2 \Big(\int_0^{t} B(X_0(s),s )dW_s \Big)^2\Big]  \\
+                                       &\le  2t \E\Big[\int_0^{t} L^2(1+X(0)^2) ds \Big] + 2\E\Big[\int_0^{t} L^2(1+X(0)) ds \Big] \\
+                                       &\le  tM \qquad \text{ where } M\ge 2L^2(1+\E[X(0)^2]) +2L^2(1+T)
   .\end{align*}
   \textbf{IV:} suppose the assumption holds for $n-1 \in  \mathbb{N}$\\
-  \textbf{IS:} Take $n-1 \to n$ then 
+  \textbf{IS:} We will prove it holds also for $n\in\mathbb{N}$: 
   \begin{align*}
-    d^{n}(t) &= \E[\abs{X_t^{n+1} - X^{n}_t }^2] \le  2 L^2 T \E[\int_0^{t} \abs{X_s^{n} - X_s^{n-1}  }^2 ds ]  + 2L^2\E[\int_0^{t} \abs{X_s^{n} - X_s^{n-1}  }^2  ds] \\
-             &\myS{IV}{\le } 2L^2(1+T) \int_0^{t} \frac{(Ms)^n}{n!} ds \\
-             &= 2L^2(1+t) \frac{M^n}{(n+1)!} t^{n+1} \le \frac{M^{n+1}t^{n+1}}{(n+1)!} 
+    d_{n}(t) &= \E[\abs{X_{n+1}(t) - X_{n}(t) }^2] \\
+    &\le  2 L^2 T \E\Big[\int_0^{t} \abs{X_{n}(s) - X_{n-1}(s)  }^2 ds \Big]  + 2L^2\E\Big[\int_0^{t} \abs{X_{n}(s) - X_{n-1}(s)  }^2  ds\Big] \\
+             &\myS{IV}{\le } 2L^2(1+T) \int_0^{t} \frac{(Ms)^n}{n!} ds \le \frac{M^{n+1}t^{n+1}}{(n+1)!} 
   .\end{align*}
-  Because of $\Omega $ we cannot use completeness to argue the convergence and instead are forced to use a similar argument as in the uniqueness proof. 
+  Different from the deterministic case, because of the additional dependence on variable $\omega $ which has only the measurability, the completeness argument works only pathwisely. Instead, we will use a similar argument as in the uniqueness proof. 
   \begin{align*}
-    &\E[\max_{0\le t \le T} \abs{X^{n+1}_t - X^{n}_t  }^2] \\
-    &\le \E[\max_{0\le t\le T} 2\abs*{\int_0^{t} b(X_s^{n},s )-b(X_s^{n-1},s ) ds}^2 + 2\abs*{\int_0^{t}B(X_s^{n},s )-B(X_s^{n-1},s ) dW_s}^2] \\
-    &\le 2TL^2 \E[\int_0^{T} \abs{X_s^{n} - X_s^{n-1}  }^2 ds ] + 2\E[\max_{0\le t\le T} \abs*{\int_0^{t} B(X_s^{n},s )- B(X_s^{n-1},s ) ds W_s}]\\
-    &\le  2TL^2 \E[\int_0^{T} \abs{X_s^{n} - X_s^{n-1}  }^2 ds ] + 8\E[\int_0^{T} \abs{B(X_s^{n},s  )-B(X_s^{n-1},s )}^2 ds ]\\
-    &\le C*\E[\int_0^{T} \abs{X_s^{n}-X_s^{n-1}  }^2 ds ]
-  .\end{align*}
-  Where we used the following Doobs martingales $L^{p}$ inequality 
+    &\E\Big[\max_{0\le t \le T} \abs{X_{n+1}(t) - X_{n}(t)  }^2\Big] \\
+    &\le \E\Big[\max_{0\le t\le T} \Big(2\abs*{\int_0^{t} b(X_{n}(s),s )-b(X_{n-1}(s),s ) ds}^2 + 2\abs*{\int_0^{t}B(X_{n}(s),s )-B(X_{n-1}(s),s ) dW_s}^2\Big)\Big] \\
+    &\le 2TL^2 \E\Big[\int_0^{T} \abs{X_{n}(s) - X_{n-1}(s)  }^2 ds \Big] + 2\E\Big[\max_{0\le t\le T} \abs*{\int_0^{t} B(X_{n}(s),s )- B(X_{n-1}(s),s ) dW_s}^2\Big]\\
+    &\le  2TL^2 \E\Big[\int_0^{T} \abs{X_{n}(s) - X_{n-1}(s)  }^2 ds \Big] + 8\E\Big[\int_0^{T} \abs{B(X_{n}(s),s  )-B(X_{n-1}(s),s )}^2 ds \Big]\\
+    &\le C*\E\Big[\int_0^{T} \abs{X_{n}(s)-X_{n-1}(s)  }^2 ds \Big]
+ ,\end{align*}
+where we used the following Doobs martingales $L^{p}$ inequality \textcolor{red}{add a reference}.
   \begin{align*}
-    \E[\max_{0\le s\le t} \abs{X(s)}^{p} ] \le  (\frac{p}{p-1})^{p} \E[\abs{X(t)}^{p}  ] 
+    \E\Big[\max_{0\le s\le t} \abs{X(s)}^{p} \Big] \le   \Big(\frac{p}{p-1}\Big)^{p} \E[\abs{X(t)}^{p}  ] 
   .\end{align*}
-  By Picard iteration we know the distance $d^{n}(t) = \E[\abs{X_s^{n}-X_s^{n-1}  }^2] $ is bounded by 
+  By Picard iteration we know the distance $d_{n}(t) = \E[\abs{X_{n+1}(s)-X_{n}(s)  }^2] $ is bounded by 
   \begin{align*}
-    C*\E[\int_0^{T} \abs{X_s^{n}-X_s^{n-1}  }^2 ds ] &= C* \int_0^{T} \E[\abs{X_s^{n} - X_s^{n-1}  }^2] ds \\
-                                                     &\le \int_0^{T} \frac{(Mt)^{n} }{(n)!} \\
-                                                     &= C \frac{M^{n} T^{n+1} }{(n+1)!}
+   d_{n}(t) \leq C*\E\Big[\int_0^{T} \abs{X_{n}(s)-X_{n-1}(s)  }^2 ds \Big] 
+                                                     &\le C \frac{M^{n} T^{n+1} }{(n+1)!}
   .\end{align*}
-  Further more we get with a Markovs inequality
+  Therefore we obtain that
+\begin{align*}
+&\E\Big[\max_{0\le t \le T} \abs{X_{n+1}(t) - X_{n}(t)  }^2\Big]\le C*\E\Big[\int_0^{T} \abs{X_{n}(s)-X_{n-1}(s)  }^2 ds \Big]\le C \frac{M^{n} T^{n+1} }{(n+1)!}
+.\end{align*}  
+By defining 
+$$
+A_n=\Big\{\omega\in\Omega:\max_{0\le t\le T} \abs{X_{n+1}(t)-X_n(t)}^2 > \frac{1}{2^{n} }\Big\},
+$$
+the Markov's inequality implies that
   \begin{align*}
-    \P(\underbrace{\max_{0\le t\le T} \abs{X_t^{n+1}-X_t^n}^2 > \frac{1}{2^{n} }}_{A_n}) &\le 2^{2n} \E[\max_{0\le t\le T} \abs{X_t^{n+1}-X_t^n}^2]\\
-                                                                      &\le 2^{2n} \frac{CM^{n}T^{n+1}  }{(n+1)!} 
+    \P(A_n) &\le 2^{2n} \E\Big[\max_{0\le t\le T} \abs{X_{n+1}(t)-X_n(t)}^2\Big]\le 2^{2n} \frac{CM^{n}T^{n+1}  }{(n+1)!} 
   .\end{align*}
-  Then by Borel-Cantelli
+  Then by \nameref{borel_cantelli}, we have
   \begin{align*}
     \sum_{n=0}^{\infty} \P(A_n) \le  C \sum_{n=0}^{\infty}2^{2n} \frac{(MT)^{n} }{(n+1)!}    <\infty \implies \P(\bigcap_{n=0}^{\infty} \bigcup_{m=n}^{\infty} A_m ) = 0
    .\end{align*}
    i.e $\exists  B \subset  \Omega  $ with $\P(B) = 1$ s.t $\forall \ \omega  \in  B$ , $\exists \ N(\omega ) > 0 $ s.t
    \begin{align*}
-     \max_{0\le t\le T} \abs{X_t^{n+1}(\omega ) - X_t^{n}(\omega )} \le  2^{-n} 
+     \max_{0\le t\le T} \abs{X_{n+1}(t,\omega ) - X_{n}(t,\omega )} \le  2^{-n} 
    .\end{align*}
    In fact we can give $B$ directly by 
    \begin{align*}
@@ -208,48 +223,43 @@ for a solution to be unique
    .\end{align*}
    then for each $\omega  \in  B$  we can make a Cauchy sequence argument by
    \begin{align*}
-     \max_{0\le t\le T} \abs{X_t^{n+k} - X^{n}_t } &\le  \sum_{j=1}^{k} \max \abs{X_t^{n+j} - X^{n+(j-1)}_t } \\
-                                                   &\le \sum_{j=1}^{k} \frac{1}{2^{n+j-1} }\\
-                                                   &< \frac{1}{2^{n-1} } 
+     \max_{0\le t\le T} \abs{X_{n+k}(t) - X_{n}(t) } &\le  \sum_{j=1}^{k} \max \abs{X_{n+j}(t) - X_{n+(j-1)}(t) }\le \sum_{j=1}^{k} \frac{1}{2^{n+j-1} }< \frac{1}{2^{n-1} }. 
    .\end{align*}
-   By the above we get 
+   Therefore, we get 
    \begin{align*}
-     X_t^{n}(\omega ) \to X_t(\omega ) \qquad \text{ uniform in } t\in [0,T]
+     X_{n}(t,\omega ) \to X(t,\omega ) \qquad \text{ uniform in } t\in [0,T]
    .\end{align*}
-   Therefore for a.s. $\omega $ , take the limit in the iteration  and obtain 
+   Finaly, for a.s. $\omega $ , we can take the limit in the iteration  and obtain 
    \begin{align*}
-    X_t = X_{0} + \int_0^{t} b(X_s,s) ds + \int_0^{t} B(X_s,s) dW_s  
+    X(t) = X_{0} + \int_0^{t} b(X(s),s) ds + \int_0^{t} B(X(s),s) dW_s  
    .\end{align*}
    It remains to show that $X_t \in  \mathbb{L}^2([0,T])$ note that $X_{0} \in  \mathbb{L}^2([0,T])$ already and 
    \begin{align*}
-     \E[\abs{X_t^{n+1}}^2] &\le  C(1+\E[\abs{X_0}^2]) + C \int_0^{t} \E[\abs{X_s^{n} }^2] ds \\
-                           &\le  C \sum_{j=0}^{n} C^{j+1} \frac{t^{j+1}}{(j+1)!} (1+\E[\abs{X_0}^2]) \\
-                           &\le  C* e^{Ct} 
+     \E[\abs{X_{n+1}(t)}^2] &\le  C(1+\E[\abs{X_0}^2]) + C \int_0^{t} \E[\abs{X_{n}(s) }^2] ds \\
+                           &\le  C \sum_{j=0}^{n} C^{j+1} \frac{t^{j+1}}{(j+1)!} (1+\E[\abs{X_0}^2]) \le  C* e^{Ct} 
    .\end{align*}
-   Where we used $\E[X_{0}] = 0$ ,the  linear growth condition for the first integral and It\^o isometry for the second and then again the linear growth condition\\[1ex]
+   Where we used $\E[X_{0}] = 0$ ,the  linear growth condition for the first integral and It\^o isometry for the second integral .\\[1ex]
     Using the above we conclude by Fatous's lemma
     \begin{align*}
-      \E[\abs{X_t}^2] = \E[\lim_{n\to \infty} \abs{X^{n+1}_t }]  \le  \liminf_{n\to \infty} \E[\abs{X^{n+1}_t }^2] \le C*e^{Ct} 
+      \E[\abs{X(t)}^2] = \E[\lim_{n\to \infty} \abs{X_{n+1}(t) }]  \le  \liminf_{n\to \infty} \E[\abs{X_{n+1}(t) }^2] \le C*e^{Ct} 
     .\end{align*}
     Therefore 
     \begin{align*}
       \int_0^{T} \E[\abs{X(t)}^2]  \le  CT*e^{CT} 
     .\end{align*}
 \end{proof}
-\begin{remark}
-  One should remember that if the diffusion term $B(X_t,t)$ is 0 then we get a unique solution iff $b(X_t,t)$ is Lipschitz
-\end{remark}
+
 \begin{theorem}[Higher Moments Estimate]
-  Assumptions for $b$ , $B$ and $X_{0}$ are the same as before, if in addition 
+ Let the Assumptions for $b$ , $B$ be given in \autoref{assumption_sde_sol} and $X_{0}$ satisfies
   \begin{align*}
     \E[\abs{X_0}^{2p} ]< \infty
   .\end{align*}
   for some $p \ge 1$ then $\forall  t \in  [0,T]$ 
   \begin{align*}
-    \E[\abs{X_t}^{2p}]\le C(1+\E[\abs{X}_0^{2p} ])e^{Ct} 
+    \E[\abs{X(t)}^{2p}]\le C(1+\E[\abs{X_0}^{2p} ])e^{Ct} 
   .\end{align*}
-  and $\E[\abs{X_t - X_0}^{2p} ] \le  C(1+\E[\abs{X_0}^{2p} ])e^{Ct}t^p $
+  and $\E[\abs{X(t) - X_0}^{2p} ] \le  C(1+\E[\abs{X_0}^{2p} ])e^{Ct}t^p $
 \end{theorem}
 \begin{proof}
- Left as an exercise \\
+ Left as an exercise. \\
 \end{proof}

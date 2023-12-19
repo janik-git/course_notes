@@ -1,0 +1,81 @@
+
+% basics
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+% \usepackage{fontspec}
+% \setmainfont[
+% BoldFont = {Sans Serif}
+% ]{\normalfont}
+\usepackage{textcomp}
+% \usepackage[dutch]{babel}
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+  linkcolor  = mylinkcolor!85!black,
+  citecolor  = mycitecolor!85!black,
+  urlcolor   = myurlcolor!85!black,
+  colorlinks = true,
+}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{enumitem}
+% \usepackage{parskip}
+\usepackage{emptypage}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+\usepackage{pgfplots}
+
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+% font to use computer modern bright
+\usepackage{cmbright}
+% \usepackage{bbm}
+
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+% % figure support
+% \usepackage{import}
+% \usepackage{xifthen}
+% \pdfminorversion=7
+% \usepackage{pdfpages}
+% \usepackage{transparent}
+% \newcommand{\incfig}[1]{%
+%     \def\svgwidth{\columnwidth}
+%     \import{./figures/}{#1.pdf_tex}
+% }
+
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+% %http://tex.stackexchange.com/questions/76273/multiple-pdfs-with-page-group-included-in-a-single-page-warning
+
+\usepackage{fancyhdr}
+
+\usepackage{tcolorbox}
+\pdfsuppresswarningpagegroup=1
+
+
+\definecolor{correct}{HTML}{009900}
+\definecolor{mylinkcolor}{HTML}{F79359}
+\definecolor{mycitecolor}{HTML}{E46264}
+\definecolor{myurlcolor}{HTML}{DB9C98}
+
+
+% \renewcommand\bfseries\ssfamily{b}
+% \bfseries\sffamily
+
+\usepackage{marginnote}
+\usepackage{tablefootnote}
+% fix notes 
+\makeatletter
+\newcommand{\spewnotes}{%
+\tfn@tablefootnoteprintout%
+\global\let\tfn@tablefootnoteprintout\relax%
+\gdef\tfn@fnt{0}%
+}
+\makeatother

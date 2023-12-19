@@ -1,173 +1,85 @@
-\chapter{PDE Approach To Solving the Makean-Vlasov Equation}
-\textcolor{Red}{This entire chapter needs alot of reworking, formulating Theorems etc. so there is more structure}
-\section{Motivation}
-Above we saw an SDE approach to solving the Makean-Vlasov Equation, in this section we instead focus on a PDE based approach.
-From now on we assume $\sigma(Y(t),\mu(t)) = \sqrt{2} $ is a constant, then the \hyperref[MVE]{(MVE)} can be rewritten as
- \begin{align*}
-   \text{(MVE*)}\begin{cases}
-    Y(t) &= b(Y(t),\mu(t)) dt + \sqrt{2} dW_t\\
-    Y(0) &= \xi \in  L^{2}(\Omega ) \\
-    \mu_0 &= \mathcal{L}(\xi)
-   \end{cases}
- .\end{align*}
- by applying It\^os formula for $\forall \phi  \in  \mathcal{C}_0^{\infty}([0,T)\times \mathbb{R}^{d} ) $
+\chapter{PDE Approach for the Mckean-Vlasov Equation}
+
+In this chapter, we give an alternative approach in solving the Mckean-Vlasov equation \autoref{MVE} based on the PDE theory. Due to the time limitation, we will use in this chapter the simplest framework, i.e. $L^2$ theory, in the study of the weak solution to second order parabolic PDEs. More complete version of the solution theory will be given in the lecture of PDEs in the spring semester.
+
+To describe the method more explicitly, we use a simplified model other than the general setting in \autoref{MVE}. More precisely, we take $b$ as a given operator in the convolution form with kernel $F$ in the following
 \begin{align*}
-  \phi(Y(t),t) - \phi(Y(0),0) &= \int_0^{t} \frac{\partial \phi }{\partial t}(Y(s),s) + \nabla \phi(Y(s),s)*b(Y(s),\mu(s))  \\
-                              &+ \frac{1}{2} \underbrace{\sqrt{2}*\sqrt{2})}_{tr(\sigma *\sigma ^{T} )}* \Delta \phi(Y(s),s) ds \\
-                              &+ \int_0^{t} \nabla \phi(Y(s),s)  \sqrt{2} dW_s 
+	b(Y(t),u) = \int F(Y(t)-y)u(y) dy = \int F(y)u(Y(t)-y) dy
 .\end{align*}
-and taking the expectation  on both sides, such that the last term disappears 
+In addition, the diffusion coefficient is simply taken to be a constant, i.e. $\sigma=\sqrt{2}$. Notice that with this convolution structure, the condition that $b$ need to be Lipschitz continuous for solving the stochastic differential equation requires that the interaction kernel $F$ to be Lipschitz continuous if one only search for measure valued $u$. On the other hand, $u$ satisfies a second order parabolic PDE, where more regularity of the solution can be obtained. Therefore, it allows the opportunity to weaken the assumption of $F$ with the help of the convolution structure. It will further give the chance to get mean field limit for singular interaction forces.
+
+We explain the connection with PDE again in the following: with the simpler setting, the \hyperref[MVE]{(MVE)} can be rewritten as
+ \begin{align}\label{MVE*}
+   \text{(MVE*)}\begin{cases}
+   d Y(t) &= F\star\mu(t)(Y(t)) dt + \sqrt{2} dW_t\\
+    Y(0) &= \xi \in  L^{2}(\Omega ), \quad \mu(t)\sim law (Y(t))\\
+    \mu_0 &\sim law(\xi)
+   \end{cases}
+ .\end{align}
+By applying It\^o's formula we have, for $\forall \phi  \in  \mathcal{C}_0^{\infty}([0,T)\times \mathbb{R}^{d} ) $ it holds
+\begin{align*}
+  \phi(Y(t),t) - \phi(Y(0),0) &= \int_0^{t} \frac{\partial \phi }{\partial t}(Y(s),s) + \nabla \phi(Y(s),s)*F\star\mu(s)(Y(s))  \\
+                              &+ \frac{1}{2} \underbrace{\sqrt{2}*\sqrt{2})}_{tr(\sigma *\sigma ^{T} )}\Delta \phi(Y(s),s) ds+ \int_0^{t} \nabla \phi(Y(s),s)  \sqrt{2} dW_s 
+.\end{align*}
+Then by taking the expectation  on both sides, notice that the last term disappears, we have
 \begin{align*}
   &\int_{\mathbb{R}^{d} } \phi(x,t) d\mu(t) - \int_{\mathbb{R}^{d} } \phi(x,0) d\mu_0 \\
-  &= \int_0^{t} \int_{\mathbb{R}^{d} } \frac{\partial \phi }{\partial t}(x,s) + \nabla \phi(x,s)*b(x,\mu(s))* \Delta \phi(x,s)  d\mu(s) ds
+  &= \int_0^{t} \int_{\mathbb{R}^{d} } \Big(\frac{\partial \phi }{\partial t}(x,s) + \nabla \phi(x,s)*F\star\mu(s)(x)+ \Delta \phi(x,s) \Big) d\mu(s) ds
 .\end{align*}
-This leads us to formulating the following weak PDE, if $\mu$ is regular enough i.e it has density and the density has enough regularity, then $\mu $ should satisfy 
-\begin{align*}
+This shows that $\mu(t)$ satisfies the following diffusion equation in the weak sense.
+\begin{align}\label{DiffusionPDE}
   \begin{cases}
-    &\partial_t \mu  - \Delta \mu  + \nabla * (b(x,\mu) * \mu )  =0\\
+    &\partial_t \mu  - \Delta \mu  + \nabla * (F\star\mu  \mu )  =0\\
     &\mu(0) = \mu_0
   \end{cases}
-.\end{align*}
-\begin{remark}
- Compare this weak PDE to the one we got in the discrete case, what do you\\ notice ?
-\end{remark}
-\begin{exercise}
- Show that the integral equation and the weak formulation are equal.
-\end{exercise}
-\begin{remark}
- Now suppose we find $\mu $ with density $u$ satisfying the weak PDE, then we can plug it in to the \hyperref[MVE]{(MVE)} equation
- to get
+.\end{align}
+ Compare this weak PDE to the one we got in the discrete case \autoref{MFE}, there is only one additional diffusion term. From PDE point of view, this additional diffusion provides more regularity of the solution. We refer also more theories on this kind of equation to the PDE lecture in spring.
+
+{\bf Strategy of proving the \nameref{MVE} by PDE approach.}
+Suppose that we have obtained a solution $\mu $ of \autoref{DiffusionPDE} with density $u$, we first plug it into the \autoref{MVE*} to get
  \begin{align*}
    \begin{cases}
-    &dY_t = b(Y_t,u) dt + \sqrt{2} dW_t \\
-    &Y(t) = \xi \in  L^2(\Omega ) \quad \mathcal{L}(\xi) = u
+    &dY(t) = F\star u(t)(Y(t)) dt + \sqrt{2} dW_t \\
+    &Y(t) = \xi \in  L^2(\Omega ) \quad \mathcal{L}(\xi) = \mu_0,\quad u_0 \mbox{ is the density of }\mu_0
   \end{cases}
  .\end{align*}
- Now if $b$ is bounded and Lipschitz continuous, then we get a solution $Y_t $. Now if $\overline{u} $ is the Law of $Y_t$.
- Then by It\^o formula we have for $\forall  \phi \in \mathcal{C}_0^{\infty} $
+ Now if $F\star u(t)$ is bounded and Lipschitz continuous, then we get a solution $Y(t)$ from the SDE theory. We denote $\overline{u} $ to be density of the Law of $Y(t)$.
+ Then by It\^o's formula we have that for $\forall  \phi \in \mathcal{C}_0^{\infty}(\R^d) $, it holds
 \begin{align*}
-  &\int_{\mathbb{R}^{d} } \phi (x,t) d\overline{\mu(t)}  - \int_{\mathbb{R}^{d} } \phi(x,0) u_0(x) dx \\
-  &=  \int_0^{t} \int_{\mathbb{R}^{d} } \left(\frac{\partial \phi }{\partial t}(x,s) + \nabla \phi(x,s)*b(x,u) -  \Delta \phi(x,s)\right)\overline{u}(x,t) dx ds
+  &\int_{\mathbb{R}^{d} } \phi (x,t) \overline{u}(x,t)  - \int_{\mathbb{R}^{d} } \phi(x,0) u_0(x) dx \\
+  &=  \int_0^{t} \int_{\mathbb{R}^{d} } \left(\frac{\partial \phi }{\partial t}(x,s) + \nabla \phi(x,s)*F\star u(x,s) +  \Delta \phi(x,s)\right)\overline{u}(x,s) dx ds
 .\end{align*}
-Which means $\overline{\mu } $ satisfies
-\begin{align*}
+This means that $\overline{\mu } $ satisfies the following linear PDE in the weak sense:
+\begin{align}\label{DiffusionBar}
   \begin{cases}
-    &\partial_t \overline{\mu }  - \Delta \overline{\mu }  + \nabla * (b(x,u)*\overline{\mu } ) = 0\\
-    &\overline{\mu } \rvert_{t=0}  = u_0
+    &\partial_t \overline{u}  - \Delta \overline{u }  + \nabla * (F\star u\overline{u } ) = 0\\
+    &\overline{u } \rvert_{t=0}  = u_0
   \end{cases}
-.\end{align*}
-If we can prove $\overline{u} = u $, then we get a solution to the \nameref{MVE}. 
-\end{remark}
-\begin{example}
- A common choice of $b$ is the following for some kernel $K$
-\begin{align*}
-  b(Y_t,u) = \int K(Y_t-y)u(y) dy = \int K(y)u(Y_t-y) dy
-.\end{align*}
-then the regularity of $b$ by convolution depends on either $K$ or $u$
-\end{example}
-\section{Problem Definition}
-\begin{definition}[Weak PDE]\label{weak_pde_mve}
-  Let $\mu $ have density $u$, then we write 
-  \begin{align*}
-    \text{(PDE)}\begin{cases}
-    &\partial_t u  - \Delta u  + \nabla * (b(x,u)*u )  =0\\
-    &u(0) = u_0
-  \end{cases}
-.\end{align*}
-\todo{Formalize by adding the relevant spaces}
-\end{definition}
-\begin{definition}[Sobolev Spaces]
- We define roughly  
- \begin{align*}
-   H^1(\mathbb{R}^{d} ) &= \{u \in  L^2(\mathbb{R}^{d})  :  \nabla u \in  L^2(\mathbb{R}^{d}) \}  \\
-   \|u\|_{H_{1}} &= \|u\|_2 + \|\nabla u\|_2
- .\end{align*}
- where the gradient is defined for $\forall  \phi \in  \mathcal{C}_0^{\infty} $ 
- \begin{align*}
-   \nabla u = \braket{\nabla u , \phi } = -\braket{u,\nabla \phi }
- .\end{align*}
- And the dual space
- \begin{align*}
-  H^{-1}(\mathbb{R}^{d} )  =  (H^{1}(\mathbb{R}^{} ) )' =  \{l : l\text{ is bounded linear functional of } H^{1}(\mathbb{R}^{d} )  \}  
- .\end{align*}
- Then  
- \begin{align*}
-   L^2([0,T];H^{1}(\mathbb{R}^{d} ) ) = \{u : \int_0^{T} \|u(t)\|_{H^1} dt < \infty \}  
- .\end{align*}
-\end{definition}
-\begin{remark}
- The Sobolev space $H^1$ is a separable Hilbert space 
-\end{remark}
-\begin{definition}[Weak Solution]
-  We say that a function 
-  \begin{align*}
-    u \in  L^2([0,T];H^{1}(\mathbb{R}^{d} )\cap L^{\infty}([0,T];L^2(\mathbb{R}^{d} ))  )
-  .\end{align*}
-  with $\partial_t u \in  L^2([0,T];H^{-1}(\mathbb{R}^{d} ))$ is a weak solution of the \hyperref[weak_pde_mve]{(PDE)} if for
-  $\forall  \phi  \in \mathcal{C}^{\infty}_0([0,T]\times \mathbb{R}^{d} )  $ it holds 
-  \begin{align*}
-    \int_0^{T} \braket{\partial_t u , \phi }_{(H^{-1},H^{1})} dt &= \int_0^{T} \int_{\mathbb{R}^{d} }  \nabla \phi * (b(x,u)*u) dx dt \\
-                                                                 &- \int_0^{T} \int_{\mathbb{R}^{d} }  \nabla u * \nabla \phi  dx dt
-  .\end{align*} 
-\end{definition}
+.\end{align}
+If we can prove $\overline{u} = u $, then we get a solution to the \autoref{MVE*}. 
+
+This chapter is arranged in the following: in the first section we review the heat kernel to give a first impression in solving a diffusion type of PDE. It will also be used in writing the weak solution formulation of \autoref{DiffusionPDE}. In the second section, we prove that  \autoref{DiffusionPDE} has a unique solution by using Leray-Schauder fixed point theorem, the exact definition of the solution is given in detail later. Then in the last section, we show that $u=\overline{u}$ by using the theory of backward PDE, which complete the proof of solving  \autoref{MVE*}. The whole chapter is aim to introduce the framework, therefore assumptions on the interaction kernel are not optimal. Actually, the method is more powerful to solve the \autoref{MVE*} with singular interaction kernels.
+
+
 \section{Heat Equation and the Heat Kernel}
-\subsection{Motivation}
-\begin{definition}[Heat equation]\label{HE}
- The following PDE is called the inhomogenes Heat equation with source term $f$ 
- \begin{align*}
+The Cauchy problem of heat equation with source term $f$  is formulated in the following:
+  \begin{align}\label{HE}
    \text{(HE)}\begin{cases}
    \partial_t u(x,t) - \Delta u(x,t) &=f(x,t)\\
    u \rvert_{t=0} &= u_0
  \end{cases} 
- .\end{align*}
-\end{definition}
-\begin{remark}
- Compare this to our PDE which looks similar, but is in fact non-linear 
+ .\end{align}
+We show that this problem can be solve explicitly by using Fourier transform:
+$\mathcal{F} : L^1(\R^d) \to  L^\infty(\R^d) $ given by
 \begin{align*}
- \partial_t u - \Delta u + \nabla * (b(x,u)*u) = 0
- .\end{align*}
-\end{remark}
-\begin{remark}
- Let us suppose $K(x,t)$  is a heat kernel, then 
-  \begin{align*}
-    u(x,t) &=  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds \\
-           &= u_{1}(x,t) + u_{2}(x,t)
-  .\end{align*}
-  is a solution to the inhomogenous Heat-Equation, this is called Duhamel's principle i.e. we can "add" up solutions
-  to homogeneous problems and get the solution to the inhomogenous.
-\end{remark}
-\begin{remark}
- We say the heat kernel is the density of the Brownian Motion. 
-\end{remark}
-\subsection{Derivation by Fourier Transform}
-\begin{definition}[Fourier Transform]
- For $x \in  \mathbb{R}^{d} $ the Fourier transform is defined as
-\begin{align*}
-  \mathcal{F} : L^2 \to  L^2 \ u \mapsto \hat{u} 
+  \hat{u} (k):=\mathcal{F}(u)(k) =\frac{1}{(2\pi)^{d/2}} \int_{\mathbb{R}^{d} } u(x) e^{ix*k}  dx 
 .\end{align*}
-where
-\begin{align*}
-  \hat{u} (k) = \int_{\mathbb{R}^{d} } u(x) e^{ix*k}  dx 
-.\end{align*}
-\end{definition}
+We will omit the details in proving that the Fourier transform can be extended to a map from $ L^2(\R^d) \to  L^2(\R^d) $ and its list of properties.
 \begin{exercise}
-  Proof
-\begin{align*}
-  - \widehat{\Delta u}  = \abs{k}^2 \hat{u}(k)
-.\end{align*}
-\textit{Hint} 
-\begin{align*}
-  \widehat{\nabla u} = \frac{k}{i} \hat{u}(k)
-.\end{align*}
+  Prove formally that $\widehat{\nabla u} = \frac{k}{i} \hat{u}(k)$ and $  - \widehat{\Delta u}  = \abs{k}^2 \hat{u}(k)$.
 \end{exercise}
-\begin{remark}
- Using the Fourier transformation we can transform our PDE into an ODE 
-\begin{align*}
-  \begin{cases}
-    \partial_t \hat{u} - \widehat{\Delta u} &=\hat{f}\\
-   \hat{u} \rvert_{t=0} &= \hat{u}_0
- \end{cases} 
- .\end{align*}
+
+ Using the Fourier transformation we can transform the hear equation \autoref{HE} into the following ODE, namely for $k\in\R^d$ we have
  that is
  \begin{align*}
    \begin{cases}
@@ -175,721 +87,559 @@ where
      &\hat{u}_0(k)= \hat{u}_0
    \end{cases}
  .\end{align*}
- where 
+Then by the solution representation of linear ODE, we have $\forall k\in\R^d$ that 
 \begin{align*}
   \hat{u} (k,t)= e^{-\abs{k}^2t} \hat{u}_0(k) + \int_0^{t}  e^{-\abs{k}^2(t-\tau )} \hat{f}(k,\tau ) d \tau 
  .\end{align*}
-\end{remark}
-\begin{lemma}[Inverse transformation of the Fourier transformation]
- \begin{align*}
+We use the inverse Fourier transform to get the solution formula for \autoref{HE}:
+\begin{align}\label{HEsol}
    u(x,t) =  \frac{1}{(4\pi t)^{\frac{d}{2}} }\int_{\mathbb{R}^{d} } e^{-\frac{\abs{x-y}^2}{4t}} u_0(y) dy + \int_0^{t} \int_{\mathbb{R}^{d} }   \frac{1}{(4\pi(t-\tau ))^{\frac{d}{2}} } e^{\frac{-\abs{x-y}^2}{4(t-\tau )}} f(y,\tau )dy d\tau 
- .\end{align*}
-\end{lemma}
-\begin{definition}[Heat Kernel]
- The following is called Heat Kernel
- \begin{align*}
-  K(x,t) = \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}} 
- .\end{align*}
- and for $\forall  t > 0 $ it is a solution to the homogeneous heat equation
- \begin{align*}
-  \partial_t K - \Delta K  = 0
- .\end{align*}
- And 
- \begin{align*}
-   K \xrightarrow{t \to 0^{+} } \delta 
- .\end{align*}
- In the sense of distributions.
-\end{definition}
-\begin{theorem}[Solution To Heat Equation]
-  Let $K$  be the Heat kernel and initial data $u_{0} \in \mathcal{C}_b(\mathbb{R}^{d} )$ and $f \in  \mathcal{C}^{2,1}(\mathbb{R}^{d} \times  [0,T]) $ with compact support (schwarz function would work as well, since they lie dense in compact)
+ .\end{align}
+In the above formula, function $\frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}} $ plays an important role. It is called the heat kernel, we will use the notation 
+	\begin{align*}
+	K(x,t) = \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}} 
+	.\end{align*}
+It is easy to prove that $	K \xrightarrow{t \to 0^{+} } \delta $ in the sense of distribution. Furthermore, direct computation shows that $\forall  t > 0 $ it holds
+	\begin{align*}
+	\partial_t K - \Delta K  = 0
+	.\end{align*}
+Since the above discussions are rather formal, in the next we prove rigorously that \autoref{HEsol} gives exactly the solution of \autoref{HE}.
+
+
+\begin{theorem}[Solution to the Heat Equation]\label{solHE}
+  Let the initial data $u_{0} \in \mathcal{C}_b(\mathbb{R}^{d} )$ and $f \in  \mathcal{C}^{2,1}(\mathbb{R}^{d} \times  [0,T]) $ with compact support, then
 \begin{align*}
-    u(x,t) &=  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds \\
-           &= u_{1}(x,t) + u_{2}(x,t)
-  .\end{align*}
-  is a solution to the heat equation, in fact $u_{1}$ and $u_{2}$ are solutions to
+    u(x,t) &=  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy + \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) f(y,s)dy ds
+  \end{align*}
+  is a solution to the heat equation
+\end{theorem}, 
+
+\begin{proof} By denoting 
+	\begin{align*}
+	u_{1}(x,t) &=  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy \\
+	u_{2}(x,t)&=  \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s)f(y,s)dy ds 
+	\end{align*}
+	and the superposition principle, we only need to prove that $u_{1}$ and $u_{2}$ are solutions to
+	\begin{align*}
+	\text{(P1)}\begin{cases}
+	&\partial_t u_{1} - \Delta u_{1} = 0 \\
+	&u_{1}(0) = u_{0}
+	\end{cases}
+	\qquad 
+	\text{(P2)}\begin{cases}
+	&\partial_t u_{2} - \Delta u_{1} = f \\
+	&u_{2}(0) = {0}
+	\end{cases}
+	.\end{align*}
+	respectively.
+	
+  We begin with showing that $u_{1}$ is a solution to (P1). Obviously, $\partial_t u_{1} - \Delta u_{1} = 0$, it remains to show that it satisfies the initial data. Actually, for $x\in \R^d$ it holds
   \begin{align*}
-    \text{(P1)}\begin{cases}
-      &\partial_t u_{1} - \Delta u_{1} = 0 \\
-      &u_{1}(0) = u_{0}
-    \end{cases}
-    \qquad 
-    \text{(P2)}\begin{cases}
-      &\partial_t u_{2} - \Delta u_{1} = f \\
-      &u_{2}(0) = u_{0}
-    \end{cases}
-  .\end{align*}
-  respectively
-\end{theorem}
-\begin{proof}
-  We begin by showing that $u_{1}$ is a solution to (P1) by showing
-  \begin{align*}
-    \lim_{t \to 0^{+}}  u_{1}(x,t) = \lim_{t \to 0^{+}} \int_{\mathbb{R}^{d} }K(x-y,t)u_0(y) dy \myS{!}{=} u_{0}
-  .\end{align*}
-  \begin{align*}
-    \lim_{t \to 0^{+} }\int_{\mathbb{R}^{d} }K(x-y,t)u_0(y) dy &= \lim_{t \to 0^{+} } \int_{\mathbb{R}^{d} } \frac{1}{(4\pi t)^{\frac{d}{2}}} e^{-\frac{\abs{x-y}^2}{4t}} u_0(y) dy \\ 
-                                           &=  \lim_{t \to 0^{+} } \int_{\mathbb{R}^{d} } \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\abs{z}^2}  u_{0}(x+2 \sqrt{t} z ) dz \\
-                                           &= \int_{\mathbb{R}^{d}  } \lim_{t \to 0^{+} } \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\abs{z}^2}  u_{0}(x+2 \sqrt{t} z ) dz \\
-                                           &= u_0(x)  
-  .\end{align*}
-  where we used the change of variables 
-  \begin{align*}
-    \frac{x-y}{2 \sqrt{t} }= -z
-  .\end{align*}
-  Then  for $\forall  t > 0$
-  \begin{align*}
-    \partial_t u_{1} - \Delta u_{1} &= (\partial_t -  \Delta) \int_{\mathbb{R}^{d} } K(x-y,t)u_0(y)dy\\
-                                    &= \int_{\mathbb{R}^{d} } (\partial_t - \Delta )K(x-y,t) u_0(y) dy \\
-                                    &= 0
-  .\end{align*}
-  by properties of the Heat-Kernel. \\[1ex]
-  For $u_{2}(x,t)$ , we further assume $f$ has compact support
-  \begin{align*}
-    u_{2}(x,t)  = \int_0^{t}  \int_{\mathbb{R}^{d} }K(y,s)f(x-y,t-s) dy ds
-  .\end{align*}
-  First note that  
-  \begin{align*}
-    \lim_{t \to 0^{+}}  u_{2}(x,t) &= 0 
-  .\end{align*}
-  Then by applying 
+    \lim_{t \to 0^{+}}  u_{1}(x,t) \lim_{t \to 0^{+} }&=\int_{\mathbb{R}^{d} }K(x-y,t)u_0(y) dy \\
+    &= \lim_{t \to 0^{+} } \int_{\mathbb{R}^{d} } \frac{1}{(4\pi t)^{\frac{d}{2}}} e^{-\frac{\abs{x-y}^2}{4t}} u_0(y) dy \\ 
+                                           &=  \lim_{t \to 0^{+} } \int_{\mathbb{R}^{d} } \frac{1}{\pi^{\frac{d}{2}} } e^{-\abs{z}^2}  u_{0}(x+2 \sqrt{t} z ) dz \\
+                                           &= \int_{\mathbb{R}^{d}  } \lim_{t \to 0^{+} } \frac{1}{\pi ^{\frac{d}{2}} } e^{-\abs{z}^2}  u_{0}(x+2 \sqrt{t} z ) dz = u_0(x)  
+  ,\end{align*}
+  where we used the change of variables $ \frac{x-y}{2 \sqrt{t} }= -z$.
+ 
+  For $u_{2}(x,t)$, first note that  the initial condition is satisfied $ \lim_{t \to 0^{+}}  u_{2}(x,t) = 0$. 
+  
+  Next, we show that it satisfies the equation. 
   \begin{align*}
     (\partial_t - \Delta )u_{2}  &= \int_0^{t} \int_{\mathbb{R}^{d} } K(y,s)(\partial_t - \Delta_x)f(x-y,t-s) dy ds \\
                                  &+ \int_{\mathbb{R}^{d} } K(y,t)f(x-y,0) dy\\
-                                 &=  \int_{0}^{\epsilon} \int_{\mathbb{R}^{d} } K(y,s) \left( -\partial_s - \Delta_y \right)f(x-y,t-s) dy ds +  \int_{\epsilon}^{t} \int_{\mathbb{R}^{d} } \ldots  \\
+                                 &= \Big( \int_{0}^{\epsilon} \int_{\mathbb{R}^{d} } ++  \int_{\epsilon}^{t} \int_{\mathbb{R}^{d} }\Big)K(y,s) \left( -\partial_s - \Delta_y \right)f(x-y,t-s) dy ds  \\
                                  &+   \int_{\mathbb{R}^{d} } K(y,t)f(x-y,0) dy\\
-                                 &= I_{\epsilon} +  J_{\epsilon} + L
+                                 &=: I_{\epsilon} +  J_{\epsilon} + L
   .\end{align*}
-  We are allowed to exchange the order because of the Heat-Kernel since it decays very fast this gives uniform integrability the further away we get from the origin\\
-  We have, since $f \in  \mathcal{C}_b^{2,1}  $ we get that its term is bounded and the integral for the Heat kernel is just 1
+  We are allowed to exchange the order of differential and integral operators, since the Heat-Kernel decays exponentially in the space variable, which gives uniform integrability of the integrands.
+  
+  Since $f \in  \mathcal{C}_b^{2,1}  $ and the space integral of the heat kernel is $1$, we get that 
   \begin{align*}
-    \abs{I_\epsilon} &\le  C*\epsilon\\
+    \abs{I_\epsilon} &\le  C*\epsilon
+  \end{align*}  
+  For $J_\varepsilon$, since it is away from the singular point of the heat kernel and $f$ has compact support, we do integral by parts and obtain
+  \begin{align*}
     J_{\epsilon} &= \int_{\epsilon}^{t}  \int_{\mathbb{R}^{d} } K(y,s)(-\partial_t - \Delta_y) f(x-y,t-s)dy ds\\
                  &= \int_{\epsilon}^{t}  \int_{\mathbb{R}^{d} } \underbrace{(-\partial_t - \Delta_y)K(y,s)}_{=0}f(x-y,t-s)dy ds\\ 
                  &+ \int_{\mathbb{R}^{d} }K(y,\epsilon) - f(x-y,t-\epsilon) dy \\
-                 &-\underbrace{\int_{\mathbb{R}^{d} } K(y,t) f(x-y,0) dy}_{=Li }
+                 &-\underbrace{\int_{\mathbb{R}^{d} } K(y,t) f(x-y,0) dy}_{=L }
   .\end{align*}
+Thus we have proved that
+\begin{align*}
+\partial_t u_{2} - \Delta u_{2} &= \lim_{\epsilon \to 0} \left( \int_{\mathbb{R}^{d} } \underbrace{K(y,\epsilon)}_{\to \delta} f(x-y,t-\epsilon) dy + \underbrace{C\epsilon}_{\to 0} \right)  = f(x,t)
+.\end{align*}
 \end{proof}
-Together we have 
-\begin{align*}
-  \partial_t u_{2} - \Delta u_{2} &= \lim_{\epsilon \to 0} \left( \int_{\mathbb{R}^{d} } \underbrace{K(y,\epsilon)}_{\to \delta} f(x-y,t-\epsilon) dy + \underbrace{C\epsilon}_{\to 0} \right)  \\
-                                  &= f(x,t)
-.\end{align*}
-This shows that 
-\begin{align*}
-  u(x,t) &=  \int_{\mathbb{R}^{d} } K(x-y,t) u_0(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }  K(x-y,t-s) \nabla * (b(y,u(y,s)u(y,s))dy ds \\
-.\end{align*}
-is a solution to the inhomogenous heat equation. 
+
+
+\section{Well-posedness of nonlocal PDE \autoref{DiffusionPDE}}
+We will only use the $L^2$ weak solution framework to show the existence and uniqueness of weak solution. 
+
+As a necessary tool, we introduce the $H^1$ Space and the definition of $L^2$ weak solution of \autoref{DiffusionPDE}.
+\begin{definition}[$H^1$ Sobolev Spaces]
+	We define 
+	\begin{align*}
+	H^1(\mathbb{R}^{d} ) &= \{u \in  L^2(\mathbb{R}^{d})  :  \nabla u \in  L^2(\mathbb{R}^{d}) \}  \\
+	\mbox{with norm }	\|u\|_{H^1} &= \|u\|_{L^2} + \|\nabla u\|_{L^2},
+	\end{align*}
+	where the gradient is defined in the sense of distribution, namely, for $\forall  \phi \in  \mathcal{C}_0^{\infty} $,
+	\begin{align*}
+	\braket{\nabla u , \phi } = -\braket{u,\nabla \phi }
+	.\end{align*}
+	We denote its dual space as
+	\begin{align*}
+	H^{-1}(\mathbb{R}^{d} )  =  (H^{1}(\mathbb{R}^{} ) )' =  \{l : l\text{ is bounded linear functional of } H^{1}(\mathbb{R}^{d} )  \}  
+	.\end{align*}
+	We will also use the space 
+	\begin{align*}
+	&L^2(0,T;H^{1}(\mathbb{R}^{d} ) ) = \Big\{u : \int_0^{T} \|u(t)\|^2_{H^1(\R^d)} dt < \infty \Big\}  \\
+	&	L^{\infty}(0,T;L^2(\mathbb{R}^{d} ))=\Big\{u : \essup_{t\in(0,T)} \|u(t)\|_{L^2(\R^d)}  < \infty \Big\}
+	.\end{align*}
+\end{definition}
+
 \begin{remark}
-  When changing order or variable of derivative one has to be aware of the boundary terms appearing.
- For example when changing the order for the $\partial_t$  derivative one gets two boundary terms , where one is not well behaved $t=0$
+	The Sobolev space $H^1$ is a separable Hilbert space 
 \end{remark}
-\begin{align*}
-  \begin{cases}
-    &\partial_t u  - \Delta u + \nabla * (b(x,u)*u) = 0\\
-    &u \rvert_{t=0} =u_{0} \in  L^{1} \ \int (1+\abs{x}^2)u_{0} <\infty
-  \end{cases}
-.\end{align*}
-Formally
-\begin{align*}
-  u(x,t)  = \int_{\mathbb{R}^{d} } K(x-y,t)u_{0}(y) dy - \int_0^{t} \int_{\mathbb{R}^{d} }K(x-y,t-\tau ) \nabla * (b(y,u(y,\tau ))*u(y,\tau ))dy d\tau 
-.\end{align*}
-Now we start with bounded drift term for a linear equation.
-\begin{definition}[LDE]\label{LDE}
-  For bounded drift term $\overline{b} \in  L^{\infty}  $ we define
-\begin{align*}
+
+We will also use the following compactness result:
+
+\begin{lemma}[Compact Embedding]\label{embedding}
+	Let 
+	$$
+	V(\R^d):=\{u\in H^1 (\R^d): u\in L^1(\R^d)\mbox{ and }\int_{\R^d}|x|^2|u|(x)dx<\infty\},
+	$$
+	then $V(\R^d)$ embedded in $L^p(\R^d)$, $\forall p\in [1,\frac{dp}{d-p})$ compactly. Namely for any sequence
+	$(u_n)_{n\in\N}$, if $\exists C>0$ such that
+	\begin{align*}
+	\|u_n\|_{H^1(\R^d)}+\int_{\R^d} (1+|x|^2)|u(x)|dx\leq C,
+	\end{align*}
+	then there exists a subsequence $(u_{n_j})_{j\in\N}$ and a function $u\in V(\R^d)$ such that
+	\begin{align*}
+	\|u_{n_j}-u\|_{L^p(\R^d)}\to 0, \mbox{ for } p\in [1,\frac{dp}{d-p}).
+	\end{align*}	
+\end{lemma}
+\vskip3mm
+The proof can be done by the compact embedding in bounded domains and the bounded control of moment.
+\begin{lemma}[Aubin-Lions Lemma, Simon Page 87, Cor. 6]
+	Let Banach spaces satisfy $X\subset B\subset Y$, and the embedding $X\rightarrow B$ be compact. Let $1<q\leq \infty$. If a set of functions $F$ is bounded in $L^q(0,T;B)\cap L^1_{loc}(0,T;X)$ and $\partial_t F$ is bounded in $L^1_{loc}(0,T;Y)$. The $F$ is relatively compact in $L^p(0,T;B)$, $\forall p<q$.
+\end{lemma}
+
+\vskip3mm
+
+Then as a corollary of the above two lemmata, take spaces $X=V(\R^d)$, $B=L^2(\R^d)$, $Y=H^{-1}(\R^d)$, we obtain the following corollary that we are going to use in the lecture.
+
+\begin{lemma}[Aubin-Lions Lemma, special version]\label{aubin}
+	If  $(u_n)_{n\in\N}$ satisfies
+	\begin{enumerate}
+		\item $\sup_t \int  (1+\abs{x}^2) \abs{u_n(t,x)} dx \le C$
+		\item  $\|u_n\|_{L^{2}(0,T; H^{1}(\R^d) ) }+\|u_n\|_{L^\infty(0,T;L^2(\R^d))}\le C$ 
+		\item $\|\partial_t u_n\|_{L^1(0,T;H^{-1}(\R^d) ) }\le C$
+	\end{enumerate}
+	Then $(u_n)$ is relatively compact in $L^{q}(0,T;L^{2}(\mathbb{R}^{d} ) ) $ i.e. there $\exists  u \in L^q(0,T;L^{2} (\R^d)) $, $\forall 1\leq q<\infty $ s.t. there is a subsequence converge to it:
+	\begin{align*}
+	\|u_{n_j} - u\|_{L^{q}(0,T;L^{2}(\mathbb{R}^{d} ) ) } \to 0
+	.\end{align*}
+\end{lemma}
+
+
+\begin{definition}[Weak Solution]\label{WeakSol}
+	We say that a function 
+	\begin{align*}
+	u \in  L^2(0,T;H^{1}(\mathbb{R}^{d} )\cap L^{\infty}(0,T;L^2(\mathbb{R}^{d} ))  )
+	,\end{align*}
+	with $\partial_t u \in  L^2(0,T;H^{-1}(\mathbb{R}^{d} ))$ is a weak solution of the \autoref{DiffusionPDE} if for
+	$\forall  \phi  \in L^2(0,T;H^1(\R^d) )  $ it holds 
+	\begin{align*}
+	\int_0^{T} \braket{\partial_t u , \phi }_{(H^{-1},H^{1})} dt &= \int_0^{T} \int_{\mathbb{R}^{d} }  \nabla \phi * F\star u u dx dt - \int_0^{T} \int_{\mathbb{R}^{d} }  \nabla u * \nabla \phi  dx dt
+	.\end{align*} 
+\end{definition}
+
+\vskip5mm
+The main theorem of this section is:
+\begin{theorem}\label{PDEtheorem}
+	Assume that $F\in L^2(\R^d)\cap L^\infty(\R^d)$, $0\leq u_0\in L^1(\R^d)\cap L^2(\R^d)$ and $\int_{\R^d}|x|^2u_0(x)dx$ is finite, then \autoref{DiffusionPDE} has a unique weak solution as defined in \autoref{WeakSol}. In addition, $u\in L^\infty(0,T;L^1(\R^2))$ and $\int_{\R^d}|x|^2u(x,t)dx$ is finite for any given $t>0$.
+\end{theorem}
+
+\vskip5mm
+We will use the Leray-Schauder fixed point theorem to prove that. 
+
+ \begin{theorem}[Leray-Schauder Fixed Point Theorem]\label{schauder_fixpoint}
+	Let $U$ be a Banach Space and 
+	\begin{align*}
+	T: (u,\sigma ) \in  U \times  [0,1] \to U
+	.\end{align*}
+	If 
+	\begin{enumerate}
+		\item $T$ is compact 
+		\item $T(u,0) = 0$ for $\forall  u \in  U$
+		\item  $\exists  C >0$ s.t for $\forall  u \in  U$ with $u=T(u,\sigma )$ for some $\sigma  \in  [0,1]$ it holds 
+		\begin{align*}
+		\|u\|_{U} \le C
+		.\end{align*}
+	\end{enumerate}
+	Then the map $T(*,1)$ has a fixed point
+\end{theorem}
+\vskip5mm
+
+{\bf Proof strategy for \autoref{PDEtheorem}}. \label{proofstrategy}
+Consider the Banach space $U=L^q(0,T; L^2(\R^d))$ for a fixed $2<q<\infty$. We define a map $T: (u,\sigma ) \in  U \times  [0,1] \to U$ by solving the linearized PDE, i.e. $\forall v\in U$, let $u=T(v,\sigma)$ be the weak solution of 
+\begin{align}\label{linearPDE}
+\begin{cases}
+&u_t - \Delta u + \sigma\nabla*(F \star  v \ u) = 0\\
+&u \rvert_{t=0} = \sigma u_{0} 
+\end{cases}
+.\end{align}
+
+The following points should be checked:
+\begin{enumerate}
+	\item The existence and uniqueness of $u$ of problem \autoref{linearPDE}. This is given in \autoref{lemLPDE}. And the compactness of operator $T$ is also given in \autoref{lemLPDE} by the uniform estimates and the Aubin-Lions \autoref{aubin}.
+	\item For $\sigma=0$, the problem reduces to heat equation which can be solved by using the fundamental solution representation $u=T(v,0)=0$.
+	\item The uniform estimate for arbitrary fix point can be done directly by using the same estimates in \autoref{lemLPDE}.
+\end{enumerate}
+This means we can apply \nameref{schauder_fixpoint} and get a fix point  $T(*,1)$ which is a solution  to \autoref{DiffusionPDE}.
+
+
+\vskip5mm
+As a preparation, we first study a linear equation with given drift term, with which we can build an iteration and prove that the map has a fixed point to solve \autoref{DiffusionPDE}. The linear equation reads:
+\begin{align}\label{LDE}
   \text{(LDE)}\begin{cases}
     &\partial_t - \Delta u + \nabla * (\overline{b}(x,t)u ) = 0 \\ 
     & u \rvert_{t=0} = u_{0}
   \end{cases}
-.\end{align*}
-\end{definition}
-\begin{remark}
-  By first proving the existence of a solution to this simpler equation we can then construct an iteration that will yield
-a solution to the more complex non-linear , non-local one.
-\end{remark}
-\begin{theorem}[Uniqueness and Existence of LDE Solution ]
-  If $b \in  L^{\infty}([0,T] \times  \mathbb{R}^{d} ) $  and $u_{0} \in  L^1(\mathbb{R}^{d} )$, then the \hyperref[LDE]{(LDE)} has a 
-  unique solution $u \in L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) ) $
-  \begin{align*}
-    u(x,t) = \int_{\mathbb{R}^{d} }K(x-y,t)u_{0}(y) dy  + \int_{0}^{t} \int_{\mathbb{R}^{d} } \nabla K(x-y,t-\tau ) * (\overline{b}(y,\tau )u(y,\tau ) ) dy d\tau 
-  .\end{align*}
+\end{align}
+
+With the help of heat kernel representation we give a version of weak solution of \autoref{LDE}:
+\begin{Definition}
+	 $u \in L^{\infty}(0,T;L^{1}(\mathbb{R}^{d} ) ) $ is called a mild solution of \autoref{LDE} if
+	 \begin{align*}
+	u(x,t) = \int_{\mathbb{R}^{d} }K(x-y,t)u_{0}(y) dy  + \int_{0}^{t} \int_{\mathbb{R}^{d} } \nabla K(x-y,t-\tau ) * (\overline{b}(y,\tau )u(y,\tau ) ) dy d\tau 
+	.\end{align*} 
+\end{Definition}
+\begin{theorem}[Well-posedness of \autoref{LDE} ]\label{bLDE}
+ For any given $T$, if $\overline{b} \in  L^q(0,T;L^\infty( \mathbb{R}^{d} )) $, $2<q\leq\infty$  and $u_{0} \in  L^1(\mathbb{R}^{d} )$, then the \hyperref[LDE]{(LDE)} has a 
+  unique mild solution $u \in L^{\infty}(0,T;L^{1}(\mathbb{R}^{d} ) ) $. 
 \end{theorem}
 \begin{proof}
- We prove again by Iteration, and fix point argument, consider a map 
+ We build up an iteration and prove it has a fixed point. Namely, consider a map 
  \begin{align*}
-   &\mathcal{T} : L^{\infty}([0,T];L^1(\mathbb{R}^{d} )) \to L^{\infty}([0,T];L^1(\mathbb{R}^{d} ))\\
+   &\mathcal{T} : L^{\infty}(0,T;L^1(\mathbb{R}^{d} )) \to L^{\infty}(0,T;L^1(\mathbb{R}^{d} ))\\
    &u \mapsto \mathcal{T}(u) = \int_{\mathbb{R}^{d} }K(x-y,t)u_{0}(y) dy  + \int_{0}^{t} \int_{\mathbb{R}^{d} } \nabla K(x-y,t-\tau ) * (\overline{b}(y,\tau )u(y,\tau ) ) dy d\tau 
  .\end{align*}
- We need to check $\mathcal{T}(u) \in  L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) ) $, for $\forall  t >0$
+We first show that $\mathcal{T}(u) \in  L^{\infty}(0,T;L^{1}(\mathbb{R}^{d} ) ) $. Actually, for $\forall  t >0$, it holds
  \begin{align*}
    \int_{\mathbb{R}^{d} }\abs{\mathcal{T}(u)(x,t)} dx &\le \int_{\mathbb{R}^{d} } \int_{\mathbb{R}^{d} } K(x-y,t)\abs{u_0(y)}dy dx \\
                                                       &+ \int_0^{t}  d\tau \int_{\mathbb{R}^{d} }dx \int_{\mathbb{R}^{d} } dy \abs{\nabla K(x-y,t-\tau )\overline{b} (y,\tau )u(y,\tau )}\\
                                                       &= I + II
  .\end{align*}
-  Since we have fixed $t >0$ we use Fubini 
+  Since we have fixed $t >0$ we use Fubini and obtain $ I \le \|u_{0}\|_{L^{1}(\mathbb{R}^{d} ) }$.
+  
+  Considering the fact that
   \begin{align*}
-    I &\le \int_{\mathbb{R}^{d} }\underbrace{\int_{\mathbb{R}^{d} }K(x-y,t) dx}_{=1} \abs{u_0(y)}dy\\
-      &\le \|u_{0}\|_{L^{1}(\mathbb{R}^{d} ) }
+    \int_{\mathbb{R}^{d} }|\nabla K(x,s)| dx  &= \frac{1}{(4 \pi s)^{\frac{d}{2}} } \int_{\mathbb{R}^{d} } \frac{1}{\sqrt{s} }\Big|\frac{x}{2 \sqrt{s} }\Big| e^{-\frac{\abs{x}^2}{4s}} dx \le  \frac{1}{\sqrt{s} }C
   .\end{align*}
-  First consider the gradient of $K$
+  Then for the second term we get for $1\leq q'<2$ 
   \begin{align*}
-    \int_{\mathbb{R}^{d} }\nabla K(x,s) dx  &= \frac{1}{(4 \pi s)^{\frac{d}{2}} } \int_{\mathbb{R}^{d} } \frac{1}{\sqrt{s} }\abs{\frac{4}{2 \sqrt{s} }} e^{-\frac{\abs{x}^2}{4s}} dx \\
-                                            &\le  \frac{1}{\sqrt{s} }C
+    II &\le \int_{0}^{t}  d\tau  \|\overline{b} (\cdot,\tau)\|_{L^{\infty}(\R^d) } \int_{\mathbb{R}^{d} } \abs{\nabla K(x,t-\tau )}dx \int_{\mathbb{R}^{d} }u(y,\tau )dy\\
+       &\le  \|u\|_{L^{\infty}(L^1) } C*\int_0^{t}  \frac{1}{\sqrt{t-\tau} }\|\overline{b} (\cdot,\tau)\|_{L^{\infty}(\R^d) } d\tau \leq  C\|\overline{b} \|_{L^q(0,t;L^{\infty}(\R^d)) }\frac{1}{1-\frac{q'}{2}}t^{1-\frac{q'}{2}}\leq C^\star t^{1-\frac{q'}{2}}
   .\end{align*}
-  Then for the second term we get 
-  \begin{align*}
-    II &\le  \|\overline{b} \|_{L^{\infty} }\int_{0}^{t}  d\tau  \int_{\mathbb{R}^{d} } \abs{\nabla K(x,t-\tau )}dx \int_{\mathbb{R}^{d} }u(y,\tau )dy\\
-       &\le \|\overline{b} \|_{L^{\infty} } \|u\|_{L^{\infty}(L^1) } C*\int_0^{t}  \frac{1}{\sqrt{s} } dy \\
-       &=  C*\sqrt{t-\tau } 
-  .\end{align*}
-  Note we we do not need to consider $y$ in $K$ since we can use a translation,$L^{\infty}(L^{1} ) = L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) )  $ \\[1ex]
-  This shows that our map $\mathcal{T}$ is indeed well defined, next we proof $\mathcal{T}(u)$ is a contraction,
-  for $\forall  u_{1},u_{2} \in  L^{\infty}(L^{1} ) $, for $t^{\star }$ s.t. $C \|\overline{b} \|_{\infty} \sqrt{t^{\star }} < \frac{1}{2} $
+  Note that we do not need to consider $y$ in $K$ since we can use a translation, $L^{\infty}(L^{1} ) = L^{\infty}(0,T;L^{1}(\mathbb{R}^{d} ) )  $. \\[1ex]
+  This shows that the map $\mathcal{T}$ is indeed well defined.
+  
+  \vskip3mm
+  Next we prove that $\mathcal{T}(u)$ is a contraction. 
+  
+  In fact, $\forall  u_{1},u_{2} \in  L^{\infty}(L^{1} ) $, for $t^{\star }$ s.t. $ C^\star {t^\star}^{1-\frac{q'}{2}}< \frac{1}{2} $, by doing similar argument as before, we have
   \begin{align*}
     &\|\mathcal{T}(u_{1}) - \mathcal{T}(u_{2})\|_{L^{\infty}(L^{1} ) } \\
     &= \essup_{0\le t\le t^{\star} }\int_{\mathbb{R}^{d} } \abs{\mathcal{T}(u_{1}) - \mathcal{T}(u_{2})}(x,t)dx \\
     &\le  \essup_{0\le t\le t^{\star} } \int_0^{t} d\tau  \int_{\mathbb{R}^{d} } dy \abs{\nabla K(x-y,t-\tau )(\overline{b}(y,\tau )(u_{1}-u_{2}) )(y,\tau ) }\\
-    &\le \essup_{0\le t\le t^{\star} } \|\overline{b} \|_{L^{\infty} }  \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) } \int_0^{t} \frac{1}{\sqrt{t-\tau } } d \tau \\
-    &\le \essup_{0\le t\le t^{\star} } C\|\overline{b} \|_{L^{\infty} } \sqrt{t}  \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) }\\
-    &\le C \|\overline{b} \|_{\infty} \sqrt{t^{\star }} \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) }
+    &\le \essup_{0\le t\le t^{\star} }  \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) } \int_0^{t}  \frac{1}{\sqrt{t-\tau} }\|\overline{b} (\cdot,\tau)\|_{L^{\infty}(\R^d) } d\tau  \\
+    &\le C^\star {t^\star}^{1-\frac{q'}{2}} \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) }\leq \frac12  \|u_{1}-u_{2}\|_{L^{\infty}(L^{1} ) }
   .\end{align*}
-  Then  $\mathcal{T}$ is a contraction. Since $t^{\star }$ only depends on $\|\overline{b} \|_{\infty}$ and dimension d.
-  Then for any given $T>0$ we can repeat the above argument finite many time and obtain
+  Then  $\mathcal{T}$ is a contraction on space $L^{\infty} (0,t^\star;L^{1}(\mathbb{R}^{d} ) ).$
+  
+  
+  Since $t^{\star }$ only depends on $\|\overline{b} \|_{L^q(0,T;L^{\infty}(\R^d))}$ and dimension d, then for the given $T>0$, we can repeat the above argument finite times and obtain that  $ u \in  L^{\infty} ([0,T];L^{1}(\mathbb{R}^{d} ) )$ satisfies
   \begin{align*}
-    u \in  L^{\infty} ([0,T];L^{1}(\mathbb{R}^{d} ) )
+u(x,t) = \int_{\mathbb{R}^{d} }K(x-y,t)u_{0}(y) dy  + \int_{0}^{t} \int_{\mathbb{R}^{d} } \nabla K(x-y,t-\tau ) * (\overline{b}(y,\tau )u(y,\tau ) ) dy d\tau 
   .\end{align*}
 \end{proof}
-\begin{exercise}
- Think about wether you can proof it for $b$   satisfying linear growth condition 
- \begin{align*}
-  \abs{\overline{b} } \le  C(1+\abs{x})
- .\end{align*}
-\end{exercise}
-Let us discuss how a solution to the LDE leads back to a solution to the more complex 
-\begin{align*}
-  \partial_t u - \Delta u + \nabla * (b(x,u)u) = 0
-.\end{align*}
-where $u \in  L^{\infty}(L^{1} ) $ under the assumption on $b(x,u)$
-\begin{align*}
-  \abs{b(x,u) - b(\tilde{x},\tilde{u}  )} \le  L(\abs{x-\tilde{x} } + W_2(u,\tilde{u} ))
-.\end{align*}
-By fixing  $\tilde{x} = 0 $
-\begin{align*}
-  \abs{b(x,u) - b(0,\delta_0  )} \le  L(\abs{x} + W_2(u,\delta_0 )) \le L(1+\abs{x})
-.\end{align*}
-where 
-\begin{align*}
-  W_2(u,\delta_0) \le  \left(\int_{\mathbb{R}^{d} } \abs{x}^2 u(x) dx\right)^{\frac{1}{2}} 
-.\end{align*}
-when $b$ is unbounded we consider , the cutoff  
-\begin{align*}
-  \overline{b}(x,v(x,t))  = \min \{b(x,v(x,t)), M\}  
-.\end{align*}
-\begin{remark}
- In the (SDE)  case we would assume 
-\begin{align*}
-   \nabla V \in  \text{Lip} \tag{SDE}
- .\end{align*}
- since our (SDE) is given by
- \begin{align*}
-  d X_i = \nabla V \star  u(x_i) dt + \sqrt{2} dW_t
- .\end{align*}
- and we know a solution to the linear SDE exists for Lipschitz continuous coefficients 
-\end{remark}
-\begin{definition}\label{pde_mve_apprach}
- Assume $b(x,u) $  is given by the convolution
- \begin{align*}
-  b(x,u) = \nabla V \star u(x)
- .\end{align*}
- And let our (PDE) be given by 
- \begin{align*}
-  \text{(PDE)}\begin{cases}
-    &u_t - \Delta u + \nabla*(\nabla V \star  u \ u) = v\\
-    &u \rvert_{t=0} = u_{0} \in  L^{1}((1+\abs{x}^2)dx) \cap L^{2}(dx) 
-  \end{cases}
- .\end{align*}
-\end{definition}
-% \begin{definition}[Epsilon Problem]
-%  We consider for $\epsilon > 0$  the problem
-%  \begin{align*}
-%    \text{(PDE)}_{\epsilon}\begin{cases}
-%     &u_t^{\epsilon} - \Delta u^{\epsilon}  + \nabla*(j_{\epsilon}\star \nabla V \star  u^{\epsilon}  \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} ) = v\\
-%     &u^{\epsilon}  \rvert_{t=0} = \tilde{j}_{\epsilon} \star  u_{0} 
-%   \end{cases}
-%  .\end{align*}
-% where  $j_{\epsilon}$ is the mollification kernel in $x,t$ 
-% \begin{align*}
-%   \nabla V \star  u &\leftarrow j_{\epsilon} \star  \nabla V \star  u\\
-%   u &\leftarrow j_{\epsilon} \star (\cha_{\abs{x} \le  \frac{1}{\epsilon}u})\\
-%   u_0 &\leftarrow \tilde{j}_{\epsilon}  \star  u_{0}
-% .\end{align*}
-% where $\tilde{j}_{\epsilon} $ is mollification just in $x$
-% \end{definition}
-\begin{definition}[Epsilon Problem]
-  For $v \in  L^{\infty}(L^{1} )$ consider $j_{\epsilon} \star  \nabla  V \star  v \leftarrow \nabla V \star  v $
- \begin{align*}
-   \text{(PDE)}_{\epsilon}\begin{cases}
-    &u_t^{\epsilon} - \Delta u^{\epsilon}  + \nabla*(j_{\epsilon}\star \nabla V \star  v \ (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} )) = v\\
-    &u^{\epsilon}  \rvert_{t=0} = \tilde{j}_{\epsilon} \star  u_{0} 
-  \end{cases}
- .\end{align*}
-where  $j_{\epsilon}$ is the mollification kernel in $x,t$ 
-\begin{align*}
-  \nabla V \star  u &\leftarrow j_{\epsilon} \star  \nabla V \star  u\\
-  u &\leftarrow j_{\epsilon} \star (\cha_{\abs{x} \le  \frac{1}{\epsilon}u})\\
-  u_0 &\leftarrow \tilde{j}_{\epsilon}  \star  u_{0}
-.\end{align*}
-where $\tilde{j}_{\epsilon} $ is mollification just in $x$
-\end{definition}
-\begin{remark}
-  We first solve this problem for $v$, and then construct a fixpoint argument to get a solution for $u$, in order to solve $\text{PDE}$ ,
-  for bounded $\overline{b}$ we already have a solution  
-  \begin{align*}
-    v \in  L^{\infty}(L^{1} ) \xrightarrow{\text{sol for bounded } \overline{b} } u \in  L^{\infty}(L^{1} ) 
-  .\end{align*}
-  Where we know our solution is given by 
-  \begin{align*}
-    u(x,t) = \int_{\mathbb{R}^{d} } K(x-y,t)u_{0}(y) dy + \int_0^{t}  \int_{\mathbb{R}^{d} } K(x-y,t-s) \nabla*(\nabla V \star  v \ u)(s,y) dy ds
-  .\end{align*}
-  We further want that 
-  \begin{align*}
-    \lim_{\abs{x} \to  \infty}u(x,t) = 0
-  .\end{align*}
-\end{remark}
-\begin{remark}
- For the linear PDE with  term  
- \begin{align*}
-  j_{\epsilon}\star \nabla V \star  v \ (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} )
- .\end{align*}
- We get 
- \begin{align*}
-   u^{\epsilon}(x,t) = \int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star u_{0}(y) dy + \int_0^{t}  \int_{\mathbb{R}^{d} } K(x-y,t-s) \nabla*(j_{\epsilon} \star \nabla V \star  v \ j_{\epsilon} (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y) dy ds
- .\end{align*}
- then $u^{\epsilon} $ satisfies the eq. In the classical sense 
- \begin{align*}
-  \begin{cases}
-    &\partial_t u^{\epsilon}  - \Delta u^{\epsilon}  + \underbrace{\nabla*(j_{\epsilon}\star \nabla V \star  v \ (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} ))}_{\in \mathcal{C}_0^{2,1} } = 0 \\ 
-    &u^{\epsilon}  \rvert_{t=0} = \tilde{j}_{\epsilon} \star  u_{0}
-  \end{cases}
- .\end{align*}
-\end{remark}
-\begin{lemma}[Estimates]
-   We have $u \in  L^{\infty}(L^{1} ) =  L^{\infty}([0,T];L^{1}(\mathbb{R}^{d} ) ) $ 
-\end{lemma}
-   \begin{proof}
-    
-     \begin{align*}
-       \|u^{\epsilon} \|_{L^{\infty}(L^{1} ) } &= \sup_{t} \int_{\mathbb{R}^{d} }\abs*{I(x,t) + II(x,t)}dx\\
-                                               &\le \sup_t \int_{\mathbb{R}^{d} } \abs*{\int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star u_{0}(y)} dy dx + II\\
-                                               &\le \|K(t,*)\|_{L^{1} } * \|j_{\epsilon} \star  u_0\|_{L^{1} } + \|II\|\\
-                                               &\le \|u_0\|_{L^{1} } + \|II\| \\
-                                               &\le C_0 + C \sqrt{t}  \|u^{\epsilon} \|_{L^{\infty}(L^{1} ) }
-     .\end{align*}
- Then for $C \sqrt{t^{\star }} \le \frac{1}{2}$ we have $\|u^{\epsilon} \|_{L^{\infty}(L^{1} ) } \le C$ 
- since $\sqrt{t^{\star }}$ does not depend on $\epsilon$ we have for $\forall  T>0$ the bound 
- \begin{align*}
-   \|u^{\epsilon} \|_{L^{\infty}(L^{1} ) }\le C
- .\end{align*}
- where 
- \begin{align*}
-   I &= \int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star u_{0}(y) dy \\
-   II &= \int_0^{t}  \int_{\mathbb{R}^{d} } K(x-y,t-s) \nabla*(j_{\epsilon} \star \nabla V \star  v \ j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y) dy ds
- .\end{align*}
- where 
- \begin{align*}
-   \|II\| &\le  \sup_t \int_0^{t} ds \int_{\mathbb{R}^{d} }  dx \abs*{\int_{\mathbb{R}^{d} } dy K(x-y,t-s) \nabla*(j_{\epsilon} \star \nabla V \star  v * j_{\epsilon}\star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y)}\\
-          &\le \sup_t \int_0^{t} ds \int_{\mathbb{R}^{d} }  dx \int_{\mathbb{R}^{d} } dy \abs*{\nabla K(x-y,t-s) * (j_{\epsilon} \star \nabla V \star  v * j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y)}\\
-          &\le  \sup_{t} \int_0^{t} ds \|\nabla V\| _{\infty}  \|\nabla K(*,t-s) \|_{L^{1} }* \|j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon}\|\\
-          &\le C \sup_{t} \int_0^{t}  \frac{1}{\sqrt{t-s} } ds *\|u^{\epsilon} \|_{L^{\infty}(L^{1} ) }\\
-          &= C*\sqrt{t} *\|u^{\epsilon} \|_{L^{\infty}(L^{1} ) }
- .\end{align*}
-   \end{proof}
-   \begin{lemma}[Second Moment Bound]
-   The second moment  of $u^{\epsilon} \in L^{\infty}(L^{1} ) $
-   \begin{align*}
-    \int  \abs{x}^2 u^{\epsilon}  dx < \infty
-   .\end{align*}
-   is bounded
-   \end{lemma}
-   \begin{proof}
-   \begin{align*}
-     \int_{\mathbb{R}^{d} } \abs{x}^2 u^{\epsilon}(x,t) dx &= \int_{\mathbb{R}^{d} } \abs{x}^2   \int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star u_{0}(y) dy dx\\
-                                                           &+  \int_0^{t} \int_{\mathbb{R}^{d} } dx \abs{x}^2  \int_{\mathbb{R}^{d} } \nabla K(x-y,t-s) *(j_{\epsilon} \star \nabla V \star  v \ j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y) dy ds \\
-                                                           &= I + II
-   .\end{align*} 
-   We bound again individually 
-   \begin{align*}
-     I &\le \int_{\mathbb{R}^{d} } dx \int_{\mathbb{R}^{d} } \abs{x-y}^2 K(x-y,t)  j_{\epsilon} \star u_{0}(y) dy dx + \int_{0}^{t} ds \iint_{\mathbb{R}^{d} \times  \mathbb{R}^{d}  } dx dy \abs{y}^2 K(x-y,t) j_{\epsilon} \star u_{0}(y)\\
-       &\le \int_{\mathbb{R}^{d} } \abs{x}^2K(x,t) dx * \int  j_{\epsilon} \star u_{0}(y) dy  +  \int_0^{t} ds \int_{\mathbb{R}^{d} }  \abs{y}^2 u_0(y) dy\\
-       &\le  C*t  \left(   \|u_0\|^{L^{1} } + \int \abs{y}^2 u_0(y) dy\right)
-   .\end{align*}
-  Where 
-  \begin{align*}
-    \int \abs{x}^2 K(x,t) dx &=  4t\int \frac{\abs{x}^2}{4t} \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}}  dx\\
-                             &=  C*t 
-  .\end{align*}
-  For 
-  \begin{align*}
-    II &= \int_0^{t} \int_{\mathbb{R}^{d} }  dx \underbrace{2x}_{\abs{x} \le \abs{x-y} + \abs{y}} \int_{\mathbb{R}^{d} } K(x-y,t-s) * (j_{\epsilon} \star \nabla V \star  v \ (j_{\epsilon} \star  (\cha_{\abs{x} \le  \frac{1}{\epsilon})} u^{\epsilon} ))(s,y) dy ds\\
-       &\le C*\int_0^{t} \sqrt{t-s}  ds  + C * \int_0^{t}  \int_{\mathbb{R}^{d} }K(x,t-s) dx * \underbrace{\int \abs{y} (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} u^{\epsilon} )(y) dy}_{III}\\
-       &\le C(t) + C \int_0^{t}  \int_{\mathbb{R}^{d} } \abs{y} u^{\epsilon} (y) dy ds\\
-       &\le  C(t) + C\int_0^{t} \int  \abs{x}^2 u^{\epsilon}(x) dx ds
-  .\end{align*}
-  where in the above estimate we used for  $III$ that for arbitrary $u_{0}\ge 0$ (just use the absolute value)
-  \begin{align*}
-    \int_{\mathbb{R}^{d} } \abs{y}^2*j_{\epsilon}\star u_{0}(y) dy &\le \int_{\mathbb{R}^{d} } \int_{\mathbb{R}^{d} } \abs{y}^2 j_{\epsilon}j_{\epsilon}(z) u_0(y-z)dz dy\\
-                                                                   &\le  \iint \abs{y-z}^2 j_{\epsilon}(z) u_{0}(y-z) dz dy + \iint \abs{z}^2 j_{\epsilon}(z)u_{0}(y-z) dy dz \\
-                                                                   &\le  \|j_{\epsilon}\|_{L^{1} } \int \abs{y}^2 u_{0}(y) dy  + \epsilon^2 \iint \frac{\abs{z}^2}{\epsilon ^2} \frac{1}{\epsilon ^{d} }j(\frac{z}{\epsilon}) u_0(y-z) dy dz \\
-                                                                   &\le \int \abs{y}^2 u_0(y) dy + C \epsilon^2 \int u_{0}(y) dy
-  .\end{align*}
-   \end{proof}
-   \begin{remark}
-   The proof above main trick is to use the moment estimates we have for the individual parts 
-   \end{remark}
-   \begin{lemma}
-   We have for $u^{\epsilon}(x,t) $  in 
- \begin{align*}
-  \begin{cases}
-    &\partial_t u^{\epsilon}  - \Delta u^{\epsilon}  + \underbrace{\nabla*(j_{\epsilon}\star \nabla V \star  v \ (j_{\epsilon} \star \cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon} ))}_{\in \mathcal{C}_0^{2,1} } = 0 \\ 
-    &u^{\epsilon}  \rvert_{t=0} = \tilde{j}_{\epsilon} \star  u_{0}
-  \end{cases}
- .\end{align*}
- that 
- \begin{align*}
-   \lim_{\abs{x} \to \infty} u^{\epsilon}(x,t) = 0
- .\end{align*}
-   \end{lemma}
-   \begin{proof}
-   we multiply the eq. by $u^{\epsilon} $  and integrate on $\mathbb{R}^{d} $
-   \begin{align*}
-     \int_{\mathbb{R}^{d} } \partial_t u^{\epsilon} * u_{\epsilon} -  \int_{\mathbb{R}^{d} } \Delta u^{\epsilon}  * u^{\epsilon}  &= - \int \nabla * (\ldots )* u^{\epsilon} \\
-     \frac{1}{2}\frac{d}{dt} \int_{\mathbb{R}^{d} } \abs{u^{\epsilon} }^2 dx + \int_{\mathbb{R} } \abs{\nabla u^{\epsilon} }^2  &= \int (\ldots )* \nabla u ^{\epsilon}  \\
-     &\le  \frac{1}{2} \int_{\mathbb{R}^{d} } \abs{ \nabla u^{\epsilon}  }^2 dx +  \frac{1}{2} \int  \abs{\ldots } ^2 dx \\
-     \frac{d}{dt} \int_{\mathbb{R}^{d} } \abs{u^{\epsilon} }^2 dx + \int_{\mathbb{R}^{d} } \abs{\nabla u^{\epsilon} }^2 dx &\le  \|\nabla V\|_{L^{\infty} } * \int_{\mathbb{R}^{} } \abs{j_{\epsilon} \star (\cha_{\abs{x}\le \frac{1}{\epsilon}})}^2 dx\\
-     &\le C \|\nabla V\|^2_{L^{\infty} } * \int_{\mathbb{R}^{d} } \abs{u^{\epsilon} }^2 dx
-   .\end{align*}
-   After applying Grönwall  \textcolor{Red}{Above needs some restructuring}
-   \begin{align*}
-     \sup_{0 \le t \le T} \|u^{\epsilon} \|^2_{L^{2} } + \int_0^{t} \int_{\mathbb{R}^{d} } \abs{\nabla u^{\epsilon} }^2 \le  C(\|u_0\|_{L^{2} })
-   .\end{align*}
-   \end{proof}
-   Now we get for $\forall  \phi  \in  \mathcal{C}_0^{\infty}([0,T];\mathbb{R}^{d} ) $
-   \begin{align*}
-     &\braket{\partial_t u^{\epsilon},\phi  } \\
-    &= \braket{\Delta  u ^{\epsilon} - \nabla * (j_{\epsilon} \star  \nabla V \star  v * j_{\epsilon} \star  (\cha_{\abs{x}\le \frac{1}{\epsilon}}u^{\epsilon} )), \phi  }\\
-    &\le \|\nabla u ^{\epsilon} \|_{L^{2}(L^{2} ) } * \|\nabla \phi \|_{L^{2}(L^{2} ) } + \|u^{\epsilon} \|_{L^{2}(L^{2} ) } * \|\nabla \phi \|_{L^{2}(L^{2} ) }
-   .\end{align*}
-   It means 
-   \begin{align*}
-     \|\partial_t u^{\epsilon} \|_{(L^{2}(H_{1}) )'}\le C
-   .\end{align*}
-   If we take $\epsilon \to  0$ we obtain that there $\exists  u \in L^{\infty}(L^{2} ) \cap L^{2}(H^{1} ) $ s.t. 
-   \begin{align*}
-     u_{\epsilon} \xrightharpoonup{\star } u  \quad \text{ in } L^{\infty}(L^{2} ) \cap L^{2}(H^{1} )  
-   .\end{align*}
-   and $u$ satisfies the weak version of the PDE, for $\forall  \phi \in  L^{2}(H^{1} ) $
-   \begin{align*}
-     \int_0^{T}    \braket{\partial_t u , \phi }_{(H^{1},H^{1}  )} dt = -\int_0^{T} \int_{\mathbb{R}^{d} }   (\nabla u -\nabla V \star v * u) *\nabla \phi  dx dt
-   .\end{align*}
-   \begin{lemma}
-   Let $u \in L^{\infty}(L^{2} ) \cap L^{2}(H^{1} ) $ s.t. for $\forall  \phi \in  L^{2}(H^{1} ) $ it is a solution to 
-   \begin{align*} 
-     \int_0^{T}    \braket{\partial_t u , \phi }_{\braket{H^{-1},H^{1}  }} dt = -\int_0^{T} \int_{\mathbb{R}^{d} }   \nabla u \nabla \phi -\nabla V \star v * u \nabla \phi   dx dt
-   .\end{align*}
-   with $u_{0} \ge  0$, then  $u \ge 0$ a.e. and unique 
-   \end{lemma}
-   \begin{proof}
-     Choose $\phi  = u^{-} = \min \{0,-u\}  $  then we know that $u \in  L^{2}(H^{1} ) \implies u^{-} \in  L^{2}(H^{1} ) $ 
-     \marginnote{\footnotesize That $u_-$ lies in the space is in fact non trivial and is part of the PDE lecture}
-     then 
-     \begin{align*}
-       \int_0^{t}  \partial_t u * u^{-} ds &= \int_0^{t}  \int_{\mathbb{R}^{d} } - \nabla u * \nabla u^{-} dx ds - \int_{0}^{t}  \int_{\mathbb{R}^{d} } \nabla V \star  v * u \nabla u^{-} dx ds \\
-     .\end{align*}
-     And 
-     \begin{align*}
-       \frac{1}{2}\int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \abs{u^{-}}^2 dx ds+ \int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u^{-}}^2 dx ds \le \frac{1}{2}\int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u^{-}}^2 dx ds + \frac{C}{2} \int_0^{t} \int_{\mathbb{R}^{d} }\abs{u^{-}}^2 dx ds
-     .\end{align*}
-     By Grönwall 
-     \begin{align*}
-       \int_{\mathbb{R}^{d} } \abs{u^-}^2 dx \le  e^{Ct} \int_{\mathbb{R}^{d} } \abs{u_{0,-}}^2 dx = 0
-     .\end{align*}
-     Since $u_0 \ge $ we get $u_{0,-} = 0$\\[1ex]
-     The uniqueness of the solution follows also from the $L^2$ estimate,
-   \end{proof}
-   % \spewnotes
-   \begin{definition}[Sigma PDE]\label{sigma_pde}
-   To solve \hyperref[pde_mve_apprach]{(PDE)} we introduce a new $\sigma $ problem
-  \begin{align*}
-  \text{(PDE)}(\sigma)\begin{cases}
-    &u_t - \Delta u + \sigma \nabla*(\nabla V \star  u \ u) = v\\
-    &u \rvert_{t=0} = \sigma u_{0}  \ge 0
-  \end{cases}
- .\end{align*}
-   \end{definition}
-   \begin{theorem}[Leray-Schauder Fixed Point Theorem]\label{schauder_fixpoint}
-     Let $U$ be a Banach Space and 
-     \begin{align*}
-      T: (u,\sigma ) \in  U \times  [0,1] \to U
-     .\end{align*}
-     If 
-     \begin{enumerate}
-      \item $T$ is compact 
-      \item $T(u,0) = 0$ for $\forall  u \in  U$
-      \item  $\exists  C >0$ s.t for $\forall  u \in  U$ with $u=T(u,\sigma )$ for some $\sigma  \in  [0,1]$ it holds 
-        \begin{align*}
-          \|u\|_{U} \le C
-        .\end{align*}
-     \end{enumerate}
-     Then the map $T(*,1)$ has a fixed point
-   \end{theorem}
-   \begin{remark}
-   Many fix point theorems do not guarantee uniqueness, the Banach fix point theorem is an outlier since it requires a contraction.
-   \end{remark}
-   \begin{lemma}[Aubin-Lions Lemma (extended version)]\label{aubin}
-    First note that
-   \begin{align*}
-    H^{1} \subset  L^{2}   \subset  H^{-1} 
-   .\end{align*} 
-   If  $(f_n)_n \subset  L^{2}([0,T];H^{1}(\mathbb{R}^{d} ) ) $ satisfying 
-   \begin{enumerate}
-     \item  $\|f_n\|_{L^{2}(H^{1} ) }\le C$ 
-     \item $\|\partial_t f_n\|_{L^{2}(H^{1} ) }\le C$
-     \item $\sup_t \int  \abs{x}^2 \abs{f_n(t,x)} dx \le C$
-   \end{enumerate}
-   Then $f_n$ is relatively compact in $L^{2}([0,T];L^{2}(\mathbb{R}^{d} ) ) $ i.e. there $\exists  f \in  L^{2}(L^{2} ) $ s.t.
-   \begin{align*}
-     \|f_{n_j} - f\|_{L^{2}([0,T];L^{2}(\mathbb{R}^{d} ) ) } \to 0
-   .\end{align*}
-   \end{lemma}
-   \newpage
-   \begin{theorem}[Existence of Solution]
-    The nonlinear non-local \hyperref[pde_mve_apprach]{(PDE)} has a solution,
-   \end{theorem}
-   \begin{proof}
-     We show by fix point argument using \autoref{schauder_fixpoint} on the map, where 
- $u$ is a weak solution
-    \begin{align*}
-      X = \{u | u \in  L^{\infty}(L^{1}(1+\abs{x}^2dx)  \cap L^2 )   \cap L^2(H^{1}), \partial_t u \in  L^2(H^{-1} )\} 
-    .\end{align*}
-    \begin{align*}
-      M : (v,\sigma) \in  L^{\infty}(L^{1} ) \to X
-    .\end{align*}
- %     \begin{center}
- %   \begin{figure}[H]
- %     \includegraphics[scale=0.2]{figures/compactness.png}
- %  \end{figure}
- % \end{center}
-    Let us check the that $M$ fulfills the conditions 1-3.
-    For 1. note that for $v $ in a bounded subset of $L^{\infty}(L^{1} ) $
-    \begin{align*}
-      \|\nabla V \star  v\|_{L^{\infty} }\le C
-    .\end{align*}
-    Then by \autoref{aubin} $M(v,\sigma )$ is relatively compact in  $L^{2}(L^{2} ) $i.e $\exists  (v_j,\sigma_j)_{j \in  \mathbb{N}}$ s.t.
-\begin{align*}
-  \|M(v_j,\sigma_j) - u \|_{L^{2}(L^{2})} \xrightarrow{j \to \infty} 0 \quad \implies \quad  u_j \to  u \text{ a.e. }
-.\end{align*}
-we need to show 
-\begin{align*}
-  \|M(v_j,\sigma_j) - u\|_{L^{\infty}(L^{1} ) }  = \sup_t \int_{\mathbb{R}^{d} } \abs{u_j - u}(x) dx \xrightarrow{DCT}  0
-.\end{align*}
 
-    We check property 2. and note that if $\sigma=0$ our problem reduces to 
-  \begin{align*}
-  \begin{cases}
-    &u_t - \Delta u + 0*\nabla*(\nabla V \star  u \ u) = v\\
-    &u \rvert_{t=0} = 0*u_{0} 
-  \end{cases}
-  =  
-  \begin{cases}
-    &u_t - \Delta u  = v\\
-    &u \rvert_{t=0} = 0  
-  \end{cases}
- .\end{align*}
- which is just a Heat-Equation which when solved using the fundamental solution representation shows us that 
- \begin{align*}
-  M(v,0) =  0 \quad \forall  v \in  L^{\infty}(L^{1} )
- .\end{align*}
- Property (3) is true since we chose $U = L^{\infty} $\\[1ex]
- This means we can apply \nameref{schauder_fixpoint}and get a fix point  $M(*,1)$ which is a solution  to 
- \begin{align*}
-  \begin{cases}
-    &u_t - \Delta u + \nabla*(\nabla V \star  u \ u) = 0 \quad  \\
-    &\nabla V \in  L^{\infty}\\
-    &u \rvert_{t=0} = u_{0}\ge 0  \quad \\
-    &u_{0} \in L^{1}((1+\abs{x}^2)) \cap L^{2} 
-  \end{cases}
- .\end{align*}
-\end{proof}
-\begin{theorem}[Uniqueness]
- If the nonlinear non-local \hyperref[pde_mve_apprach]{(PDE)} has a (weak) solution $u$ is unique.
+
+\begin{theorem}\label{lemLPDE}
+	Assume that $F\in L^2(\R^d)\cap L^\infty(\R^d)$, $v \in  L^{q}(0,T;L^{2}(\R^d) )$ ($q>2$), $u_0\in L^1(\R^d)\cap L^2(\R^d)$ and $\int_{\R^d}|x|^2u_0(x)dx$ is finite, then \autoref{linearPDE} has a unique weak solution in $L\infty(0,T; L^2(\R^d) )\cap L^{2}(0,T; H^{1}(\R^d) )$, namely for $\forall  \phi \in  L^{2}(0,T; H^{1}(\R^d) ) $ it holds
+	\begin{align*} 
+	\int_0^{T}    \braket{\partial_t u , \phi }_{\braket{H^{-1},H^{1}  }} dt = -\int_0^{T} \int_{\mathbb{R}^{d} }   \nabla u \nabla \phi -F \star v * u \nabla \phi   dx dt
+	.\end{align*}
+   In addition, $u\in L^\infty(0,T;L^1(\R^2))$ and $\int_{\R^d}|x|^2u(x,t)dx$ is bounded for any given $t>0$.	If in addition $u_{0} \ge  0$, then  $u \ge 0$ a.e..
 \end{theorem}
 \begin{proof}
- We suppose there are two (weak) solutions $u_{1},u_{2} \in  X$, then consider the difference 
+We introduce first a mollified problem and prove that its mild solution exists, then proceed the uniform estimate and do compactness argument to show that the weak solution exists.
+
+Notice that $v \in  L^{q}(0,T;L^{2}(\R^d) )$, we consider the following problem 
+ \begin{align}\label{epsPDE}
+   \text{(PDE)}_{\epsilon}\begin{cases}
+    &u_t^{\epsilon} - \Delta u^{\epsilon}  + \nabla*(\tilde j_{\epsilon}\star (F \star  v (\cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon})) = 0\\
+    &u^{\epsilon}  \rvert_{t=0} = {j}_{\epsilon} \star (\cha_{\abs{x}\le \frac{1}{\epsilon}}  u_{0} )
+  \end{cases}
+ .\end{align}
+where  $j_{\epsilon}$ is the mollification kernel in $x$ and $\tilde{j}_{\epsilon} $ is mollification in $x$ and $t$. Here without loss of generality, for the mollification of a function in $t$ variable, we do the mollification of its zero extension of this function. This fact will not be explicitly mentioned.
+
+Notice that these mollification operations are aimed to show that $u^\epsilon$ is not only a mild solution, but also a classical solution for fixed $\epsilon$. The we can choose $u^\epsilon$ legally as test function to proceed further the $L^2$ estimates.
+
+By modifying slightly of the proof of \autoref{bLDE}, we obtain that \autoref{epsPDE} has a unique mild solution
+ \begin{align}\label{ueps}
+   u^{\epsilon}(x,t) = &\int_{\mathbb{R}^{d} } K(x-y,t)j_{\epsilon} \star (\cha_{\abs{x}\le \frac{1}{\epsilon}}  u_{0} )(y) dy \\
+   &\qquad+ \int_0^{t}  \int_{\mathbb{R}^{d} } K(x-y,t-s) \nabla*(\tilde j_{\epsilon}\star (F \star  v (\cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon})) (y,s) dy ds\nonumber
+ .\end{align}
+By \autoref{solHE}, then $u^{\epsilon} $ satisfies \autoref{epsPDE} in the classical sense.
+
+\vskip3mm
+In the next, we do the uniform in $\epsilon$ estimates for $u^\epsilon$.
+\begin{enumerate}
+\item {\bf $L^{\infty}(0,T;L^{1}(\mathbb{R}^{d} ) ) $ estimate}
+
+Similar to the estimates given in \autoref{bLDE}, we can obtain    
+     \begin{align*}
+       \|u^{\epsilon} (\cdot,t)\|_{L^{1}(\R^d)}
+                                               &\le \|K(t,*)\|_{L^{1} (\R^d)} * \|j_{\epsilon} \star (\cha_{\abs{x}\le \frac{1}{\epsilon}}  u_{0} )\|_{L^{1} (\R^d)} \\
+                                               &\quad + \int_0^{t}  \frac{1}{\sqrt{t-s} }\|\tilde j_{\epsilon}\star (F \star  v (\cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon})) (\cdot,s)\|_{L^{\infty}(\R^d) } ds\\
+                                                &\le \|u_0\|_{L^{1} (\R^d)} + \int_0^{t}  \frac{1}{\sqrt{t-s} }\|\tilde j_{\epsilon}\star (F \star  v) (\cdot,s)\|_{L^{\infty}(\R^d) } \| u^{\epsilon} (\cdot,s)\|_{L^{1}(\R^d) } ds\\
+                                                &\le \|u_0\|_{L^{1}(\R^d) } + \int_0^{t}  \frac{1}{\sqrt{t-s} }\|F\|_{L^2(\R^d)} \| v (\cdot,s)\|_{L^{2}(\R^d) } \| u^{\epsilon} (\cdot,s)\|_{L^{1}(\R^d) } ds\\
+                                                &\le \|u_0\|_{L^{1}(\R^d) } + C \int_0^{t}  \frac{1}{\sqrt{t-s} }\| v (\cdot,s)\|_{L^{2}(\R^d) } \| u^{\epsilon} (\cdot,s)\|_{L^{1}(\R^d) } ds
+     .\end{align*}
+   Since $ \int^t_0 \frac{1}{\sqrt{t-s} }\| v (\cdot,s)\|_{L^{2}(\R^d) }ds\leq C\| v \|_{L^q(0,T;L^{2}(\R^d)}t^{1-\frac{q'}{2}}$ for $2<q\leq \infty$ (i.e. $1\leq q'<2$), then by Gronwall's inequality, we have
+   \begin{align*}
+  \|u^{\epsilon} (\cdot,t)\|_{L^{1}(\R^d)}\leq C (t,\| v \|_{L^q(0,T;L^{2}(\R^d)},\|u_0\|_{L^{1}(\R^d) }  ).
+   \end{align*}
+
+ 
+\item {\bf $L^2$ estimate}
+
+we multiply the \autoref{epsPDE} by $u^{\epsilon} $  and integrate on $\mathbb{R}^{d} $, by using integration by parts we have
+\begin{align*}
+\int_{\mathbb{R}^{d} } \partial_t u^{\epsilon} * u^{\epsilon} -  \int_{\mathbb{R}^{d} } \Delta u^{\epsilon}  * u^{\epsilon}  &= - \int \nabla * (\tilde j_{\epsilon}\star (F \star  v (\cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon})) )u^{\epsilon}
+\end{align*}
+therefore by using H\"older's inequality, we obtain the standard $L^2(\R^d)$ estimates
+\begin{align*}
+\frac{d}{dt} \int_{\mathbb{R}^{d} } \abs{u^{\epsilon} }^2 dx + \int_{\mathbb{R}^{d} } \abs{\nabla u^{\epsilon} }^2 dx &\le  \int_{\mathbb{R}^{d} } \Big|\tilde j_{\epsilon}\star (F \star  v (\cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon})\Big|^2 dx
+.\end{align*}
+The using similar tricks as in the last step we have
+\begin{align*}
+& \int_{\mathbb{R}^{d} } \abs{u^{\epsilon}(x,t) }^2 dx + \int^t_0\int_{\mathbb{R}^{d} } \abs{\nabla u^{\epsilon}(x,s) }^2 dxdx \\
+\le & \int_{\mathbb{R}^{d} } \abs{u_0 }^2 dx +C\int^t_0\|v(\cdot,s)\|_{L^2(\R^d)}\int_{\mathbb{R}^{d} } |u^{\epsilon}(x,s)|^2 dx
+.\end{align*}
+After applying Grönwall's inequality we have
+\begin{align*}
+\sup_{0 \le t \le T} \|u^{\epsilon} \|^2_{L^{2} } + \int_0^{t} \int_{\mathbb{R}^{d} } \abs{\nabla u^{\epsilon} }^2 \le  C(\|u_0\|_{L^{2} (\R^d)}, \| v \|_{L^q(0,T;L^{2}(\R^d))})
+.\end{align*}
+\end{enumerate}
+\vskip3mm
+
+We need to further derive the estimate for $\partial_t u^\epsilon$. This can be obtained immediately by using the equation itself. Namely, $\forall  \phi  \in  \mathcal{C}_0^{\infty}([0,T);\mathbb{R}^{d} ) $
+\begin{align*}
+&\braket{\partial_t u^{\epsilon},\phi  } = \braket{\Delta  u ^{\epsilon} - \nabla * (\tilde j_{\epsilon}\star (F \star  v (\cha_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon})) ), \phi  }\\
+\le &\|\nabla u ^{\epsilon} \|_{L^{2}(0,T;L^{2}(\R^d) ) } * \|\nabla \phi \|_{L^{2}(0,T;L^{2}\R^d ) }\\ &\quad +\|F\|_{L^2(\R^d)} \|v\|_{L^q(0,T;L^2(\R^d))}\|u^{\epsilon} \|_{L^{2}(0,T;L^{2}(\R^d) ) } * \|\nabla \phi \|_{L^{q'}(0,T;L^{2}(\R^d) ) }, \quad q\in (2,\infty)
+.\end{align*}
+It means 
+\begin{align*}
+\|\partial_t u^{\epsilon} \|_{L^{q'}(0,T;H^{-1}(\R^d))}\le C
+.\end{align*}
+Now we take a convergent subsequence (not relabeled), there exists $u$ s.t. 
+\begin{align*}
+u_{\epsilon} \xrightharpoonup{\star } u  \quad \text{ in } L^{\infty}(0,T;L^{2}(\R^d) ) \cap L^{2}(0,T;H^{1}(\R^d) )\cap  L^{q'}(0,T;L^{2}(\R^d) ) 
+.\end{align*}
+and $u$ satisfies the weak version of the PDE, which means that for any text function $\phi$ it holds
+\begin{align*}
+\int_0^{T}    \braket{\partial_t u , \phi }_{(H^{1},H^{1}  )} dt = -\int_0^{T} \int_{\mathbb{R}^{d} }   (\nabla u -F \star v * u) *\nabla \phi  dx dt
+.\end{align*}
+Here we omit the tedious weak convergence argument in taking the limit in \autoref{epsPDE}, since the equation is linear.
+
+\vskip5mm
+Next we prove that $u_{0} \ge  0$ implies  $u \ge 0$ a.e.  
+
+     Choose $\phi  = u^{-} = \min \{0,-u\}  $, ($u \in  L^{2}(0,T;H^{1}(\R^d) ) \implies u^{-} \in  L^{2}(0,T;H^{1}(\R^d) ) $), we have 
+     \marginnote{\footnotesize That $u_-$ lies in the space is in fact non trivial and is part of the PDE lecture}
+     \begin{align*}
+       \int_0^{t}  \partial_t u * u^{-} ds &= \int_0^{t}  \int_{\mathbb{R}^{d} } - \nabla u * \nabla u^{-} dx ds - \int_{0}^{t}  \int_{\mathbb{R}^{d} } F \star  v * u \nabla u^{-} dx ds 
+     .\end{align*}
+We proceed further and get
+     \begin{align*}
+       &\frac{1}{2}\int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \abs{u^{-}}^2 dx ds+ \int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u^{-}}^2 dx ds \\
+       \le &\frac{1}{2}\int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u^{-}}^2 dx ds + \frac{C}{2} \int_0^{t} \|v(\cdot,s)\|_{L^2(\R^d)}\int_{\mathbb{R}^{d} }\abs{u^{-}}^2 dx ds
+     .\end{align*}
+    Then Gronwall's inequality implies
+     \begin{align*}
+       \int_{\mathbb{R}^{d} } \abs{u^-}^2 dx \le  e^{C(\|v\|{L^q(0,T;L^2(\R^d))})} \int_{\mathbb{R}^{d} } \abs{{u_{0}}_-}^2 dx = 0
+     ,\end{align*}
+      where the nonnegative inital data menas that ${u_{0}}_- = 0$\\[1ex]
+      
+     The uniqueness of the solution follows also from the $L^2$ estimate similarly.
+
+\vskip3mm
+Based on the nonnegativity of the solution, we obtain further the second moment estimate. One can choose a mollified version of $|x|^2$ as a test function and obtain the boundedness through Gronwall's inequality. In the next, we do a second moment estimate from the mild solution formulation:
+
+{\bf Second Moment estimate}
+   We do direct estimate by using the mild solution representation of $u$
+   \begin{align*}
+   &     \int_{\mathbb{R}^{d} } \abs{x}^2 u(x,t) dx = \int_{\mathbb{R}^{d} } \abs{x}^2   \int_{\mathbb{R}^{d} } K(x-y,t) u_{0}(y) dy dx\\
+   &\quad +  \int_0^{t} \int_{\mathbb{R}^{d} } dx \abs{x}^2  \int_{\mathbb{R}^{d} } \nabla K(x-y,t-s) *(F \star  v  u)(s,y) dy ds \\
+   &= I + II
+   .\end{align*} 
+   We bound them again individually.
+   \begin{align*}
+   I &\le \int_{\mathbb{R}^{d} } dx \int_{\mathbb{R}^{d} } (\abs{x-y}^2+\abs{y}^2) K(x-y,t)  u_{0} (y) dy dx\\
+   &\le \int_{\mathbb{R}^{d} } \abs{x}^2K(x,t) dx * \int_{\R^d} u_{0} (y) dy  +  \int_{\mathbb{R}^{d} }  \abs{y}^2 u_0(y) dy\\
+   &\le  C*t   \|u_0\|_{L^{1}(\R^d) } + \int_{\R^d} \abs{y}^2 u_0(y) dy
+   ,\end{align*}
+   where the second moment of heat kernel is computed in the following: 
+   \begin{align*}
+   \int_{\R^d} \abs{x}^2 K(x,t) dx &=  4t\int_{\R^d} \frac{\abs{x}^2}{4t} \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}}  dx\leq  Ct 
+   .\end{align*}
+     
+   For $II$, we use the following estimate
+   \begin{align*}
+   II &\leq \int_0^{t} \int_{\mathbb{R}^{d} }  dx \underbrace{2|x|}_{\abs{x} \le \abs{x-y} + \abs{y}} \int_{\mathbb{R}^{d} } K(x-y,t-s)  *(F \star  v  u)(s,y)  dy ds\\
+   &\leq \int_0^{t} \int_{\mathbb{R}^{d} }  dx |x| K(x,t-s) \int_{\mathbb{R}^{d} } (F \star  vu)(s,y)  dy ds\\
+   &\quad + C * \int_0^{t}  \int_{\mathbb{R}^{d} }K(x,t-s) dx * \int \abs{y} (F \star  vu)(y,s) dy\\
+   &\le C*\int_0^{t} \sqrt{t-s} \|F\|_{L^2(\R^d)} \| v (\cdot,s)\|_{L^{2}(\R^d) } \| u (\cdot,s)\|_{L^{1}(\R^d) }   ds \\
+   &\quad  + C * \int_0^{t}  \|F\|_{L^2(\R^d)} \| v (\cdot,s)\|_{L^{2}(\R^d) } \int_{\mathbb{R}^{d} } \abs{y}  u (y) dy\\
+   &\le C(t) + C \int_0^{t}  \| v (\cdot,s)\|_{L^{2}(\R^d) } \int_{\mathbb{R}^{d} } \abs{y}^2 u (y,s) dy ds
+   ,\end{align*}
+   where we have used the first moment of heat kernel
+   \begin{align*}
+   \int_{\R^d} \abs{x} K(x,t) dx &=  4t\int_{\R^d} \frac{\abs{x}}{2\sqrt{t}} \frac{1}{(4\pi t)^{\frac{d}{2}} } e^{-\frac{\abs{x}^2}{4t}}  dx\leq  C\sqrt{t}.
+   \end{align*}
+   
+   Therefore we have obtained 
+   \begin{align*}
+   \int_{\mathbb{R}^{d} } \abs{x}^2 u(x,t) dx \leq C(t)+C \int_0^{t}  \| v (\cdot,s)\|_{L^{2}(\R^d) } \int_{\mathbb{R}^{d} } \abs{y}^2 u(y,s) dy ds,
+   \end{align*}
+   which implies by Gronwall's inequality that 
+   \begin{align*}
+   \int_{\mathbb{R}^{d} } \abs{x}^2 u(x,t) dx \leq  C (t,\| v \|_{L^q(0,T;L^{2}(\R^d)},\|u_0\|_{L^{1}(\R^d) }, \|\abs{\cdot}^2u_0\|_{L^{1}(\R^d) } ).
+   \end{align*}
+This finished the proof of \autoref{lemLPDE}.   
+\end{proof}
+   
+   
+   \vskip5mm Now we are ready to finish the proof of \autopageref{PDEtheorem}.
+   \begin{proof} of \autopageref{PDEtheorem}. To prove the existence, as described in \autoref{proofstrategy}, we only need to show that the map $v\in U\to u$ is compact. By \autoref{lemLPDE}, we know that the estimates for $u$ satisfies the assumptions of Aubin-Lions lemma \eqref{aubin}, therefore, the operator $T$ is compact.
+   
+   Furthermore, one can proceed the same estimates as has been done in \autoref{lemLPDE} to obtain the estimate for and fixed point of map $T$. Therefore \autoref{schauder_fixpoint} gives us that the solution of \eqref{DiffusionPDE} exists.
+   
+   \vskip5mm
+   Finally, we prove the uniqueness. Suppose there are two (weak) solutions $u_{1},u_{2}$, then we consider the difference 
  \begin{align*}
   w = u_{1} - u_{2}
  .\end{align*}
  which satisfies  (in a weak sense)
  \begin{align*}
   \begin{cases}
-    &\partial_t w - \Delta w + \nabla *(\nabla V \star  u_{1} * w) + \nabla*(\nabla V \star w * u_{2}) = 0\\
+    &\partial_t w - \Delta w + \nabla *(F \star  u_{1} * w) + \nabla*(F \star w * u_{2}) = 0\\
     &w \rvert_{t=0} = 0
   \end{cases}
  .\end{align*}
 take $w$ as a test function 
 \begin{align*}
-  \frac{1}{2} \frac{d}{dt} \int_{\mathbb{R}^{d} } w^2+ \int_{\mathbb{R}^{d} } \abs{\nabla w}^2 &\le \int_{\mathbb{R}^{d} } \abs{\nabla w *(\nabla V \star  u_{1})w}   + \int  \abs{\nabla w * (\nabla V \star  w)u_{2}} \\
-                                                                                               &\le  \frac{1}{2} \int_{\mathbb{R}^{d} } \abs{\nabla w}^2 + C\int_{\mathbb{R}^{d} } (\abs{\nabla V \star  u_{1}}^2 \abs{w}^2 + \abs{\nabla V \star  w}^2 \abs{u_{2}}^2)\\
-                                                                                               &\le  \|\nabla V \star  u_{1}\|_{L^{\infty}}^2 \int_{\mathbb{R}^{d} }  \abs{w}^2 + \|\nabla V \star  w\|_{L^\infty}^2 \|u_2\|_{L^{2} }^2\\
-                                                                                               &\le C \int \abs{w}^2 %+ \|\nabla V\|_2^{2}\|w\|_2^{2}
+&  \frac{1}{2} \frac{d}{dt} \int_{\mathbb{R}^{d} } w^2dx+ \int_{\mathbb{R}^{d} } \abs{\nabla w}^2dx \\
+ \le & \int_{\mathbb{R}^{d} } \abs{\nabla w *(F \star  u_{1})w} dx  + \int_{\R^d}  \abs{\nabla w * (F \star  w)u_{2}} dx\\
+ \le & \frac{1}{2} \int_{\mathbb{R}^{d} } \abs{\nabla w}^2dx + C\int_{\mathbb{R}^{d} } (\abs{F \star  u_{1}}^2 \abs{w}^2 + \abs{F \star  w}^2 \abs{u_{2}}^2)dx\\
+   \le & \frac{1}{2} \int_{\mathbb{R}^{d} } \abs{\nabla w}^2dx+ \|F\star  u_{1}\|_{L^{\infty}(\R^d)}^2 \int_{\mathbb{R}^{d} }  \abs{w}^2dx + \|F \star  w\|_{L^\infty(\R^d)}^2 \|u_2\|_{L^{2}(\R^d) }^2\\
+        \le & \frac{1}{2} \int_{\mathbb{R}^{d} } \abs{\nabla w}^2dx+ C \int_{\R^d}\abs{w}^2 dx%+ \|F\|_{L^2(\R^d)}^{2}\|w\|_{L^2(\R^d)}^{2}
 .\end{align*}
 where we used
 \begin{align*}
-  \essup_{x} \abs*{\int  \nabla V(x-y)w(y) dy}^2 \le \|\nabla V\|_2^{2}\|w\|_2^{2}  
+  \essup_{x} \abs*{\int  F(x-y)w(y) dy}^2 \le \|F\|_2^{2}\|w\|_2^{2}  
 .\end{align*}
-then by Grönwalls inequality for $\forall  t \in  [0,\infty)$
+then by Gronwall's inequality
 \begin{align*}
   \frac{d}{dt} \int \abs{w}^2 \le C*\int \abs{w}^2 \implies \int_{\mathbb{R}^{d} }\abs{w(x,t)^2}dx \le  e^{Ct} \int_{\mathbb{R}^{d} } \abs{w(x,0)}^2 dx = 0
 .\end{align*}
 it follows $u_{1}=u_{2}$ a.e.
 \end{proof}
-\subsection{Back to the Makean-Vlasov Equation}
-Let us see how all this ties back to the Makean-Vlasov Equation
+
+\section{Solvability of the Makean-Vlasov Equation}
+As has been discussed in the beginning of this chapter. we want to prove in this section that the problem \autoref{DiffusionBar} has a unique solution $\overline{u}=u$ where $u$ is the unique solution of \autoref{DiffusionPDE}.
+
+Since the equation is linear, it is enough to show that the problem
+\begin{align}\label{DiffusionBar0}
+\begin{cases}
+&\partial_t \overline{u}  - \Delta \overline{u }  + \nabla * (F\star u\overline{u } ) = 0\\
+&\overline{u } \rvert_{t=0}  = 0
+\end{cases}
+\end{align}
+has only solution $\overline{u}=0$.
+\begin{theorem}
+	The solution of \autoref{DiffusionBar0} is $\overline{u}=0$.
+\end{theorem}
+
+\begin{proof}
+The weak formulation of \autoref{DiffusionBar0} is that for any test function  $\phi  \in  \mathcal{C}_0^{\infty}([0,T)\times \mathbb{R}^{d} )$ it holds
+\begin{align}\label{weak0}
+  &\int_{\mathbb{R}^{d} } \phi(x,t)\overline{u}(x,t) dx = \int_0^{t}\int_{\mathbb{R}^{d} }  (\partial_t \phi  + \Delta \phi  - \nabla \phi F \star u) \overline{u}(x,s)dxds 
+.\end{align}
+In order to show that $\overline{u}=0$, we have to show that $\forall a.e. \tilde t\in (0,T]$, $\forall  g \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $
 \begin{align*}
-  \text{(MVE)}\begin{cases}
-    &dY(t) = (\nabla V \star  u)(Y(t)) dt + \sqrt{2}dW_t \\
-    &Y(0)  = \xi \in  L^{2}(\Omega )\\
-    &\mathcal{L}(\xi) = u_0 \in  L^{1}((1+\abs{x}^2)dx) \cap L^{2}(dx) \\
-    &\mathcal{L}(Y) = u
-  \end{cases}
-.\end{align*}
-Suppose now that $u$ is the solution of the  \hyperref[pde_mve_apprach]{(PDE)} obtained above, then consider 
-for $\nabla V \in  \text{Lip}$ 
-\begin{align*} 
-  \text{(SDE)}\begin{cases}
-    &dY(t) = (\nabla V \star  u)(Y(t)) dt + \sqrt{2}dW_t \\
-    &Y(0)  = \xi \in  L^{2}(\Omega )\\
-  \end{cases}
-.\end{align*}
-then the law of $\mathcal{L}(Y) = u$ satisfies 
-then by convolution  $(\nabla V \star  u)$ is also Lipschitz, and by SDE theory there exists a unique solution $\exists! Y \in  \mathbb{L}^2([0,T])$  solving the (SDE).\\[1ex]
-For $\forall  \phi  \in   C_0^{\infty}([0,T] \times  \mathbb{R}^{d} ) $, we have by It\^o's formula 
-\begin{align*}
-  \phi(Y(t),t) - \phi(Y(0),0) &= \int_0^{t}  \partial_t \phi(Y(s),s) + \nabla \phi(Y(s),s)* \nabla V \star u(Y(s),s) +\Delta \phi(Y(s),s) ds \\
-                              &+ \int_0^{t}  \ldots  dW_s
-.\end{align*}
-Taking the expectation the stochastic term disappears, now suppose $\mu ^{Y} = \mathcal{L}(Y) $ then
-\begin{align*}
-  &\int_{\mathbb{R}^{d} } \phi(x,t) d\mu ^{Y}(x,t) - \int_{\mathbb{R}^{d} } \phi(x,0) u_0(x) dx \\
-  &= \int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \phi(x,s) + \nabla \phi(x,s) *(\nabla V \star u(x,s)) + \Delta  \phi(x,s) d\mu ^{Y}(x,s)ds 
-.\end{align*}
-Now to show that $\mu^Y = u$ which means that $\forall  \phi  \in  C_b$ 
-\begin{align*}
-  \int_{\mathbb{R}^{d} }\phi  d\mu ^{Y} = \int_{\mathbb{R}^{d} }  \phi  u dx
-.\end{align*}
-We show that the above PDE has a unique solution with $u_{0} \equiv 0$\\
-We can rewrite the integral version in the weak sense as follows
-\begin{align*}
-  \partial_t \mu ^{Y} = \Delta \mu ^{Y}   - \nabla * (\nabla V \star  u * \mu ^{Y} )
-.\end{align*}
-\begin{remark}
-There are two ways to prove $\mu^Y = 0$ \\
-If $\phi  \in  \mathcal{C}_0^{\infty}([0,T)\times \mathbb{R}^{d} )$ and 
-\begin{align*}
-  &\int_{\mathbb{R}^{d} } \phi(x,T) d\mu ^{Y} - \underbrace{\int_{\mathbb{R}^{d} } \phi(x,0) d\mu^Y_0}_{=0}\\ \\
-  &= \int_0^{T}\int_{\mathbb{R}^{d} }  (\partial_t \phi  + \Delta \phi  - \nabla \phi \nabla V \star u) d\mu^Y 
-.\end{align*}
-for $\forall  g \in  \mathcal{C}_0^{\infty}((0,T)\times \mathbb{R}^{d} ) $ we need to show 
-\begin{align*}
-  \int_0^{T} \int_{\mathbb{R}^{d}}   g(x,t) \mu^Y  = 0
-.\end{align*}
-the problem is reduced to  show that
+\int_{\mathbb{R}^{d} }g(x) \overline{u}(x,t)dx = 0
+,\end{align*}
+which means that, $\overline{u}(\cdot,\tilde t)=0$.
+
+This means that it is enough to show that for any given $g\in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $ the following problem 
 \begin{align*}
   \begin{cases}
-    &\partial_t \phi  + \Delta  \phi  - \nabla \phi  * \nabla V \star  u = g\\
-    &\phi(x,T) = 0
-  \end{cases}
-.\end{align*}
-solving this backwards PDE would go beyond the scope of this lecture and is just mentioned for completeness.\\[1ex]
-\end{remark}
-Instead we use a secondary method, for $\forall  \phi  \in  C_0^{\infty}([0,T)\times \mathbb{R}^{d} ) $
-\begin{align*}
-  \text{(\#)} &\int_{\mathbb{R}^{d} } \phi(x,t)  d\mu^Y(x) - \underbrace{\int_{\mathbb{R}^{d} } \phi(x,0) d\mu^Y_0}_{=0}\\
-  &= \int_0^{t}\int_{\mathbb{R}^{d} }  (\partial_t \phi  + \Delta \phi  - \nabla \phi \nabla V \star u) d\mu^Y 
-\end{align*}
-then for fixed $\tilde{t} \in  (0,T)$ we want to show for $\forall  g \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{d} ) $
-\begin{align*}
-  \int_{\mathbb{R}^{d} }g(x) d\mu^Y(x) = 0
-.\end{align*}
-now if we can find for any given $g$ the following problem 
-\begin{align*}
-  \begin{cases}
-    &\partial_t \phi  + \Delta  \phi  - \nabla \phi *(\nabla V \star u) = 0\\
+    &\partial_t \phi  + \Delta  \phi  - \nabla \phi *(F \star u) = 0\\
     &\phi(x,t) = g(x)
   \end{cases}
-.\end{align*}
-has a solution $\phi$, which can be viewed as a test function to be plugged into \# then 
-\begin{align*}
-  \mu ^{Y}  = 0 \text{ a.e. in }  \mathbb{R}^{d} 
-.\end{align*}
-The idea is now to suppose $\supp g \subset  B_{\frac{R}{2}}$, then we consider the corresponding problem 
-\begin{align*}
+.\end{align*}has a solution $\phi \in  \mathcal{C}_0^{\infty}([0,T)\times \mathbb{R}^{d} )$, which can be viewed as a test function to be plugged into \autoref{weak0}.
+
+Without loss of generality, suppose $\supp g \subset  B_{\frac{R}{2}}$, then we consider the corresponding problem 
+\begin{align}\label{backPDE}
   \begin{cases}
-    &\partial_t w_{R,\epsilon} + \Delta w_{R,\epsilon} -\nabla w_{R,\epsilon} * j_{\epsilon} \star  (\nabla V \star  u) = 0\\
+    &\partial_t w_{R,\epsilon} + \Delta w_{R,\epsilon} -\nabla w_{R,\epsilon} * j_{\epsilon} \star  (F \star  u) = 0\\
     &w_{R,\epsilon} \rvert_{\partial B_{R}} =  0\\
     &w_{R,\epsilon} \rvert_{t = \tilde{t} }  = g
   \end{cases}
-.\end{align*}
-how to solve this linear parabolic equation is part of the lecture PDE, here we just use the result i.e.
+.\end{align}
+This is an initial boundary value problem of linear diffusion equation, the solution theory will be given in the PDE lecture. Here we direclty use the result i.e.
 there exists a unique solution 
 \begin{align*}
   w_{R,\epsilon} \in  C^{\infty}(\overline{B_R} \times  [0,\tilde{t} ] ) \text{ with } w_{R,\epsilon} \rvert_{\partial B_R} = 0
 .\end{align*}
-$w_{R,\epsilon}$ should be a candidate  for $\phi $, however it is not in $C_0^{\infty}(\mathbb{R}^{d} \times  [0,\tilde{t} ] ) $,
-To overcome this difficulty we introduce a cutoff function  
+The function $w_{R,\epsilon}$ should be a candidate  for $\phi $, however it is not in $C_0^{\infty}(\mathbb{R}^{d} \times  [0,\tilde{t} ] ) $. 
+To overcome this difficulty we introduce a $C_0^{\infty}(\mathbb{R}^{d} )$ cutoff function  
 \begin{align*}
-  C_0^{\infty}(\mathbb{R}^{d} ) \ni \psi_{R} &=  \begin{cases}
+    \psi_{R} &=  \begin{cases}
       1 &\abs{x} \le \frac{R}{2}\\
       \text{smooth in between} & \\
       0 &\abs{x} \ge R
-    \end{cases}\\
-    \abs{\nabla \psi_R} &\le \frac{C}{R} \\
-    \abs{\Delta  \psi_R} &\le \frac{C}{R}
-.\end{align*}
-we use $\psi_R * w_{R,\epsilon}$ as a test function, then it holds
+    \end{cases}   
+,\end{align*}
+with the property that $ \abs{\nabla \psi_R} \le \frac{C}{R} $, $\abs{\Delta  \psi_R} \le \frac{C}{R}$.
+We use $\psi_R * w_{R,\epsilon}$ as a test function in the weak formulation of \autoref{DiffusionBar0}, then it holds
 \begin{align*}
   \psi_{R}*w_{R,\epsilon} \rvert_{t = \tilde{t} } = g
 .\end{align*}
 and 
 \begin{align*}
-  &\int_{\mathbb{R}^{d} } g(x)d\mu^{Y}(x,\tilde{t} ) - 0 = \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} }  (\partial_t  + \Delta -  \nabla V \star  j_{\epsilon} \star u * \nabla)(w_{R,\epsilon} \psi_R) d\mu^Y(x,t)\\
+  &\int_{\mathbb{R}^{d} } g(x)\overline{u}(x,\tilde{t} )dx - 0 = \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} }  (\partial_t  + \Delta -  F \star  j_{\epsilon} \star u * \nabla)(w_{R,\epsilon} \psi_R) \overline{u}dxdt\\
 .\end{align*}
-using that $w_{R,\epsilon}$ is solution to the above equation 
+using that $w_{R,\epsilon}$ is solution to \autoref{backPDE}, we have
 \begin{align*}
-  &\int_{0}^{\tilde{t} } \int_{\mathbb{R}^{d} } \underbrace{(\partial_t  + \Delta -  \nabla V \star j_{\epsilon} \star u * \nabla) w_{R,\epsilon}}_{=0}*\psi_{R} d\mu^Y \\
-  &+  \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} } (2 \nabla \psi_R * \nabla w_{R,\epsilon} + w_{R,\epsilon} \Delta \psi_{R} - \nabla V \star  u *w_{R,\epsilon}*\nabla \psi_{R}) d\mu^Y \\
-  &+ \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} }  (\nabla V \star  j_{\epsilon} \star  u - \nabla V \star  u) * \nabla w_{R,\epsilon}\psi_{R} d\mu^Y\\
+  &\int_{0}^{\tilde{t} } \int_{\mathbb{R}^{d} } \underbrace{(\partial_t  + \Delta -  F \star j_{\epsilon} \star u * \nabla) w_{R,\epsilon}}_{=0}*\psi_{R} d\mu^Y \\
+  &+  \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} } (2 \nabla \psi_R * \nabla w_{R,\epsilon} + w_{R,\epsilon} \Delta \psi_{R} - F \star  u *w_{R,\epsilon}*\nabla \psi_{R}) d\mu^Y \\
+  &+ \int_0^{\tilde{t} } \int_{\mathbb{R}^{d} } ( F \star  j_{\epsilon} \star  u - F \star  u) * \nabla w_{R,\epsilon}\psi_{R} d\mu^Y\\
   &= I + II + III
 .\end{align*}
-if we have that $\|\nabla w_{R,\epsilon}\|_{L^{\infty} } + \|w_{R,\epsilon}\|_{L^{\infty} } \le  C$ uniformly in $R$ and $\epsilon$ (Omit the proof),
+if we have that $\|\nabla w_{R,\epsilon}\|_{L^{\infty} } + \|w_{R,\epsilon}\|_{L^{\infty} } \le  C$ uniformly in $R$ and $\epsilon$ (we refer this estimate again to the PDE lecture),
 then $II$ can be bounded as follows
 \begin{align*}
-  \abs{II}\le \|\mu^Y\|_{L^{\infty}(L^{1} ) } (\|\nabla w_{R,\epsilon}\|_{\infty}*\|\nabla \psi_R\|_{\infty}+\|w_{R,\epsilon}\|_{\infty}*\|\Delta  \psi_R\|_{\infty} +\|\nabla V \star  u\|_{\infty} * \|w_{R,\epsilon}\|\|\nabla \psi_R\|_{\infty})
+  \abs{II}\le \|\overline{u}\|_{L^{\infty}(L^{1} ) } (\|\nabla w_{R,\epsilon}\|_{\infty}*\|\nabla \psi_R\|_{\infty}+\|w_{R,\epsilon}\|_{\infty}*\|\Delta  \psi_R\|_{\infty} +\|F\star  u\|_{\infty} * \|w_{R,\epsilon}\|\|\nabla \psi_R\|_{\infty})
 .\end{align*}
 For $III$ 
 \begin{align*}
-  \abs{III}&\le C*\|\nabla V \star  j_{\epsilon} \star u - \nabla V \star  u \|_{\infty} \\
-           &= \abs*{\int j_{\epsilon}(x-y)(\nabla V \star  u (y) - \nabla V \star  u(x)) dy}\\
-           &\le  \|D^2 V \star  u \|_{\infty} C \epsilon ^2 \\
-           &\xrightarrow{} 0
+  \abs{III}&\le C*\|F \star  j_{\epsilon} \star u - F \star  u \|_{\infty} \\
+           &= \abs*{\int j_{\epsilon}(x-y)(F \star  u (y) - F \star  u(x)) dy}\le  \|D^2 V \star  u \|_{\infty} C \epsilon ^2 \xrightarrow{} 0
 .\end{align*}
-% since $u$ as a solution of (PDE) it is also a solution of the (LDPE) 
-% the proof $u = \mu ^{Y}$ can be reduced to show that (LPDE) has a unique measure valued solution.\\
-% Let $\tilde{\mu } \in  L^{\infty}(L^{1} )  $ be a solution for $\forall \phi  \in  \mathcal{C}_0^{\infty}([0,T);\mathbb{R}^{d} ) $
-% \begin{align*}
-%   \int_0^{T} \int_{\mathbb{R}^{d} }  \tilde{u}  (\partial_t \phi  +  \Delta  \phi  - \nabla \phi  * \nabla V \star  u) dx dt = 0
-% .\end{align*}
-% then $\tilde{u} = 0 $ implies the uniqueness of (LPDE), which means we need to show for $\forall  g \in  \mathcal{C}_c^{\infty}(\mathbb{R}^{d} \times [0,T] )  $
-% it holds 
-% \begin{align*}
-%   \int_0^{T}  \int_{\mathbb{R}^{d } } \tilde{u}  g dx dt = 0
-% .\end{align*}
-% if $\exists  \phi $ s.t. $g = \partial_t \phi  + \Delta  \phi  - \nabla \phi  * \nabla V \star  u$
+This complete the proof.
+\end{proof}

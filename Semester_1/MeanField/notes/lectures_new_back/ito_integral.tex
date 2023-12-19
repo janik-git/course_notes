@@ -8,7 +8,7 @@ From now on we denote by $W(*)$ the $1-D$ Brownian motion on $(\Omega ,\mathcal{
       \begin{align*}
         \mathcal{W}^{+}(t) \coloneqq \mathcal{U}(W(s)-W(t) | s\ge t) 
       .\end{align*}
-      is called the future of the Brownian motion beyond time $t$.
+      is called the future of the Brownian motion beyond time $t$
   \end{enumerate}
 \end{definition}
 \begin{definition}[Non-Anticipating Filtration]
@@ -26,20 +26,19 @@ A primary example of this is
 where $X_{0}$ is a random variable independent of $\mathcal{W}^{+}(0) $
 \begin{definition}[Non-Anticipating Process]
  A real-valued stochastic process $G(*)$  is called non-anticipating (w.r.t. $\mathcal{F}(*)$) if 
- for $\forall t \ge  0$ , $G(t)$ is $\mathcal{F}(t)-$measurable.
+ for $\forall t \ge  0$ , $G(t)$ is $\mathcal{F}(t)-$measurable
 \end{definition}
-\vskip5mm
-From now on we use $(\Omega,\mathcal{F},\mathcal{F}(t),\P)$ as a filtered probability space with right continuous filtration 
-$\mathcal{F}(t) = \bigcap_{s \ge t} \mathcal{F}(s)$. Note we also use the convention that $\mathcal{F}(t)$ is complete .
+From now on we use $(\omega,\mathcal{F},\mathcal{F}(t),\P)$ as a filtered probability space with right continuous filtration 
+$\mathcal{F}(t) = \bigcap_{s \ge t} \mathcal{F}(s)$. Note we also use the convention that $\mathcal{F}(t)$ is complete 
 \begin{definition}
   \hspace{0mm}\\
   \begin{enumerate}
     \item A stochastic process is adapted to $(\mathcal{F}(t))_{t\ge 0}$  if $X_t$ is $\mathcal{F}(t)$ measurable for $\forall  t \ge 0$
     \item A stochastic process is progressively measurable w.r.t. $\mathcal{F}(t)$ if
       \begin{align*}
-        X(s,\omega ) \ : \ [0,t] \times  \Omega  \to  \mathbb{R}
+        X_t(s,\omega ) \ : \ [0,t] \times  \Omega  \to  \mathbb{R}
       .\end{align*}
-      is $\mathcal{B}([0,t]) \times  \mathcal{F}(t)$ measurable for $\forall  t > 0$.
+      is $\mathcal{B}([0,t]) \times  \mathcal{F}(t)$ measurable for $\forall  t > 0$
   \end{enumerate}
 \end{definition}
 \begin{definition}
@@ -54,11 +53,11 @@ $\mathcal{F}(t) = \bigcap_{s \ge t} \mathcal{F}(s)$. Note we also use the conven
 \end{definition}
 \begin{definition}[Step-Process]
   $G \in  \mathbb{L}^2([0,T])$  is called a step process if there exists a partition of the interval $[0,T]$ i.e.
-  $P = \{(t_0,t_1,\ldots,t_m):0 = t_{0} < t_{1} < \ldots <t_m =T\}$ s.t. 
+  $P = \{0 = t_{0} < t_{1} < \ldots <t_m =T\}$ s.t. 
   \begin{align*}
-    G(t) = G_k \quad \forall  t_k \le t < t_{k+1} \quad k=0,\ldots ,m-1,
-  \end{align*}
-  where $G_k$ is an $\mathcal{F}(t_k)$ measurable random variable.
+    G(t) = G_k \quad \forall  t_k \le t < t_{k+1} \quad k=0,\ldots ,m-1
+  .\end{align*}
+  where $G_k$ is an $\mathcal{F}(t_k)$ measurable random variable
 \end{definition}
 \begin{remark}
 Note that the above definition directly yields the following representation for any step process $G \in  \mathbb{L}^2([0,T])$ 
@@ -76,7 +75,7 @@ Note that the above definition directly yields the following representation for 
   Let $G,H \in  \mathbb{L}^2([0,T])$  be two step processes, then for $\forall  a,b \in  \mathbb{R}$ it holds 
   \begin{enumerate}
     \item $\int_0^{T}(aG + bH)dW_t  = a \int_0^{T} G dW_t + b \int_0^{T} HdW_t  $
-    \item $\E [\int_0^{T}GdW_t] = 0$.
+    \item $\E{\int_0^{T}GdW_t } = 0$
   \end{enumerate}
 \end{prop}
 \begin{proof}
@@ -118,9 +117,10 @@ Note that the above definition directly yields the following representation for 
   .\end{align*}
   Then we have 
   \begin{align*}
-   & \E[\left( \int_0^{T} GdW_t  \right)^2 ] = \sum_{k=0}^{m-1} \E[G_k^2(W(t_{k+1})-W(t_k))^2]  \\
-                                            &= \sum_{k=0}^{m-1} \E[G_k^2]\E[(W(t_{k+1})-W(t_k))^2]                               = \sum_{k=0}^{m-1} \E[G_k^2](t_{k+1}-t_k) 
-                                          = \E[\int_0^{T} G^2dt ] 
+    \E[\left( \int_0^{T} GdW_t  \right)^2 ] &= \sum_{k=0}^{m-1} \E[G_k^2(W(t_{k+1})-W(t_k))^2]  \\
+                                            &= \sum_{k=0}^{m-1} \E[G_k^2]\E[(W(t_{k+1})-W(t_k))^2] \\
+                                            &= \sum_{k=0}^{m-1} \E[G_k^2](t_{k+1}-t_k) \\
+                                            &= \E[\int_0^{T} G^2dt ] 
   .\end{align*}
 \end{proof}
 For general $\mathbb{L}^2([0,T])$ processes we use approximation by step processes to define the It\^o integral 
@@ -130,8 +130,9 @@ For general $\mathbb{L}^2([0,T])$ processes we use approximation by step process
    \E[\int_0^{T} \abs{G - G^{n} }^2 dt ] \xrightarrow{n\to \infty} 0
   .\end{align*}
 \end{lemma}
-  We roughly sketch the Idea here and refer the rigorous proof to stochastic calculus lecture. \\[1ex]
-  If $G(*,\omega )$  is a.s. continuous then we can take  
+\begin{proof}
+  We roughly sketch the Idea here \\[1ex]
+  If $G(*,\omega )$  is a.e. continuous then we can take  
  \begin{align*}
    G^{n}(t) \coloneqq  G(\frac{k}{n})  \quad \frac{k}{n} \le t < \frac{k+1}{n} \quad k=0,\ldots ,\floor{nT}
  .\end{align*}
@@ -143,14 +144,14 @@ For general $\mathbb{L}^2([0,T])$ processes we use approximation by step process
  \begin{align*}
   \int_0^{T} \abs{G - G^{m} }^2 dt \to 0 \text{ a.s.}
  .\end{align*}
-
+\end{proof}
 \begin{definition}[It\^o Integral]\label{ito_integral}
   If $G \in  \mathbb{L}^2([0,T])$. Let step processes $G^{n} $ be an approximation of $G$. Then we define
   the It\^o  integral by using the limit 
   \begin{align*}
     I(G) = \int_0^{T} GdW_t \coloneqq  \lim_{n\to \infty} \int_0^{T} G^{n} dW_t
-  ,\end{align*}
-  where the limit exists in $L^2(\Omega)$.
+  .\end{align*}
+  where the limit exists in $L^2(\Omega)$
 \end{definition}
 In order to derive the validity of this definition, one has to check 
 \begin{enumerate}
@@ -170,7 +171,7 @@ In order to derive the validity of this definition, one has to check
     .\end{align*}
 \end{enumerate}
 By using this approximation, all the properties for step  processes can be obtained for general $\mathbb{L}^2([0,T])$ processes
-\begin{theorem}[Properties of the It\^o Integral]
+\begin{theorem}[Properties Of The It\^o Integral]
   For $\forall  a,b \in  \mathbb{R}$  and $\forall  G,H \in \mathbb{L}^2([0,T])$ it holds 
   \begin{enumerate}
     \item $\int_0^{T} (aG+bH) dW_t = a\int_0^{T} GdW_t + b\int_0^{T} H dW_t   $ 
@@ -198,7 +199,7 @@ By using this approximation, all the properties for step  processes can be obtai
   The It\^o integral is a map from $\mathbb{L}^2([0,T]) $  to $L^2(\Omega )$
 \end{remark}
 \begin{remark}
-  For $G \in \mathbb{L}^2([0,T])$  the It\^o integral $\int_0^{\tau } G dW_t $ with $0 \le \tau  \le T$ is a martingale. We also refer the proof of this statement to stochastic calculus lecture.
+  For $G \in \mathbb{L}^2([0,T])$  the It\^o integral $\int_0^{\tau } G dW_t $ with $0 \le \tau  \le T$ is a martingale
 \end{remark}
 \subsection{It\^o's Formula}
 \begin{definition}[It\^o Process]
@@ -220,25 +221,23 @@ By using this approximation, all the properties for step  processes can be obtai
     dY &= \frac{\partial u}{\partial t} dt + \frac{\partial u}{\partial x} dX + \frac{1}{2 }\frac{\partial ^2 u}{\partial x^2} G^2 dt\\
        &=(\frac{\partial u}{\partial t} +\frac{\partial u}{\partial x} F + \frac{1}{2} \frac{\partial ^2 u}{\partial x^2} G^2 )dt + \frac{\partial u}{\partial x} G dW_t
   .\end{align*}
-    \end{theorem}
-Note that the differential form of the It\^o formula is understood as an abbreviation of the following integral form, for all $0\le s < r \le T$
+  Note that the differential form of the It\^o formula is understood as an abbreviation of the following integral form, for all $0\le s < r \le T$
   \begin{align*}
     &u(X(r),r) - u(X(s),s) \\
     &= \int_s^{r}(\frac{\partial u}{\partial t}(X(t),t)+\frac{\partial u}{\partial x}(X(t),t)F(t) + \frac{1}{2}\frac{\partial ^2 u}{\partial x^2}(X(t),t)G^2(t) )dt + \int_s^{r} \frac{\partial u}{\partial x}(X(t),t) G(t)dW_t
   .\end{align*}
-
+  \end{theorem}
 \begin{proof}
   The proof is split into five steps \\[1ex]
   \textbf{Step 1.} First we prove two simple cases. If $X(t)=W_t$ then 
   \begin{enumerate}
-    \item[(1)] $d(W_t)^2 = 2W_t dW_t + dt $
-    \item[(1)] $d(tW_t) = W_t dt + t dW_t$
+    \item $d(W_t)^2 = 2W_t dW_t + dt $
+    \item $d(tW_t) = W_t dt + t dW_t$
   \end{enumerate}
- The integral version of (1) is $W_t^2 - W_0^2 = \int_0^{t} 2W_s dW_s + t$ a.s.\\
-  By definition of It\^o integral, for a.s. $\omega  \in \Omega $ we have 
+  For (1) it is sufficient to prove $W_t^2 - W_0^2 = \int_0^{t} 2W_s dW_s + t$ a.s. By definition of It\^o integral, for a.s. $\omega  \in \Omega $ we have 
   \begin{align*}
     \int_0^{t}2W_sdW_s &= 2 \lim_{n\to \infty} \sum_{k=0}^{n-1} W(t_k^{n} )\left(W(t_{k+1}^{n})-W(t_k^{n} )\right)\\
-                       &= \lim_{n\to \infty} \Bigg[\sum_{k=0}^{n-1} W(t_k^{n})\left(W(t_{k+1}^{n}) - W(t_k^{n} )\right) - \sum_{k=0}^{n-1}\left(W(t_{k+1}^{n})-W(t_k^{n}) \right)^2  \\
+                       &= \lim_{n\to \infty} \Bigg[\sum_{k=0}^{n-1} W(t_k^{n})\left(W(t_{k+1}^{n}) - W(t_k^{n} )\right) - \sum_{k=0}^{n-1}\left(W(t_{k+1}^{n})-W(t_k^{n}) \right)  \\
                        & \hspace{1.1cm}+ \sum_{k=0}^{n-1}W(t_{k+1}^{n} )  \left(W(t_{k+1}^{n})-W(t_k^{n} ) \right) \Bigg]\\
                        &= - \lim_{n\to \infty} \Bigg[\sum_{k=0}^{n-1}\left( W(t_{k+1}^{n}) - W(t_k^{n} ) \right)^2 -  \sum_{k=0}^{n-1}\left(W(t_k^{n} )\right)^2 + \sum_{k=0}^{n-1}\left( W(t_{k+1}^n) \right)^2      \Bigg]\\
                        &= - \lim_{n\to \infty} \sum_{k=0}^{n-1}\left( W(t_{k+1}^{n}) - W(t_k^{n} ) \right)^2 +  \left(W(t)\right)^2 - \left( W(0) \right)^2 
@@ -248,30 +247,35 @@ Note that the differential form of the It\^o formula is understood as an abbrevi
   \begin{align*}
     \lim_{n\to \infty}\sum_{k=0}^{n-1} \left( W(t_{k+1}^{n} ) - W(t_k^{n} ) \right)^2 - t = 0 
   .\end{align*}
- Actually, by writing out the square we have 
+  holds true. Actually 
   \begin{align*}
-  &  \E \left[ \left( \sum_{k=0}^{n-1}\left( W(t_{k+1}^{n} ) - W(t_k^{n})\right)^2 - \left( t_{k+1}^{n} - t_k^{n}   \right)   \right)^2   \right] \\
-  =&\E\Bigg[\sum_{k=0}^{n-1}\sum_{l=0}^{n-1}
-    \left( \left( W(t_{k+1}^{n} ) - W(t_k^{n})\right)^2 - \left( t_{k+1}^{n} - t_k^{n}   \right)   \right)                                                                                                                                                                                                                                                                                         *\left( \left( W(t_{l+1}^{n} ) - W(t_l^{n})\right)^2 - \left( t_{l+1}^{n} - t_l^{n}   \right)   \right) \Bigg]
+    \E \left[ \left( \sum_{k=0}^{n-1}\left( W(t_{k+1}^{n} ) - W(t_k^{n})\right)^2 - \left( t_{k+1}^{n} - t_k^{n}   \right)   \right)^2   \right] =\E\Bigg[\sum_{k=0}^{n-1}\sum_{l=0}^{n-1} &\left( \left( W(t_{k+1}^{n} ) - W(t_k^{n})\right)^2 - \left( t_{k+1}^{n} - t_k^{n}   \right)   \right)\\
+                                                                                                                                                                                                                                                                                                 &*\left( \left( W(t_{l+1}^{n} ) - W(t_l^{n})\right)^2 - \left( t_{l+1}^{n} - t_l^{n}   \right)   \right) \Bigg]
   .\end{align*}
   The terms with $k\neq l$ vanish because of the independence. Therefore
   \begin{align*}
     &\E \left[ \sum_{k=0}^{n-1}\left( \left( W(t_{k+1}^{n} ) - W(t_k^{n})\right)^2 - \left( t_{k+1}^{n} - t_k^{n}   \right)   \right)^2   \right] \\ 
     &= \sum_{k=0}^{n-1}(t_{k+1}^{n} - t_k^{n}  )^2 \E \left[ \left( \frac{\left( W(t_{k+1}^{n} ) - W(t_k^{n} ) \right)^2 }{t_{k+1}^{n} - t_{k}^{n}  } - 1 \right)^2  \right]  \\
     &= \sum_{k=0}^{n-1}(t_{k+1}^{n} - t_k^{n}  )^2 \E \left[ \left( \left(\frac{ W(t_{k+1}^{n} ) - W(t_k^{n} ) }{\sqrt{t_{k+1}^{n} - t_{k}^{n}}  } \right)^2 - 1 \right)^2  \right]  \\
-    &\le C*\frac{t^2}{n}\to  0
-  ,\end{align*}
+    &\le C*\frac{t^2}{n}\\
+    &\to  0
+  .\end{align*}
   where we have used the fact that $Y = \frac{ W(t_{k+1}^{n} ) - W(t_k^{n} ) }{\sqrt{t_{k+1}^{n} - t_{k}^{n}}  } \sim \mathcal{N}(0,1)$. Hence $\E[(Y^2 - 1)^2]$ is 
   bounded by a constant $C$\\[1ex]
-  We will prove the integral form of (2) : $tW_t - 0 W_0 =  \int_0^{t} W_s ds + \int_0^{t} s dW_s  $. Actually we have 
-  that
+  For (2) : It is sufficient to prove $tW_t - 0 W_0 =  \int_0^{t} W_s ds + \int_0^{t} s dW_s  $. Actually we have 
+  \begin{align*}
+    \int_0^{t} s dW_s = \lim_{n\to \infty}  \sum_{k=0}^{n-1} t_k^{n}\left( W(t_{k+1}^{n} - W(t_k^{n} )  ) \right)  \text{ a.s.}
+  .\end{align*}
+  and for a.s. $\omega $ the standard Riemann sum
+  \begin{align*}
+    \int_0^{t} W_s ds = \lim_{n\to \infty}  \sum_{k=0}^{n-1} W(t_{k+1}^{n} )(t_{k+1}^{n} - t_k^{n}  )
+  .\end{align*}
+  The summation of the above integrals yields 
   \begin{align*}
     \int_0^{t} s dW_s  + \int_0^{t} W_s ds &= \lim_{n\to \infty}   \sum_{k=0}^{n-1} t_k^{n}\left( W(t_{k+1}^{n}) -W(t_k^{n} ) \right) + \lim_{n\to \infty}\sum_{k=0}^{n-1} W(t_{k+1}^{n} ) (t_{k+1}^{n} - t_k^{n}  )\\
                                            &= W(t)*t - 0*W(0)
   .\end{align*}
-  
-  \vskip3mm
-  \textbf{Step 2.} Now let us prove the It\^o product rule. Namely, if 
+  \textbf{Step 2.} Now let us prove the It\^o product rule. If 
   \begin{align*}
     dX_{1} = F_{1}dt + G_{1}dW_t \quad \text{ and } \quad dX_{2} = F_{2}dt+G_{2}dW_t
   .\end{align*}
@@ -281,27 +285,28 @@ Note that the differential form of the It\^o formula is understood as an abbrevi
                   &=(X_{2}F_{1}+X_{1}F_{2}+G_{1}G_{2})dt + (X_{2}G_{1}+X_{1}G_{2})dW_t
   .\end{align*}
   where the above should be understood as the integral equation.\\
- \vskip2mm  (1) We prove the case $F_i,G_i$ are time independent. Assume for simplicity $X_{1}(0) = X_{2}(0)$ then it follows that 
+  (1) We prove the case $F_i,G_i$ are time independent. Assume for simplicity $X_{1}(0) = X_{2}(0)$ then it follows that 
   \begin{align*}
-    X_i(t) = F_it +G_iW(t), \quad i=1,2.
+    X_i(t) = F_it G_iW(t)
   .\end{align*}
-  Then it holds almost surely that 
+  Then it holds a.s. that 
   \begin{align*}
     &\int_0^{t} (X_{2}dX_{1} + X_{1}dX_{2} + G_{1}G_{2} ds) \\
-    =& \int_0^{t} (X_{2}F_{1}+X_{1}F_{2}) ds + \int_0^{t} (X_{2}G_{1}+X_{1}G_{2}) dW_s + \int_0^{t} G_{1}G_{2}ds   \\
-    =& \int_0^{t} \left( F_{1}(F_{2}s + G_{2}W(s))  + F_{2}(F_{1}s+G_{1}W(s))\right) ds + G_{1}G_{2}t\\
-    &+ \int_0^{t} \left( G_{1}(F_{2}s + G_{2}W(s)) + G_{2}(F_{1}s+G_{1}W(s)) \right) dW_s \\
-    =& G_{1}G_{2}t + F_{1}F_{2}t^2+(F_{1}G_{2}+F_{2}G_{1})\left( \int_0^{t}W(s) ds + \int_0^{t} s dW_s   \right) \\
-    & + 2G_{1}G_{2} \int_0^{t} W(s) dW_s\\ 
-=&  G_{1}G_{2}(W(t))^2  + F_{1}F_{2}t^2 + (F_{1}G_{2}+F_{2}G_{1})tW(t) = X_{1}(t)+X_{2}(t)
-  ,\end{align*}
-   where we have used the results from Step 1. Therefore It\^o formula is true when $F_i,G_i$ are time independent random variables.\\
-  \vskip2mm
-  (2) If $F_i,G_i$ are step processes, then we apply the above formula in each sub-interval.\\
-  \vskip2mm
+    &= \int_0^{t} (X_{2}F_{1}+X_{1}F_{2}) ds + \int_0^{t} (X_{2}G_{1}+X_{1}G_{2}) dW_s + \int_0^{t} G_{1}G_{2}ds   \\
+    &= \int_0^{t} \left( F_{1}(F_{2}s + G_{2}W(s))  + F_{2}(F_{1}s+G_{1}W(s))\right) ds + G_{1}G_{2}t\\
+    &= \int_0^{t} \left( G_{1}(F_{2}s + G_{2}W(s)) + G_{2}(F_{1}s+G_{1}W(s)) \right) dW_s \\
+    &= G_{1}G_{2}t F_{1}F_{2}t^2+(F_{1}G_{2}+F_{2}G_{1})\left( \int_0^{t}W(s) ds + \int_0^{t} s dW_s   \right) \\
+    & \quad + 2G_{1}G_{2} \int_0^{t} W(s) dW_s 
+  .\end{align*}
+  using (1) and (2) from Step 1. It continues to hold that 
+  \begin{align*}
+    G_{1}G_{2}(W(t))^2  + F_{1}F_{2}t^2 + (F_{1}G_{2}+F_{2}G_{1})tW(t) = X_{1}(t)+X_{2}(t)
+  .\end{align*}
+  Therefore It\^o formula is true when $F_i,G_i$ are time independent random variables.\\
+  (2) If $F_i,G_i$ are step processes, then we apply the above formula in each sub-interval\\
   (3) For $F_i \in  \mathbb{L}^1([0,T])$ and $G_i \in  \mathbb{L}^2([0,T])$, we take the step process approximation of them, namely
   \begin{align*}
-    \E\Big[\int_0^{T} \abs{F_i^{n} - F_i } dt \Big] \to 0 \quad \E\Big[\int_0^{T} \abs{G_i^{n} - G_i }^2 dt \Big] \to 0 \qquad (n\to \infty), i=1,2
+    \E[\int_0^{T} \abs{F_i^{n} - F_i } dt ] \to 0 \quad \E[\int_0^{T} \abs{G_i^{n} - G_i }^2 dt ] \to 0 \qquad (n\to \infty), i=1,2
   .\end{align*}
   Notice that for each It\^o process given by step processes 
   \begin{align*}
@@ -311,25 +316,21 @@ Note that the differential form of the It\^o formula is understood as an abbrevi
   \begin{align*}
     X_1^{n}(t)X_2^{n}(t) - X_1(0)X_2(0) = \int_0^{t} \left( X_1^{n}(s)dX_2^{n}(s) + X_2^{n}(s) dX_1^{n}(s) + G_{1}G_{2}ds     \right)    
   .\end{align*}
-  Therefore after taking the limit, we obtain that the product rule holds for It\^o processes.
-  \vskip2mm
   \textbf{Step 3.} If $u(X) = X^{m} $ for $m \in  \mathbb{N}$ then we claim 
   \begin{align*}
     d(X^{m} ) = mX^{m-1}dX + \frac{1}{2}m(m-1) X^{m-2} G^2dt
   .\end{align*}
-  We prove this statement by induction.\\
+  We prove this by induction.\\
   \textbf{IA} Note that $m=2$ is given by the product rule. \\
   \textbf{IV} Suppose the formula holds for $m-1 \in  \mathbb{N}$ \\
-  \textbf{IS} $m-1 \to m$.\\
-  By using the product rule, we have that 
+  \textbf{IS} $m-1 \to m$ then 
   \begin{align*}
     d(X^{m} )= d(XX^{m-1} ) &= Xd(X^{m-1} ) + X^{m-1}dX + (m-1)X^{m-2} G^2dt \\
                             &\myS{IV}{=} X \left( (m-1)X^{m-2} dX + \frac{1}{2}(m-1)(m-2)X^{m-3}G^2 dt   \right) \\
                             & \quad + X^{m-1}dX + (m-1)X^{m-2}G^2 dt \\
                             &= mX^{m-1} dX + (m-1)(\frac{m}{2} -1 +1) X^{m-2} G^2 dt 
   .\end{align*}
-  Thus the statement holds for all $m \in  \mathbb{N}$.\\
-  \vskip3mm
+  Thus the statement holds for all $m \in  \mathbb{N}$\\[1ex]
   \textbf{Step 4.} If $u(X,t) = f(X)g(t)$ where $f$ and $g$ are polynomials $f(X) = X^{m} $ , $g(t) =t^n$.
   Then by the product rule we have 
   \begin{align*}
@@ -337,22 +338,19 @@ Note that the differential form of the It\^o formula is understood as an abbrevi
   .\end{align*}
   by step 3  this is equal to
   \begin{align*}
-    f(X)g'(t)dt + g(t)f'(X)dX + \frac{1}{2}g(t)f''(X)G^2 dt =\frac{\partial u}{\partial t} dt + \frac{\partial u}{\partial X} dX + \frac{1}{2} \frac{\partial ^2 u}{\partial X^2} G^2 dt
+    f(X)g'(t)dt + gf'(X)dX + \frac{1}{2}f^{''}(X)G^2 dt =\frac{\partial u}{\partial t} dt + \frac{\partial u}{\partial X} dX + \frac{1}{2} \frac{\partial ^2 u}{\partial X^2} G^2 dt
   .\end{align*}
-  Furthermore, by superposition, we know that the It\^o formula is also true if $u(X,t) = \sum_{i=1}^{m} g_m(t)f_m(X) $ where $f_m$ and $g_m$ are polynomials\\[1ex]
-  \vskip3mm
+  Note the It\^o formula is also true if $u(X,t) = \sum_{i=1}^{m} g_m(t)f_m(X) $ where $f_m$ and $g_m$ are polynomials\\[1ex]
   \textbf{Step 5.} For $u$ continuous such that $\frac{\partial u}{\partial t} , \frac{\partial u}{\partial x} ,\frac{\partial ^2 u}{\partial x^2}$ exists and are also continuous, then
   there exists polynomial sequences $u^{n} $ s.t.
   \begin{align*}
     u^{n} \to  u \quad \frac{\partial u^{n } }{\partial t} \to \frac{\partial u}{\partial t} , \quad \frac{\partial u^{n } }{\partial x} \to \frac{\partial u}{\partial x} , \quad \frac{\partial ^2 u}{\partial x^2} \to \frac{\partial ^2 u}{\partial x^2} 
   .\end{align*}
-  uniformly on compact $K \subset  \mathbb{R}\times [0,T]$.
-
-  By using the fact that 
+  uniformly on compact $K \subset  \mathbb{R}\times [0,T]$. Since 
   \begin{align*}
     u^{n}(X(t),t) -u^{n}(X(0),0)  = \int_0^{t} \left( \frac{\partial u^{n } }{\partial t} +\frac{\partial u^{n } }{\partial x} F + \frac{1}{2} \frac{\partial ^2 u^{n} }{\partial x^2} G^2  \right)  dr + \int_0^{t} \frac{\partial u^{n } }{\partial x}  GdW_r \quad \text{a.s.} 
- \end{align*}
- It\^o's formula is proven by taking the limit $n\to \infty$.
+  .\end{align*}
+  then by taking the limit $n\to \infty$ It\^o's formula is proven 
 \end{proof}
 \begin{remark}
  One can get the existence of the polynomial sequence in Step 5, by using Hermetian polynomials 
@@ -373,26 +371,25 @@ include the dimensionality as a subscript for clearness.
   \begin{align*}
     \int_0^{T} G d W_t = \begin{pmatrix} \vdots \\ \int_0^{T} G_{ij} d W^{j}_t \\ \vdots    \end{pmatrix}_{n \times 1}
   .\end{align*}
-\end{definition}
-\begin{remark} It is a direct consequence from $1-$ Brownian motion that
+  With the Properties 
   \begin{align*}
-    \E\Big[\int_0^{T} G dW_t \Big] &= 0  \\
-    \E\Big[\Big(\int_0^{T} G dW_t \Big)^2\Big] &= \E\Big[\int_0^{T} \abs{G}^2 dt \Big]
-  ,\end{align*}
-  where $\displaystyle\abs{G}^2 = \sum_{i,j}^{n,m} \abs{G_{ij}}^2 $ 
-\end{remark}  
+    \E[\int_0^{T} G dW_t ] &= 0  \\
+    \E[(\int_0^{T} G dW_t )^2] &= \E[\int_0^{T} \abs{G}^2 dt ]
+  .\end{align*}
+  Where $\displaystyle\abs{G}^2 = \sum_{i,j}^{n,m} \abs{G_{ij}}^2 $ 
+\end{definition}
 \begin{definition}[Multi-Dimensional It\^o process]
  We define the $n-$dimensional It\^o process as  
  \begin{align*}
    X(t) &= X(s) + \int_s^{t} F_{n \times  1}(r) dr   + \int_0^{t} G_{n \times  m}(r) dW_{m \times  1}(r)  \\
-\mbox{or differential version }\quad   dX^{i} &= F^{i} dt + \sum_{j=1}^{m} G^{ij} dW_t^i      \qquad 1\le i \le n
+   dX^{i} &= F^{i} dt + \sum_{j=1}^{m} G^{ij} dW_t^i      \qquad 1\le i \le n
  .\end{align*}
 \end{definition}
 \begin{theorem}[Multi Dimensional It\^o's formula]
   We define the $n-$dimensional It\^o's formula for $u \in  \mathcal{C}^{2,1}(\mathbb{R}^{n} \times [0,T],\mathbb{R} ) $ by 
   \begin{align*}
     du(X(t),t) &= \frac{\partial u}{\partial t}(X(t),t) dt + \nabla u(X(t),t) * dX(t) \\
-               &+ \frac{1}{2} \sum_{i,j=1}^n \frac{\partial ^2 u}{\partial x_i \partial x_j}(X(t),t) \sum_{l=1}^{m}  G^{il} G^{il}dt 
+               &+ \frac{1}{2} \sum \frac{\partial ^2 u}{\partial X_i \partial X_j}(X(t),t) \sum_{l=1}^{m}  G^{il} G^{il}dt 
   .\end{align*}
 \end{theorem}
 \begin{prop}
@@ -401,22 +398,25 @@ include the dimensionality as a subscript for clearness.
   \begin{cases}
     dX_{1} &= F_{1} dt + G_1 dW_1 \\
     d X_2 &= F_{2} dt + G_{2} dW_2
-  \end{cases} \implies d(X_{1}X_{2}) = XdX_{2} + X_{2}dX_{1} + \sum_{k=1}^{m} G_1^{k} G_2^{k} dt   
+  \end{cases} \implies d(X_{1},X_{2}) = XdX_{2} + X_{2}dX_{1} + \sum_{k=1}^{m} G_1^{k} G_2^{k} dt   
  .\end{align*} 
 \end{prop}
-\begin{remark}[Multiplication Rules]
- The following formal multiplication rules are frequently used in computation:
+\begin{definition}[Multiplication Rules]
+ Formal multiplication rules for SDEs
  \begin{align*}
    (dt)^2 = 0 \ , \ dt dW^{k} = 0 \ , \ dW^{k}dW^{l} = \delta_{kl} dt \\
  .\end{align*}
-  Using the above we can write the It\^o's formula into a short version as follows 
+\end{definition}
+\newpage
+\begin{remark}
+  Using the above we can simplify It\^o's formula as follows 
 \begin{align*}
-  du(X,t) &= \frac{\partial u}{\partial t} dt + \nabla u*dX + \frac{1}{2}\sum_{i,j=1}^{n} \frac{\partial ^2  u}{\partial x_i \partial x_j}   dX^{i}dX^{j}   \\ 
-          &= \frac{\partial u}{\partial t} dt + \sum_{i=1}^{n} \frac{\partial u}{\partial x^{i} } F^{i} dt + \sum_{i=1}^{n} \frac{\partial u }{\partial x_i}      \sum_{i=1}^{m} G^{ik} d W_k   \\
-          &+  \frac{1}{2} \sum_{i,j=1}^{n}  \frac{\partial ^2  u}{\partial x_i \partial x_j} \left(F^{i} dt + \sum_{k=1}^{m} G^{ik} dW_k   \right)\left( F^{j} dt + \sum_{l=1}^{m} G^{i;} dW_l    \right)   \\
-          &= (\frac{\partial u}{\partial t} + F*\nabla u + \frac{1}{2} H*D^2 u) dt + \sum_{i=1}^{n} \frac{\partial u}{\partial x_i} \sum_{k=1}^{m} G^{ik} dW_{k}
-,\end{align*}
-where 
+  du(X,t) &= \frac{\partial u}{\partial t} dt + \nabla_X u*dX + \frac{1}{2}\sum_{i,j=1}^{n} \frac{\partial ^2  u}{\partial X_i \partial X_j}   dX^{i}dX^{j}   \\ 
+          &= \frac{\partial u}{\partial t} dt + \sum_{i=1}^{n} \frac{\partial u}{\partial X^{i} } F^{i} dt + \sum_{i=1}^{n} \frac{\partial u }{\partial X_i}      \sum_{i=1}^{m} G^{ik} d W_k   \\
+          &+  \frac{1}{2} \sum_{i,j=1}^{n}  \frac{\partial ^2  u}{\partial X_i \partial X_j} \left(F^{i} dt + \sum_{k=1}^{m} G^{ik} dW_k   \right)\left( F^{j} dt + \sum_{l=1}^{m} G^{i;} dW_l    \right)   \\
+          &= (\frac{\partial u}{\partial t} + F*\nabla u + \frac{1}{2} H*D^2 u) dt + \sum_{i=1}^{n} \frac{\partial u}{\partial X_i} \sum_{k=1}^{m} G^{ik} dW_{k}
+.\end{align*}
+Where 
 \begin{align*}
   dX^{i} &= F^{i} dt + \sum_{k=1}^{m}  G^{ik} dW_k   \\
   H_{ij} &= \sum_{k=1}^{m} G^{ik}G^{jk}  \ , \ A *B = \sum_{i,j=1}^{m} A_{ij} B_{ij} 
@@ -431,27 +431,33 @@ where
 \begin{remark} 
  If $F$ and $G$ are deterministic 
  \begin{align*}
-   dX =  F(t) dt + G(t)dW_t
+   dX =  F(t) dt + GdW_t
  .\end{align*}
  Then for arbitrary test function $u \in  \mathcal{C}_0^{\infty}(\mathbb{R}^{n} ) $ we have  by It\^o's formula 
  \begin{align*}
-   u(X(t)) - u(X(0)) &= \int_0^{t} \nabla u (X(s)) * F(s) ds + \int_0^{t}  \frac{1}{2}(G^{T}G ) : D^2u(X(s)) ds \\
-                     &+ \int_0^{t} \nabla u(X(s)) * G(s) dW_{s} 
+   u(x(t)) - u(x(0)) &= \int_0^{t} \nabla u (x(s)) * F(s) ds + \int_0^{t}  \frac{1}{2}(G^{T}G ) : D^2u(x(s)) ds \\
+                     &+ \int_0^{t} \nabla u(x(s)) * G(s) dW_{s} 
  .\end{align*}
  Let $\mu(s,*)$  be the law of $X(s)$ then by taking the expectation of the above integral 
  \begin{align*}
    \int_{\mathbb{R}^{n} } u(x) d\mu(s,x) - \int_{\mathbb{R}^{n} } u(x) d\mu_0(x) &=  \int_{0}^{t} \int_{\mathbb{R}^{n} }  \nabla u(x) * F(s) d\mu(s,x)\\
-     &+ \int_0^{t} \int_{\mathbb{R}^{n} }  \frac{1}{2}(G^{T}(s)G(s)) : D^2 u(x) * d\mu (s,x) \\
+                                                                                 &+ \int_0^{t} \int_{\mathbb{R}^{n} }  \frac{1}{2}(G^{T}(s)G(s)) : D^2 u(x) * d\mu (s,x) \\
                                                                                  &+ 0
  .\end{align*}
- Remember the weak derivative of measures, we obtain that the law $\mu(s,*)$ satisfies the following second order parabolic equation in the sense of distribution,
- \begin{align*}
-   \partial_t \mu  - \frac{1}{2} \sum_{i,j=1}^{n}  \frac{\partial^2}{\partial x_i\partial x_j} \Big(\sum_{k=1}^{m}  G^{ik}G^{kj}  \mu\Big)  + \nabla * (F \mu )  = 0 
- .\end{align*} 
 \end{remark}
+\newpage
+\begin{definition}[Parabolic Operator]
+ \begin{align*}
+   \partial_t u  - \frac{1}{2} \sum_{i,j=1}^{n}  D_{ij} (\sum_{k=1}^{m}  G^{ik}G^{kj}  )\mu  + \nabla * (F \mu )  = 0 
+ .\end{align*} 
+\end{definition}
 \begin{example}
-  If $F=0$  $m=n$ and $G=\sqrt{2}I_{n \times  n} $, then the law $\mu $ of $X(t)=\sqrt{2} dW_t $ fulfills the heat equation 
+  If $F=0$  $m=n$ and $G=\sqrt{2}I_{n \times  n} $ then 
   \begin{align*}
-    \partial_t{\mu}- \Delta \mu  = 0.
+    dX = \sqrt{2} dW_t 
+  .\end{align*}
+  And the law $\mu $ of $X$ fulfills the heat equation i.e
+  \begin{align*}
+    \dot{\mu} t- \Delta \mu  = 0
   .\end{align*}
 \end{example}
