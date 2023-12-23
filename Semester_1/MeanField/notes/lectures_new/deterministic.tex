@@ -382,7 +382,7 @@ Based on this convergence we give some examples in the approximation of $\delta_
 \begin{proof}
  We consider the limit $t\to 0^+$  and obtain $\forall \phi  \in  \mathcal{C}_0^{\infty}(\Omega ) $
  \begin{align*}
-   \lim_{t \to 0^+} \int_\mathbb{R} f_t(x) \phi(x) &= \lim_{t \to  0^+} \int_\mathbb{R} \frac{1}{(4\pi t)^{\frac{1}{2}} } e^{-\frac{\abs{x}^2}{4t}} \phi(x)dx\\
+   \lim_{t \to 0^+} \int_\mathbb{R} f_t(x) \phi(x) dx &= \lim_{t \to  0^+} \int_\mathbb{R} \frac{1}{(4\pi t)^{\frac{1}{2}} } e^{-\frac{\abs{x}^2}{4t}} \phi(x)dx\\
                                                    &= \lim_{t \to 0^+} \int_{-\infty}^{\infty} \frac{1}{\sqrt{\pi} }  e^{-y^2}  \phi(2 \sqrt{t}y) dy \\
                                                    &= \phi(0) = \braket{\delta_0,\phi }
  .\end{align*}
@@ -470,7 +470,7 @@ We give a couple examples
 \begin{example}
  The weak derivative of the Dirac Delta distribution is given by:  $\forall \phi  \in  \mathcal{D}(\Omega )$,
  \begin{align*}
-   \braket{\delta'_0,\phi } &= - \braket{\delta_0,\phi'} = -\phi(0)\\
+   \braket{\delta'_0,\phi } &= - \braket{\delta_0,\phi'} = -\phi'(0)\\
    \braket{\delta_0^{(k)},\phi  } &= (-1)^{k} \phi ^{(k)}  (0)
  .\end{align*}
 \end{example}
