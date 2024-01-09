@@ -22,6 +22,24 @@
 % \include{lectures/task9}
 % \include{lectures/task10}
 % \include{lectures/task11}
-\include{lectures/notes_to_theorems}
+% \include{lectures/notes_to_theorems}
 % \include{lectures/supplement}
+\begin{exercise}
+ Assume
+ \begin{align*}
+   \sup_{y} \abs{\nabla_x K(x,y)} + \sup_{x} \abs{ \nabla_y K(x,y)} \le L
+ .\end{align*}
+\end{exercise}
+\begin{proof}
+  \begin{align*}
+    &\abs*{\int_{\mathbb{R}^{d} }K(v(x),v(y)) d\mu_0(y) - \int_{\mathbb{R}^{d} }K(w(x),w(y)) d\mu_0(y)}\\
+    &\le  \int_{\mathbb{R}^{d} } \abs{K(v(x),v(y))}+ \abs{K(w(x), w(y))} d\mu_0(y)\\
+    % &\le  L \|v-w\|_{X}(1+\abs{x}) + L \|v-w\|_{X} \int_{\mathbb{R}^{d} } (1+\abs{y}) d\mu_0(y) \\
+    % &\le  L(2+C_{1})\|v - w\|_X (1+\abs{x})
+  .\end{align*}
+  and assume w.l.o.g $v(x) \le  w(x)$ then by mean value theorem for some  $c \in  [v(x),w(x)]$
+  \begin{align*} 
+    \frac{\abs{K(v(x),v(y)) - K(w(x),w(y))}}{\abs{v(x)-w(x)}}  \le \sup_{y} \nabla_x K(c,y)
+  .\end{align*}
+\end{proof}
 \end{document}

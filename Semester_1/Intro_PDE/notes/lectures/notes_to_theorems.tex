@@ -134,7 +134,31 @@ and
   x + t f'(g(x)) = y
  .\end{align*}
 \end{proof}
-\section{Non characteristic Hyper surfaces }
+\section{Method of Characteristics}
+Our main method for solving First-Order-PDE's is the method of characteristics, the method uses the fact that.\\
+If the PDE is non-characteristic then we can use the implicit function theorem to construct a solution.
+Concretely, we can turn the PDE into a system of ODE's by viewing it on a  curve $z(s)=u(x(s))$, concretely, we also need to consider $p(s) = \nabla u(x(s))$ 
+\begin{align*}
+  x_i^{'}(s) &= \frac{\partial F(p(s),z(s),x(s))}{\partial p_i} \\
+  p_i^{'}(s) &= \frac{\partial F(p(s),z(s),x(s))}{\partial x_i} - \frac{\partial F(p(s),z(s),x(s))}{\partial z} \\ \\
+  z'(s)      &= \sum_{j=1}^{n} \frac{\partial F(p(s),z(s),x(s))}{\partial p_j}  p_j(s)
+.\end{align*}
+Denote the solutions by $(x(y,s),p(y,s),z(y,s))$, then 
+\begin{align*}
+  (y,s) \mapsto x(y,s)
+.\end{align*}
+has the Jacobian 
+\begin{align*}
+  \begin{pmatrix} 
+    1 & 0 & \ldots  & 0 & \frac{\partial F(p_{0},z_{0},x_{0})}{\partial p_{1}} \\
+     &  & \vdots  &  & \vdots \\
+    0 & 0 & \ldots  & 1 & \frac{\partial F(p_{0},z_{0},x_{0})}{\partial p_{n-1}} \\
+    0 & 0 & \ldots  & 0 & \frac{\partial F(p_{0},z_{0},x_{0})}{\partial p_{n}} \\
+  \end{pmatrix} 
+.\end{align*}
+This is the motivation behind non-characteristic, since if $F$ is non-characteristic , $\frac{\partial F(p_{0},z_{0},x_{0})}{\partial p_n} \neq 0 $ then the Jacobian 
+is invertible and we can construct a implicit function that maps to the solution space.
+\subsection{Non characteristic Hyper surfaces }
 The goal of this section is to generalize the method of characteristics to general first oder PDEs 
 \begin{align*}
   F(\nabla u(x),u(x),x)=0
@@ -144,4 +168,1036 @@ we attain a general solution. For that we first show that we can reduce every Ca
 \begin{align*}
   u(y) = g(y) \text{ for all } y \in  \Omega  \cap H \text{ where } H = \{x \in  \mathbb{R}^{n} | x*e_n  = x_{0}*e_n \}  
 .\end{align*}
-where  $e_n = (0,\ldots ,0,1)$ 
+where  $e_n = (0,\ldots ,0,1)$ , we see that for $x_{0} \in  H$
+\begin{align*}
+  \frac{\partial u(x_{0})}{\partial x_{1}}  = \lim_{h\to 0} \frac{u(x_{0}+he_{1})-u(x_{0})}{h} = \lim_{h \to 0} \frac{g(x_{0}+he_{1})-g(x_{0})}{h} = \frac{\partial g(x_{0})}{\partial x_{1}} 
+.\end{align*}
+that is we can determine all partial derivatives except the $n$-th, but the PDE tells us that 
+\begin{align*}
+  F(\nabla u(x_{0}),u(x_{0}),x_{0} ) = F(\frac{\partial g(x_{0})}{\partial x_{1}},\ldots ,\frac{\partial g(x_{0})}{\partial x_{n-1}},p_n,g(x_{0}),x_{0}  ) = 0
+.\end{align*}
+We get a criteria for determining why a solution exists based on 
+\begin{Definition}[1.6]
+  Consider the PDE as $F(p,z,x) = 0$  and suppose there is a solution $(p_{0},z_{0},x_{0})$. The Hyperplane $H = \{x_n = x_{0,n}\}  $ is called non-characteristic at $x_{0}$ if 
+  \begin{align*}
+    \frac{\partial F}{\partial p_n}(p_{0},z_{0},x_{0}) \neq 0
+  .\end{align*}
+\end{Definition}
+\begin{note}
+ The above fact simply tells us , does the $n$-th derivative impact the PDE or not, if it doesn't  
+ then the method of characteristics fails, since we simply cannot get any useful information about the PDE, i.e.
+ we are stuck in the Hyperplane.
+\end{note}
+\begin{Lemma}[1.7]
+ Let $F : W \to \mathbb{R}$ and $g : H \to \mathbb{R}$  be continuously differentiable, $x_{0} \in  \Omega  \cap H$,
+ $z_{0} = g(x_{0})$ and $p_{0,1}=\frac{\partial g(x_{0})}{\partial x_{1}},\ldots ,p_{0,n-1} =\frac{\partial g(x_{0})}{\partial x_{n-1}}$. If
+ there exists $p_{0,n}$ with $F(p_{0},z_{0},x_{0}) = 0$ and $H$ is non-characteristic at $x_{0}$ then on an open neighbourhood of $x_{0} \in  \Omega  \cap H$ there exists a unique solution $q$ of 
+ \begin{align*}
+  F(q(x),g(x),x) = 0 \quad q_i(x) = \frac{\partial g(x )}{\partial x_i}  \text{ for } i = 1,\ldots ,n-1 \text{ and } q(x_{0}) = p_{0}
+ .\end{align*}
+\end{Lemma}
+\begin{proof}
+ By considering the function 
+ \begin{align*}
+   (x,q_n) \mapsto F(q_{1}(x),\ldots ,q_{n-1}(x),q_n,g(x),x)
+ .\end{align*}
+ We know by assumption that  at $(x_{0},p_{0})$ this function is 0, and by the implicit function theorem we can define $q_n$ as a unique function of $x$ in a neighbourhood of $x_{0}$
+\end{proof}
+\begin{note}
+ The above, means that, 
+ \begin{enumerate}
+  \item If $p_n$ has any influence on the PDE (non-characteristic) 
+  \item We can determine $p_{0,n}$ by solving a system of equations im guessing, i.e. we pick a special curve
+ \end{enumerate}
+ Then we can find a meaningful solution 
+\end{note}
+\subsection{Method of Characteristics}
+As stated in the beginning of this chapter we get the following theorem 
+\begin{Theorem}[1.9.]
+ Let $F : W\to \mathbb{R}$  and $g : H \to \mathbb{R}$ be three times differentiable functions.
+ Suppose we have a point $(p_{0},z_{0},x_{0}) \in  W$ with 
+ \begin{align*}
+   F(p_{0},z_{0},x_{0}) = 0 \quad z_{0} = g(x_{0}) \quad p_{0,1} = \frac{\partial g(x_{0})}{\partial x_{1}}  ,\ldots ,p_{0,n-1} = \frac{\partial g(x_{0})}{\partial x_{n-1}} 
+ .\end{align*}
+ Furthermore, assume that $H$ is non-characteristic at $x_{0}$. Then in a neighbourhood $\Omega_{x_{0}} \subset  \Omega $
+ of $x_{0}$ there exists a unique solution of the boundary value problem 
+ \begin{align*}
+   F(\nabla u (x),u(x),x) = 0  \quad \text{ for } x \in  \Omega_{x_{0}} \text{ and } u(y) = g(y) \text{ for } y \in  \Omega  \cap H
+ .\end{align*}
+\end{Theorem}
+\begin{proof}
+ The idea of the proof is to use the implicit function theorem on 
+ \begin{align*}
+   (y,s) \mapsto  p (y,s),z(y,s),x(y,s)) 
+ .\end{align*}
+ which maps to the solution set of the system of ODE.
+ Then the implicitly defined function 
+ \begin{align*}
+  u(x(y,s)) = z(y,s)
+ .\end{align*}
+ Solves the PDE. \\[1ex]
+First we note that we get the system of ODEs 
+\begin{align*}
+  x_i^{'}(s) &= \frac{\partial F(p(s),z(s),x(s))}{\partial p_i} \\
+  p_i^{'}(s) &= \frac{\partial F(p(s),z(s),x(s))}{\partial x_i} - \frac{\partial F(p(s),z(s),x(s))}{\partial z} \\ \\
+  z'(s)      &= \sum_{j=1}^{n} \frac{\partial F(p(s),z(s),x(s))}{\partial p_j}  p_j(s)
+.\end{align*}
+With initial conditions  
+\begin{align*}
+  x(0) &= y \\
+  p(0) &= q(y) \\
+  z(0) &= g(y)
+.\end{align*}
+Then the  map
+\begin{align*}
+  (y,s) \mapsto  x(y,s)
+.\end{align*}
+has the Jacobian 
+\begin{align*}
+  \begin{pmatrix} 
+    1 & 0 & \ldots  & 0 & \frac{\partial F(p_{0},z_{0},x_{0})}{\partial p_{1}} \\
+     &  & \vdots  &  & \vdots \\
+    0 & 0 & \ldots  & 1 & \frac{\partial F(p_{0},z_{0},x_{0})}{\partial p_{n-1}} \\
+    0 & 0 & \ldots  & 0 & \frac{\partial F(p_{0},z_{0},x_{0})}{\partial p_{n}} \\
+  \end{pmatrix} 
+.\end{align*}
+since we assume that $F$ is non-characteristic at $x_{0}$ we get that our map is invertible and we get the implicitly defined function
+\begin{align*}
+  u(x(y,s)) = z(y,s)
+.\end{align*}
+by construction $u$ satisfies the initial conditions  of the PDE, and the ODEs imply that 
+\begin{align*}
+  \frac{d}{ds} F(p(y,s),z(y,s),x(y,s)) = 0
+.\end{align*}
+We conclude by assumption that,
+\begin{align*}
+  F(p(y,s),z(y,s),x(y,s)) = 0 \text{ for all } (y,s) \in  (\Omega  \cap H) \times  (-\epsilon,\epsilon)
+.\end{align*}
+Hence we simply need to show that 
+\begin{align*}
+  p(y,s) = \nabla u (x(y,s))
+.\end{align*}
+On this set , this follows mostly by direct computation and conclude existence. \\[1ex]
+Uniqueness follows by 1.8. and Picard Lindelöf
+\end{proof}
+\begin{corollary}
+ In practice usually $x'$  and $z'$ do not depend on the gradient $p$. 
+\end{corollary}
+\begin{exercise}
+ Solve the PDE 
+ \begin{align*}
+  x_{1} \partial_1 u + 2x_{2} \partial_2 u + \partial_3 u = 3u
+ .\end{align*}
+ on $x_{1},x_{2} \in  \mathbb{R}$ and $x_{3} >0$ with initial condition $u(x_{1},x_{2},0) = g(x_{1},x_{2})$.
+\end{exercise}
+\begin{proof}
+ First we bring the PDE into the general form, 
+ \begin{align*}
+  F = (x_{1},2x_{2},1)*(\partial_{1}u,\partial_2 u,\partial_3 u)^T - 3z  =  (x_{1},2x_{2},1)*(p_{1},p_{2},p_{3})^T - 3z 
+ .\end{align*}
+ We solve $x(s)$ by 
+ \begin{align*}
+   x_1'(s) &= \partial_{p_1} F = x_{1}\\
+   x_2'(s) &= \partial_{p_2} F = 2x_{1}\\
+   x_3'(s) &= \partial_{p_3} F =1 
+ .\end{align*}
+ This gives 
+ \begin{align*}
+   x(s) = (x_{10}e^{s},x_{20}e^{2s},x_{30} + s  )
+ .\end{align*}
+ then we want that $s=0$ lies in the hypersurface, if we set $x_{30}=0$ this is the case 
+ \begin{align*}
+  z(0) = u(x_{10},x_{20},0   ) = g(x_{10},x_{20})
+ .\end{align*}
+ $x_{30} = 0$ at $s=0$ implies  $s=x_3$ and 
+ \begin{align*}
+   x_{10} &= x_{1} e^{-x_3} \\
+   x_{20} &= x_{2} e^{-2x_3} \\
+ .\end{align*}
+ and we are done 
+ \begin{align*}
+   u(x) = e^{3s}u(x_{10},x_{20},0)  = e^{3x_3}g(x_{1}e^{-x_{3}},x_{2}e^{-2x_{3}}  ) 
+ .\end{align*}
+\end{proof}
+\begin{note}
+ In the example above it is clear that the ad-hoc version and the general version are the same,
+ solving the Ode's is just , finding the correct curve such that we can use the PDE, if one looks at how the system of ODE's is derived
+ that is obvious.
+\end{note}
+\section{(Entropy) Weak Solutions}
+This section introduces the notion of weak-solutions, i.e. solutions that allow discontinuities 
+in particular we show that if the scalar conservation law, only has one discontinuity , we can still find a weak solution.\\[1ex]
+\begin{note}
+ We investigate discontinuities along (characteristic)  curves, i.e. points at which they cross, we can partition the curves into before crossing and after crossing and use the conversvation property to calculate the condition
+ \begin{align*}
+   \frac{d}{dt} \int_a^{b} u(x,t)  dx = \frac{d}{dt} \int_a^{y(t)} u(x,t) dx + \frac{d}{dt} \int_{y(t)}^{b}   u(x,t) dx = 
+ .\end{align*}
+ If $u$ is a classical solutions on both sides of the graph we get the condition
+ \begin{align*}
+ &\frac{d}{dt} \int_a^{b}u(x,t) dx \\
+ &= \dot{y}(t) (u^{l}(y(t),t) - u^{r}(y(t),t) )  + f(u(a,t)) - f(u(b,t)) + f(u^{r}(y,t) ) - f(u^{l}(y(t),t) )
+ .\end{align*}
+i.e. if 
+\begin{align*}
+  \dot{y} = \frac{f(u^{r} )-f(u^{l} )}{u^{r}-u^{l}  } 
+.\end{align*}
+holds , then we get a weak solution
+\end{note}
+The above yields the existence, for Uniqueness we have
+\begin{Definition}[1.1.2]
+ A discontinuity of a weak solution along a $\mathcal{C}^{1} $ path $y(t)$ satisfies the Lax Entropy condition, if along the path it holds that 
+ \begin{align*}
+  f'(u^{l} ) > \dot{y} > f'(u^{r} ) 
+ .\end{align*}
+It is furthermore said to be admissible if both the lax entropy and the rakine hugonoit condition
+\end{Definition}
+\begin{note}
+ The entropy condition follows from the fact, that a crossing of characteristics occurs if 
+ \begin{align*}
+  f'(g(x_{1})) > f'(g(x_{2}))
+ .\end{align*}
+ for $x_{1}<x_{2}$ 
+\end{note}
+\begin{Theorem}[1.13]
+ Let $f \in  \mathcal{C}^{1}(\mathbb{R};\mathbb{R}) $  be convex and $u$ and $v$ be two admissible solutions of 
+ \begin{align*}
+  \dot{u}(x,t) + f'(u(x,t))\partial_x u (x,t) = 0
+ .\end{align*}
+ in $L^{1}(\mathbb{R}) $. Then $t \mapsto \|u(*,t) - v(*,t)\|_{L^{1}(\mathbb{R}) }$ is monotonically decreasing.
+\end{Theorem}
+\begin{proof}
+ This theorem proves the Uniqueness of admissible solutions, although im not entirely sure how. 
+ The idea is to consider 
+ \begin{align*}
+   \int_\mathbb{R} \abs{u(x,t) - v(x,t)} dx = \sum \int_{[a(t),b(t)]} \abs{u-v} dx 
+ .\end{align*}
+ Then show that for each interval the contributions are non positive, 
+ important is to show the differentiability at the boundary terms , otherwise the expression doesn't make sense $(\frac{d}{dt} \|u(*,t) - v(*,t)\|)$
+\end{proof}
+\chapter{General Concepts}
+\section{Divergence Theorem}
+\begin{Theorem}[2.7.]
+ Let $\Omega  \subset \mathbb{R}^{n} $  be bounded and open with $\partial \Omega $ being a 
+ $(n-1)$-dimensional sub manifold of $\mathbb{R}^{n} $. Let $F : \overline{\Omega } \to  \mathbb{R}^{n}  $ be continuous and differentiable
+ on $\Omega $ such that $\nabla F$ continuously extends to $\partial \Omega $. Then we have 
+ \begin{align*}
+   \int_{\Omega } \nabla * F d\mu  = \int_{\partial \Omega } F*N d \sigma 
+ .\end{align*}
+ where $N$ is the outward-pointing normal.
+\end{Theorem}
+\begin{proof}
+  We consider the simple case first of $F$ and $F'$ being zero on $\partial \Omega $, then the right hand side is immediately zero,
+  the left hand side we evaluate by extending $F'$ domain to $\mathbb{R}^{n} $, then integrating one by one, but each integral is 
+  the difference of two boundary values and is thus 0.\\[1ex]
+  Next we seek to evaluate the right hand side, we do so by picking a "box"  around every point of $\partial \Omega $,
+  we can find a finite cover like this , since $\overline{\Omega } $ is compact.\\
+  We choose a partition of unity corresponding to the cover, this ensures that we do not integrate the same area twice.
+  Thus we get 
+  \begin{align*}
+    F = \sum_{l} h_l F
+  .\end{align*}
+  We may assume one $h_l$ corresponds to the entirety of $\Omega $ thus by definition of a partition of unity, the term
+  \begin{align*}
+    h_l F  = 0 , \text{ on } \partial \Omega 
+  .\end{align*}
+  and we are in the first case.
+  We evaluate for $i\neq n$
+  \begin{align*}
+    \int_{\overline{\Omega } \cap (V' \times  (a,b)) } \frac{\partial F_i(x,z)}{\partial x_i} d\mu  &= \int_{V'}\int_{a}^{\lambda(x)}  \partial_i F_i(x,z) dz d^{n-1} x \\
+                                                                                                    &= -\int_{V'} [\partial_i F_i(x,\lambda(x) ) -\underbrace{\partial_i F_i(x,a)}_{=0}] d^{n-1} x \\
+                                                                                                    &= -\int_{V'} \partial_i \lambda(x) F_i(x,\lambda(x))  d^{n-1}x  \\ 
+                                                                                                    &= \int_{V'} F_i(x,\lambda(x))N_i \sqrt{1 + \abs{\nabla \lambda }^2}  \\
+                                                                                                    &= \int_{A'} F_i N_i d\sigma 
+  .\end{align*}
+  In the case $i=n$ use the fundamental theorem of calc on the inner integral.\\
+\end{proof}
+\chapter{Laplace Equation}
+The Laplace Equation is given by 
+\begin{definition}[Laplace Equation]
+ For $u : \mathbb{R}^{n} \to  \mathbb{R} $  we have 
+ \begin{align*}
+   -\Delta u = - \nabla * (\nabla u)  = -\sum_{i=1}^{n} \frac{\partial ^2 u}{\partial x_i^2}  = 0
+ .\end{align*}
+\end{definition}
+\section{Fundamental Solution}
+\begin{definition}[Fundamental Solution]
+ Let $\Phi(x)$  be the following solutions of the Laplace equation : 
+ \begin{align*}
+  \Phi(x) = \begin{cases}
+    -\frac{1}{2\pi }\ln \abs{x} \quad &\text{ for } n = 2\\
+    -\frac{1}{n(n-2)\omega_n \abs{x}^{n-2}  }\quad &\text{ for } n \ge 3\\
+  \end{cases}
+ .\end{align*}
+ Here $\omega_n$ denotes the volume of the unit ball $B(0,1)$ in Euclidean space $\mathbb{R}^{n} $. We call
+ these fundamental solutions of the Laplace equation.
+\end{definition}
+\begin{proof}
+ We derive the Fundamental solution by noticing that, the Laplace Operator is invariant to the followign transformations
+ \begin{enumerate}
+   \item Shifting by $b \in  \mathbb{R}^{n} $ 
+   \item Scaling by $a \in \mathbb{R}$ 
+   \item Transformation by $O \in  \text{Orth}^{n \times n} $
+ \end{enumerate}
+ The last implies invariance to rotation and implies the existence of solutions that only depend on the length of the vector i.e. 
+ \begin{align*}
+  u(x) = v(\abs{x}) = v(r)  
+ .\end{align*}
+ Then 
+ \begin{align*}
+  \nabla_x u(x) = \nabla_x v(r) = \nabla_x v(\sqrt{x*x} ) = v' \frac{2x}{2r} 
+ .\end{align*}
+ Then 
+ \begin{align*}
+   \Delta_x u(x) = \nabla_x * \nabla_x u = v''(r) \frac{x^2}{r^2} + v'(r) \frac{n}{r} - v'(r) \frac{x^2}{r^2r} = v''(r) \frac{n-1}{r}v'(r) =0
+ .\end{align*}
+ This implies 
+ \begin{align*}
+   \frac{v''}{v'} &= \frac{1-n}{r}\\
+   \ln(v')' &=  \frac{1-n}{r} \\
+   \ln(v') &= (1-n)\ln(r) + C \\
+   v' &= \exp(1-n) \ln(r) + C)\\
+   v' &= r^{1-n}*C' \\
+   v &= \begin{cases}
+     C'\ln(r) + C'' &\text{ for } n= 2 \\
+     \frac{C'}{r^{n-2} } + C'' &\text{ for } n\ge  3
+   \end{cases}
+ .\end{align*}
+ Chosing $C'' = 0$ makes the solution disappear for large $x$ which is desirable, 
+ the scaling $C'$ is chosen such that Therem 3.2 holds
+\end{proof}
+\begin{corollary}
+ Proving the invariance to the Euclidean transformations, is fairly trivial and mostly relies on the chain rule, we show one example.\\[1ex]
+ Let $b \in  \mathbb{R}^{n} $ then 
+ \begin{align*}
+  v(x) = u(x+b) 
+ .\end{align*}
+ solves the Laplacian iff $u$ solves it. 
+ \begin{align*}
+  \nabla_x v(x) = \nabla_x u(x+b) = \nabla u * \nabla (x+b) = \nabla u
+ .\end{align*}
+ I.e.
+ \begin{align*}
+  \Delta  v = \Delta u  = 0
+ .\end{align*}
+\end{corollary}
+\begin{corollary}
+It should be noted that, the solution has a singularity in both cases at $x = 0$, we will 
+see the major trick is to split up  the solution away from the singularity and at the singularity.
+Then show that at the singularity we tend to 0 anyway.
+\end{corollary}
+\begin{Theorem}[3.2]
+ For $f \in  \mathcal{C}_0^{2}(\mathbb{R}^{n} ) $  a solution of Poisson's equation $- \Delta  u  = f$, is given by 
+ \begin{align*}
+   u(x) = \Phi \star  f = \int_{\mathbb{R}^{n} } \Phi(y)f(x-y) d^{n} y
+ .\end{align*}
+ Moreover the distribution corresponding to the fundamental solution obey $-\Delta  F_{\Phi } = \delta $  
+\end{Theorem}
+\begin{proof}
+ We seek to calculate 
+ \begin{align*}
+   \Delta  u(x) = \Delta  \int_{\mathbb{R}^{n} } \Phi(y)  f(x-y)dy
+ .\end{align*}
+ 
+ For that we first note that since $f$ has compact support we can pull in the differential (boundary vanishes)
+ \begin{align*}
+   \Delta u(x) = \int_{\mathbb{R}^{n} } \Phi(y) \Delta  f 
+ .\end{align*}
+ Thus 
+ \begin{align*}
+   \Delta  u(x) &= \Delta  \int_{\mathbb{R}^{n} } \Phi(y)  f(x-y)dy\\
+                &= \int_{\mathbb{R}^{n} } \Phi(y) \Delta_x f(x-y) dy \\
+                &= \int_{B(0,\epsilon)} \Phi(y) \Delta_x f(x-y) dy  + \int_{\mathbb{R}^{n} \setminus B(0,\epsilon)} \Phi(y) \Delta_x f(x-y) dy \\
+                &= I_\epsilon + J_\epsilon
+ .\end{align*}
+  As hinted we bound 
+  \begin{align*}
+    \abs*{I_\epsilon}  &=  \abs*{\int_{B(0,\epsilon)} \Phi(y) \Delta_x f(x-y) dy } \\
+                       &\le \int_{B(0,\epsilon)} \abs*{\Phi(y) \Delta_x f(x-y) }dy \\
+                       &\le \underbrace{\| \Delta f\|_{L^{\infty} }}_{= C} * \int_{B(0,\epsilon)} \abs{\Phi(y)} dy \\
+                       &\le  C*\epsilon^2
+  .\end{align*}
+  For $n\ge 3$ for $n=2$ we get a similar bound. 
+  \begin{align*}
+    C \epsilon ^{2}(\abs{\ln \epsilon} + 1)  
+  .\end{align*}
+  As $\epsilon \to 0$ one should notice 
+  \begin{align*}
+    \lim_{\epsilon \to 0} \frac{\epsilon ^2}{\ln \abs{\epsilon}}   =  \frac{0}{0} 
+  .\end{align*}
+  by L'hopital 
+  \begin{align*}
+    \lim_{\epsilon \to 0} \frac{\epsilon ^2}{\ln \abs{\epsilon}} =  2 \frac{\epsilon}{\frac{1}{\epsilon}}  = 2 \epsilon ^2 \to  0
+  .\end{align*}
+  For the second part 
+  \begin{align*}
+    J_\epsilon &=  \int_{\mathbb{R}^{n} \setminus B(0,\epsilon) } \Phi(y) \Delta_y f(x-y) dy \\
+               &= \int_{\mathbb{R}^{n} \setminus B(0,\epsilon) } \Phi(y) \nabla_y * \nabla_y f(x-y) dy \\
+               &= - \int_{\mathbb{R}^{n} \setminus B(0,\epsilon) } \nabla_y  \Phi(y) \nabla_y f(x-y) dy  + \int_{\partial B(0,\epsilon) } \Phi(y)  \nabla_y f(x-y) * N dy \\\\
+               &= K_\epsilon + L_\epsilon
+  .\end{align*}
+  The second part comes from the Fact that 
+  \begin{align*}
+    \int_{\partial B(0,\epsilon) } \Phi(y) * \nabla_y f(x-y) * N dy &= \int_{B(0,\epsilon)}  \nabla *(\Phi(y) \nabla_y f(x-y)) dy\\
+                                                                             &= \int_{B(0,\epsilon)} \Phi(y) * \Delta_y f(x-y) + \nabla \Phi(y) * \nabla f(x-y) dy
+  .\end{align*}
+  i.e.
+  \begin{align*}
+    \int_{B(0,\epsilon)} \Phi(y) * \Delta_y f(x-y) &=  \int_{B(0,\epsilon)}  \nabla \Phi(y) * \nabla f(x-y) dy - \int_{\partial B(0,\epsilon) } \Phi(y) * \nabla_y f(x-y) * N dy 
+  .\end{align*}
+  We want $L_\epsilon$ to vanish so 
+  \begin{align*}
+    \abs{L_\epsilon} \le  \|\nabla f\|_{L^{\infty} } \int_{\partial B(0,\epsilon)} \abs{\Phi(y)} d \sigma(y) \le C\epsilon
+  .\end{align*}
+  Thus vanishes for $\epsilon \to 0$, then 
+  \begin{align*}
+    K_\epsilon &= \int_{\mathbb{R}^{n} \setminus B(0,\epsilon) } \Delta_y \Phi(y)f(x-y) dy - \int_{\partial B(0,\epsilon)} \nabla_y \Phi(y) f(x-y) * N d \sigma(y)\\
+               &= - \int_{\partial B(0,\epsilon)} \nabla_y \Phi(y)f(x-y) * N d \sigma(y) \\
+               &= - \int_{\partial B(0,\epsilon)} \frac{1}{n \omega_n} \frac{1}{\abs{y}^{n-1} }*f(x-y)d \sigma(y)
+  .\end{align*}
+  Since $\Phi(y)$ is harmonic for $y\neq 0$ it follows $\Delta \Phi(y) = 0$, and the first term vanishes.\\
+  As $\epsilon \to 0$ 
+  \begin{align*}
+    \int_{\partial B(0,\epsilon)} \frac{1}{n \omega_n} \frac{1}{\abs{y}^{n-1} }*f(x-y)d \sigma(y) &=  \frac{1}{n \omega_n*\epsilon ^{n-1} } \int_{\partial B(0,\epsilon)} f(x-y)d \sigma(y) \coloneqq  S[f](-x,\epsilon)
+  .\end{align*}
+ And since $f$ is continuous
+ \begin{align*}
+   S[f](-x,\epsilon) \to f(-x)
+ .\end{align*}
+ This follows simply by
+ \begin{align*}
+   \abs{S[f](x,r) - f(x)} = \abs{S[f](x,r) - S[f(x)](x,r)} = \abs{S[f-f(x)](x,r)} \le  S[\abs{f-f(x)}](x,r) \le S[\epsilon] = \epsilon
+ .\end{align*}
+ since for all $\epsilon >0$ there $\exists  r >0$ such that
+ \begin{align*}
+  y \in  B(x,r)  \implies \abs{f(y)-f(x)} \le  \epsilon
+ .\end{align*}
+ Combined we see 
+ \begin{align*}
+  \Delta  u(x) = I_\epsilon + K_\epsilon + L_\epsilon \to  -f(x)
+ .\end{align*}
+ For the distribution we simply notice 
+ \begin{align*}
+   (\Delta  F_{\Phi })(\phi ) = F_{\Phi }(\Delta  \phi ) = \int_{\mathbb{R}^{n} } \Phi(y) \Delta \phi(y)
+ .\end{align*}
+ This calculation is the same as setting $f = \phi $ earlier and we deduce 
+ \begin{align*}
+    (\Delta  F_{\Phi })(\phi ) = F_{\Phi }(\Delta  \phi ) = \int_{\mathbb{R}^{n} } \Phi(y) \Delta \phi(y) = -\phi(0)
+ .\end{align*}
+\end{proof}
+\begin{corollary}
+ We can summarize the proof above as follows 
+ \begin{enumerate}
+  \item Use the fact that $\Phi$ is harmonic and vanishes
+ \end{enumerate}
+ We can change the derivative variable to $y$ without changing the sign (we get two $-1$),
+ the below is not a valid proof, and merely seeks to illustrate what the goal is
+ \begin{align*}
+   \int_{\mathbb{R}^{n} }\Phi(y)\Delta_x f(x-y)dy &= \int_{\mathbb{R}^{n} }\Phi(y)\Delta_y f(x-y)dy\\
+                                                  &= \int_{\mathbb{R}^{n} } \nabla_y * (\Phi(y) \nabla_y f(x-y)) dy - \int_{\mathbb{R}^{n} }\nabla \Phi(y) \nabla f(x-y) dy \\
+                                                  &=  \int_{\mathbb{R}^{n} } \nabla_y * (\Phi(y) \nabla_y f(x-y)) dy - \int_{\mathbb{R}^{n} }\nabla \Phi(y) \nabla f(x-y) dy \\
+                                                  &= - \int_{\mathbb{R}^{n} }\nabla \Phi(y) \nabla f(x-y) dy\\
+                                                  &=  \int_{\mathbb{R}^{n} } \Delta_y \Phi(y) f(x-y) dy - \int_{\mathbb{R}^{n} } \nabla * (\nabla \Phi(y) f(x-y)) dy \\
+                                                  &= \int_{\mathbb{R}^{n} } \nabla * (\nabla \Phi(y) f(x-y)) dy
+ .\end{align*}
+\end{corollary}
+\begin{corollary}
+ Note that fundamental solutions are not generally unique as, for any harmonic function $v$ ti holds 
+ \begin{align*}
+  \Delta (\Phi  + v) = \Delta  \Phi  + \delta v  = \delta  + 0
+ .\end{align*}
+ Our solutions has the advantage of vanishing at infinity.
+\end{corollary}
+\begin{corollary}
+  We notice that we demanded $f \in  \mathcal{C}^{2}_0 $ why ? \\[1ex]
+  The compact support of $f$ tells us , that boundary terms vanish  and we have an easier time with swapping integral and differentiation.
+  If that were not the case, we'd need some bound to make those terms vanish.
+  We have 
+  \begin{align*}
+    \frac{\partial }{\partial x_i}   \int_{\mathbb{R}^{n} } \Phi(y) f(x-y) dy = 
+  .\end{align*}
+\end{corollary}
+\begin{note}
+ We notice the important relation of the Spherical Mean and Laplacian an, note that $y \in  \partial B(x,r) \implies y = x+z*r $ for $z \in  \partial B(0,1)$,
+ this transformation has $det(J) = r^{n-1} $ such htat
+ \begin{align*}
+   \frac{d}{dr} \mathcal{S}[u](x,r) &= \frac{d}{dr} \frac{1}{n \omega_n r^{n-1} } \int_{\partial B(x,r)} u(y) d \sigma(y)\\
+                                    &= \frac{d}{dr} \frac{1}{n \omega_n } \int_{\partial B(0,1)} u(x+z*r) d \sigma(z)\\
+                                    &= \frac{1}{n \omega_n } \int_{\partial B(0,1)} \frac{d}{dr} u(x+z*r) d \sigma(z)\\
+                                    &\myS{Chn.}{=} \frac{1}{n \omega_n } \int_{\partial B(0,1)} \nabla u(x+z*r)*z d \sigma(z)\\
+                                    &= \frac{1}{n \omega_n } \int_{\partial B(0,1)} \nabla u(x+z*r)*N d \sigma(z)\\
+                                    &= \frac{1}{n \omega_n } \int_{B(0,1)} \nabla * \nabla u(x+z*r) d \sigma(z)\\
+                                    &= \frac{1}{n \omega_n } \int_{B(0,1)} \Delta  u(x+z*r) d \sigma(z)\\
+ .\end{align*}
+\end{note}
+\begin{Theorem}[3.5.]
+ Let $u \in  \mathcal{C}(\Omega ) $ on an open domain $\Omega  \subset  \mathbb{R}^{n} $. We say that 
+ $u$ has the mean value property if 
+ \begin{align*}
+   u(x) = S[u](x,r) = \frac{1}{n \omega_n r^{n-1} } \int_{\partial B(x,r)}u(y) d \sigma(y)
+ .\end{align*}
+ For all balls with $\overline{B}(x,r) \subset  \Omega.  $ A twice continuously differentiable function $u \in  \mathcal{C}^{2}(\Omega ) $ has the mean value property 
+ iff it is harmonic.
+\end{Theorem}
+\begin{proof}
+ Suppose $u$ is harmonic, then we already know 
+ \begin{align*}
+   \partial_r S[u](x,r) = 0
+ .\end{align*}
+ thus it is constant and by continuity has to be equal to 
+ \begin{align*}
+  u(x) =  S[u](x,r)
+ .\end{align*}
+ Suppose , that $u$ has the mean value property, but isn't harmonic i.e.
+ \begin{align*}
+  \Delta u \neq 0
+ .\end{align*}
+ Then there exists a Ball $r >0$ such that $\Delta  u$ is strictly positive (or negative),
+ but then the statement cannot hold.
+\end{proof}
+\begin{Theorem}[3.6 Weak Mean Value Property]
+ Let $U \in  \mathcal{D}'(\Omega )$ be a distribution on an open domain $\Omega  \subset  \mathbb{R}^{n} $ . It is called harmonic 
+ if $\Delta  U = 0$ in the sense of distributions. We say that $U$ has the weak mean value property if for each ball $B(x,r)$ with $B(x,r) \subset  \Omega $ and 
+ each $\psi  \in  \mathcal{C}_0^{\infty}((0,r)) $ with $\int \psi  d \mu  = 0 $ the distribution $U$ vanishes on the following test function 
+ \begin{align*}
+  \tilde{\psi } \in  \mathcal{C}_0^{\infty}(\Omega ), y \mapsto \tilde{\psi }(y) = \frac{\psi(\abs{y-x})}{n \omega_n \abs{y-x}^{n-1} }   
+ .\end{align*}
+ \begin{enumerate}
+   \item If $U$ is a harmonic distribution then it has the weak mean value property 
+   \item Suppose $U=F_u$ for a continuous function $u \in  \mathcal{C}(\Omega )$. Then $U$ has the weak mean value property iff $u$ has the mean value property.
+ \end{enumerate}
+\end{Theorem}
+\begin{proof}
+ Since $U$ is a harmonic distribution then one only needs to argue that there exists a test function $g$ such that 
+ \begin{align*}
+  \Delta  g  = \tilde{\psi }  
+ .\end{align*}
+ We define to that end we define 
+ \begin{align*}
+   g(y) = v(\abs{y-x}) = \int^{\abs{y-x}}_{r} \frac{\Psi(s)}{n \omega_n s^{n-1}  } ds
+ .\end{align*}
+\end{proof}
+\newpage
+\section{Greens Function}
+\begin{Theorem}[3.21]
+  
+\end{Theorem}
+\begin{proof}
+We consider
+\begin{align*}
+  v(x) = \int_{B(0,1)} \Phi(y)f(x-y) dy 
+.\end{align*}
+and
+\begin{align*}
+  u(x) = \int_{B(0,1)} G_{B(0,1)}(x,y)f(y) dy
+.\end{align*}
+And set $G(x,y) = G_{B(0,1)}(x,y)$
+\begin{align*}
+  u(x) - v(x) &= \int_{B(0,1)} \left[ G(x,y) - \Phi(x-y) \right] f(y) dy \\
+.\end{align*}
+Then 
+\begin{align*}
+  \Delta_x (u(x)-v(x)) &= \Delta_x   \int_{B(0,1)} \left[ G(x,y) - \Phi(x-y) \right] f(y) dy \\
+               &= \int_{B(0,1)} \Delta_x \left( \left[ G(x,y) - \Phi(x-y) \right] f(y)  \right) dy\\
+               &= \int_{B(0,1)} \underbrace{\Delta_x \left[ G(x,y) - \Phi(x-y) \right]}_{=0} \marginnote{\footnotesize Bracket is Harmonic in $x$, $f$ is constant with respect to $x$} f(y)  dy \\
+               &\quad + \int_{B(0,1)} 2 \nabla_x \left[ G(x,y) - \Phi(x-y) \right] \nabla_x f(y)   dy \\
+               &\quad + \int_{B(0,1)}  \left[ G(x,y) - \Phi(x-y) \right]\Delta_x  f(y)   dy \\ 
+               &=0
+.\end{align*}
+Important to note , is that we only get this since $G$ is symmetric on bounded domain , and 
+\begin{align*}
+  \Phi(x) = \phi(\vec{x})*\abs{x}
+.\end{align*}
+For $f=0$, define $K(x,y) \coloneqq  - \Delta_y G_{B(0,1)}(x,y)$  , then 
+\begin{align*}
+  x \mapsto K(x,y)
+.\end{align*}
+is harmonic : 
+\begin{align*}
+  \Delta_x K(x,y) =- \Delta_x \nabla_y G(x,y) = -\nabla_y \Delta_x G(x,y) = -\nabla_y 0 = 0 
+.\end{align*}
+\end{proof}
+\begin{corollary}
+ We have by Poisson rep with $g(x) = u(x)$, (i.e. if $u$ extends continuously to the boundary)
+ \begin{align*}
+   u(x) &= - \int_{\partial B(0,1)} u(y) \nabla_y G(x,y)*y d\sigma(y)\\
+        &=  - \int_{\partial B(0,1)}u(y) \frac{1-\abs{x}^2}{n \omega_n \abs{x-y}^{n} } d\sigma(y) \\
+        &=  \frac{\abs{x}^2 - 1}{n \omega_n}  \int_{\partial B(0,1)} \frac{u(y)}{\abs{x-y}^{n} } d\sigma(y) \\
+ .\end{align*}
+\end{corollary}
+\chapter{Heat-Equation}
+\begin{Definition}
+ The heat equation is defined as follows 
+ \begin{align*}
+  \dot{u}  - \Delta  u = 0
+ .\end{align*}
+\end{Definition}
+\section{Motivation}
+We illustrate why this should model heat by the following discussion, we know that for small $r$  we have
+\begin{align*}
+  \mathcal{S}'(r) = \frac{r}{n} \Delta u(x)
+.\end{align*}
+Thus 
+\begin{align*}
+  \mathcal{S}(r) - u(x) \approx \frac{1}{2n} r^2 \Delta u(x)
+.\end{align*}
+So if the heat surrounding a point $x$ is higher than at x the time derivative should be positive (at $x$)
+\section{Spectral Theory, Eigenfunctions}
+We can derive a special solution to the heat equation by considering 
+\begin{align*}
+  u(x) = \phi(t)h(x)
+.\end{align*}
+We calculate 
+\begin{align*}
+  \dot{u} - \Delta u =  \phi'(t)h(x) - \phi(t)h'(x) = 0 
+.\end{align*}
+This implies 
+\begin{align*}
+  \frac{\phi'}{\phi } = \frac{h'}{h}
+.\end{align*}
+This equality can only hold if both sides are equal to some constant $\lambda$.
+Such that 
+\begin{align*}
+  \phi(t) = \exp(t\lambda )
+.\end{align*}
+and 
+\begin{align*}
+  -\Delta  h = \lambda  h
+.\end{align*}
+i.e. $h$ is an eigenfunction of the laplace operator, such that $u$ is a solution whenever $h$ is an eigenfunction.\\[1ex]
+\begin{definition}
+ We get the trigonometric functions as eigenfunktions  of the laplace
+ \begin{align*}
+  -\Delta  e^{2\pi ik*x} = 4\pi ^2 \abs{k}^2 e^{2\pi ik*x}  
+ .\end{align*}
+ They have the nice property that they are orthogonal in $L^2$, only problem is that they are not $L^{1}$ integrable since 
+ \begin{align*}
+   \abs{e^{2\pi ik*x} }= \abs{\sin(2\pi k*x) + i*\cos(2\pi ik*x)} = \sqrt{\sin^2+\cos^2}  = 1
+ .\end{align*}
+\end{definition}
+\begin{Definition}[4.1]
+ The fourier transform of a function $h: \mathbb{R}^{n} \to \mathbb{R}$ is defined to be 
+ \begin{align*}
+   \hat{h}(k)  = \mathcal{F}[h](k) = \int_{\mathbb{R}^{n} } e^{-2\pi ik*x}h(x)dx 
+ .\end{align*}
+\end{Definition}
+\begin{corollary}
+ By the above discussion one sees immediately that 
+ \begin{align*}
+   \abs{\hat{h} } \le  \int \abs{e^{-2\pi ik*x}h(x)} dx =  \int 1*\abs{h(x)} dx \le  \|h\|_{L^{1} }
+ .\end{align*}
+\end{corollary}
+The Fourier transform has the nice property that 
+\begin{Lemma}
+ Let $h \in  \mathcal{S}$ be a Schwartz function
+ \begin{align*}
+   \mathcal{F}[\partial_j h] = 2\pi i k_j \hat{h}(x) 
+ .\end{align*}
+ And the converse 
+ \begin{align*}
+   \mathcal{F}[-2\pi ix_j h](k) = \partial_j \hat{h}(k) 
+ .\end{align*}
+\end{Lemma}
+The above property enables us to transform the heat equation into an ODE by simply applying the Fourier transform 
+\begin{align*}
+  \mathcal{F}[\dot{u} - \Delta u ] =  \mathcal{F}[\dot{u}] - \mathcal{F}[ \Delta u]
+.\end{align*}
+We only transform the space variable such that 
+\begin{align*}
+   \mathcal{F}[\dot{u}] - \mathcal{F}[ \Delta u] = \partial_t \hat{u}  -  \mathcal{F}[ \Delta u]
+.\end{align*}
+By the previous Lemma, (or rather integration by parts twice we attain)
+\begin{align*}
+  \mathcal{F}[\dot{u}] - \mathcal{F}[ \Delta u] = \partial_t \hat{u}  + (2\pi)^2 \abs{k}^2 \hat{u}   
+.\end{align*}
+With initial condition 
+\begin{align*}
+  \hat{u}(k,0) = \hat{h}(k) 
+.\end{align*}
+Then we have as a solution 
+\begin{align*}
+  \partial_t \hat{u}  =  (2\pi)^2 \abs{k}^2 \hat{u}
+.\end{align*}
+Thus ($\ln $ argument)
+\begin{align*}
+  \hat{u} = \exp((2\pi)^2 \abs{k}^2*t ) \hat{h}(k) 
+.\end{align*}
+This reduces the problem to finding such $u$, we notice that the above is the product of two fourier transforms, then our solution must be a convolution i.e.
+\begin{align*}
+  \mathcal{F}[u \star  v] = \hat{u}\hat{v}  
+.\end{align*}
+And we get that $v$ is the fundamental solution given by
+\begin{align*}
+\Phi(x,t) = \frac{1}{(4\pi t)^{\frac{n}{2}}}e^{- \frac{\abs{x}^2}{4t}}   
+.\end{align*}
+\begin{note}
+ We have to be careful about the time singularity, as opposed to the space singularity in the Laplace case  
+\end{note}
+\begin{Theorem}[4.7.]
+ For $h \in  \mathcal{C}_b(\mathbb{R}^{n},\mathbb{R} )$  the following functions has the properties (i)-(iii)
+ \begin{align*}
+   u(x,t) &=  \int_{\mathbb{R}^{n} } \Phi(x-y,t)h(y)d^{n}y  \\
+ .\end{align*}
+ \begin{enumerate}
+   \item $u \in  \mathcal{C}^{\infty}(\mathbb{R}^{n} \times  \mathbb{R}^{+}  ) $
+   \item $\dot{u} - \Delta  u = 0 $ on $\mathbb{R}^{n} \times  \mathbb{R}^{+}  $
+   \item $u$ extends continuously to $\mathbb{R}^{n} \times  [0,\infty) $ with $\lim_{t\to 0} u(x,t) = h(x)$
+ \end{enumerate}
+\end{Theorem}
+\begin{proof}
+ The above statement shouldn't come as a surprise since we already have informally shown that (ii)  is true, and (i) simply follows since 
+ $\Phi $ is a smooth function, iii is the new statement and can be shown by, fixing $t>0$
+ \begin{align*}
+   \abs{u(x,t) - h(x)} &= \abs*{\int_{\mathbb{R}^{n} } \Phi(x-y,t) h(y) dy - h(x)*1}\\
+                       &\le  \int_{\mathbb{R}^{n} } \Phi(x-y,t) \abs{h(y)-h(x)} dy \\
+                       &\le   \int_{B(x,\delta ) } \Phi(x-y,t) \abs{h(y)-h(x)} dy \ + \int_{\mathbb{R}^{n} \setminus B(x,\delta ) } \Phi(x-y,t) \abs{h(y)-h(x)} dy \\
+                       &\le    \int_{B(x,\delta ) } \Phi(x-y,t) \epsilon dy \ + 2*\sup \{\abs{h(y)}\}  \int_{\mathbb{R}^{n} \setminus B(x,\frac{\delta}{\sqrt{t} } ) } \Phi(x-y,1) dy \\
+                       &\le    \int_{B(x,\delta ) } \Phi(x-y,t) \epsilon dy \ + 2*\sup \{\abs{h(y)}\}  \epsilon \\
+ .\end{align*}
+ Where the last inequality follows by integrability of $\Phi $
+\end{proof}
+\chapter{Wave-Equation}
+\section{Solutions in Dimension 3}
+\begin{Definition}[Euler DOub]
+  We have 
+  \begin{align*}
+    \frac{\partial U}{\partial t^2}  - \frac{\partial U}{\partial r^2}  + \frac{n-1}{r} \frac{\partial U}{\partial r} 
+  .\end{align*}
+  On the half line
+\end{Definition}
+\begin{corollary}
+ If we use the substitution $\tilde{U} = rU $  we get 
+ \begin{align*}
+  \frac{\partial \tilde{U} }{\partial t^2}  =  \frac{\partial rU }{\partial t^2} = r \frac{\partial U}{\partial t^2}
+ .\end{align*}
+ and 
+ \begin{align*}
+  \frac{\partial \tilde{U } }{\partial r} = \frac{\partial rU}{\partial r}  = U  + r*\frac{\partial U}{\partial r} 
+ .\end{align*}
+ Then
+ \begin{align*}
+  \frac{\partial \tilde{U } }{\partial r^2} =\frac{\partial}{\partial_r} (U+r*\frac{\partial U}{\partial r})  = \frac{\partial U}{\partial r} + \frac{\partial U}{\partial r}  + r \frac{\partial U}{\partial r^2} 
+ .\end{align*}
+ Thus 
+ \begin{align*}
+  r \frac{\partial U}{\partial t^2} -  2\frac{\partial U}{\partial r}  - r \frac{\partial U}{\partial r^2}
+ .\end{align*}
+ Dividing by $r$ yields the original equation
+\end{corollary}
+\section{Energy Methods}
+The idea behind energy methods is to formulate the PDE in a weak sense , lets take 
+\begin{align*}
+  &- \Delta u + u \abs{u} = f\\
+  &u\rvert_{\partial \Omega }  = 0 
+.\end{align*}
+Then a weak formulation of the problem is for $\phi \in  \mathcal{C}_0^{\infty} $
+\begin{align*}
+  \int_\Omega  (\nabla u * \nabla u + u \abs{u} - f) * \phi dx = 0
+.\end{align*}
+Then the energy functional $E : X \to \mathbb{R}$ is defined such that if we take the derivative with respect to $u$ 
+we get the weak formulation.\\
+Thus if we find a minimum of the Energy functional, we get the existence of a solution. If we can show that the minimum is unique the solution must be unique.
+\begin{Theorem}[5.4.]
+  
+\end{Theorem}
+\begin{proof}
+ Note that 
+ \begin{align*}
+   \int_\Omega  \nabla \frac{\partial u}{\partial t}  * \nabla u &=  \int_{\Omega } \nabla * (\frac{\partial u}{\partial t} \nabla u) - \int_{\Omega } \frac{\partial u}{\partial t} \nabla*\nabla u\\
+                                                                 &= \int_{\partial \Omega } (\frac{\partial u}{\partial t} \nabla u)*N  -  \int_{\Omega } \frac{\partial u}{\partial t} \Delta u\\
+                                                                 &= 0 - II
+ .\end{align*}
+ But since $g = 0 \implies \forall t , x \in  \partial \Omega $ that
+ \begin{align*}
+  u(x,t) = 0 \implies \frac{\partial u}{\partial t}  = 0
+ .\end{align*}
+\end{proof}
+\newpage
+\begin{exercise}
+  If $E$ is radially symmetric, apply the Divergence Theorem to RHS
+  \begin{align*}
+  \int_{B(0,R)} \nabla * E =  \int_{B(0,R)} \frac{1}{\epsilon_0} \rho  = \frac{1}{\epsilon_0} Q
+.\end{align*}
+We have $\Omega  = B(0,R)$, is bounded and open and $\partial \Omega $ is a sub manifold, then by Divergence Theorem
+\begin{align*}
+  \int_{B(0,R)} \nabla * E =  \int_{\partial B(0,R)}  E*N = \int_{\partial B(0,R)} E*\frac{x}{R} dx  
+.\end{align*}
+$E$ being radially symmetric  means $E(x) = E(y)$ for all $\|x\| = \|y\|$
+\begin{align*}
+  \int_{\partial B(0,R)} E(x)*\frac{x}{R} dx  = 
+.\end{align*}
+\end{exercise}
+\subsection{Energy-Method Heat-Equation}
+We consider for a solution $u$ to the Homogeneous heat equation, such that it is $0$ on the boundary $\partial \Omega $
+\begin{align*}
+  e(t) = \int_\Omega  u^2 dx 
+.\end{align*}
+then 
+\begin{align*}
+  \frac{d}{dt} e(t) &= \int_{\Omega } 2 \dot{u} *u dx \\
+                    &= \int_\Omega  2 \Delta  u * u dx \\
+                    &= \int_{\Omega } \nabla * (u \nabla u) - \nabla u * \nabla u\\
+                    &= 2 \int_{\partial \Omega} u \nabla u * N d \sigma  - 2 \int_{\Omega } \abs{\nabla u} ^2\\
+                    &\le  0  - 0
+.\end{align*}
+Thus $e(t) = 0$ for $\forall  t$ this means $u \equiv 0$
+\begin{Definition}
+ General  Method of energy methods 
+ \begin{enumerate}
+   \item Think of a suitable energy functional
+   \item Prove bounded below  
+   \item Consider $(u_k)_{k \in  \mathbb{N}}$ such that 
+     \begin{align*}
+       E[u_k] \downarrow \inf E
+     .\end{align*}
+   \item Prove that $(u_k)_{k \in  \mathbb{N}}$  has a limit
+ \end{enumerate}
+ Thats why we need Sobolev spaces , since the limit of a continuous function is not always a continuous function
+\end{Definition}
+\begin{example}
+  Weierstraß Counterexample, to a function being bounded below, but not achieving a minima \\[1ex]
+  We consider $\phi  \in  \mathcal{C}^{1}([-1,1])  $ such that
+  \begin{align*}
+    \phi(-1) = 0 \quad \phi(1) = 1
+  .\end{align*}
+  Then 
+  \begin{align*}
+    E[\phi ] = \int_{-1}^{1} (x \phi')^2 dx 
+  .\end{align*}
+  clearly 
+  \begin{align*}
+    E[\phi ] \ge 0
+  .\end{align*}
+  but for $\phi_{\epsilon} = \cha_{[-\epsilon,\epsilon]}^{*} $ : 
+  \begin{align*}
+    E[\phi_\epsilon] &= \int_{-\epsilon}^{\epsilon}  (\frac{x{1}}{2\epsilon})^2 dx \\
+                     &= \frac{1}{4\epsilon ^2} \frac{2}{3} \epsilon ^{3} \\
+                     &= \frac{1}{6} \epsilon
+  .\end{align*}
+  Thus 
+  \begin{align*}
+    \inf E[\phi ]  = 0
+  .\end{align*}
+  but no $\phi $ exists such that 
+  \begin{align*}
+    E[\phi ] = 0   \implies x\phi' = 0
+  .\end{align*}
+  This implies $\phi'  = 0$ then it is constant, and cannot lie in the space (boundary conditions are wrong).
+\end{example}
+\begin{example}
+  Example in which the construction works for the wave equation. \\[1ex]
+  Consider weak solutions to the wave equation 
+  \begin{align*}
+    \Omega_T = \Omega  \times  (0,T)
+  .\end{align*}
+  and say $u$ is a continuous function on $\overline{\Omega }_T$, such that, for $\forall  \phi  \in  \mathcal{C}_0^{\infty}(\Omega_T) $
+  \begin{align*}
+    \int_{\Omega_T} (\partial_t^2 \phi - \Delta  \phi )  u dx dt = 0
+  .\end{align*}
+\end{example}
+\begin{example}
+ \begin{align*}
+  \partial_1 u + \partial_2 u = 0
+ .\end{align*} 
+ where $\Omega  = \{x_{1},x_{2} \in  \mathbb{R}^{2} | x_{2} \ge x_{1}^2 \}  $
+ \begin{align*}
+   \partial \Omega  = \{x_{2} = x_{1}^2\}   = \{\underbrace{x_{2}-x_{1}^2}_{= \phi  } = 0\}  
+ .\end{align*}
+ then the new coordinates 
+ \begin{align*}
+   (y_{1},y_{2}) = (x_{1},\phi(x_1,x_{2}))
+ .\end{align*}
+This means 
+\begin{align*}
+  y_{2} = 0 \text{ iff } x_{2}-x_{1}^2 = 0
+.\end{align*}
+Now the pde changes to 
+\begin{align*}
+  \partial_1 u &= \partial_{y_{2}} u \partial_{x_1} y_{1} +   \partial_{y_{2}} u \partial_{x_1} y_{2} \\
+               &= \frac{\partial u}{\partial y_{1}}*1 + \frac{\partial u}{\partial y_{2}} (-2x_{1})   \\
+               &= \frac{\partial u}{\partial y_{1}} -2y_{1} \frac{\partial u}{\partial y_{2}} 
+.\end{align*}
+For $x_{2}$ we get 
+\begin{align*}
+  \frac{\partial u}{\partial x_{2}}  = \frac{\partial u}{\partial y_{1}}*0 + \frac{\partial u}{\partial y_{2}}*1  
+.\end{align*}
+Then 
+\begin{align*}
+  F = \frac{\partial u}{\partial y_{1}} + (1-2y_{1})\frac{\partial u}{\partial y_{2}}   = 0
+.\end{align*}
+\end{example}
+\begin{note}
+ Compare the above with the stuff in the script and annotate the steps 
+\end{note}
+\begin{align*}
+    \frac{\partial F}{\partial p_n}  : u \in  \mathcal{C}^{2} \mapsto   \frac{\partial F(u)}{\partial p_n}(p_{0},z_{0},x_{0})
+.\end{align*}
+vs.
+\begin{align*}
+    \frac{\partial F}{\partial p_n}  : (p_{0},z_{0},x_{0}) \mapsto   \frac{\partial F(u)}{\partial p_n}(p_{0},z_{0},x_{0})
+.\end{align*}
+\begin{example}
+ Consider
+ \begin{align*}
+   (\partial_1 u)^2 + (\partial_2 u)^2 = 1
+ .\end{align*}
+ Then 
+ \begin{align*}
+  F = p_{1}^2 + p_{2}^2 -1 = 0
+ .\end{align*}
+ I.e. 
+ \begin{align*}
+   x_{1}'  &= 2p_{1}\\
+   x_{2}' &= 2p_{2}\\
+   p_{1}' &= 0  \\ 
+   p_{2}' &= 0 \\
+   z' &= 2p_{1}^2 + 2p_{2}^2
+  .\end{align*}
+  Pick IC 
+  \begin{align*}
+    u(x_{1},0) = x_{1}^2
+  .\end{align*}
+  thne 
+  \begin{align*}
+    \partial \Omega  = \{x_{2}=0\}  
+  .\end{align*}
+  We know 
+  \begin{align*}
+    \partial_{x_{1}} u(x_{1},0) &= 2x_{1} \\
+    p_{1,0} = 2x_{1,0}
+  .\end{align*}
+  and since $F$ is non-characteristic we can determine 
+  \begin{align*}
+    p_{2,0}
+  .\end{align*}
+\end{example}
+\begin{Theorem}[3.6]
+  
+\end{Theorem}
+\begin{proof}
+ For b), if we take the spherical mollifiers as defined we get that sicne their total integral is $1$ individually we get that them wmvp applies to 
+ \begin{align*}
+   F_u(\Lambda_{r_{1},\epsilon} - \Lambda_{r_{2},\epsilon}) = 0
+ .\end{align*}
+ But this implies 
+ \begin{align*}
+  F_u(\Lambda_{r_{1},\epsilon}) = F_u(\Lambda_{r_{2},\epsilon}))
+ .\end{align*}
+ and in the limit $\epsilon \downarrow 0$ they converge against
+ \begin{align*}
+   S[u](x,r_{1}) = S[u](x,r_{2})
+ .\end{align*}
+\end{proof}
+\begin{Theorem}[Weyls Lemma]
+ Shows every weak solution is a strong solution
+\end{Theorem}
+\begin{proof}
+If a distribution is harmonic it has the weak mean value property, we can pick any spherical mollifier and define 
+\begin{align*}
+  u(x) = U(\Lambda_{x,r,\epsilon})  = \text{convolution}
+.\end{align*}
+for any $r,\epsilon$ , Lemma 2.12 tells us $u$ is a smooth function 
+\begin{enumerate}
+  \item Show $u$ is the function associated with $U$ (regular)  
+    Show that they are the same on the mollifiers
+  \item Show $u$ is harmonic
+    To that end we show that $F_u$ has WMVP (ugly part), by 3.6 $u$ has the mean value property and by 3.5 $u$ is harmonic
+\end{enumerate}
+\end{proof}
+\begin{example}
+  For any $f \in  L^{1}_{\text{loc}} $ we already know 
+  \begin{align*}
+    F_f(\phi ) = \int_{\mathbb{R}^{n} } f \phi   =  \int_{\supp \phi  }  f \phi  < \infty
+  .\end{align*}
+  But on a Schwartz function $\phi $ we get the problem that we consider the entire integral over $\mathbb{R}^{n} $
+  \begin{align*}
+    f=\exp(x^2) \implies F_f \in  \mathcal{D}'
+  .\end{align*}
+  But for $\phi  = \exp (-x^2)$ a schwartz function we cleary get 
+  \begin{align*}
+    \int  f e^{-x^2} =  \int 1 = \infty
+  .\end{align*}
+  motivation behind tempered distributions is the relation for $f \in  \mathcal{C}^{1} $ we have
+  \begin{align*}
+    F_{\hat{u} }(\phi ) = F_u(\hat{\phi } )
+  .\end{align*}
+  but for a normal test functions , it doenst hold that $\hat{\phi} $ is a test function (compact support issue), but 
+  tempered distributions preserve that property \\ 
+  Why? We need this to define the Fourier Transform for elementary functions
+  \begin{enumerate}
+    \item 1,$x$,polynomials,sin,cos
+  \end{enumerate}
+\end{example}
+\begin{example}
+ Calculations of the FT of the heat equation 
+ \begin{align*}
+  \partial_t u - \Delta  u = 0
+ .\end{align*}
+\end{example}
+\begin{proof}
+  Only in the space variable,
+ \begin{align*}
+   \mathcal{F}[\partial_t u] - \mathcal{F}[\Delta  u] = 0
+ .\end{align*} 
+ since its only in the space variable we have for the time 
+ \begin{align*}
+  \partial_t \hat{u}  
+ .\end{align*}
+ For the space 
+ \begin{align*}
+   \mathcal{F}[\Delta  u]  = \mathcal{F}(\partial_{x_{1}}^2 u) +  \mathcal{F}(\partial_{x_{2}}^2 u) + \ldots 
+ .\end{align*}
+ it is then sufficient to consider one of the partial derivatives and we know that 
+ \begin{align*}
+  \mathcal{F}(\partial_{x_{1}}^2 u) = (2\pi ik_{1})^2 \hat{u} 
+ .\end{align*}
+ We then get the solution is 
+ \begin{align*}
+  \hat{u} = e^{-4\pi ^2 \abs{k}^2 t}  \hat{h}(k)
+ .\end{align*}
+ And we know 
+ \begin{align*}
+   \mathcal{F}[e^{-a \abs{x}^2} ] = (\frac{\pi}{a})^{\frac{n}{2}} e^{-\frac{1}{a}\pi ^2 \abs{k}^2} 
+ .\end{align*}
+ And we choose $a$ such that
+ \begin{align*}
+   \frac{1}{a}\pi ^2 \abs{k}^2 = 4 \pi ^2 \abs{k}^2 t
+ .\end{align*}
+ then 
+ \begin{align*}
+   \mathcal{F}[e^{-\frac{\abs{x}^2}{4t}} ] = (4\pi t)^{\frac{n}{2}} e^{-4\pi ^2 \abs{k}^2 t}  
+ .\end{align*}
+ And we have 
+ \begin{align*}
+   \hat{u} = \mathcal{F}[\frac{1}{(4\pi t)^{\frac{n}{2}} } e^{-\frac{\abs{x}^2}{4t}} ]\hat{h} 
+   .\end{align*}
+   by 4.4.
+   \begin{align*}
+    u = \frac{1}{(4\pi t)^{\frac{n}{2}} }e^{-\frac{\abs{x}^2}{4t}}  \star h
+   .\end{align*}
+\end{proof}
+\begin{example}
+  We consider a PDE like this 
+  \begin{align*}
+    F(\nabla u , u , x)
+  .\end{align*}
+  And label 
+  \begin{align*}
+    p_i = \frac{\partial u}{\partial x_i} 
+  .\end{align*}
+  Suppose 
+  \begin{align*}
+    F(\nabla u , u ,x) = \sum_{i=1}^{n} a_{i}(x) \partial_i u + c*u(x) = 0
+  .\end{align*}
+  Then by method of characteristics we want to chose 
+  \begin{align*}
+    x_i' = a_i = \frac{\partial F}{\partial p_i} 
+  .\end{align*}
+  We want overall our choice to be such that 
+  \begin{align*}
+    z'(s) = 
+  .\end{align*}
+  and 
+  \begin{align*}
+    p_i' = a_i = 
+  .\end{align*}
+\end{example}
