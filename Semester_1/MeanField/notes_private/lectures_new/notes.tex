@@ -1,0 +1,215 @@
+\chapter{Notes to Theorems and Such}
+\section{General Notion}
+We consider many particle systems governed by a mean interaction kernel i.e.
+\begin{align*}
+  \begin{cases}
+    \frac{d}{dt} X_i(t) &= \braket{K(X_i,*),\mu_N(t,*)}\\
+    X_i(0) &= x_{i,0}
+  \end{cases}
+.\end{align*}
+if $x_{i,0}$ are i.i.d RV then at time $t=0$ we  get that $\mu_N \to \mathcal{L}(X_{0})$ by L.L.N,
+for $t>0$ the particles cease to be i.i.d and we need a new method to investigate the empirical measure.\\[1ex]
+Our approach is to consider that $\mu_N$ solves a weak-PDE i.e.  (in the deterministic case)
+\begin{align*}
+  \frac{d}{dt} \braket{\mu_N,\phi } = \braket{\nabla * (\mu K \mu ),\phi }
+.\end{align*}
+This leads to the Mean-Field-Equation
+\begin{align*}
+  \text{MFE}\begin{cases}
+    &\partial_t \mu_N  + \nabla * (\mu_N K \mu_N) = 0 \\
+    &\mu_N(0) = \mu_0
+  \end{cases}
+.\end{align*}
+As $N\to \infty$ and $\mu_N \to \mu$ in some sense we expect $\mu $ to solve the (limiting) MFE. 
+The question arises then, if we can solve the limiting PDEs can we trace them back to the $N$ PDEs.
+\section{Deterministic}
+The section consists of a first showcase of tools to solve deterministic ODEs, they are 
+\begin{enumerate}
+  \item[\bf Existence] Picard-Iteration relying on the Lipschitz condition to give a Cauchy sequence in an appropriate space
+  \item[\bf Uniqueness] This uses Grönwall mostly or some other exponential trick, also relying on the Lipschitz condition 
+\end{enumerate}
+We have the following pairs of O/PDEs to solve 
+\begin{align*}
+  &\begin{cases}
+    \frac{d}{dt} X_i(t) &= \braket{K(X_i,*),\mu_N(t,*)}\\
+    X_i(0) &= x_{i,0}
+  \end{cases} \qquad  
+\begin{cases}
+    \frac{d}{dt} X(t) &= \braket{K(X,*),\mu(t)}\\
+    X(0) &= x_{0}
+  \end{cases}\\
+  &\begin{cases}
+    &\partial_t \mu_N  + \nabla * (\mu_N K \mu_N) = 0 \\
+    &\mu_N(0) = \mu_0
+  \end{cases} 
+  \qquad  \begin{cases}
+    &\partial_t \mu  + \nabla * (\mu K \mu) = 0 \\
+    &\mu(0) = \mu_0
+  \end{cases} \\
+.\end{align*}
+We first consider the well posedness of the limiting equations by considering , the characteristic flow from which we derive a solution to the limiting PDE 
+for that we consider as a function of the initial conditions 
+\begin{align*}
+  \begin{cases}
+    x(t,x_{0},\mu_0) &= \braket{K(x(t,x_{0},\mu_0),*),\mu(t,*)}\\
+    x(0,x_{0},\mu_0) &= x_{0} \\
+    \mu(t) &= x(t,*,\mu_0) \# \mu_0
+  \end{cases}
+.\end{align*}
+under assumption $K$ i.e. that the (total) gradient is bounded and $x$ growing slower than linear we attain a solution by considering the iteration 
+\begin{align*}
+  x_i(t,y) = y + \int \int K(x_{i-1}(s,y),x_{i-1}(s,z)) d\mu_0(z) ds 
+.\end{align*}
+this is fairly natural to consider, just integrate the ode with respect to $t$ and initial condition $y$. We obtain the bound 
+\begin{align*}
+  \abs{x_i - x_{i-1}} &\le \int \int \abs{K(x_{i-1},x_{i-1})-K(x_{i-2},x_{i-2})} d\mu_0(z) dt\\
+                      &\le \int \int L \norm{x_{i-1}-x_{i-2}}_{X}*(1+\abs{y}) + \norm{x_{i-1}-x_{i-2}}*(1+\abs{z})  d\mu_0(z) dt\\
+                      &\le \int 2L\norm{x_{i-1}-x_{i-2}}_{X} \left(  \int 1+\abs{y} d\mu_0(z) +   \int 1+\abs{z} d\mu_{0}(z) \right) \\
+.\end{align*}
+Notice that $\mu_0 \in  \mathcal{P}_1$, such that the first integral is 1 and the second is finite equal to $C$
+\begin{align*}
+  &\le \int 2L\norm{x_{i-1}-x_{i-2}}_{X} \left(  \int 1+\abs{y} d\mu_0(z) +   \int 1+\abs{z} d\mu_{0}(z) \right) \\
+  &\le (1+\abs{y})\int  L(2+C)\norm{x_{i-1}-x_{i-2}}_{X}* dt
+.\end{align*}
+This implies 
+\begin{align*}
+  \norm{x_i-x_{i-1}}_X &\le L(2+C) \int_0^{t}  \norm{x_{i-1}-x_{i-2}}_{X}\\
+                       &\le \frac{(L(2+C)*t)^{i} }{(i-1)!}
+.\end{align*}
+We can conclude the standard Cauchy argument by using triangle inequality such that 
+\begin{align*}
+  \|x_n - x_m\|_X \le C(n)\sum_{i=1}^{\infty} \frac{(L(2+C)*t)^{i} }{(i-1)!} = C(n)\exp(L(2+C)\abs{t})
+.\end{align*}
+Where as $C(n) \to 0$.\\
+Uniqueness follows by using Grönwall similar technique really.\\[1ex]
+Now for a solution $x(t,x_{0},\mu_0)$ we obtain that the push forward measure solves the PDE since 
+\begin{align*}
+  \frac{d}{dt} \braket{\mu(t),\phi } &= - \int \partial_t \phi  d\mu(t)\\
+                                     &= - \int \partial_t (\phi(x(t,y,\mu_0))) d\mu_0(y)\\
+                                     &= - \int \nabla \phi * \frac{d}{dt} x(\ldots ) d\mu_0(y) \\
+                                     &= - \int \nabla \phi \int_{\mathbb{R}^{d} } K(x(y),x(z)) d\mu_0(z) d\mu_0(y)\\
+                                     &= - \int \nabla \phi \int_{\mathbb{R}^{d} } K(y,z) d\mu(z) d\mu(y)
+.\end{align*}
+This implies tho that
+\begin{align*}
+  \partial_t \mu_t + \nabla * (\mu K \mu ) = 0
+.\end{align*}
+We can further show that since $\mu_0 \in  \mathcal{P}^{1}$ then $\mu_t \in  \mathcal{P}^{1} $ and that the solutions to the MFE are unique,
+Take $\mu_t$ (by a solution to the characteristic flow) then we need to prove that 
+\begin{align*}
+  \mu_t \sim \lambda 
+.\end{align*}
+We observe that if 
+\begin{align*}
+  \lambda(B) = 0
+.\end{align*}
+Then since
+\begin{align*}
+  \mu_t(B) = x(t,*,\mu_0) \# \mu_0(B)
+.\end{align*}
+and $x(t,*,\mu_0)$ is bijective $\mu_t(B) = 0 $ and 
+\begin{align*}
+  \|f(t,*)\|_{L^{1} } = \int \abs{f(t,y)} dy =  \int \abs{y} d \mu_t  = \int \abs{x(t,y,\mu_0)} d\mu_0  = 1
+.\end{align*}
+\begin{align*}
+  \int_{\mathbb{R}^{d} } f(x,t) dx  = \int_{\mathbb{R}^{d} } f_0(x)  dx
+.\end{align*}
+Ideally we would like to use test function $\phi =1$, this is not possible such that we use 
+\begin{align*}
+  \phi_R(x) = j_{\frac{R}{2}} \star \cha_{[-R,R]}
+.\end{align*}
+And for $t>\tilde{t} \ge 0 $ we compare 
+\begin{align*}
+  \abs*{\int_{\mathbb{R}^{d} } f(t,x)\phi_R(x) dx - \int_{\mathbb{R}^{d} } f(\tilde{t},x ) dx } 
+.\end{align*}
+the PDE tells us that for shifted time $\tilde{t}$ 
+\begin{align*}
+  \int_{\mathbb{R}^{d} } \phi(x) f(t,x) = \int_{\mathbb{R}^{d} } \phi(x) f(\tilde{t},x ) + \int_{\tilde{t} }^{t} \int_{\mathbb{R}^{2d} }  fkf \nabla \phi dxdyds
+.\end{align*}
+Thus
+\begin{align*}
+  &\abs*{\int_{\mathbb{R}^{d} } f(t,x)\phi_R(x) dx - \int_{\mathbb{R}^{d} } f(\tilde{t},x ) dx } \\
+  &=  \abs*{\int_{\tilde{t} }^{t} \int_{\mathbb{R}^{2d} } fkf \nabla \phi_{R} dx dy ds} \\
+  &\le  \frac{C}{R} \abs{t-\tilde{t} }
+.\end{align*}
+Anyway, we have all the tools necessary to prove the mean field limit, that means if 
+\begin{align*}
+ W^{1}(\mu_0^{N},\mu_0) \to 0
+.\end{align*}
+Then 
+\begin{align*}
+  W^{1}(\mu ^{N}(t) , \mu_t ) \to  0 
+.\end{align*}
+This follows by using Dobrushin stability which tells us that for two solutions to the characteristic flow 
+\begin{align*}
+  x(t,*,\mu_0) , \overline{x}(t,*,\overline{\mu }_0 ) 
+.\end{align*}
+Their Wasserstein distance (of the push forward) is bounded as follows
+\begin{align*}
+  W^{1}(\mu_t,\overline{\mu}_t )  \le  e^{2 \abs{t}L}  W^{1}(\mu_0,\overline{\mu }_0 ) 
+.\end{align*}
+To prove the above we use the push forward structure and abuse the fact that for all $\overline{\pi }_t \in  \Pi(\mu_t,\overline{\mu }_t ) $
+\begin{align*}
+  \inf_{\pi_t \in \Pi(\mu_t,\overline{\mu }_t )} \int \abs{x-y} d\pi_t \le  \int \abs{x-y} d\overline{\pi}_t
+.\end{align*}
+Then using Grönwall and the Lipschitz constant $L$ of $K$ we obtain the bound.
+For convergence in measure one can check that $Lip(\mathbb{R}^{d} )$ is dense in $C_0^{\mathbb{R}^{d} } $ using mollifiers, and simply bounding the difference by choosing 
+a joint measure. 
+\section{Stochastic}
+When considering a Stochastic Many particle system or rather its limiting equation the Makean Vlasov equation, 
+ \begin{align}\label{MVE*}
+   \text{(MVE*)}\begin{cases}
+   d Y(t) &= F\star\mu(t)(Y(t)) dt + \sqrt{2} dW_t\\
+    Y(0) &= \xi \in  L^{2}(\Omega ), \quad \mu(t)\sim law (Y(t))\\
+    \mu_0 &\sim law(\xi)
+   \end{cases}
+ .\end{align}
+ Then by Itos formula we know that for $\forall  \phi \in  \mathcal{C}_0^{\infty} $ :
+ \begin{align*}
+   \phi(Y(t),t) - \phi(Y(0),0) =  \int_{0}^{t} \partial_t \phi(Y(t),t) + \nabla \phi(Y(t),t)*\partial_t Y(t) + \Delta  \Phi(Y(t),t) dt + \frac{1}{2} \int 2 \nabla \phi(Y(s),s) dW_t
+ .\end{align*}
+ Such that $\mu$ solves
+\begin{align}\label{DiffusionPDE}
+  \begin{cases}
+    &\partial_t \mu  - \Delta \mu  + \nabla * (F\star\mu  \mu )  =0\\
+    &\mu(0) = \mu_0
+  \end{cases}
+.\end{align}
+This indicates that solutions should be possible even for singular interaction potential, and indeed we see later that is the case under appropriate scaling.\\[1ex]
+Our goal is still to solve \autoref{MVE*} we notice that if we get a solution of \autoref{DiffusionPDE} and plug it into \autoref{MVE*}
+\begin{align*}
+  \begin{cases}
+    dY(t) &= F \star  u(t)(Y(t)) dt + \sqrt{2}dW_t \\
+     Y(0) &= \xi \in  L^{2} 
+  \end{cases}
+.\end{align*}
+Suppose $F \star  u$ is bounded and Lipschitz then we get a solution $Y \sim \mathcal{L}(\overline{u} )$ and it holds by taking the expectation
+\begin{align*}
+  \int  \phi(x,t) \overline{u} (x,t) - \int \phi(x,0)u_{0}(x) dx = \ldots 
+.\end{align*}
+Such that our density $\overline{u} $ solves 
+\begin{align*}
+  \begin{cases}
+    &\partial_t \overline{u}  - \Delta  \overline{u}  + \nabla * (F \star u \overline{u} ) =0\\
+    &\overline{u} \rvert_{t=0} = u_{0}
+  \end{cases}
+.\end{align*}
+i.e. if $u=\overline{u}$ then we get a solution to \autoref{MVE*}.
+I think the way to interpret this, is to consider that if we can solve the PDE equation in standalone we can get back to the MVE
+by comparing it to solutions of the above, and when $u = \overline{u}$ we attain a solution to the MVE, in the deterministic case.
+\section{Heat Equation}
+Pretty much just use fourier transform then solve the ODE , invert the transform and you get the Heat Kernel. 
+basically just shows two things, one is superposition i.e. we can solve the inhomgenous pde with initial value in two steps,
+Working around the singularity.
+\section{Well-posedness of non local pde}
+Introduces sobolev space as the space we prove the existence of our weak solution.
+The main goal of this section is to sovle the non-local pde, we do so by considering a linear (local) pde i.e.
+replace the non-local part (convolution) with a "constant" function and considert the PDE as an operator of this function.
+When we get a fix point of this operator we get a solution to the original PDE.\\[1ex]
+We do the entire thing illustrative by studying a LDE with given drift term, we solve that pde by using a fixpoint iteration, and then prove the necessary bounds 
+to apply Aubin Lion. \\[1ex]
+The proof of PDE($v$) goes as follows
+\begin{enumerate}
+  \item[\bf Existence] Solve the mollified problem (gives us smooth and bounded), this is done by similar argument as in LDE 
+
+\end{enumerate}

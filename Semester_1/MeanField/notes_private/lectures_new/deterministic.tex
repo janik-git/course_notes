@@ -2,10 +2,8 @@
 In this chapter we focus on the deterministic version of the mean-field limit. Namely, we
 start from a system of deterministic interacting particle system with mean-field structure
 and prove that the corresponding empirical measure converges weakly to the measure valued solution of 
-the corresponding partial differential equation. 
-
-We are going to work only with the first order system formulation, in deterministic case the second order system can be rewritten into a first order system, for which the whole argument remains the same.
-
+the corresponding partial differential equation.\\[0.5ex]
+We are going to work only with the first order system formulation, in deterministic case the second order system can be rewritten into a first order system, for which the whole argument remains the same.\\[0.5ex]
 Recall a system of $N$ particles and denote by $x_{1}(t),x_{2}(t),\ldots,x_N(t) \in  \mathcal{C}^{1}([0,T];\mathbb{R}^{d} ),\ i=1,\ldots ,N $ 
   the trajectories of the particles.\\[1ex]
  The so-called first order system is then governed by the system of ordinary differential equations 
@@ -25,7 +23,7 @@ In the case of higher dimensional vectors we sometimes  use the following notati
  
 \section{Review Of ODE Theory}
 
-We review the well-postedness theory of ODE system with a general setting.
+We review the well-posedness theory of ODE system with a general setting.\\[1ex]
 
 For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $, we consider the following initial value problem
   \begin{align}\label{ivp}
@@ -115,7 +113,7 @@ For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $,
  By taking the difference of these two solutions and using the Lipschitz continuity  of $f$ in $x$ we obtain 
  \begin{align*}
    \abs{x(t)- \tilde{x}(t) } &\le \int_0^{t} \abs{f(s,x(s)) - f(s,\tilde{x(s)} )} ds  + \abs{x_{0}-x_{0}}\\
-                             &\le L\int_)^{t} \abs{x(s) - \tilde{x}(s) }   ds \\
+                             &\le L\int_0^{t} \abs{x(s) - \tilde{x}(s) }   ds \\
                              &\le  L \int_{0}^{t} e^{-\alpha s}  \abs{x(s) - \tilde{x}(s) }e^{\alpha s}  ds
  .\end{align*}
  For any $\alpha >0$. By considering the quantity $P(t) = e^{-\alpha t} \abs{x(t) - \tilde{x}(t) } $, we obtain 
@@ -166,7 +164,7 @@ This concludes the uniqueness proof
  \begin{align*}
   \psi'(t) = \beta(t)\phi(t)
  .\end{align*}
- Since $\beta(t) \ge $ we have 
+ Since $\beta(t) \ge 0$ we have 
  \begin{align*}
    \psi'(t) = \beta(t) \phi(t) \le \beta(t) (\alpha(t)+\psi(t)) \quad \forall t \in [a,b]
  .\end{align*}
@@ -248,7 +246,7 @@ in the same sense. This weak sense is understood in the "sense of distributions"
 
 \section{A short introduction for Distributions}
 
-As an conventional notation, we use $\alpha \in \N_0^n$ of length $\abs{\alpha } = \sum_{i} \alpha_i$ as a multi-index, with which the partial derivatives in multi-dimension can be written in a short version
+As a conventional notation, we use $\alpha \in \N_0^n$ of length $\abs{\alpha } = \sum_{i} \alpha_i$ as a multi-index, with which the partial derivatives in multi-dimension can be written in a short version
 	\begin{align*}
 	\partial^{\alpha } = \prod^n_i \frac{\partial^\alpha_i}{\partial x_i^{\alpha_i}}
 	.\end{align*}
@@ -382,7 +380,7 @@ Based on this convergence we give some examples in the approximation of $\delta_
 \begin{proof}
  We consider the limit $t\to 0^+$  and obtain $\forall \phi  \in  \mathcal{C}_0^{\infty}(\Omega ) $
  \begin{align*}
-   \lim_{t \to 0^+} \int_\mathbb{R} f_t(x) \phi(x) &= \lim_{t \to  0^+} \int_\mathbb{R} \frac{1}{(4\pi t)^{\frac{1}{2}} } e^{-\frac{\abs{x}^2}{4t}} \phi(x)dx\\
+   \lim_{t \to 0^+} \int_\mathbb{R} f_t(x) \phi(x) dx &= \lim_{t \to  0^+} \int_\mathbb{R} \frac{1}{(4\pi t)^{\frac{1}{2}} } e^{-\frac{\abs{x}^2}{4t}} \phi(x)dx\\
                                                    &= \lim_{t \to 0^+} \int_{-\infty}^{\infty} \frac{1}{\sqrt{\pi} }  e^{-y^2}  \phi(2 \sqrt{t}y) dy \\
                                                    &= \phi(0) = \braket{\delta_0,\phi }
  .\end{align*}
@@ -470,7 +468,7 @@ We give a couple examples
 \begin{example}
  The weak derivative of the Dirac Delta distribution is given by:  $\forall \phi  \in  \mathcal{D}(\Omega )$,
  \begin{align*}
-   \braket{\delta'_0,\phi } &= - \braket{\delta_0,\phi'} = -\phi(0)\\
+   \braket{\delta'_0,\phi } &= - \braket{\delta_0,\phi'} = -\phi'(0)\\
    \braket{\delta_0^{(k)},\phi  } &= (-1)^{k} \phi ^{(k)}  (0)
  .\end{align*}
 \end{example}
@@ -626,7 +624,7 @@ We will use the same assumption to solve the \autoref{MFE} and \autoref{characte
   hence by dividing both sides by $1 + \abs{y}$ we have 
   \begin{align*}
     \|x_m(t,*) - x_{m-1}(t,*)\|_X &\le L(2+C_{1})\int_0^{\abs{t}}  \|x_{m-1}(s,*) - x_{m-2}(s,*)\|_X ds\\
-                                  &\le \frac{((2+C_{1})L \abs{t})^{d} }{(m-1)!}
+                                  &\le \frac{((2+C_{1})L \abs{t})^{m} }{(m-1)!}
   .\end{align*}
   which implies for $\forall m > n \to \infty$ 
   \begin{align*}
@@ -903,7 +901,7 @@ Now we take a sequence of test functions defined as follows. For $ R >0$
     0 ,& \abs{x} \ge R
   \end{cases}
  .\end{align*}
- An example of this is the mollification of a step function i.e. $\phi_R = j_{\frac{R}{2}}*\cha_{B_{\frac{3R}{2}}}$
+ An example of this is the mollification of a step function i.e. $\phi_R = j_{\frac{R}{2}} \star \cha_{B_{\frac{3R}{2}}}$
 \begin{figure}[H]
    \begin{center}
  \begin{tikzpicture}

@@ -1,0 +1,462 @@
+\chapter{Mean Field Limits for Non Lipschitz Interaction}
+\section*{Notes}
+The key idea is that since we've shown that PDE theory allows us to solve 
+the MVE and the MFE for singular interaction potential. This implies 
+that the Lipschitz continuity is not a necessary condition for solveability.
+The approach this chapter is to consider a smoothed problem for some scaling.
+Depending on the scaling chosen 
+\begin{enumerate}
+  \item Log-Scaling i.e. $\epsilon \sim (\frac{1}{\ln N})^{\alpha} $
+  \item   Algebraic-Scaling i.e. $\epsilon \sim N^{-\beta } $
+\end{enumerate}
+Where the first scaling basically eliminates any singularity issues since $N$ grows so much faster than $\epsilon$,
+the second case needs bounds that work around the singularity.\\[1ex]
+{\bf The trade off} is that ? 
+\\[1ex]
+Our appraoch comes down to the following  
+\begin{align*}
+  &(\text{SDE})\begin{cases}
+&dX_i^N = \nabla V \star  \mu_N(X_i^{N} ) dt + \sqrt{2}dW_t^i\\
+&X_i^N(0) = \xi_i \text{ i.i.d } u_{0}=\mathcal{L}(\xi_i)
+\end{cases}\\
+  &(\text{SDE}_\epsilon)\begin{cases}
+ &dX_i^{N,\epsilon}(t) = \nabla V_\epsilon \star  \mu_N(X_i^{N,\epsilon}(t) ) dt + \sqrt{2}dW_t^i\\
+ &X_i^{N,\epsilon}(0) = \xi_i \text{ i.i.d } u_{0}=\mathcal{L}(\xi_i)
+ \end{cases}\\
+  &\overline{\text{(SDE)}}=\begin{cases}
+&d \overline{X}_i^{\epsilon} (t)= \nabla V_{\epsilon} \star  u^{\epsilon} (\overline{X}^{\epsilon}_i(t),t )  dt + \sqrt{2}dW_t^i\\
+&\overline{X}^{\epsilon}_i = \xi_i \\
+&u^\varepsilon = \mathcal{L}(\overline{X}_i^\epsilon )
+\end{cases}
+.\end{align*}
+In this chapter we introduce the mollification method to study the interaction particle system with non-Lipschitz force. Let's remember the particle system we proposed
+\begin{align*}
+(\text{SDE})\begin{cases}
+&dX_i^N = \nabla V \star  \mu_N(X_i^{N} ) dt + \sqrt{2}dW_t^i\\
+&X_i^N(0) = \xi_i \text{ i.i.d } u_{0}=\mathcal{L}(\xi_i)
+\end{cases}
+.\end{align*}  
+where $\mu_N$ is the empirical measure given by the solution of the above SDE, i.e. $\mu_N = \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i^N}$.
+
+Notice that the strong solution theory in SDE needs to assume that  $\nabla V$ is Lipschitz continuous. However, according the modern PDE theory, the expected mean field limit problem 
+\begin{align*}
+\begin{cases}
+&\partial_t u - \Delta u + \nabla * (\nabla V \star  u * u) = 0\\
+&u(0) = u_{0}
+\end{cases}
+.\end{align*}
+has solution even for some singular interaction, which means the Lipschitz continuity of $\nabla V$ is not necessary. Actually, in many of the models in applied sciences, $\nabla V$ does have singularity. A natural question arises, would it be possible to find its microscopic version in the mean field scaling? 
+
+Here is a list of possible methods (not complete):
+\begin{itemize}
+	\item One might be able to start with the weak solution theory of the SDE system, which is out of the scope of this lecture. 
+	\item One could also start with a higher dimensional linear PDE for the joint law of these $N$ particles, i.e. the so called Liouville equation. Then derive a BBGKY hierarchy and study the limiting hierarchy, this is a classical method in statistical physics, which works also for bounded Lipschitz force.
+	\item  Alternatively, one can derive the relative entropy estimate for the Liouville equation and use the superadditivity property of the relative entropy to study the mean-field limit. This framework will be demonstrated in the last chapter of this lecture.
+	\item Another possibility is to start from a smoothed version of the SDE system, where the smoothing effect should vanish in the $N\to \infty$ limit. 
+\end{itemize}
+
+
+	 
+The main scope of this chapter is to proceed rigorous analysis for the smoothed interacting system.
+\vskip3mm
+More precisely, if $\nabla V$ is not Lipschitz continuous, we consider its mollification
+\begin{align*}
+  V_\epsilon = j_{\epsilon}\star V, \quad j_\epsilon\mbox{ is a standard mollification kernel},
+\end{align*}
+and consider particle system with this smoothed interaction 
+ \begin{align} \label{SDEepsilon}
+  (\text{SDE}_\epsilon)\begin{cases}
+ &dX_i^{N,\epsilon}(t) = \nabla V_\epsilon \star  \mu_N(X_i^{N,\epsilon}(t) ) dt + \sqrt{2}dW_t^i\\
+ &X_i^{N,\epsilon}(0) = \xi_i \text{ i.i.d } u_{0}=\mathcal{L}(\xi_i)
+ \end{cases}
+.\end{align}
+The regulartization parameter $\varepsilon$ should be chosen such that $\epsilon(N)\rightarrow 0$ when $N\rightarrow \infty$. Namely, the expected limiting problem is still like before, we list here also the corresponding Mckean-Vlasov SDE.
+\begin{align}\label{nonlocalPDE}
+\begin{cases}
+&\partial_t u - \Delta  u+ \nabla* (\underbrace{\nabla V \star  u}_{\text{Lip}} u) = 0 \\
+&u \rvert_{t=0} = u_{0}
+\end{cases}
+\end{align}
+\begin{align}\label{SDEhat}
+\widehat{\text{(SDE)}}=\begin{cases}
+&d \hat{X}_i (t)= \nabla V \star  u(\hat{X}_i(t),t )  dt + \sqrt{2}dW_t^i\\
+&\hat{X}_i = \xi_i \\
+&u = \mathcal{L}(\hat{X}_i )
+\end{cases} 
+.\end{align}
+
+We assume that the problem \autoref{nonlocalPDE} has a solution $u$, so that $\nabla V\star u$ is bounded Lipschitz continuous. Then the SDE \autoref{SDEhat} has an $\mathbb{L}^2$ strong solution. One can proceed the same argument as in the previous chapter, the PDE approach to solve Mckean-Vlasov equation, to prove that $u$ is exactly the law of $\hat{X}$. This gives the solvability of the Mckean-Vlasov equation with non Lipschitz force. 
+
+In the whole analysis, the following so called intermediate problem plays an important role to bridge \autoref{SDEepsilon} and \autoref{SDEhat} (or \autoref{nonlocalPDE}),
+
+This intermediate problem is exactly the McKean-Vlasov equation as a mean field limit of \autoref{SDEepsilon} for fixed $\epsilon$,
+\begin{align}  \label{SDEbar}
+\overline{\text{(SDE)}}=\begin{cases}
+&d \overline{X}_i^{\epsilon} (t)= \nabla V_{\epsilon} \star  u^{\epsilon} (\overline{X}^{\epsilon}_i(t),t )  dt + \sqrt{2}dW_t^i\\
+&\overline{X}^{\epsilon}_i = \xi_i \\
+&u^\varepsilon = \mathcal{L}(\overline{X}_i^\epsilon )
+\end{cases}
+.\end{align}
+where the law of $\overline{X}^{\epsilon}_i$ satisfies the following PDE:
+\begin{align}\label{epsPDE}
+  \begin{cases}
+  &\partial_t u^{\epsilon}  - \Delta  u^{\epsilon} + \nabla* (\nabla V_\epsilon \star  u^{\epsilon}  u^{\epsilon} ) = 0 \\
+  &u^{\epsilon}  \rvert_{t=0} = u_{0}
+  \end{cases}
+.\end{align}
+
+Strategy is to proceed the following limit with $\epsilon(N) \xrightarrow{N\to \infty}$ that
+\begin{align*}
+ &\text{SDE}_\epsilon - \overline{\text{SDE}} \to 0 \\ 
+                                                  &\overline{\text{SDE}} - \widehat{\text{SDE}} \to 0
+.\end{align*}
+
+We will use two different scaling parameters in the connection of $\epsilon$ and $N$ in the combined limit $\epsilon(N) \xrightarrow{N\to \infty} 0$, which are going to be explained in separate sections in this chapter.
+\begin{itemize}
+	\item $\epsilon \sim (\frac{1}{\ln N})^{a}$. With this scaling the strategy is almost the same as in the bounded Lipschitz continuous case in chapter 3, we will estimate the difference only on the stochastic level. This scaling can be understood as a very strong cut-off such that the whole procedure don't feel the singularity of the potential. 
+	\item $\epsilon \sim N^{-\beta },  \quad \beta  > 0$. This is called an algebraic scaling. For appropriate choice of $\beta$, the estimate we are going to show in this chapter shows that one has to work with the singularity of the potential.
+\end{itemize}
+
+
+\begin{assumption}\label{AssPDESol}
+Assume that \autoref{nonlocalPDE} (together with \autoref{SDEhat}) and \autoref{epsPDE} (together with \autoref{SDEbar}) have solutions $u$ and $u_\epsilon$ separately so that $\nabla V\star u(x,t)$ and $\nabla V_\epsilon\star u^\epsilon(x,t)$ are continuous and in $x$ Lipschitz continuous. Furthermore, the following uniform in $\epsilon$ estimates holds: $\exists C\geq 0$ 
+\begin{itemize}
+	\item $\|D^2 V_\epsilon \star  u\|_{L^\infty(0,T;L^\infty(\R^d))}\leq C$ 
+	\item $\|\nabla V_\epsilon \star (u^{\epsilon}-u )\|_{L^\infty(0,T;L^\infty(\R^d))}\leq C \epsilon$
+	\item $\|(V_\epsilon - V) \star  \nabla u\|_{L^\infty(0,T;L^\infty(\R^d))}\leq C\epsilon$
+\end{itemize}
+\end{assumption}
+
+\begin{remark}
+The above assumptions depend on the uniform estimates to the solution $u$ of \autoref{nonlocalPDE} and the structure of $V$. We take $V=\delta_0$ as an example to show that if $\|D^2u\|_{L^\infty(0,T;L^\infty(\R^d))}$ is bounded and $\|u-u^\epsilon\|_{L^\infty(0,T;W^{2,\infty}(\R^d))}\leq C\epsilon$ then all the assumptions above are satisfied.
+\begin{itemize}
+	\item $\|D^2 V_\epsilon \star  u\|_{L^\infty(0,T;L^\infty(\R^d))}\leq \|V_\epsilon\|_{L^1(\R^d)}\|D^2  u\|_{L^\infty(0,T;L^\infty(\R^d))}\leq C$ 
+	\item $\|\nabla V_\epsilon \star (u^{\epsilon}-u )\|_{L^\infty(0,T;L^\infty(\R^d))}\leq \|V_\epsilon\|_{L^1(\R^d)}\|\nabla (u^{\epsilon}-u )\|_{L^\infty(0,T;L^\infty(\R^d))}\leq C \epsilon$
+	\item It holds for $x\in R^d$ and $t\in [0,T]$ that 
+	\begin{align*}
+	|(V_\epsilon - V) \star  \nabla u(x,t)|&\le \frac{1}{\epsilon ^{d} }  \int_{\R^d} \abs*{j(\frac{x-y}{\epsilon})\left((V\star \nabla u)(y) -  (V \star  \nabla u)(x)\right)} dy\\
+	&\le \|V \star  D^2u\|_{\infty} \epsilon * \frac{1}{\epsilon ^{d} } \int_{\R^d}  j(\frac{x-y}{\epsilon})*\frac{|x-y|}{\epsilon} dy \leq C\epsilon
+	.\end{align*}
+\end{itemize}
+\end{remark}
+\vskip5mm
+This assumption mainly provides that the corresponding Mckean-Vlasov equations \autoref{SDEbar} and \autoref{SDEhat} have strong $\mathbb{L}^2$ solutions and the control of the difference between them. Actually, under appropriate conditions on $V$ (even for singular potentials) and initial data, one can show that this assumption fulfills by using PDE techniques, which are more advance than the approach discussed in the previous sections. We will not present these theories in this course.
+
+For simplicity, we will always keep the following two examples of $V$ in mind:
+\begin{example}\label{exampleV}
+	\begin{enumerate}
+		\item $V= \pm\delta_0$. In this case, the corresponding PDE is of local type: $\partial_t u - \Delta  u\pm \nabla *(\nabla u u)=0$. 
+		\item We take $V(x)=\frac{1}{\abs{x}^{\lambda} }$ with $\lambda\in (0,d-2)$. Actually, if the potential can be written into $V = V_1+V_2$ where $|D^2V_1|\in L^1 (\R^d)$ and $|D^2 V_2|\in L^\infty(\R^d)$, then the argument in the algebraic case will also work. 
+	\end{enumerate}
+\end{example}
+
+\vskip3mm
+The following assumption is mainly needed for the result of convergence in probability.
+\begin{assumption}\label{AssD2V}
+   Assume that $\exists C\geq 0$ such that	$\||D^2V_\epsilon|*u^\epsilon\|_{L^\infty(0,T; L^\infty(\R^d))}\leq C$, where $C$ doesn't depend on $\epsilon$.
+\end{assumption}
+\vskip2mm
+
+For the potential $V = V_1+V_2$, where $|D^2V_1|\in L^1 (\R^d)$ and $|D^2 V_2|\in L^\infty(\R^d)$, if we can obtain that $\|u^\epsilon\|_{L^\infty(0,T; L^1(\R^d)\cap L^\infty(\R^d))}$ is bounded, then we can easily obtain that the assumption \autoref{AssD2V} holds.
+
+\section{ Logarithmic Scaling, Convergence in Expectation}
+
+\begin{theorem}[Logarithmic Scaling]\label{thmlog}
+	Let the \autoref{AssPDESol} holds, for a given potential $V$ in \autoref{exampleV}, there exists $\alpha>0$ such that for $\epsilon\sim (\ln N)^{-\alpha}$, it holds
+	\begin{align*}
+	\max_{1\leq i\leq N} \E\big[ \sup_{0\leq t\leq T}\abs{X_i^{N,\epsilon}(t) -\hat{X}_i(t) }\big]  \to 0, \quad\mbox{ for } N\to \infty.
+	\end{align*}
+\end{theorem}
+
+\begin{remark}
+	The choice of $\alpha$ in the above theorem depends on the integrability of $V$, we will give two examples in the proof to show how to determine $\alpha$.
+\end{remark}
+
+
+\begin{proof}
+First of all, the mollification kernel $V_\epsilon$ with any given $\epsilon$ implies that the interaction force is  bounded Lipschitz continuous. Therefore, the strong $\mathbb{L}^2$ theory gives a unique solution of the system \autoref{SDE}, $X_i^{N,\epsilon}$. Parallel, under the \autoref{AssPDESol}, we know that $\overline{X}^\epsilon_i$ and $\hat{X}_i$ also exist. In the next, we do directly the estimates among those three stochastic processes. 
+
+{\bf Step 1.} Estimate for $X_i^{N,\epsilon}(t) - \overline{X}_i^{\epsilon}(t) $.
+
+Since they all share the same initial data, we have that by H\"older's and triangle inequalities,
+\begin{align*}
+  \abs{X_i^{N,\epsilon}(t) - \overline{X}_i^{\epsilon}(t)   }^2 &=  \abs*{\int_0^{t} \nabla V_\epsilon \star  \mu_N(X_{i}^{N,\epsilon}(s) ) - \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{\epsilon}(s)  )  ds }^2\\
+                                                                &\le t \int_0^{t} \abs{\nabla V_\epsilon \star  \mu_N(X_{i}^{N,\epsilon}(s) ) - \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{\epsilon}(s)  ) }^2 ds \\
+                                                                &\le t \int_0^{t} \abs{\nabla V_{\epsilon} \star  \mu_N(X_i^{N,\epsilon}(s))-\nabla V_{\epsilon} \star \mu_N(\overline{X}_i^{\epsilon}(s)  )  }^2 ds\\
+                                                                &+ t \int_0^{t} \abs{\nabla V_\epsilon \star  \mu_N(\overline{X}_i^{\epsilon}(s)) - \nabla V_{\epsilon} \star  \overline{\mu }_N(\overline{X}_i^{\epsilon}(s)  ) }^2 ds \\
+                                                                &+ t \int_0^{t} \abs{\nabla V_\epsilon \star  \overline{\mu}_N(\overline{X}_i^{\epsilon}(s)) - \nabla V_{\epsilon} \star  u_{\epsilon}(\overline{X}_i^{\epsilon}(s)   ) }^2 ds \\
+                                                                &\le t* \|\nabla^2 V_\epsilon \star  \mu_N\|^2_{\infty}  \int_0^{t}  \abs{X_i^{N,\epsilon}(s)-\overline{X}_i^{\epsilon}(s)   }^2 ds\\
+                                                                &+ t \int_0^{t} \|\nabla ^2 V_\epsilon\|^2_{\infty} (\frac{1}{N} \sum_{j=1}^{N} \abs{X_j^{N,\epsilon}(s) - \overline{X}^{\epsilon}_j(s)   })^2 ds + III
+,\end{align*}
+where we used the notation $\overline{\mu}_N=\frac{1}{N} \sum_{i=1}^{N}   \delta_{\overline{X}_i^{\epsilon}  }$ to be the empirical measure of $\overline{X}^\epsilon_i$'s.
+The following estimate has also been used in the above estimates
+\begin{align*}
+&\abs{\nabla V_\epsilon \star  \mu_N(\overline{X}_i^{\epsilon}(s)) - \nabla V_{\epsilon} \star  \overline{\mu }_N(\overline{X}_i^{\epsilon}(s)  ) }\\
+ = &\Big|\frac{1}{N}\sum_{j=1}^{N} \nabla V_\epsilon(\overline{X}_i^{\epsilon}(s) - X_j^{N,\epsilon}(s)   )  - \frac{1}{N}\sum_{j=1}^{N} \nabla V_{\epsilon}(\overline{X}_i^{\epsilon}(s)-\overline{X}_j^{\epsilon}(s)    ) \Big|\\
+\leq & \|\nabla ^2 V_\epsilon\|_{\infty} \frac{1}{N} \sum_{j=1}^{N} \abs{X_j^{N,\epsilon}(s) - \overline{X}^{\epsilon}_j(s)   }
+.\end{align*}
+The third term above needed to be done by using a mollified version of the law of large number theorem, we leave it as an exercise.
+\begin{exercise}
+ Show that the $III$ term above can be bounded as follows
+ \begin{align*}
+  III \le  \frac{2t^2}{N}\|\nabla V_\epsilon\|_{\infty}^2
+ .\end{align*}
+\textit{Hint:} Law of Large numbers
+\end{exercise}
+
+\vskip5mm
+Now we take the superimum in $\tilde t\in [0,T]$, the expectation, the maximum in $i=1,\ldots,N$, and obtain 
+\begin{align*}
+  &\max_{1 \le i \le N}\E\Big[\sup_{0\leq t\leq \tilde t}\abs{X_i^{N,\epsilon}(t) - \overline{X}_{i}^{\epsilon}(t)}^2  \Big]\\
+  \le & \|D^2 V_{\epsilon}\|_{\infty}^2 \tilde t \int_0^{\tilde t}  \max_{1\le j\le N} \E\Big[\sup_{0\leq t\leq s}\abs{X_j^{N,\epsilon}(t) - \overline{X}_j^{\epsilon}(t)  }^2\Big] ds + \frac{2\tilde t^2}{N}\|\nabla V_\epsilon\|_{\infty}^2
+.\end{align*}
+By Grönwall we can obtain 
+\begin{align}\label{sss}
+  \max_{1 \le i \le N}\E\Big[\sup_{0\leq t\leq T}\abs{X_i^{N,\epsilon}(t) - \overline{X}_{i}^{\epsilon}(t)}^2 \Big ] &\le e^{\|D^2 V_{\epsilon}\|_{\infty}^2 T} *\frac{2T^2}{N}\|\nabla V_\epsilon\|^2_{\infty}
+.\end{align}
+In the next, for two examples, we will choose $\epsilon(N)$ such that the above quantity converges to zero. Notice that
+\begin{align*}
+  V_\epsilon = \int_{\mathbb{R}^{d} }\frac{1}{\epsilon^d}j(\frac{x-y}{\epsilon})V(y) dy
+.\end{align*}
+
+\begin{itemize}
+  \item For $V=\delta_0$, we have that 
+ \begin{align*}
+  &\|D^2 V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon^{d+2}},\qquad\|\nabla V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon ^{(d+1)} }
+ .\end{align*}
+ Then for $ \forall \eta  \in  (0,1)$ we can choose $\epsilon>0$ such that
+  \begin{align*}
+   e^{\frac{C}{\epsilon ^{2(d+2)} }} &= N^{\eta} \quad \mbox{which means that }
+   \epsilon = (\frac{C}{\eta  \ln  N})^{\frac{1}{2(d+2)}}  
+ .\end{align*}
+ then we plug in this choice in \autoref{sss} and obtain that
+ \begin{align*}
+ \max_{1 \le i \le N}\E\Big[\sup_{0\leq t\leq T}\abs{X_i^{N,\epsilon}(t) - \overline{X}_{i}^{\epsilon}(t)}^2 \Big ] \le  e^{\frac{C}{\epsilon ^{(d+1)2} }} \frac{\frac{C}{\epsilon ^{(d+1)2} }}{N}  \le \frac{C}{N^{1-\eta } }
+ .\end{align*}
+\item $V=\frac{1}{|x|^\lambda}$ for $0<\lambda<d-2$. We do the following estimates for its mollification. For any $x\in\R^d$, we have
+\begin{align*}
+|D^2 V_\epsilon(x)| &\leq \int_{\mathbb{R}^{d} }\frac{1}{\epsilon^{d}}|j(\frac{x-y}{\epsilon})D^2V(y)| dy\\
+&=\int_{|x-y|\leq \epsilon }\frac{1}{\epsilon^{d}}|j(\frac{x-y}{\epsilon})D^2V(y)| dy\\
+&\leq \int_{|y|\leq |x|+\epsilon }\frac{1}{\epsilon^{d}}|j(\frac{x-y}{\epsilon})D^2V(y)| dy\\
+&\leq \int_{|y|\leq R}\frac{1}{\epsilon^{d}}|j(\frac{x-y}{\epsilon})\frac{1}{|y|^{\lambda+2}}| dy+\int_{R\leq |y|\leq |x|+\epsilon }\frac{1}{\epsilon^{d}}|j(\frac{x-y}{\epsilon})\frac{1}{|y|^{\lambda+2}}| dy\\
+&\leq \frac{C}{\epsilon^{d}} R^{d-\lambda-2}+\frac{C}{R^{\lambda+2}}\leq \frac{C}{\epsilon^{\lambda+2}}
+\end{align*} 
+where we have optimized the value of $R$ in the last step. Similarly, one obtains that 
+$$
+\|D V_{\epsilon}\|_{\infty}\le C\frac{C}{\epsilon^{\lambda+1}}.
+$$
+Then we can do the same discussion as in the first example, and obtain that for reasonably chosen $\epsilon \sim (\ln N)^{-\alpha } $ it holds
+\begin{align*}
+ \max_{1 \le i \le N}\E\Big[\sup_{0\leq t\leq T}\abs{X_i^{N,\epsilon}(t) - \overline{X}_{i}^{\epsilon}(t)}^2 \Big ] \le \frac{C}{N^{1-\eta } } \to  0
+.\end{align*}
+\end{itemize}
+This concludes the first step
+\begin{align*}
+  \epsilon(N) \xrightarrow{N\to \infty} 0   \quad &\text{SDE}_\epsilon - \overline{\text{SDE}} \to 0 
+.\end{align*}
+
+{\bf Step 2.} Estimate for $\overline{X}_i^{\epsilon}(t) - \hat{X}_i(t)   $. Here we use the \autoref{AssPDESol} an obtain directly $\forall t\in [0,T]$,
+\begin{align*}
+  \abs{\overline{X}_i^{\epsilon}(t) - \hat{X}_i(t)    }^2 &= \abs*{\int_0^{t} \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}^{\epsilon} (s))- \nabla V  \star  u(\hat{X}(s)  ) ds }^2\\
+                &\le t \int_0^{t} \abs{\nabla V_\epsilon \star  u^{\epsilon}(\overline{X}^{\epsilon}(s)  ) - \nabla V_{\epsilon} \star  u(\overline{X}^{\epsilon}(s)  ) }^2  \\
+                 &+ \abs{\nabla V_\epsilon \star  u(\overline{X}^{\epsilon}(s)  ) - \nabla V_{\epsilon} \star  u(\hat{X}(s)  )}^2   + \abs{\nabla V_\epsilon \star u(\hat{X}(s)  ) - \nabla V \star  u(\hat{X}(s)  )}^2 ds\\
+                &\le C\|D^2 V_\epsilon \star  u\|^2 \int_0^{t} \abs{\overline{X}_i^{\epsilon}(s) - \hat{X}_i(s) }^2 ds +\|\nabla V_\epsilon \star (u^{\epsilon}-u )\|^2_{\infty}+ \|(V_\epsilon - V) \star  \nabla u\|_{\infty}^2\\
+                &\le C\int_0^{t} \abs{\overline{X}_i^{\epsilon}(s) - \hat{X}_i(s) }^2 ds +C \epsilon^2,
+\end{align*}
+where in the last step we have used \autoref{AssPDESol}.
+Then By Gronwall's inequality, we have
+\begin{align}\label{barhat}
+  \max_{1 \le i \le N}\E\Big[\sup_{0\leq t\leq T}\abs{\overline{X}_i^{\epsilon}(t) - \hat{X}_i(t)    }^2\Big] &\le C(T) \epsilon^2
+.\end{align}
+
+Finally, the results hold with combing the two steps together.
+\end{proof}
+\begin{exercise}
+ Do the $\log$ scaling by repeating  the proof in the framework of $ W_{2,\mathcal{C}^{d} }$
+\end{exercise}
+
+
+\section{The Algebraic Scaling, Convergence in Probability}
+
+As has been shown, if the scaling parameter in the mollification kernel is of logarithmic, expect requiring more assumptions from the PDE solution, the whole estimate in the expectation are basically the same as in the bounded Lipschitz case. One doesn't observe the structure of the singular kernel. In this section, we consider the same problem setting but instead we use the so called algebraic scaling $\epsilon = N^{-\beta } $ for $\beta  \in  (0,\frac{1}{2})$ to be determined.
+\vskip3mm
+
+As a preparation, we introduce first a version of law of large numbers.
+
+\begin{lemma}[A version of l.l.n]\label{version_of_lln}
+	Suppose $(\overline{Y}_i )_{i \le N}$ is a collection of i.i.d random variables with law $v \in  L^{1}(\mathbb{R}^{d} ) $,
+	and $U \in  L^{\infty} $ be a given function, define the following subset of $\Omega$
+	\begin{align*}
+	A_{\theta }^{i} (U,v) &= \Big\{\omega \in  \Omega  : \Big|\frac{1}{N} \sum_{1\leq j\leq N} U(\overline{Y}_i - \overline{Y}_j  )- U \star  v (\overline{Y}_i )\Big| \ge \frac{1}{N^{\theta} }\Big\}  
+\mbox{ and }	A_{\theta }^{N}= \bigcup_{i=1}^{N}   A_{\theta }^{i} (U,v)
+	.\end{align*}
+	then $\forall  \tilde{k} \in  \mathbb{N} $, $\theta \in  (0,\frac{1}{2})$ it holds 
+	\begin{align*}
+	\P(A_{\theta }^{N}(U,v) ) &\le N \max_{1\le i \le  N} \P(A_{\theta }^{i}(U,v) )\le N * N^{2 \tilde{k}(\theta  - \frac{1}{2}) }  C(\tilde{k} ) \|U\|_{L^{\infty} }^{2 \tilde{k} } 
+	.\end{align*}
+\end{lemma}
+\begin{proof}
+	Markovs inequality   implies that 
+	\begin{align*}
+	\P(A_{\theta }^{i}(U,v) )&\le  N^{2 \tilde{k} \theta }  \E\Big[\Big|\frac{1}{N} \sum_{j=1}^N U(\overline{Y}_i - \overline{Y}_j) - U \star  v (\overline{Y}_i ) \Big|^{2 \tilde{k} } \Big]\\
+	&=  N^{2 \tilde{k} \theta }  \E\Big[\Big(\frac{1}{N^2} \sum_{j,k=1}^{N}  h(\overline{Y}_i,\overline{Y}_j  )h(\overline{Y}_i,\overline{Y}_k  ) \Big)^{\tilde{k} } \Big]
+	,\end{align*}
+	where 
+$h(\overline{Y}_i,\overline{Y}_j) =    U(\overline{Y}_i - \overline{Y}_j) - U \star  v (\overline{Y}_i)$.
+	In the terms where $j$ appeared only once, it holds that
+	\begin{align*}
+	&\E\Big[h(\overline{Y}_i,\overline{Y}_j  ) \prod_{\substack{m=1\\ m\neq j}}^{2 \tilde{k}-1 } h(\overline{Y}_i , \overline{Y}_{l_m}  )\Big] 
+	=  \int dx v(x) \int  dy v(y)h(x,y) \E\Big[\prod_{\substack{m=1\\ m\neq j}}^{2 \tilde{k}-1 } h(x, \overline{Y}_{l_m} )\Big] = 0 
+	,\end{align*}
+where we have used the fact that  for fixed $x \in  \mathbb{R}^{d} $
+	\begin{align*}
+	\int dy v(y)h(x,y) =  \int dy v(y) (U(x,y) - U \star  v(x)) = 0
+	.\end{align*}
+	Denote the set $\mathcal{P}$ to be the term that might not vanishes.
+	\begin{align*}
+	\mathcal{N} \coloneqq  \Big\{\prod_{j=1}^{2 \tilde{k} }h(\overline{Y}_i,\overline{Y}_{i_j}) : i_j \in  \{1 , \ldots , N\} \text{ s.t. } i_j \text{ appeared at least twice}   \Big\}  
+	.\end{align*}
+	It is easy to obtain that the number of the elements in set $\mathcal{N}$ can be bounded by $C(\tilde{k} )N^{\tilde{k} } $.\\[1ex]
+	On the other hand, the each of the nonvanishing can be bounded in the following
+	\begin{align*}
+	\E\Big[\prod_{j=1}^{2 \tilde{k} }h(\overline{Y}_i,\overline{Y}_{i_j})\Big] \le  C(\tilde{k} )* \|U\|_{\infty}^{2 \tilde{k} } 
+	.\end{align*}
+Therefore, we obtain that 
+	\begin{align*}
+	\P(A_{\theta }^{i}(U,v) ) \le N^{2 \tilde{k}\theta  } \frac{C(\tilde{k} )}{N^{2 \tilde{k} } } * N^{\tilde{k} } \|U\|_{\infty}^{2 \tilde{k} }  = C(\tilde{k}) N^{2 \tilde{k}(\theta  - \frac{1}{2}) } \|U\|_{\infty}^{2 \tilde{k} }  
+	.\end{align*}
+This complete the proof of this lemma.
+\end{proof}
+
+\vskip5mm
+From microscopic to the intermediate level, due to the singularity, it is not realistic to study the convergence in expectation. However, one can expect that the probability that the particle trajectory is away from the mean field  trajectory is small. More precisely, we will prove the following result
+
+
+\begin{theorem}
+Let the \autoref{AssPDESol} and \autoref{AssD2V} hold, for a given $V$ in \autoref{exampleV},
+$\epsilon = N^{-\beta }$, then $\forall \alpha \in (0,\frac12)$, there exists $\beta_1$ which depdends on $\alpha$, if $ \beta  \in  (0,\beta_1) $, it holds $\forall  \gamma  > 0$ that
+ \begin{align*}
+  \sup_{0\leq t\leq T}\P\Big(  \max_{1\leq i\leq N} \abs{X^{N,\epsilon}_i(t) - \overline{X}_i^{\epsilon}(t)   } \ge N^{-\alpha } \Big) \le \frac{C(\gamma )}{N^{\gamma } } 
+ .\end{align*}
+ where $C(\gamma)$ is a constant depends on $\gamma$.
+\end{theorem}
+\begin{proof}
+  First remember that $X_i^{N,\epsilon} $ and $\overline{X}^{N}_i  $ are solutions to \autoref{SDE} and \autoref{SDEbar} separately, so they are path continuous. 
+ We define a stopping time 
+ \begin{align*}
+   \tau(\omega )  = \inf  \{t \in  (0,T] : \max_{1\leq i\leq N} \abs{X^{N,\epsilon}_i(t) - \overline{X}_i^{\epsilon}(t)} \ge  N^{-\alpha}  \}    
+ .\end{align*}
+Then using the stopping time we define , the cut-off process 
+\begin{align*}
+  S(\omega,t) =  N^{2\alpha k } \max_{1\leq i\leq N} \abs{(X^{N,\epsilon}_i - \overline{X}_i^{\epsilon})(t \land \tau(\omega))}^{2k}  \le  1
+,\end{align*}
+where $k\in \N$ to be determined.
+ We have by Markovs inequality  
+ \begin{align*}
+   \sup_{0 < t \le  T} \P\Big( \max_{1\leq i\leq T} \abs{X^{N,\epsilon}_i(t) - \overline{X}_i^{\epsilon}(t)   } \ge N^{-\alpha } \Big) &\le  \sup_{0 < t \le T} \P(S_t \equiv 1)\myS{Mrkv.}{\le } \sup_{0 < t \le T} \E[S_t] 
+ .\end{align*}
+Notice that $X_i^N$ and $\overline{X}_i^N$ satisfies $\forall t\land\tau$ that
+\begin{align*}
+  X_i^{N,\epsilon} (t \land \tau ) - X_i^{N,\epsilon} (0) &= \int_0^{t \land \tau }  \nabla V_{\epsilon} \star  \mu_N(X_i^{N,\epsilon}(s) ) ds + \int_0^{t \land \tau }  \sqrt{2} dW_s^{i}  \\
+  \overline{X}_i^{\epsilon} (t \land \tau ) - \overline{X}_i^{\epsilon} (0) &= \int_0^{t \land \tau }  \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{\epsilon}(s) ) ds + \int_0^{t \land \tau }  \sqrt{2} dW_s^{i}  
+.\end{align*}
+Then  by taking the difference, using the It\^o's formula and taking the expectation, we have
+\begin{align*}
+  &\E[S(t)] \\
+  =& N^{2\alpha k } \E\big[\max_{1\leq i\leq N} \abs{(X^{N,\epsilon}_i - \overline{X}_i^{\epsilon})(t \land \tau(\omega))}^{2k}\big] \\
+           \le &  N^{2 \alpha } C(t,k)  \E\left[ \max_{1\leq i\leq N}\int_0^{t \land \tau }  \abs*{\nabla V_{\epsilon} \star  \mu_N(X_i^{N,\epsilon}(s) ) -  \nabla V_{\epsilon} \star  u^{\epsilon}(\overline{X}_i^{\epsilon}(s) )ds} S(s)^{\frac{2k-1}{2k}} ds \right]\\
+           = &N^{2 \alpha }  C(t,k)  \E\Big[ \max_{1\leq i\leq N}\int_0^{t \land \tau }  \Big|\frac{1}{N} \sum_{j=1}^N \nabla V_{\epsilon}(X_i^{N,\epsilon}(s) - X^{N,\epsilon}_{j}(s)  ) - \frac{1}{N} \sum_{j=1}^N \nabla V_{\epsilon}(\overline{X}_i^{\epsilon}(s) - \overline{X}_j^{\epsilon}(s) ) \Big|S(s)^{\frac{2k-1}{2k}} ds  \Big]\\
+           &+ N^{2 \alpha  } C(t,k) \E\Big[ \max_{1\leq i\leq N}\int_0^{t \land \tau }  \Big|\frac{1}{N} \sum_{j=1}^N \nabla V_{\epsilon}(\overline{X}_i^{\epsilon}(s) - \overline{X}_j^{\epsilon}(s)  ) - \nabla V_{\epsilon} \star  u_{\epsilon}(\overline{X}_i^{\epsilon}(s),s )\Big|S(s)^{\frac{2k-1}{2k}}  ds \Big]\\
+           =& I + II
+.\end{align*}
+We bound the above term individually,
+\begin{align*}
+  I  &\leq N^{2 \alpha }  C(t,k)  \E\Big[ \max_{1\leq i\leq N}\int_0^{t \land \tau }  \Big|\frac{1}{N} \sum_{j=1}^N D^{2} V_{\epsilon}(\overline{X}_i^{\epsilon} (s) - \overline{X}_j^{\epsilon}(s)   )*(X_i^{N,\epsilon} -\overline{X}_i^{\epsilon} - (X_j^{N,\epsilon} - \overline{X}_j^{\epsilon}   )  ) \Big|S(s)^{\frac{2k-1}{2k}} ds  \Big]\\
+  &\qquad +N^{2 \alpha }  C(t,k)  \E\Big[ \max_{1\leq i\leq N}\int_0^{t \land \tau }  \|D^{3} V_{\epsilon} \|_{\infty} \frac{1}{N} \sum_{j} \abs{X_i^{N,\epsilon} -\overline{X}_i^{\epsilon} - (X_j^{N,\epsilon} - \overline{X}_j^{\epsilon}   )  }^2 S(s)^{\frac{2k-1}{2k}} ds  \Big]\\ 
+    &= I_1 +  I_2
+.\end{align*}
+where 
+\begin{align*}
+  I_2 \le  \frac{C(t,k)}{N^{2 \alpha  } }\|D^{3}V_{\epsilon} \|_{\infty} \int_0^{t} \E[S(s)] ds 
+.\end{align*}
+For $I_{1}$ we get 
+\begin{align*}
+  I_{1} &\le N^{2 \alpha }  C(t,k)  \E\Big[ \max_{1\leq i\leq N}\int_0^{t \land \tau } \frac{1}{N} \sum_{j=1}^{N} \abs*{D^2V_{\epsilon}(\overline{X}_i^{\epsilon} - \overline{X}_j^{\epsilon})} \cdot 2\max_{1\leq i\leq N} \abs{X_i^{N,\epsilon}(s)-\overline{X}_i^{\epsilon}(s)} S(s)^{\frac{2k-1}{2k}} ds  \Big]\\
+        &\le C(t,k)  \E \Big[ \max_{1\leq i\leq N} \int_0^{t \land \tau } (D^{2}V_{\epsilon} \star  u^{\epsilon})(\overline{X}_i^{\epsilon} (s),s )  S(s) ds \Big] \marginnote{\footnotesize By adding in the one term we can use the regularity of the SDE solution $u^{\epsilon} $ to bound} \\
+        &\qquad +  C(t,k) \E\Big[\max_{1\leq i\leq N} \int_0^{t \land \tau } \Big( \frac{1}{N} \sum_{j=1}^{N} \abs{D^2 V_\epsilon}(\overline{X}_i^{\epsilon} - \overline{X}_j^{\epsilon}   ) - \abs{D^{2}V_\epsilon } \star  u^{\epsilon}(\overline{X}_i^{\epsilon}(s),s  )  \Big)S(s) ds \Big]\\
+        &\le   C(t,k) \|\abs{D^2 V_\epsilon} \star  u ^{\epsilon} \|_{\infty}  \int_0^{t} \E[(S(s))]  ds  +I_{12} 
+.\end{align*}
+Using \autoref{version_of_lln} with $U = \abs{D^2V_{\epsilon}}$ and $v = u^{\epsilon}(*,s) $, define 
+\begin{align*}
+  A_{\theta }(\abs{D^2 V_{\epsilon}},u^{\epsilon} )= \bigcup_{i=1}^{N}  A^{i}_{\theta } \implies A_{\theta }^{c} (\abs{D^2 V_{\epsilon}},u^{\epsilon} ) = \bigcap_{i=1}^{N} (A_{\theta }^{i} )^{c} 
+.\end{align*}
+\begin{align*}
+  I_{12} &=   C(t,k) \E\Big[(\cha_{A_\theta} + \cha_{A^{c}_{\theta} })\max_{1\leq i\leq N} \int_0^{t \land \tau } \Big( \frac{1}{N} \sum_{j=1}^{N} \abs{D^2 V_\epsilon}(\overline{X}_i^{\epsilon} - \overline{X}_{j}^{\epsilon}   ) - \abs{D^{2}V_\epsilon } \star  u^{\epsilon}(\overline{X}_i^{\epsilon}(s),s  )  \Big)S(s) ds \Big]\\
+         &\le   C(t,k) \frac{1}{N^{\theta } }\int_0^{t}   \E[S(s)] ds  + C(t,k) \|D^2 V_\epsilon\|_{\infty}  \P(A_{\theta }^{c} )\\
+        &\le  C(t,k) \int_0^{t}   \E[S(s)] ds  + C(t,k) \|D^2 V_\epsilon\|_{\infty}*\|D^2 V_{\epsilon}\|_{\infty}^{2 \tilde{k} } C(\tilde{k} ) N^{2 \tilde{k}(\theta -\frac{1}{2})+1 } 
+.\end{align*}
+Actually, we can take $\theta=0$ above.
+
+For $II$ we again apply \autoref{version_of_lln} 
+\begin{align*}
+  A_{\theta_{1} }(\nabla V_{\epsilon},u_\epsilon) =\bigcup_{i=1}^{N} A_{\theta_1}^{i} 
+.\end{align*}
+By inserting the indicator functions of this set and its compliment, and notice that $S(s)\leq 1$, we have
+\begin{align*}
+  II &=   N^{2 \alpha  } C(t,k) \E\Big[ \max_{1\leq i\leq N}\int_0^{t \land \tau }  \Big|\frac{1}{N} \sum_{j=1}^N \nabla V_{\epsilon}(\overline{X}_i^{\epsilon}(s) - \overline{X}_j^{\epsilon}(s)  ) - \nabla V_{\epsilon} \star  u_{\epsilon}(\overline{X}_i^{\epsilon}(s),s )\Big|S(s)^{\frac{2k-1}{2k}}  ds \Big]\\
+  &\leq C(t,k)\int_0^{t}   \E[S(s)] ds + C(t,k)N^{2\alpha k}\E\Big[ \max_{1\leq i\leq N}\int_0^{t \land \tau }  \Big|\frac{1}{N} \sum_{j=1}^N \nabla V_{\epsilon}(\overline{X}_i^{\epsilon}(s) - \overline{X}_j^{\epsilon}(s)  ) - \nabla V_{\epsilon} \star  u_{\epsilon}(\overline{X}_i^{\epsilon}(s),s )\Big|^{2k}  ds \Big]\\
+    &\leq C(t,k)\int_0^{t}   \E[S(s)] ds\\
+    &\qquad  + C(t,k)N^{2\alpha k}\E\Big[ (\cha_{A_{\theta_{1}}^{c} } + \cha_{A_{\theta_{1}}}) \max_{1\leq i\leq N}\int_0^{t \land \tau }  \Big|\frac{1}{N} \sum_{j=1}^N \nabla V_{\epsilon}(\overline{X}_i^{\epsilon}(s) - \overline{X}_j^{\epsilon}(s)  ) - \nabla V_{\epsilon} \star  u_{\epsilon}(\overline{X}_i^{\epsilon}(s),s )\Big|^{2k}  ds \Big]\\
+    &\le C(t,k)\int_0^{t}   \E[S(s)] ds+ C(t,k)N^{2 \alpha k }  \Big[ \frac{1}{N^{2\theta_1k} } + \|\nabla V_{\epsilon}\|^{2k}_{\infty} \P(A_{\theta_1})   \Big]  \\
+     &\le C(t,k)\int_0^{t}   \E[S(s)] ds+ C(t,k)(N^{(\alpha -\theta_1)2k} + N^{2 \alpha  k}  \|\nabla V_{\epsilon}\|_{\infty}^{2k}  \|\nabla V_\epsilon\|^{2 \tilde{k} } C(\tilde{k} )N^{2 \tilde{k}(\theta_1 - \frac{1}{2}) + 1 }) 
+.\end{align*}
+We can put everything together now 
+\begin{align*}
+  \E[S(t)] &\le  C(1 + N^{-2 \alpha  } \|D^{3}V_\epsilon \|_{\infty}   + \||D^2 V_{\epsilon}| \star  u^{\epsilon} \|_{\infty} ) \int_0^{t} \E[S(s)] ds\\
+           &+ C(t,k)N^{(\alpha  - \theta_1)2k} +  C(t,k,\tilde k)N^{2 \alpha  k + 2 \tilde{k}(\theta_1 - \frac{1}{2}) + 1 } \|\nabla V_{\epsilon}\|_{\infty}^{2(k+\tilde{k} )} \\
+           &+ C(t,k,\tilde k)N^{2 \tilde{k}(\theta  - \frac{1}{2}) + 1 } \|D^2V_{\epsilon}\|_{\infty}^{2\tilde{k}+1}  
+.\end{align*}
+
+Remember that $\epsilon = N^{-\beta } $ and $\|\abs{D^2 V_\epsilon} \star  u^{\epsilon}  \|_{\infty}^{2k} \le C $ by \autoref{AssD2V}, we have that
+\begin{align} \label{xxx}
+\E[S(t)] &\le  C(1 + N^{-2 \alpha  } \|D^{3}V_\epsilon \|_{\infty}   + \||D^2 V_{\epsilon}| \star  u^{\epsilon} \|_{\infty} ) \int_0^{t} \E[S(s)] ds\\
+&+ C(t,k)N^{(\alpha  - \theta_1)2k} +  C(t,k,\tilde k)N^{2 \alpha  k + 2 \tilde{k}(\theta_1 - \frac{1}{2}) + 1 } \|\nabla V_{\epsilon}\|_{\infty}^{2(k+\tilde{k} )} \\
+&+ C(t,k,\tilde k)N^{2 \tilde{k}(\theta  - \frac{1}{2}) + 1 } \|D^2V_{\epsilon}\|_{\infty}^{2\tilde{k}+1}  
+.\end{align}
+
+\begin{itemize}
+	\item For $V=\delta_0$, we have that 
+	\begin{align*}
+	\|D^3 V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon^{d+3}}\quad &\|D^2 V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon^{d+2}},\qquad\|\nabla V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon ^{(d+1)} }
+	.\end{align*}
+	\item $V=\frac{1}{|x|^\lambda}$ for $0<\lambda<d-2$. 	\begin{align*}
+	\|D^3 V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon^{\lambda+3}}\quad &\|D^2 V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon^{\lambda+2}},\qquad\|\nabla V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon ^{(\lambda+1)} }
+	.\end{align*}
+\end{itemize}
+Then we can put these estimates in \autoref{xxx}, since $\theta_1>\alpha$, for any given $\gamma>0$, we first adjust the value of $\tilde k$ and then the value of $k$ to complete the proof by Gronwall's inequality.
+\end{proof}
+Now we can conbine the estimate between $\overline{X}_i^{\epsilon}$ and $\hat{X}_i^{N}$, which is exactly the same as in \autoref{barhat} and obtain that
+\begin{corollary} \label{eta} For $\beta\in (0,\beta_1)$ and $\forall\eta\in (0,1)$, it holds
+ \begin{align*}
+&\sup_{0\leq t\leq T}   \E[\max_{1\leq i\leq N} \abs{X_{i}^{N,\epsilon} - \hat{X}_i^{N} } > N^{-\eta\beta}]\leq C*N^{-(1-\eta)\beta} 
+.\end{align*}
+\end{corollary}
+
+\begin{proof}
+Notice that the proof of \autoref{barhat} also implies that
+ \begin{align*}
+\sup_{0\leq t\leq T}   \E[\max_{1\leq i\leq N} \abs{\overline{X}_i^{\epsilon}- \hat{X}_i^{N}  }]\le C*\epsilon
+ .\end{align*}
+Then we obtain $\forall\eta\in (0,1)$
+ \begin{align*}
+   \sup_{0\leq t\leq T}\P(\max_{1\leq i\leq N} \abs{\overline{X}_i^{\epsilon} - \hat{X}_i^{N}    } > \epsilon ^{\eta} ) \le  \epsilon ^{-\eta} \sup_{0\leq t\leq T} \E[\max_{1\leq i\leq N} \abs{\overline{X}_i^{\epsilon}- \hat{X}_i^{N}  }] \le  C \epsilon ^{1-\eta} 
+ .\end{align*}
+ Therefore,
+ \begin{align*}
+   &\sup_{0\leq t\leq T} \P(\max_{1\leq i\leq N}  \abs{X_{i}^{N,\epsilon} - \hat{X}_i^{N} } > \epsilon ^{\eta} )\\
+   &\le  \sup_{0 \le  t \le  T} \P(\max_{1\leq i\leq N}  \abs{X_{i}^{N,\epsilon} - \overline{X}_i^{\epsilon} } > \epsilon ^{\eta} ) + \sup_{0 \le  t \le  T} \P(\max_{1\leq i\leq N}  \abs{\overline{X}_{i}^{N} - \hat{X}_i^{N} } > \epsilon ^{\eta}) \\
+   &\le \frac{C}{N^{\gamma } } + C*\epsilon ^{1-\eta} 
+ .\end{align*}
+ Then the results is obtained by taking $\epsilon=N^{-\beta}$.
+\end{proof}
+

@@ -1,0 +1,152 @@
+\documentclass[10pt]{beamer}
+% \input{../notes/preamble/packages.tex}
+% \input{../notes/preamble/macros.tex}
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\usepackage{bm}
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\begin{document}
+\begin{frame}{What is the MVE}
+The Mckean-Vlasov Equation is in a sense the limiting equation of a Stochastic Many Particle System 
+\begin{align*}
+  \text{(SDEN)} \begin{cases}
+    &d X_i^N(t) = b(X_i^{N}(t),\mu_N(t) ) dt + \sigma(X_i^{N}(t),\mu_N(t) )dW_t^i\\
+    &X_i^N(0)  = X_{i,0}^{N} 
+  \end{cases}
+.\end{align*}
+Now as $N\to \infty$ we get 
+\begin{align*}
+  \text{(MVE)} \begin{cases}
+    &d Y(t) = b(Y(t),\mu(t) ) dt + \sigma(Y(t),\mu(t) )dW_t\\
+    &Y(0)  = \xi \in  L^{2}  \\
+    &\mu \sim \mathcal{L}(Y)
+  \end{cases}
+.\end{align*}
+\end{frame}
+\begin{frame}{What is the MVE}
+  Using an SDE approach we get a Solution to the MVE  as long as $b$ and $\sigma $ are Lipschitz.
+  The Mean-Field-Limit can then be formulated by considering an intermediate Empirical Measure (of $Y_i$), then 
+  \begin{align*}
+    \mathbb{E}[d_t^2(\mu_N,\mu )] \le  2 \mathbb{E}[d_t^2(\mu_N,\mu_N^{Y}  )] + 2 \mathbb{E}[d_t^2(\mu,\mu_N^{Y}  )]
+  .\end{align*}
+\end{frame}
+\begin{frame}{PDE Approach}
+The PDE setting makes the following observations, that if 
+\begin{align*}
+  b(Y(t),u) = \int F(Y(t)-y) u(y) dy = \int  F(y)u(Y(t)-y) dy
+.\end{align*}
+And 
+\begin{align*}
+  \sigma  = \sqrt{2} 
+.\end{align*}
+Then 
+\begin{align*}
+\text{(MVE*)} \begin{cases}
+  &d Y(t) =  \bigg[F \star  \mu (Y(t)) \bigg]dt + \sqrt{2} dW_t\\
+  &Y(0)  = \xi \in  L^{2}  \\
+  &\mu(t) \sim \mathcal{L}(Y(t))
+\end{cases}
+.\end{align*}
+Has a solution if $F \star  \mu $ is bounded Lipschitz. This allows the possibility of singularities.
+\end{frame}
+\begin{frame}{PDE Approach}
+  We check for $\phi  \in  \mathcal{C}_0^{\infty} $ , by It\^os formula we see
+\begin{align*}
+  \phi(Y(t),t) - \phi(Y(0),0)  &= \int_0^{t} \partial_t \phi + \nabla \phi*(F\star \mu(s))(Y(s)) ds\\
+                               &+ \int_0^{t} \Delta \phi  ds + \int_0^{t} \nabla \phi \sqrt{2}dW_s  
+.\end{align*}
+Then by taking the expectation we see that, $\mu $ satisfies the parabolic pde 
+\begin{align*}
+  \begin{cases}
+    &\partial_t \mu  - \Delta \mu  + \nabla * [(F\star \mu)*\mu ] = 0 \\
+    &\mu(0) = \mu_0
+  \end{cases}
+.\end{align*}
+If $\mu$ has density $u$ then the PDE gives us additional regularity such that we can indeed consider 
+"worse" $F$.
+\end{frame}
+\begin{frame}{Goal}
+ We notice that if we get a solution $d\mu  = u$ to the above PDE, then the SDE
+ \begin{align*}
+\text{(MVE*)} \begin{cases}
+  &d Y(t) =  (F \star  u)(Y(t)) dt + \sqrt{2} dW_t\\
+  &Y(0)  = \xi \in  L^{2}  \\
+\end{cases}
+ .\end{align*}
+ has a solution $Y$ if $F \star u$ is bounded and Lipschitz, in turn the Law of $\mathcal{L}(Y) = \overline{\mu } $ solves 
+ \begin{align*}
+  \begin{cases}
+    &\partial_t \overline{\mu}   - \Delta \overline{\mu}  + \nabla * [(F\star \mu)*\overline{\mu} ] = 0 \\
+    &\overline{\mu}(0)  = \mu_0
+  \end{cases}
+ .\end{align*}
+ or with densities 
+\begin{align*}
+  \begin{cases}
+    &\partial_t \overline{u}   - \Delta \overline{u}  + \nabla * [(F\star u)*\overline{u} ] = 0 \\
+    &\overline{u}(0)  = u_0
+  \end{cases}
+ .\end{align*}
+ This implies that if $u=\overline{u} = \mathcal{L}(Y) $, then we solve the MVE* (knowing the law is enough ?)
+\end{frame}
+\begin{frame}{Technique}
+  We seek to solve the non-local parabolic PDE
+\begin{align*}
+  \text{FIN}\begin{cases}
+    &\partial_t \mu  - \Delta \mu  + \nabla * [(F\star \mu)*\mu ] = 0 \\
+    &\mu(0) = \mu_0
+  \end{cases}
+.\end{align*}
+\begin{enumerate}
+ \item Solve simple Heat-Equation by Heat-kernel/Fundamental-Solution Representation 
+ \item We break up the above PDE into a couple intermediate ones : 
+   \begin{align*}
+    \text{LDE} \to \text{PDE}(v) \to \text{FIN}
+   .\end{align*}
+   Roughly that means, a fixpoint of PDE($v$) is a solution to FIN, we get that PDE(v) is
+   well defined by the previous LDE 
+\end{enumerate}
+\end{frame}
+\begin{frame}{Steps} 
+   \begin{align*}
+      \text{(LDE)}\begin{cases}
+        &\partial_t u  - \Delta  u + \underbrace{\nabla \cdot (b(x,t)*u)}_{\approx f} = 0\\
+        &u(0) = u_0
+      \end{cases} 
+   .\end{align*}
+   Has a solution by Fundamental-Solution Representation 
+   \begin{align*}
+     u(x,t) &= \int_{\mathbb{R}^{d} }K(x-y,t)u_{0}(y) dy  &\\
+            &+ \int_{0}^{t} \int_{\mathbb{R}^{d} } \nabla K(x-y,t-\tau ) * (b(y,\tau )u(y,\tau ) ) dy d\tau \\
+            &= I + II
+   .\end{align*}
+  We need $b \in  L^{q}((0,T);L^{\infty} )$ , $u_{0} \in  L^{1}$. Tools are, 
+  \begin{enumerate}
+    \item Fix point iteration (acting on $u$), by contraction it is unique 
+    \item $I \le \|u_{0}\|_{L^{1} }$ , (integral of $K$ is = 1)
+    \item $II \le \|b\|*C $ 
+  \end{enumerate}
+\end{frame}
+\begin{frame}{Steps} 
+  \begin{align*}
+  .\end{align*}
+   \begin{align*}
+   \text{(PDE)}_{\epsilon}\begin{cases}
+    &u_t^{\epsilon} - \Delta u^{\epsilon}  + \nabla*(\tilde j_{\epsilon}\star (F \star  v (1_{\abs{x}\le \frac{1}{\epsilon}} \ u^{\epsilon})) = 0\\
+    &u^{\epsilon}  \rvert_{t=0} = {j}_{\epsilon} \star (1_{\abs{x}\le \frac{1}{\epsilon}}  u_{0} )
+  \end{cases}
+   .\end{align*}
+   Has a solution by the LDE solution
+\end{frame}
+\end{document}

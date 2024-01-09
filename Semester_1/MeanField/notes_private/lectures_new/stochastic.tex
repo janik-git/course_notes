@@ -1,0 +1,467 @@
+\newpage
+\chapter{MEAN FIELD LIMIT FOR SDE SYSTEM}
+\input{lectures_new/stochastic_primer.tex}
+\input{lectures_new/ito_integral.tex}
+\input{lectures_new/solving_sdes.tex}
+
+
+\section{Stochastic Mean Field Limit}
+
+This part is basically taken from Lacker's lecture notes in 2018.
+
+\subsection{Convergence of the empirical measure for i.i.d. Random Variables}
+
+In the discussion of the mean field limit of a many particle interacting system, we will use again the so-called Wasserstein distance (or  Kantorovich–Rubinstein metric) between two measures:
+\begin{definition}[Wasserstein Distance  (or  Kantorovich–Rubinstein metric)]
+  For all $\mu , \nu  \in  \mathcal{P}_p(\mathbb{R}^{d} )$  , $(p\ge 1) $ the Wasserstein Distance  (or  Kantorovich–Rubinstein metric) of $\mu $ and $\nu $ is given by 
+  \begin{align*}
+    W^{p}(\mu ,\nu ) = \dist_{MK,p}(\mu ,\nu ) = \inf_{\pi \in  \Pi(\mu ,\nu )} \left( \int \int_{\mathbb{R}^{2d} } \abs{x-y}^{p} \pi(dxdy) \right)^{\frac{1}{p}}  
+  ,\end{align*}
+  where  
+  \begin{align*}
+    \Pi(\mu ,\nu ) = &\Bigg\{\pi \in \mathcal{P}(\mathbb{R}^{d} \times  \mathbb{R}^{d}  ) : 
+    \int_{\mathbb{R}^{d}\times E } \pi(dx,dy) = \nu(E), \\
+     &\qquad \int_{E \times  \mathbb{R}^{d} } \pi(dx,dy) = \mu(E), \forall \mbox{ Borel set } E\subset\R^d\Bigg\}  
+  .\end{align*}
+\end{definition}
+\begin{remark}
+ It is easy to show that
+ \begin{align*}
+   W_1(\mu ,\tilde{\mu } ) \le  W_{2}(\mu ,\tilde{\mu } )
+ .\end{align*}
+ follows automatically by using the Hölders inequality. Similarly, this holds also for all $p>q\geq 1$ that
+  \begin{align*}
+   W_q(\mu ,\tilde{\mu } ) \le  W_{p}(\mu ,\tilde{\mu } )
+ .\end{align*}
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%\textcolor{red}{Here needs a section for the list of results on convergence of measure, handwritting page 30 to 33}
+\begin{lemma} \textcolor{red}{Cite Villani's book}
+  Let $(\mu_n)_{n \in  \mathbb{N}} \subset  \mathcal{P}_p(\mathbb{R}^{d} )$ be a sequence of measures,then following are equivalent
+  \begin{enumerate}
+   \item $W_p(\mu_n,\mu ) \to 0$
+    \item  For $\forall f \in \mathcal{C}(\mathbb{R}^{d} )$ such that $\abs{f(x)} \le  C(1+\abs{x}^{p} )$, it holds
+     $\int  f d\mu_n \to \int  f d\mu $.
+    \item $\mu_n \rightharpoonup \mu $, namely $ \int  f d\mu_n \to \int  f d\mu $ is true for all $f\in\mathcal{C}_b(\R^d)$ and  $ \int  |x|^p d\mu_n \to \int  |x|^p d\mu $
+    \item $\mu_n \rightharpoonup \mu $ and $\lim_{r\to \infty} \sup_n \int_{\abs{x} \ge r} \abs{x}^p d\mu_n = 0$.
+  \end{enumerate} 
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{definition}[Empirical Measure (Stochastic version)]\label{empirical_stochastic}
+	For random variables $(X_i)_{i\le N}$  we define the (stochastic) empirical measure by
+	\begin{align*}
+	\mu_N(\omega ) = \frac{1}{N}\sum_{i=1}^{N} \delta_{X_i(\omega)} 
+	.\end{align*}
+\end{definition}
+
+In the following we first discuss the convergence of empirical measure with i.i.d random variables. 
+Actually, a direct corollary of law of large numbers gives that
+\begin{prop}
+	If  $(X_i)_{i \in  \{1,\ldots ,N\}  }$ are i.i.d random variables with law $\mu_{X}$ then  $\forall  \ f \in  \mathcal{C}_b(\mathbb{R}^{d} ) $ it holds that
+	\begin{align*}
+	\P(\lim_{N \to \infty} \int  f d \mu_N = \int f d\mu ) = 1
+	.\end{align*}
+\end{prop}
+One can actually prove the stronger statement that the choice of $f \in  \mathcal{C}_b$ does not influence the convergence, which means one can pull the function selection into the probability.
+\begin{prop}
+	If  $(X_i)_{i \in  \{1,\ldots ,N\}  }$ are i.i.d random variables with law $\mu_{X}$ then  it holds that
+	\begin{align*}
+	\P(\mu_N \rightharpoonup \mu ) = 1
+	.\end{align*}
+	i.e 
+	\begin{align*}
+	\P( \forall  f \in  \mathcal{C}_b(\mathbb{R}^{d} ) \ : \int f d\mu_N \to  \int  f d\mu )  = 1
+	.\end{align*}
+\end{prop}
+We omit the technical proof here.
+\newpage
+\begin{lemma}[General Dominated Convergence]\label{general_dct}
+	Let $(X_n)_{n \in  \mathbb{N}} \subset   L^{p} $ be a sequence of random variables then the following are equivalent 
+	\begin{enumerate}
+		\item $(X_n)_{n \in  \mathbb{N}}$ are uniformly integrable  and $X_n \to X$ $\P$-a.s.
+		\item $\|X_n - X\| \to  0$ for some $X \in  L^p$
+	\end{enumerate}
+\end{lemma}
+We leave the proof as exercise.
+\begin{definition}
+A sequence of random variables $(X_i)_{i \in  \mathbb{N}}$ is called uniform integrable if
+	\begin{align*}
+	\lim_{r \to  \infty} \sup_{i \in  \mathbb{N}} \E\big[\abs{X_i}*\cha_{\abs{X_i}\ge r}\big] = 0
+	.\end{align*}
+\end{definition}
+\begin{lemma}[De la Vall\`ee Poussin Criterion]\label{de_la_valle}
+	A sequence of random variables $(X_i)$  is uniformly integrable if and only if there 
+	$\exists \phi $ convex with
+$\lim_{x \to \infty} \frac{\phi(x)}{x} = \infty$, such that
+	\begin{align*}
+	\sup_i \E\big[\phi(\abs{X_i})\big] < \infty
+	.\end{align*}
+\end{lemma}
+We omit the technical proof here.
+\begin{prop}\label{wasserstein_convergence_arb}
+	If $(X_i)_{i \in \{1,\ldots ,N\}  }$  are i.i.d random variables with law $\mu\in \mathcal{P}^p(\mathbb{R}^{d} )$ for $p\geq 1$, $\mu_N$ denotes its empirical measure, then it holds
+	\begin{align*} 
+	W_p(\mu_N,\mu ) \to  0 \qquad \text{ a.s.}
+	\quad \mbox{ and }
+	\E\big[W_p^{p}(\mu_N,\mu ) \big] \to 0
+	.\end{align*}
+\end{prop}
+\begin{proof}
+	Remember that the following convergences are equivalent 
+	\begin{enumerate}
+		\item $W_p(\mu_N,\mu ) \to 0$
+		\item $\mu_N \rightharpoonup \mu $ and $\int \abs{x}^{p} d\mu_N \to \int \abs{x}^{p} d\mu   $
+		\item $\mu_n \rightharpoonup \mu $ and $\lim_{r\to \infty} \sup_N \int_{\abs{x} \ge r} \abs{x}^p d\mu_N = 0$
+	\end{enumerate}
+	Note that if we fix a.s. $\omega $ then we can treat this as the deterministic case. \\[1ex]
+	We already know that 
+	\begin{align*}
+	\mu_N \rightharpoonup \mu \text{ a.s.}
+	.\end{align*}
+	since $(X_i)$ are i.i.d then $\abs{X_i}^{p} $ is also i.i.d  and we use the Law of large numbers
+	\begin{align*}
+	\int \abs{x}^{p} d\mu_N   &= \frac{1}{N}\sum_{i=1}^{N} \abs{X_i}^{p}  \xrightarrow{L.L.N.} \E[\abs{X_i}^{p} ] < \infty
+	.\end{align*} 
+	And we get a.s. that $W_p(\mu_N,\mu ) \to  0$\\[1ex]
+	For the stronger statement 
+	\begin{align*}
+	\E\big[W_p^{p}(\mu_N,\mu ) \big] \to  0
+	.\end{align*}
+	we first note that  
+	\begin{align*}
+	W_p^{p}(\mu_N,\mu )  &\le  2^{p-1} (W^{p}_p(\mu_N,\delta_0)  + W_p^{p}(\delta_0,\mu )) \\
+	&= 2^{p-1} (\frac{1}{N} \sum_{i=1}^{N}   \abs{X_i}^{p}  + W_p^{p}(\delta_0,\mu ))
+	.\end{align*}
+	Then it is sufficient to show the uniform integrability of the first part 
+	\begin{align*}
+	\frac{1}{N}\sum_{i=1}^{N} \abs{X_i}^{p}  
+	.\end{align*}
+	Since $\abs{X_i}^{p} $ is integrable then there exists a convex function  $\phi $ with $\lim_{x \to \infty} \frac{\phi(x)}{x} = \infty$ and 
+	\begin{align*}
+	\E[\phi(\abs{X_i}^{p} )] < \infty
+	.\end{align*}
+	Since $\phi $ is convex we apply Jensen's inequality to get 
+	\begin{align*}
+	\sup_N \E\Big[\phi \Big(\frac{1}{N}\sum_{i=1}^{N} \abs{X_i}^{p}\Big) \Big]  \myS{Jen.}{\le } \sup_N \frac1N \sum_{i=1}^{N}\E[\phi (\abs{X_i}^{p} )] =  \E[\phi(\abs{X_i}^{p} )] < \infty
+	.\end{align*}
+	Finally \autoref{de_la_valle}  implies the uniform integrability and we conclude by \autoref{general_dct}
+	\begin{align*}
+	\E\big[W_p^{p}(\mu_N,\mu ) \big]\to 0
+	.\end{align*}
+\end{proof}
+\hspace{0mm}\\[1ex]
+
+\begin{remark}
+	All the above statement only apply to arbitrary i.i.d sequences of random variables, but in our Mean-Field-Limit we only get 
+the i.i.d property at $t=0$ such that we seek to prove that even as $N \to \infty$ we nonetheless get a convergence.
+\end{remark}
+
+\newpage
+\subsection{Setting of the Stochastic Particle System}
+We will study a general version of the mean field type stochastic particle system in this part. 
+
+The family of $N$ interacting particles $X^N_{1}(\omega,t) , X^N_2(\omega,t),\ldots ,X^{N}_N(\omega,t)\in \mathbb{R}^d$ with i.i.d initial data $(X_i^{N}(0))_{i \in  \{1,\ldots ,N\}  } \subset  L^2(\Omega) $, with given law $\mu_0$, satisfies the following stochastic system
+	\begin{align}\label{sden}
+	\text{(SDEN)}\begin{cases}
+	d X_i^{N}(t) &=   b(X_i^{N}(t) , \mu_N(t) )dt + \sigma(X_i^{N}(t),\mu_N(t))dW^{i}_t \\
+	X_i^{N}(0) &= X_{i,0}^{N}   
+	\end{cases}
+	,\end{align}
+where $\mu_N(t)$ is the stochastic empirical measure of  $(X^N_{1}(t) , X^N_2(t),\ldots ,X^{N}_N(t) )$.
+The results from previous section imply that the initial data converges:
+\begin{align*}
+\E\big[W_2^{2}(\mu_N(0),\mu_0) \big] \to  0
+.\end{align*}
+However since for the solution of interacting particle system are for $t>0$ are no longer independent, the corresponding result for solution in $N\rightarrow \infty$ needs to be investigated.
+
+We give the following assumptions within this problem.
+\begin{assumption}\label{sde_solution_assumption_strong}
+Assume drift  $b : \mathbb{R}^{d} \times  \mathcal{P}^2(\mathbb{R}^{d} ) \to  \mathbb{R}^{d} $ and diffusion $\sigma : \mathbb{R}^{d} \times  \mathcal{P}^2(\mathbb{R}^{d} ) \to \mathbb{R}^{d \times  m}  $   are Lipschitz continuous i.e. $\exists  L >0$ s.t.
+ \begin{align*}
+  \abs{b(X,\mu ) - b(\tilde{X},\tilde{\mu }  )} + \abs{\sigma(X,\mu ) - \sigma(\tilde{X},\tilde{\mu }  )} \le  L \left( \abs{X - \tilde{X} } + W_2(\mu ,\tilde{\mu } ) \right) 
+ .\end{align*}
+\end{assumption}
+\begin{example}[Stochastic Toy Model]
+  Let our particle system be given as in \autoref{sden} with drift and diffusion for $\nabla V \in  \text{Lip}$
+ \begin{align*}
+   b(X,\mu )&= \nabla V \star  \mu(X)\\
+   \sigma(X,\mu ) &= \sigma_0 >
+ .\end{align*}
+ Within this toy model one can easily check that \autoref{sde_solution_assumption_strong} holds:
+ \begin{align*}
+ \abs{b(X,\mu ) - b(\tilde{X},\tilde{\mu }  )} &= \abs*{\int \nabla V(X-y) d\mu(y) - \int  \nabla V(\tilde{X}-y ) d \tilde{\mu }(y) }\\
+ &\ge \int \abs{\nabla V(X-y) - \nabla V(\tilde{X}-y )}d\mu (y) + \abs*{\int \nabla V(\tilde{X} - y)(d\mu(y) - d \tilde{\mu }(y) ) )}\\
+ &\myS{Lip.}{\le }L*\abs{X - \tilde{X} } + LW_1(\mu ,\tilde{\mu } ) \\
+ &\le L*(\abs{X-\tilde{X} } + W_2(\mu,\tilde{\mu } ))
+ .\end{align*}
+\end{example}
+\begin{exercise}
+ Think about what happens if the initial data is i.i.d but the diffusion coefficient $\sigma=0$, can one obtain a convergence ?
+\end{exercise}
+\begin{theorem}[Sovalbility of $N$ particle problem]
+  Let the assumption \autoref{sde_solution_assumption_strong} holds, then the stochastic many particle system \hyperref[sden]{(SDEN)} has a unique strong solution in $\mathbb{L}^{2}_{dN}([0,T]) $.
+\end{theorem}
+\begin{proof} 
+  By using the notation $\mathbb{X} = (X_1^{N},\ldots ,X_N^{N}  ) \in  \mathbb{R}^{dN} $, $\mathbb{W} = (W^{1},\ldots ,W^{N}  )\in\R^{mN}$, and
+  \begin{align*}
+    &B(\mathbb{X}) = \begin{pmatrix} \vdots \\ b(X_i^{N},\frac{1}{N}\sum_{k=1}^{N}  \delta_{X_k^N} )\\ \vdots \end{pmatrix}_{dN}, \\ 
+    &\Sigma(\mathbb{X})_{dN \times mN} \ : \ \text{diag}(\Sigma(\mathbb{X})) = \begin{pmatrix} \sigma(X^N_1,\frac{1}{N}\sum_{k=1}^{N} \delta_{X^N_k} ), \ldots \sigma(X^N_N,\frac{1}{N}\sum_{k=1}^{N} \delta^N_{X_k} ) \end{pmatrix}
+  \end{align*}
+  the stochastic many particle system \hyperref[sden]{(SDEN)} is rewritten into
+  \begin{align*}
+    d \mathbb{X}(t) = B(\mathbb{X}(t)) dt + \Sigma(\mathbb{X}(t)) d \mathbb{W}_t
+  .\end{align*}
+  Now if $B$ and $\Sigma $ satisfy \autoref{assumption_sde_sol} we get the existence and uniqueness of solution in $\mathbb{L}^{2}_{dN}([0,T]) $ by applying \autoref{sde_solution_theorem}. Actually,
+  \begin{align*}
+    \Big| B\Big(\mathbb{X}\Big)-B\Big(\mathbb{Y}\Big)\Big|_{\mathbb{R}^{dN} }^2  &= \sum_{j=1}^{N} \Big|b\Big(X_j,\frac{1}{N}\sum_{k=1}^{N} \delta_{X_k}\Big)  - b\Big(Y_j,\frac{1}{N}\sum_{k=1}^{N} \delta_{Y_k} \Big)\Big|  \\
+                           &\le \sum_{j=1}^{N} 2L^2 \left( \abs{X_j-Y_j}^2  + W_2^2\Big(\frac{1}{N}\sum_{k=1}^{N} \delta_{X_k},\frac{1}{N}\sum_{k=1}^{N} \delta_{Y_k} \Big)\right)   \\
+                                                            &\le  4L^2 |\mathbb{X} - \mathbb{Y}|^2 
+  ,\end{align*}
+  where we have used the definition of $W_2$ distance in the last estimate:
+  \begin{align*}
+W_2^2\Big(\frac{1}{N}\sum_{k=1}^{N} \delta_{X_k},\frac{1}{N}\sum_{k=1}^{N} \delta_{Y_k} \Big)&\leq \iint_{\R^d} |X-Y|^2 \Big(\frac{1}{N}\sum^N_{k=1}\delta_{(X_k,Y_k)}\Big)  \\
+&=\dfrac{1}{N}\sum^N_{j}|X_j-Y_j|^2=\frac{1}{N}|\mathbb{X}-\mathbb{Y}|^2.
+\end{align*}
+  For the diffusion coefficient $\Sigma $, the argument is analog. 
+  Then by \autoref{sde_solution_theorem} we get a unique solution for fixed $N$.
+\end{proof}
+
+ As $N \to \infty$ we expect that the limiting equation is
+  \begin{align*}
+    \begin{cases}
+      dY^{i}(t) &= b(Y^{i}(t) ,\mu(t) ) dt + \sigma(Y^{i}(t),\mu(t) )dW_t^i \\
+      Y^{i}(0)  &=  X_{i,0}^{N} \in  L^2(\Omega ) \text{ i.i.d}, \mu(t)\sim law (Y^i)
+    \end{cases}
+  .\end{align*}
+ In fact since the above system beyond the initial data is independent of $N$, we may consider the equation without particle index.
+ This equation is called Mckean-Vlasov equation which is a non-linear non-local SDE.
+\subsection{Well-posedness of Mckean-Vlasov equation}
+ We consider in this part the solvalbility of Makean-Vlasov Equation 
+\begin{align}\label{MVE}
+    \text{(MVE)} \begin{cases}
+      dY(t) &= b(Y(t) ,\mu(t) ) dt + \sigma(Y(t),\mu(t) )dW_t \\
+      Y(0)  &=  \xi \in  L^2(\Omega;\R^d ) \text{ i.i.d}, \mu\sim law (Y) 
+    \end{cases}
+,\end{align}  
+under the condition that $b$ and $\sigma$ satisfy \autoref{sde_solution_assumption_strong}. Since the equation \autoref{MVE} includes also the information of law which depends on the solution, for convenience we consider the law on space of the sample paths.
+\begin{definition}[Space of Continuous Sample Paths]
+ The Space  $\mathcal{C}^{d} = \mathcal{C}([0,T];\mathbb{R}^{d} ) $ is called the continuous sample path space with norm 
+$  \|X\|_T = \sup_{0\le t \le T} \abs{X(t)}$. 
+ this norm $\|*\|_T$ induces a $\sigma$-algebra on $\mathcal{C}^{d} $.
+Then a random Variable with $\mathcal{C}^{d} $ as its range is a map $ X : \Omega \to \mathcal{C}^{d} $.
+\end{definition}
+\begin{definition}[Measure on the Space of Sample Paths]
+ Since the norm $\|*\|_T$  induces a $\sigma$-algebra on $\mathcal{C}^{d} $, we work on the probability measures on $\mathcal{C}^{d}$ with finite second moment, namely the space $\mathcal{P}^2(\mathcal{C}^{d} )$. With the map, for any $t\in[0,T]$, 
+ \begin{align*}
+  l_t : \mathcal{C}^{d} \to  \mathbb{R}^{d}, \quad X \mapsto X(t)  
+ ,\end{align*}
+ we call the corresponding push forward measure $\mu_t:={l_t}_\#\mu\in \mathcal{P}^2(\R^d)$ the $t$-marginal of $\mu\in \mathcal{P}^2(\mathcal{C}^{d} )$, which is given by: for all Borel sets $A\subset\R^d$, it holds
+ \begin{align*}
+  \mu_t (A)= \mu(l^{-1}_t(A) ).
+ .\end{align*}
+\end{definition}
+
+\begin{prop}[Wasserstein Distance for the measures $\mathcal{C}^d$]\label{c_d_wasserstein}
+For arbitrary measures $\mu ,\tilde{\mu } \in  \mathcal{P}^2(\mathcal{C}^{d} ) $ the following inequality holds
+\begin{align*}
+  \sup_{t \in  [0,T]} W_{\mathbb{R}^{d},2 }(\mu(t),\tilde{\mu }(t) ) \le  W_{\mathcal{C}^{d},2 } (\mu ,\tilde{\mu } )
+,\end{align*}
+where 
+\begin{align*}
+  W_{\mathcal{C}^{d},2 }(\mu ,\tilde{\mu } ) = \inf_{\pi  \in  \Pi(\mu ,\tilde{\mu } )} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \|x-y \|_T^2 d\pi(x,y)
+.\end{align*}
+\end{prop}
+
+\begin{proof} For $\pi  \in  \Pi(\mu ,\tilde{\mu } )$, we choose concretely $\pi_t =  {l_t^{\otimes 2}}_\# \pi $. Let $\mu_t$ and $\tilde\mu_t$ be the $t$-marginals of $\mu$ and $\tilde \mu$ separately, then we have
+  \begin{align*}
+    \sup_{t \in  [0,T]} W_2(\mu_t,\tilde{\mu }_t ) &\le \sup_{t \in  [0,T]} \int_{\mathbb{R}^{d} \times  \mathbb{R}^{d} } \abs{x-y}^2 d \pi_t(x,y)\\
+                                                 &= \sup_{t \in  [0,T]} \int_{\mathbb{R}^{d} \times  \mathbb{R}^{d} } \abs{x-y}^2 d ({l_t^{\otimes 2}}_\# \pi)(x,y)\\
+                                                 &= \sup_{t \in  [0,T]} \int_{\mathcal{C}^{d} \times \mathcal{C}^{d}   } \abs{x(t)-y(t)}^2 d\pi(x,y)\\
+                                                 &\le  \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \sup_{t \in  [0,T]} \abs{x(t)-y(t)}^2 d\pi(x,y) \\
+                                                 &= \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \|x-y\|_T^2 d\pi(x,y)
+  .\end{align*}
+  It remains to check that $\pi_t \in  \Pi(\mu_t,\tilde{\mu}_t )$. To show this, we take arbitrary $A \in  \mathcal{B}(\mathbb{R}^{d} )$ and obtain
+  \begin{align*}
+    \pi_t(A \times  \mathbb{R}^{d} ) &= \pi ((l_t^{\otimes 2})^{-1}(A \times  \mathbb{R}^{d} )) \\
+                                     &= \pi(\{(x,y) \in  \mathcal{C}^{d} \times  \mathcal{C}^{d} \ : \ l_t(x) \in  A, l_t(y) \in  \mathbb{R}^{d}   \}  )\\
+                                     &=\pi (\{(x,y) \in  \mathcal{C}^{d} \times  \mathcal{C}^{d} \ : \ l_t(x) \in  A  , y \in  \mathcal{C}^{d}  \}  ) \\
+                                     &= \pi(l_t^{-1}(A) \times \mathcal{C}^{d} )= \mu(l_t^{-1}(A)) = {l_t}_\# \mu(A)= \mu_t(A)
+  .\end{align*}
+  this shows that $\mu_t$ is the first marginal of $\pi_t$. Similarly, one can show that $\tilde\mu_t$ is the other marginal.
+\end{proof}
+\begin{remark}
+With the above notation we have that for any measurable function $f$ on $\mathcal{C}^d$, it holds
+ \begin{align*}
+   \int_{\mathcal{C}^{d} } f(x) d\mu(x) = \int_{\mathbb{R}^{d} }  f(x(t)) d\mu_t
+ .\end{align*}
+\end{remark}
+\begin{theorem}[Uniqueness and Existence of Solution for Mckean-Vlasov]\label{solution_vlasov}
+  If $b$ and $\sigma $ satisfy \autoref{sde_solution_assumption_strong}, then \autoref{MVE} has a unique  strong solution
+  $Y \in  \mathbb{L}^2([0,T])$ and $\mu = law (Y)\in\mathcal{P}^2(\mathcal{C}^{d} )$.
+\end{theorem}
+\begin{proof}
+ We use the notation 
+ \begin{align*}
+   d_t^2(\mu,\tilde\mu) =  \inf_{\pi  \in  \Pi(\mu,\tilde{\mu } )} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  }\|x-y\|^2_t d\pi(x,y)
+ .\end{align*}
+ For any given $\mu  \in \mathcal{P}^2(\mathcal{C}^{d} )$ we consider the following SDE 
+ \begin{align*}
+   \begin{cases} 
+   dY^{\mu } (t) &= b(Y^{\mu} (t),\mu(t))dt + \sigma(Y^{\mu } (t),\mu(t))dW_t\\
+    Y(0)   &= \xi \in  L^2(\Omega)
+   \end{cases}
+ .\end{align*}
+ Let $\phi(\mu ) = \mathcal{L}(Y^{\mu } ) $ be the law of $Y^{\mu} $. \\[1ex]
+ For the existence  and the uniqueness of $Y^{\mu } $ we need to check 
+ \begin{align*}
+   \abs{b(x,\mu(t)) - b(\tilde{x},\mu(t) )} + \abs{\sigma(x,\mu(t)) - \sigma(\tilde{x},\mu(t))} \le  L \abs{x-\tilde{x} }
+ .\end{align*}
+ Since it is the same measure the Wasserstein distance is 0 and the above is true by \autoref{sde_solution_assumption_strong}.\\
+ 
+In the next, we will prove that $\phi $ has a fixpoint $\overline{\mu } $, then according to the definition of $\phi$, we know that $\overline{\mu } $ is the solution of \autoref{MVE}.
+ 
+We prove this fact by Picard iteration method. 
+
+First we do the estimate for the difference between two measures. Let $\mu ,\tilde{\mu }$ be arbitrary given measure in
+ $\mathcal{P}^2(\mathcal{C}^{d} )$, the integral version of the equation is
+ \begin{align*}
+  Y^{\mu }(t) - \xi = \int_0^{t} b(Y^{\mu }(s),\mu(s) ) ds + \int_0^{t} \sigma(Y^{\mu }(s),\mu(s) ) dW_s \qquad \mu= \mu,\tilde{\mu} 
+ .\end{align*}
+ Now we take the difference for these two equations and proceed the sup in $t$, and use H\"older's inequality,
+ \begin{align*}
+   &\sup_{0\le t \le \tau }\abs{Y^{\mu }(t) - Y^{\tilde{\mu } }(t)}^2 \\
+   &= \sup_{0\le t \le \tau}\abs*{\int_0^{t} b(Y^{\mu }(s),\mu(s) )- b(Y^{\tilde{\mu}}(s),\tilde{\mu}(s) ) ds + \int_0^{t} \sigma(Y^{\mu }(s),\mu(s) ) - \sigma (Y^{\tilde{\mu}}(s),\tilde{\mu}(s) ) dW_s}^2\\
+   &\le \sup_{0\le t \le \tau } 2t \int_0^{t} \abs{b(Y^{\mu }(s),\mu(s) )- b(Y^{\tilde{\mu}}(s),\tilde{\mu}(s) )}^2 ds \\
+   &+ \sup_{0\le t \le \tau }2 \abs*{\int_0^{t} \sigma(Y^{\mu }(s),\mu(s) ) - \sigma (Y^{\tilde{\mu}}(s),\tilde{\mu}(s) ) dW_s}^2 
+ .\end{align*}
+ Next by taking the expectation and using the assumption \autoref{sde_solution_assumption_strong}, we obtain that
+ \begin{align*}
+   &\E[\sup_{0\le t \le \tau }\abs{Y^{\mu }(t) - Y^{\tilde{\mu } }(t)}^2] \\
+   &\le 4\tau  L^2 \E\left[\int_0^{\tau } \abs{Y^{\mu }(s) - Y^{\tilde{\mu } }(s)  }^2 + W_2^2(\mu(s) ,\tilde{\mu}(s) ) ds \right]\\
+   &+ 16 L^2 \E\Big[\int_0^{\tau } \abs{Y^{\mu}(s) - Y^{\tilde{\mu } }(s)  }^2 + W_2^2(\mu(s),\tilde{\mu }(s) )  ds\Big]
+ ,\end{align*}
+ where we used Doobs-$L^{p} $ inequality for the second term.
+ \begin{align*}
+   &\E\Big[\sup_{0\le t\le \tau }\abs*{\int_0^{t} \sigma(Y^{\mu }(s),\mu(s) ) - \sigma (Y^{\tilde{\mu}}(s),\tilde{\mu}(s) ) dW_s}^2\Big] \\
+   &\le 8 \E\Big[\int_0^{\tau } \abs{\sigma(Y^{\mu }(s),\mu(s) ) - \sigma (Y^{\tilde{\mu}}(s),\tilde{\mu}(s) )}^2 ds\Big]\\
+   &\le 8 L^2\E\Big[\int_0^{\tau } \abs{Y^{\mu}(s) - Y^{\tilde{\mu } }(s)  }^2 + W_2^2(\mu(s),\tilde{\mu }(s) )  ds\Big]
+ .\end{align*}
+Therefore we obtained
+ \begin{align*}
+   \E\big[\|Y^{\mu } - Y^{\tilde{\mu } }\|_{\tau}^2\big] &\le C \int_0^{\tau } \E\big[\|Y^{\mu } - Y^{\tilde{\mu } }\|_s^2\big] ds + C \int_0^{\tau } \E\big[W_2^2(\mu(s),\tilde{\mu }(s) )\big]  ds  \\
+ ,\end{align*}
+ which implies, by Gronwall inequality, that
+ \begin{align*}
+   \E\big[\|Y^{\mu } - Y^{\tilde{\mu } }\|_{\tau}^2\big] &\le C(\tau )* \int_0^{\tau }  \E\big[W_2^2(\mu(s) ,\tilde{\mu }(s) )\big] ds \\                                               
+                                                 &\le C(\tau )* \int_0^{\tau } \E\big[ \sup_{0\le t \le s} W_2^2(\mu(t) ,\tilde{\mu }(t) )\big] ds \\                                              
+                                                 &\le C(\tau ) \int_0^{\tau } d_s(\mu ,\tilde{\mu } )ds
+ .\end{align*}
+ using  the inequality \autoref{c_d_wasserstein}.\\[1ex]
+ Remember that $\phi(\mu) = \mathcal{L}(Y^{\mu } )$ and $\phi(\tilde{\mu } ) = \mathcal{L}(Y^{\tilde{\mu } } )$, we have
+ \begin{align*}
+   d_{\tau }^2(\phi(\mu ),\phi(\tilde{\mu } )) =&  \inf_{\pi  \in  \Pi(\phi(\mu) ,\phi(\tilde{\mu } ))} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}   } \|x-y\|_\tau^2 d\pi(x,y)\\
+   \leq &
+\int_{\mathcal{C}^{d}\times\mathcal{C}^{d}  } \|x-y\|_{\tau }^{2} d\pi_1(x,y) \\
+= & \E\big[\|Y^{\mu }-Y^{\tilde{\mu } } \|_\tau^2 \big] \le  C(\tau ) \int_0^{\tau } d_s(\mu ,\tilde{\mu } )ds
+ .\end{align*} 
+ where we denote  $\pi_1$ to be the joint distribution of $Y^{\mu } $ and $Y^{\tilde{\mu } }$.
+ To summarize, we have that for $\forall  \mu , \tilde{\mu } \mathcal{P}^2(\mathcal{C}^{d} ) $, it holds
+ \begin{align}\label{est_d}
+   d_t(\phi(\mu ),\phi(\tilde{\mu } )) \le C(t) \int_0^{t} d_s(\mu ,\tilde{\mu } ) ds 
+ .\end{align}
+This estimate implies immediately the uniqueness of the solution. Namely, if we have two solutions $\mu ,\tilde{\mu } $ such that $  \phi(\mu ) = \mu $ and $ \phi(\tilde{\mu } ) = \tilde{\mu } $,
+then the above estimate \autoref{est_d} says 
+\begin{align*}
+  d_t(\mu,\tilde{\mu } ) \le  C(t) \int_0^{t} d_s(\mu ,\tilde{\mu } )  ds \implies d_t(\mu ,\tilde{\mu } )  = 0
+.\end{align*}
+To prove the existence. Take arbitrary $\mu_0 \in  \mathcal{P}^2(\mathcal{C}^{d} )$, (for example $\mu_0 = \mathcal{L}(\xi)$), we define the following iteration
+\begin{align*}
+  \phi(\mu_0) &= \mu_1 \\
+  \phi(\mu_1) &= \mu_2 \\
+              &\vdots \\
+  \phi(\mu_k) &= \mu_{k+1}\\
+  &\vdots
+,\end{align*}
+the estimate \autoref{est_d} means that $(\mu_k)$ is Cauchy in $\mathcal{P}^2(\mathcal{C}^{d} )$.
+\begin{exercise}
+	Prove that $(\mu_k)$ is Cauchy in $\mathcal{P}^2(\mathcal{C}^{d} )$.
+	\end{exercise}
+Therefore, there exists a $\mu \in \mathcal{P}^2(\mathcal{C}^{d} )$ such that 
+\begin{align*}
+   W_{\mathcal{C}^{d},2 }^{2}(\mu_k,\mu ) \to  0 
+.\end{align*}
+\end{proof}
+
+
+\vskip5mm
+In the many particle setting, the empirical measure $\mu_N$ is not exactly the law of $X^{N}$, it is a sequence of stochastic measure. Therefore unlike the deterministic, the proof for existence and uniqueness does not hold exactly for our \autoref{sden}.
+
+For the initial data, because they are i.i.d. random variables, we have proved that
+ \begin{align*}
+   \E[W_2^2(\mu_N(0),\mu_0  )] \xrightarrow{N\to \infty} 0
+ .\end{align*}
+We expect that the mean field limit holds also in the same meaning, namely 
+ \begin{align*}
+   \E[W_{\mathcal{C}^{d},2 }^2(\mu_N,\mu )] \to 0
+ .\end{align*}
+
+\begin{theorem}[Mean-Field-Limit]
+  Let $b$ and $\sigma$ fulfill \autoref{sde_solution_assumption_strong} and use 
+  $\mu_N$ to be the empirical measure of the solution of \autoref{sden}, then there exists a measure $\mu \in \mathcal{P}^2(\mathcal{C}^{d} )$ such that
+  \begin{align*}
+    \lim_{N\to \infty}\E\big[W_{\mathcal{C}^{d},2 }^2(\mu_N,\mu )\big] = 0
+, .\end{align*}
+  and for any fixed $k \in  \mathbb{N}$ it holds
+  \begin{align*}
+    \left( X^{N}_1,\ldots ,X_k^{N}   \right)  \xRightarrow{(D)} \left( Y_{1},\ldots ,Y_{k}   \right) 
+  .\end{align*}
+  where $Y_1,\ldots,Y_k$ are independent copies of the solution of the Mckean-Vlasov equation \autoref{MVE}.
+\end{theorem}
+\begin{proof}
+  The proof is similar to what we have done in the \autoref{solution_vlasov}, the critical part is to 
+  work with our stochastic empirical measure, we do so by introducing an intermediate empirical measure. We compute 
+  \begin{align*}
+    \abs{X_i^{N}(t) - Y_i(t) }^2 &\le 2 t \int_0^{t} \abs{b(X^{N}_i(s),\mu_N(s) ) -  b(Y_i(s),\mu(s) )}^2 \\
+    &+ 2 \abs*{\int_0^{t} \sigma(X_i^{N}(s),\mu_N(s) ) - \sigma(Y_i(s),\mu(s))  dW_s^{i} }^2
+  .\end{align*}
+Similar to the previous cases in handling the stochastic term, we use the Doob's inequality and obtain
+  \begin{align*}
+\E\Big[\sup_{0\le r\le t} \abs{X_i^{N}(r) - Y_i(r) }^2\Big] &\le 2(8+2t) L^2 \E\Big[\int_0^{t}\sup_{0\le r\le s} \abs{X_i^{N}(r) - Y_i(r) }^2+ W_2^{2}(\mu_N(s),\mu(s))   ds\Big].
+\end{align*}
+The by Gronwall's inequality, we have
+\begin{align}\label{XYd}
+      \E\Big[\sup_{0\le r\le t} \abs{X_i^{N}(r) - Y_i(r) }^2\Big]                                              &\le  C*\E\Big[\int_0^{t} d_r^2(\mu_N,\mu ) dr\Big]
+.\end{align}
+  Let $\overline{\mu }_N $ be the empirical measure of $Y_i$, i.e. $
+    \overline{\mu }_N = \frac{1}{N} \sum_{i=1}^{N} \delta_{Y_i}  $
+ And denote $\mu \sim \mathcal{L}(Y_i)$ for $\forall  t > 0$ then by \autoref{wasserstein_convergence_arb}, we have 
+  \begin{align*}
+    \E\big[W_2^2(\overline{\mu }_N,\mu  )\big] \to  0
+  .\end{align*}
+  Now we consider for $\forall $ a.s. $\omega  \in  \Omega $
+  \begin{align*}
+    d_t^2(\overline{\mu }_N,\mu_N ) = \inf_{\pi  \in  \Pi(\mu_N,\overline{\mu }_N )} \int_{\mathcal{C}^{d} \times  \mathcal{C}^{d}  } \|x-y\|^2_t d\pi(x,y)  \le \frac{1}{N} \sum_{i=1}^{N} \|X^{N}_i - Y_i \|_t^2 
+  ,\end{align*}
+  where we have taken $\pi  = \mu_N \otimes \overline{\mu }_N $.
+  We continue by taking the expectation and applying \autoref{XYd}
+  \begin{align*}
+    \E\big[d_t^2(\mu_N,\overline{\mu }_N )\big] &\le  \frac{1}{N} \sum_{i=1}^{N} \E\Big[\sup_{0\le r \le t} |X_i^N(r) - Y_i(r) |^2\Big] \le 2C\int_0^{t} \E[d_r^2(\mu_N,\mu )] dr 
+  .\end{align*}
+Therefore, we obtain by triangle inequality that
+  \begin{align*}
+    \E\big[d_t^2(\mu_N,\mu )\big] &\le  2 \E\big[d_t^2(\mu_N,\overline{\mu }_N )\big] + 2 \E\big[d_t^2(\overline\mu_N,\mu )\big]\\
+                          &\le  C \int_0^{t} \E\big[d_r^2(\mu_N,\mu )\big] dr + C\E\big[d_t^2(\overline{\mu}_N,\mu )\big]
+  .\end{align*}
+  Then by Grönwall 
+  \begin{align*}
+    \E\big[d_t^2(\mu_N,\mu )\big] &\le e^{CT} \E\big[W_2^2(\mu_{N,0},\mu_0)\big] + e^{CT} \E\big[d_t^2(\overline{\mu }_N,\mu  )\big] \xrightarrow{N\to \infty} 0 
+,\end{align*}
+ where the last two limits are obtained by \autoref{wasserstein_convergence_arb}. Therefore, for $\forall  1\le k < \infty$, it holds that
+  \begin{align*}
+    \E\Big[\max_{1\le i \le  k}\sup_{0\le r\le t} \|X_i^{N}(r) - Y_i(r) \|^2\Big] &\le \max_{1 \le i\le k} \frac{1}{N}\sum_{i=1}^{k} \E\big[\|X_i^{N}-Y_i \|_t^2\big] \\
+         &\le  C*k\E[d_t^2(\mu_N,\mu   )]                                                                \xrightarrow{N\to \infty} 0
+  .\end{align*}
+  This concludes that the set of random variables converges weakly to the solution of Mckean-Vlasov equation.
+\end{proof}

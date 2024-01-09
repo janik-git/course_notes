@@ -1,0 +1,188 @@
+\include{./packages.tex}
+% theorems
+\makeatother
+% \usepackage{thmtools}
+% \usepackage[framemethod=TikZ]{mdframed}
+\mdfsetup{skipabove=1em,skipbelow=0em}
+
+
+\theoremstyle{definition}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
+    }
+]{thmgreenbox}
+
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!5,
+    }
+]{thmbluebox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue
+    }
+]{thmblueline}
+
+
+% \definecolor{excercise_color}{HTML}{17B396}
+\definecolor{excercise_color}{HTML}{ECAC16}
+
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{excercise_color!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=excercise_color,
+    }
+]{thmexcercise}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!5,
+    }
+]{thmredbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!1,
+    },
+    qed=\qedsymbol
+]{thmproofbox}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
+    },
+]{thmexplanationbox}
+
+
+
+% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, mdframed={ nobreak } ]{thmgreenbox}
+% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, mdframed={ nobreak } ]{thmredbox}
+% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont]{thmbluebox}
+% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont]{thmblueline}
+% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, numbered=no, mdframed={ rightline=false, topline=false, bottomline=false, }, qed=\qedsymbol ]{thmproofbox}
+% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, numbered=no, mdframed={ nobreak, rightline=false, topline=false, bottomline=false } ]{thmexplanationbox}
+
+\declaretheorem[style=thmgreenbox, name=Definition,numberwithin=section]{definition}
+\declaretheorem[style=thmbluebox, numbered=no, name=Example]{example}
+\declaretheorem[style=thmredbox, name=Proposition,numberwithin=section]{prop}
+\declaretheorem[style=thmredbox, name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=thmredbox, name=Lemma,numberwithin=section]{lemma}
+\declaretheorem[style=thmredbox, numbered=no, name=Corollary]{corollary}
+\declaretheorem[style=thmbluebox, numbered=no, name=Idea]{idea}
+
+\declaretheorem[style=thmredbox, name=Assumption]{assumption}
+\renewcommand\theassumption{\Alph{assumption}}
+% unnumbered  gotta be a better way to do this but w/e
+\declaretheorem[style=thmgreenbox, name=Definition,numbered=no]{Definition}
+\declaretheorem[style=thmbluebox, numbered=no, name=Example]{Example}
+\declaretheorem[style=thmredbox, name=Proposition,numbered=no]{Prop}
+\declaretheorem[style=thmredbox, name=Theorem,numbered=no]{Theorem}
+\declaretheorem[style=thmredbox, name=Lemma,numbered=no]{Lemma}
+\declaretheorem[style=thmredbox, numbered=no, name=Corollary]{Corollary}
+\declaretheorem[style=thmredbox, name=Assumption,numbered=no,Refname=Assumption]{Assumption}
+\declaretheorem[style=thmproofbox, name=Proof]{replacementproof}
+\renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
+
+
+\declaretheorem[style=thmexplanationbox, name=Proof]{tmpexplanation}
+\newenvironment{explanation}[1][]{\vspace{-10pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+
+\declaretheorem[style=thmblueline, numbered=no, name=Remark]{remark}
+\declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
+\declaretheorem[style=thmblueline, numbered=no, name=Goal]{goal}
+\declaretheorem[style=thmexcercise, numbered=no, name=Exercise]{exercise}
+
+\declaretheorem[style=thmblueline, name=Question]{question}
+\declaretheorem[style=thmproofbox,  name=Solution]{solution}
+
+\newtheorem*{uovt}{UOVT}
+\newtheorem*{notation}{Notation}
+\newtheorem*{previouslyseen}{As previously seen}
+\newtheorem*{problem}{Problem}
+\newtheorem*{observe}{Observe}
+\newtheorem*{property}{Property}
+\newtheorem*{intuition}{Intuition}
+% \newtheorem{exercise}{Exercise}
+
+
+\usepackage{etoolbox}
+\AtEndEnvironment{vb}{\null\hfill$\diamond$}%
+\AtEndEnvironment{intermezzo}{\null\hfill$\diamond$}%
+% \AtEndEnvironment{opmerking}{\null\hfill$\diamond$}%
+
+% http://tex.stackexchange.com/questions/22119/how-can-i-change-the-spacing-before-theorems-with-amsthm
+\makeatletter
+% \def\thm@space@setup{%
+%   \thm@preskip=\parskip \thm@postskip=0pt
+% }
+
+
+
+
+
+
+% fancy headers
+% \usepackage[twoside]{fancyhdr}
+\pagestyle{fancy}
+
+% \fancyhead[LE,RO]{Gilles Castel}
+% \fancyhead[RO,LE]{\@lesson}
+\fancyhead[RE,LO]{}
+% \fancyfoot[LE,RO]{\thepage}
+% \fancyfoot[C]{\leftmark}
+
+\makeatother
+
+
+
+
+% notes
+% \usepackage{todonotes}
+% \usepackage{tcolorbox}
+
+\tcbuselibrary{breakable}
+\newenvironment{myblock}{\begin{tcolorbox}[
+    arc=0mm,
+    colback=white,
+    colframe=green!60!black,
+    title=Opmerking,
+    fonttitle=\sffamily,
+    breakable
+]}{\end{tcolorbox}}
+
+\newenvironment{noot}[1]{\begin{tcolorbox}[
+    arc=0mm,
+    colback=white,
+    colframe=white!60!black,
+    title=#1,
+    fonttitle=\sffamily,
+    breakable
+]}{\end{tcolorbox}}
+
