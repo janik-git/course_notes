@@ -71,7 +71,7 @@ The relative entropy between two integrable functions $u_1$ and $u_{2}$ are give
 
 
 \section{Relative entropy inequality for high dimensional PDE}
-Now we come back to the two higher order PDEs \autoref{PDEuN} and \autoref{PDEuHD}, and obtain the following relative entropy identity.
+Now we come back to the two higher order PDE's \autoref{PDEuN} and \autoref{PDEuHD}, and obtain the following relative entropy identity.
 \begin{lemma} Let 
 	\begin{align}
 	\label{REntropyN} \mathcal{H}(u_N | u^{\otimes N} )= \frac{1}{N} \mathcal{H}_N(u_N | u^{\otimes N} ) = \frac{1}{N} \int_{\mathbb{R}^{dN} } u_N \log \frac{u_N}{u^{\otimes N} }   dx_{1}\ldots dx_N
@@ -102,7 +102,7 @@ Then the equation \autoref{relativeentropyID} follows directly by rewriting the 
 \end{proof}
 
 Notice that the second term on the right hand side of \autoref{REntropyNM} needs directly the mean field limit estimates. We will apply the estimates obtained in the previous chapters for bounded Lipschitz forces and forces with singular potential and obtain separately the convergence rate estimate for the relative entropy.
-More precisesly, we can rewrite the second term by using the stochastic setting:
+More precisely, we can rewrite the second term by using the stochastic setting:
 \begin{align}\label{ReE}
   &\frac{d}{dt} \mathcal{H}(u_{N} | u^{\otimes N}  ) \\
  \nonumber &\leq  -\frac{1}{2N} \int_{\mathbb{R}^{dN} } \sum_{i=1}^{N} \abs*{\nabla_{x_i} \log  \frac{u_N}{u^{\otimes N} }}^2 u_N  dx_{1}\ldots dx_N+ \frac{1}{2} \E\left[\frac{1}{N} \sum_{i=1}^{N} \abs*{\nabla V \star  u(X^N_i)-\nabla V \star  \mu_N(X^N_i)}^2 \right]\\
@@ -145,7 +145,7 @@ If $\|f\|_{L^{1}} = \|g\|_{L^{1} } $, then
 \begin{align*}
 \int_{\mathbb{R}^{d} } \frac{f}{g} \log  \frac{f}{g} g dx \ge \int_{\mathbb{R}^{d} }   \frac{f}{g} * g dx - \int_{\mathbb{R}^{d} }  g dx = 0 \mbox{ where }	r \log  r \ge r-1 \mbox{ has been applied.}
 \end{align*}
-this means for two probability densities ($\|\mu \|_{L^{1} }=\|\nu \|_{L^{1} } = 1$) the entropy is always nonnegative.
+this means for two probability densities ($\|\mu \|_{L^{1} }=\|\nu \|_{L^{1} } = 1$) the entropy is always non-negative.
 
 Furthermore, by direct computation we obtain, considering   $\|f\|_{L^{1}} = \|g\|_{L^{1} } =1$, that
 	\begin{align*}

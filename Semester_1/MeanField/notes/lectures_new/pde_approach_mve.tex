@@ -1,6 +1,6 @@
 \chapter{PDE Approach for the Mckean-Vlasov Equation}
 
-In this chapter, we give an alternative approach in solving the Mckean-Vlasov equation \autoref{MVE} based on the PDE theory. Due to the time limitation, we will use in this chapter the simplest framework, i.e. $L^2$ theory, in the study of the weak solution to second order parabolic PDEs. More complete version of the solution theory will be given in the lecture of PDEs in the spring semester.
+In this chapter, we give an alternative approach in solving the Mckean-Vlasov equation \autoref{MVE} based on the PDE theory. Due to the time limitation, we will use in this chapter the simplest framework, i.e. $L^2$ theory, in the study of the weak solution to second order parabolic PDE's. More complete version of the solution theory will be given in the lecture of PDE's in the spring semester.
 
 To describe the method more explicitly, we use a simplified model other than the general setting in \autoref{MVE}. More precisely, we take $b$ as a given operator in the convolution form with kernel $F$ in the following
 \begin{align*}
@@ -172,7 +172,7 @@ Thus we have proved that
 \end{proof}
 
 
-\section{Well-posedness of nonlocal PDE \autoref{DiffusionPDE}}
+\section{Well-posedness of non-local PDE \autoref{DiffusionPDE}}
 We will only use the $L^2$ weak solution framework to show the existence and uniqueness of weak solution. 
 
 As a necessary tool, we introduce the $H^1$ Space and the definition of $L^2$ weak solution of \autoref{DiffusionPDE}.
@@ -408,7 +408,7 @@ Similar to the estimates given in \autoref{bLDE}, we can obtain
                                                 &\le \|u_0\|_{L^{1}(\R^d) } + \int_0^{t}  \frac{1}{\sqrt{t-s} }\|F\|_{L^2(\R^d)} \| v (\cdot,s)\|_{L^{2}(\R^d) } \| u^{\epsilon} (\cdot,s)\|_{L^{1}(\R^d) } ds\\
                                                 &\le \|u_0\|_{L^{1}(\R^d) } + C \int_0^{t}  \frac{1}{\sqrt{t-s} }\| v (\cdot,s)\|_{L^{2}(\R^d) } \| u^{\epsilon} (\cdot,s)\|_{L^{1}(\R^d) } ds
      .\end{align*}
-   Since $ \int^t_0 \frac{1}{\sqrt{t-s} }\| v (\cdot,s)\|_{L^{2}(\R^d) }ds\leq C\| v \|_{L^q(0,T;L^{2}(\R^d)}t^{1-\frac{q'}{2}}$ for $2<q\leq \infty$ (i.e. $1\leq q'<2$), then by Gronwall's inequality, we have
+   Since $ \int^t_0 \frac{1}{\sqrt{t-s} }\| v (\cdot,s)\|_{L^{2}(\R^d) }ds\leq C\| v \|_{L^q(0,T;L^{2}(\R^d)}t^{1-\frac{q'}{2}}$ for $2<q\leq \infty$ (i.e. $1\leq q'<2$), then by Grönwall's inequality, we have
    \begin{align*}
   \|u^{\epsilon} (\cdot,t)\|_{L^{1}(\R^d)}\leq C (t,\| v \|_{L^q(0,T;L^{2}(\R^d)},\|u_0\|_{L^{1}(\R^d) }  ).
    \end{align*}
@@ -468,17 +468,16 @@ We proceed further and get
        &\frac{1}{2}\int_0^{t} \int_{\mathbb{R}^{d} } \partial_t \abs{u^{-}}^2 dx ds+ \int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u^{-}}^2 dx ds \\
        \le &\frac{1}{2}\int_0^{t}  \int_{\mathbb{R}^{d} } \abs{\nabla u^{-}}^2 dx ds + \frac{C}{2} \int_0^{t} \|v(\cdot,s)\|_{L^2(\R^d)}\int_{\mathbb{R}^{d} }\abs{u^{-}}^2 dx ds
      .\end{align*}
-    Then Gronwall's inequality implies
+    Then Grönwall's inequality implies
      \begin{align*}
        \int_{\mathbb{R}^{d} } \abs{u^-}^2 dx \le  e^{C(\|v\|{L^q(0,T;L^2(\R^d))})} \int_{\mathbb{R}^{d} } \abs{{u_{0}}_-}^2 dx = 0
      ,\end{align*}
-      where the nonnegative inital data menas that ${u_{0}}_- = 0$\\[1ex]
+      where the non-negative initial data means that ${u_{0}}_- = 0$\\[1ex]
       
      The uniqueness of the solution follows also from the $L^2$ estimate similarly.
 
 \vskip3mm
-Based on the nonnegativity of the solution, we obtain further the second moment estimate. One can choose a mollified version of $|x|^2$ as a test function and obtain the boundedness through Gronwall's inequality. In the next, we do a second moment estimate from the mild solution formulation:
-
+Based on the non-negativity of the solution, we obtain further the second moment estimate. One can choose a mollified version of $|x|^2$ as a test function and obtain the boundedness through Grönwall's inequality. In the next, we do a second moment estimate from the mild solution formulation:
 {\bf Second Moment estimate}
    We do direct estimate by using the mild solution representation of $u$
    \begin{align*}
@@ -515,7 +514,7 @@ Based on the nonnegativity of the solution, we obtain further the second moment 
    \begin{align*}
    \int_{\mathbb{R}^{d} } \abs{x}^2 u(x,t) dx \leq C(t)+C \int_0^{t}  \| v (\cdot,s)\|_{L^{2}(\R^d) } \int_{\mathbb{R}^{d} } \abs{y}^2 u(y,s) dy ds,
    \end{align*}
-   which implies by Gronwall's inequality that 
+   which implies by Grönwall's inequality that 
    \begin{align*}
    \int_{\mathbb{R}^{d} } \abs{x}^2 u(x,t) dx \leq  C (t,\| v \|_{L^q(0,T;L^{2}(\R^d)},\|u_0\|_{L^{1}(\R^d) }, \|\abs{\cdot}^2u_0\|_{L^{1}(\R^d) } ).
    \end{align*}
@@ -552,15 +551,15 @@ where we used
 \begin{align*}
   \essup_{x} \abs*{\int  F(x-y)w(y) dy}^2 \le \|F\|_2^{2}\|w\|_2^{2}  
 .\end{align*}
-then by Gronwall's inequality
+then by Grönwall's inequality
 \begin{align*}
   \frac{d}{dt} \int \abs{w}^2 \le C*\int \abs{w}^2 \implies \int_{\mathbb{R}^{d} }\abs{w(x,t)^2}dx \le  e^{Ct} \int_{\mathbb{R}^{d} } \abs{w(x,0)}^2 dx = 0
 .\end{align*}
 it follows $u_{1}=u_{2}$ a.e.
 \end{proof}
 
-\section{Solvability of the Makean-Vlasov Equation}
-As has been discussed in the beginning of this chapter. we want to prove in this section that the problem \autoref{DiffusionBar} has a unique solution $\overline{u}=u$ where $u$ is the unique solution of \autoref{DiffusionPDE}.
+\section{Solvability of the Mckean-Vlasov Equation}
+As has been discussed in the beginning of this chapter. We want to prove in this section that the problem \autoref{DiffusionBar} has a unique solution $\overline{u}=u$ where $u$ is the unique solution of \autoref{DiffusionPDE}.
 
 Since the equation is linear, it is enough to show that the problem
 \begin{align}\label{DiffusionBar0}
@@ -601,7 +600,7 @@ Without loss of generality, suppose $\supp g \subset  B_{\frac{R}{2}}$, then we 
     &w_{R,\epsilon} \rvert_{t = \tilde{t} }  = g
   \end{cases}
 .\end{align}
-This is an initial boundary value problem of linear diffusion equation, the solution theory will be given in the PDE lecture. Here we direclty use the result i.e.
+This is an initial boundary value problem of linear diffusion equation, the solution theory will be given in the PDE lecture. Here we directly use the result i.e.
 there exists a unique solution 
 \begin{align*}
   w_{R,\epsilon} \in  C^{\infty}(\overline{B_R} \times  [0,\tilde{t} ] ) \text{ with } w_{R,\epsilon} \rvert_{\partial B_R} = 0

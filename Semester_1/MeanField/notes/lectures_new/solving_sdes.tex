@@ -6,7 +6,7 @@ Recall the particle system in the following:
   X_i(0)    &= x_{0,i}   
   \end{cases}
 .\end{align*}
-Notice that in the deterministic case, we consider the empirical measure $\mu_N(t) = \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i(t)} $ and expect that the empirical measure converges in the weak sense to the corresponding solution of nonlocal PDE. Actually by using the It\^o's formula, one can consider the time evolution of the joint measure and study the limit of its one-particle marginal. More details in this topic will be explained in the chapter with relative entropy later. 
+Notice that in the deterministic case, we consider the empirical measure $\mu_N(t) = \frac{1}{N} \sum_{i=1}^{N} \delta_{X_i(t)} $ and expect that the empirical measure converges in the weak sense to the corresponding solution of non-local PDE. Actually by using the It\^o's formula, one can consider the time evolution of the joint measure and study the limit of its one-particle marginal. More details in this topic will be explained in the chapter with relative entropy later. 
 
 We derive within this part only the higher order linear PDE.
 By denoting  
@@ -133,7 +133,7 @@ where the following H\"older's inequality was used
  \begin{align*}
    \left( \int_0^{t} 1 \abs{f} ds  \right)^2 &\le  \left( \int_0^{t} 1^2 ds  \right)^{\frac{1}{2}*2}*\left( \int_0^{t} \abs{f}^2 ds  \right)^{\frac{1}{2}*2} \le t \int_0^{t} \abs{f}^2 ds 
  .\end{align*}
-Notice that $\E\Big[\abs{X(0)-\tilde{X}(0)}^2\Big]=0$, by Gronwall's inequality we have 
+Notice that $\E\Big[\abs{X(0)-\tilde{X}(0)}^2\Big]=0$, by Grönwall's inequality we have 
  \begin{align*}
    \E\Big[\abs{X(t)-\tilde{X}(t) }^2\Big] = 0
  .\end{align*}
@@ -157,7 +157,7 @@ Since for any fixed $\omega$, $X(t,\omega )$ is continuous in $t$, we can extend
  .\end{align*}
  This concludes the uniqueness proof.
  
- For the existence,  we use first the Picard iteration imilar to the deterministic case given in the following
+ For the existence proof, we use Picard iteration similar to the deterministic case given by the following
  \begin{align*}
    X_{0}(t) &= X(0)  \\
            &\vdots\\
@@ -180,7 +180,7 @@ Since for any fixed $\omega$, $X(t,\omega )$ is continuous in $t$, we can extend
     &\le  2 L^2 T \E\Big[\int_0^{t} \abs{X_{n}(s) - X_{n-1}(s)  }^2 ds \Big]  + 2L^2\E\Big[\int_0^{t} \abs{X_{n}(s) - X_{n-1}(s)  }^2  ds\Big] \\
              &\myS{IV}{\le } 2L^2(1+T) \int_0^{t} \frac{(Ms)^n}{n!} ds \le \frac{M^{n+1}t^{n+1}}{(n+1)!} 
   .\end{align*}
-  Different from the deterministic case, because of the additional dependence on variable $\omega $ which has only the measurability, the completeness argument works only pathwisely. Instead, we will use a similar argument as in the uniqueness proof. 
+  Different from the deterministic case, because of the additional dependence on variable $\omega $ which has only the measurability, the completeness argument works only path-wise. Instead, we will use a similar argument as in the uniqueness proof. 
   \begin{align*}
     &\E\Big[\max_{0\le t \le T} \abs{X_{n+1}(t) - X_{n}(t)  }^2\Big] \\
     &\le \E\Big[\max_{0\le t\le T} \Big(2\abs*{\int_0^{t} b(X_{n}(s),s )-b(X_{n-1}(s),s ) ds}^2 + 2\abs*{\int_0^{t}B(X_{n}(s),s )-B(X_{n-1}(s),s ) dW_s}^2\Big)\Big] \\
@@ -188,7 +188,7 @@ Since for any fixed $\omega$, $X(t,\omega )$ is continuous in $t$, we can extend
     &\le  2TL^2 \E\Big[\int_0^{T} \abs{X_{n}(s) - X_{n-1}(s)  }^2 ds \Big] + 8\E\Big[\int_0^{T} \abs{B(X_{n}(s),s  )-B(X_{n-1}(s),s )}^2 ds \Big]\\
     &\le C*\E\Big[\int_0^{T} \abs{X_{n}(s)-X_{n-1}(s)  }^2 ds \Big]
  ,\end{align*}
-where we used the following Doobs martingales $L^{p}$ inequality \textcolor{red}{add a reference}.
+where we used the following Doob's martingales $L^{p}$ inequality \textcolor{red}{add a reference}.
   \begin{align*}
     \E\Big[\max_{0\le s\le t} \abs{X(s)}^{p} \Big] \le   \Big(\frac{p}{p-1}\Big)^{p} \E[\abs{X(t)}^{p}  ] 
   .\end{align*}
@@ -229,7 +229,7 @@ the Markov's inequality implies that
    \begin{align*}
      X_{n}(t,\omega ) \to X(t,\omega ) \qquad \text{ uniform in } t\in [0,T]
    .\end{align*}
-   Finaly, for a.s. $\omega $ , we can take the limit in the iteration  and obtain 
+   Finally, for a.s. $\omega $ , we can take the limit in the iteration  and obtain 
    \begin{align*}
     X(t) = X_{0} + \int_0^{t} b(X(s),s) ds + \int_0^{t} B(X(s),s) dW_s  
    .\end{align*}

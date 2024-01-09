@@ -41,7 +41,7 @@ and consider particle system with this smoothed interaction
  &X_i^{N,\epsilon}(0) = \xi_i \text{ i.i.d } u_{0}=\mathcal{L}(\xi_i)
  \end{cases}
 .\end{align}
-The regulartization parameter $\varepsilon$ should be chosen such that $\epsilon(N)\rightarrow 0$ when $N\rightarrow \infty$. Namely, the expected limiting problem is still like before, we list here also the corresponding Mckean-Vlasov SDE.
+The regularization parameter $\varepsilon$ should be chosen such that $\epsilon(N)\rightarrow 0$ when $N\rightarrow \infty$. Namely, the expected limiting problem is still like before, we list here also the corresponding Mckean-Vlasov SDE.
 \begin{align}\label{nonlocalPDE}
 \begin{cases}
 &\partial_t u - \Delta  u+ \nabla* (\underbrace{\nabla V \star  u}_{\text{Lip}} u) = 0 \\
@@ -176,7 +176,7 @@ The third term above needed to be done by using a mollified version of the law o
 \end{exercise}
 
 \vskip5mm
-Now we take the superimum in $\tilde t\in [0,T]$, the expectation, the maximum in $i=1,\ldots,N$, and obtain 
+Now we take the supremum in $\tilde t\in [0,T]$, the expectation, the maximum in $i=1,\ldots,N$, and obtain 
 \begin{align*}
   &\max_{1 \le i \le N}\E\Big[\sup_{0\leq t\leq \tilde t}\abs{X_i^{N,\epsilon}(t) - \overline{X}_{i}^{\epsilon}(t)}^2  \Big]\\
   \le & \|D^2 V_{\epsilon}\|_{\infty}^2 \tilde t \int_0^{\tilde t}  \max_{1\le j\le N} \E\Big[\sup_{0\leq t\leq s}\abs{X_j^{N,\epsilon}(t) - \overline{X}_j^{\epsilon}(t)  }^2\Big] ds + \frac{2\tilde t^2}{N}\|\nabla V_\epsilon\|_{\infty}^2
@@ -235,7 +235,7 @@ This concludes the first step
                 &\le C\int_0^{t} \abs{\overline{X}_i^{\epsilon}(s) - \hat{X}_i(s) }^2 ds +C \epsilon^2,
 \end{align*}
 where in the last step we have used \autoref{AssPDESol}.
-Then By Gronwall's inequality, we have
+Then By Grönwall's inequality, we have
 \begin{align}\label{barhat}
   \max_{1 \le i \le N}\E\Big[\sup_{0\leq t\leq T}\abs{\overline{X}_i^{\epsilon}(t) - \hat{X}_i(t)    }^2\Big] &\le C(T) \epsilon^2
 .\end{align}
@@ -288,7 +288,7 @@ where we have used the fact that  for fixed $x \in  \mathbb{R}^{d} $
 	\mathcal{N} \coloneqq  \Big\{\prod_{j=1}^{2 \tilde{k} }h(\overline{Y}_i,\overline{Y}_{i_j}) : i_j \in  \{1 , \ldots , N\} \text{ s.t. } i_j \text{ appeared at least twice}   \Big\}  
 	.\end{align*}
 	It is easy to obtain that the number of the elements in set $\mathcal{N}$ can be bounded by $C(\tilde{k} )N^{\tilde{k} } $.\\[1ex]
-	On the other hand, the each of the nonvanishing can be bounded in the following
+	On the other hand, the each of the non-vanishing can be bounded in the following
 	\begin{align*}
 	\E\Big[\prod_{j=1}^{2 \tilde{k} }h(\overline{Y}_i,\overline{Y}_{i_j})\Big] \le  C(\tilde{k} )* \|U\|_{\infty}^{2 \tilde{k} } 
 	.\end{align*}
@@ -305,7 +305,7 @@ From microscopic to the intermediate level, due to the singularity, it is not re
 
 \begin{theorem}
 Let the \autoref{AssPDESol} and \autoref{AssD2V} hold, for a given $V$ in \autoref{exampleV},
-$\epsilon = N^{-\beta }$, then $\forall \alpha \in (0,\frac12)$, there exists $\beta_1$ which depdends on $\alpha$, if $ \beta  \in  (0,\beta_1) $, it holds $\forall  \gamma  > 0$ that
+$\epsilon = N^{-\beta }$, then $\forall \alpha \in (0,\frac12)$, there exists $\beta_1$ which depends on $\alpha$, if $ \beta  \in  (0,\beta_1) $, it holds $\forall  \gamma  > 0$ that
  \begin{align*}
   \sup_{0\leq t\leq T}\P\Big(  \max_{1\leq i\leq N} \abs{X^{N,\epsilon}_i(t) - \overline{X}_i^{\epsilon}(t)   } \ge N^{-\alpha } \Big) \le \frac{C(\gamma )}{N^{\gamma } } 
  .\end{align*}
@@ -404,9 +404,9 @@ Remember that $\epsilon = N^{-\beta } $ and $\|\abs{D^2 V_\epsilon} \star  u^{\e
 	\|D^3 V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon^{\lambda+3}}\quad &\|D^2 V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon^{\lambda+2}},\qquad\|\nabla V_{\epsilon}\|_{\infty} \le  \frac{C}{\epsilon ^{(\lambda+1)} }
 	.\end{align*}
 \end{itemize}
-Then we can put these estimates in \autoref{xxx}, since $\theta_1>\alpha$, for any given $\gamma>0$, we first adjust the value of $\tilde k$ and then the value of $k$ to complete the proof by Gronwall's inequality.
+Then we can put these estimates in \autoref{xxx}, since $\theta_1>\alpha$, for any given $\gamma>0$, we first adjust the value of $\tilde k$ and then the value of $k$ to complete the proof by Grönwall's inequality.
 \end{proof}
-Now we can conbine the estimate between $\overline{X}_i^{\epsilon}$ and $\hat{X}_i^{N}$, which is exactly the same as in \autoref{barhat} and obtain that
+Now we can combine the estimate between $\overline{X}_i^{\epsilon}$ and $\hat{X}_i^{N}$, which is exactly the same as in \autoref{barhat} and obtain that
 \begin{corollary} \label{eta} For $\beta\in (0,\beta_1)$ and $\forall\eta\in (0,1)$, it holds
  \begin{align*}
 &\sup_{0\leq t\leq T}   \E[\max_{1\leq i\leq N} \abs{X_{i}^{N,\epsilon} - \hat{X}_i^{N} } > N^{-\eta\beta}]\leq C*N^{-(1-\eta)\beta} 

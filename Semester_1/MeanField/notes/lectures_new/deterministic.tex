@@ -25,7 +25,7 @@ In the case of higher dimensional vectors we sometimes  use the following notati
  
 \section{Review Of ODE Theory}
 
-We review the well-postedness theory of ODE system with a general setting.
+We review the well-posedness theory of ODE system with a general setting.
 
 For $\forall T > 0$ and $f\:\ [0,T] \times  \mathbb{R}^{d} \to \mathbb{R}^{d} $, we consider the following initial value problem
   \begin{align}\label{ivp}
@@ -138,11 +138,11 @@ This implies that
 This concludes the uniqueness proof
 \end{proof}
 \begin{remark}
- An alternative proof for uniqueness uses  Gronwall's inequality
+ An alternative proof for uniqueness uses  Grönwall's inequality
  which we will give in the next lemma. Furthermore similar to the uniqueness proof, one can 
  obtain that the solution $x(t; t_{0},x_{0})$ is continuously dependent on initial data
 \end{remark}
-\begin{lemma}[Gronwall's inequality]\label{gronwall_lemma}
+\begin{lemma}[Grönwall's inequality]\label{gronwall_lemma}
   Let $\alpha ,\beta ,\phi  \in  \mathcal{C}([a,b];\mathbb{R}^{d} )$  and $\beta (t) \ge 0$ for $\forall t \in [a,b]$ 
   such that 
   \begin{align*}
@@ -256,7 +256,7 @@ As an conventional notation, we use $\alpha \in \N_0^n$ of length $\abs{\alpha }
 \begin{definition}
  Let $\Omega  \subset  \mathbb{R}^{d} $  be an open subset, the space of test functions $\mathcal{D}(\Omega )$
  consists of all the functions in $\mathcal{C}_0^{\infty}(\Omega ) $ supplemented by the following convergence: \\[1ex]
- We say $\phi_m \to  \phi \in  \mathcal{C}_0^{\infty}(\Omega ) $ iff 
+ We say $\phi_m \to  \phi \in  \mathcal{C}_0^{\infty}(\Omega ) $ iff. 
  \begin{enumerate}
    \item There exists a compact set $K \subset  \Omega $ such that $\supp \phi_m \subset  K$ for all $ m$
    \item For all multi indices $\alpha $ it holds 
@@ -272,7 +272,7 @@ As an conventional notation, we use $\alpha \in \N_0^n$ of length $\abs{\alpha }
 \begin{definition}[Distribution]
  The space of Distributions is denoted by $\mathcal{D}'(\Omega )$  and is the dual space of $\mathcal{D}(\Omega)$
  i.e. it is the linear space of all continuous linear functionals on $\mathcal{D}(\Omega )$ \\[1ex]
- We say a functional $T :\mathcal{D}(\Omega ) \to \mathbb{C}$ is continuous linear iff 
+ We say a functional $T :\mathcal{D}(\Omega ) \to \mathbb{C}$ is continuous linear iff. 
  \begin{enumerate}
    \item $\braket{T,\alpha \phi_1+ \beta \phi_2} = \alpha \braket{T,\phi_1} + \beta \braket{T,\phi_2}$, $\forall \alpha,\beta\in \R$ and $\forall \phi_1,\phi_2\in\mathcal{D}(\Omega)$
    \item If $\phi_m \to  \phi $ in $\mathcal{D}(\Omega )$ then $\braket{T,\phi_m} \to \braket{T,\phi }$
@@ -305,7 +305,7 @@ Next we give a list of examples for distributions.
  The support of a distribution is also well-defined 
 \end{remark}
 \begin{theorem}
-  $L^{1}_{\text{loc}} $ functions are uniquely deterimed by distributions. More precisely 
+  $L^{1}_{\text{loc}} $ functions are uniquely determined by distributions. More precisely 
   for two functions $f,g \in  L_{\text{loc}}^{1}(\Omega ) $  if 
   \begin{align*}
     \int_\Omega  f \phi dx = \int_\Omega  g \phi dx \quad \forall \phi  \in \mathcal{D}(\Omega )
@@ -653,7 +653,7 @@ We will use the same assumption to solve the \autoref{MFE} and \autoref{characte
   \begin{align*}
     \|x(t,*)-\tilde{x}(t,*) \|_X \le L(2+C_{1})\int_0^{\abs{t}} \|x(s,*)-\tilde{x}(s,*) \|_X ds 
   .\end{align*}
-  By applying Gronwall's inequality we get 
+  By applying Grönwall's inequality we get 
   \begin{align*}
     \|x(t,*) - \tilde{x}(t,*) \|_X = 0,
 \end{align*}
@@ -749,7 +749,7 @@ we have obtained the estimate
 \begin{align*}
   D[\pi_0](t) \le  D[\pi_0](0) + 2L\int_0^{t}D[\pi_{0}] (s) ds
 .\end{align*}
-which implies by Gronwall's inequality that 
+which implies by Grönwall's inequality that 
 \begin{align*}
   D[\pi_0](t) \le D[\pi_0](0)e^{2Lt} 
 .\end{align*}

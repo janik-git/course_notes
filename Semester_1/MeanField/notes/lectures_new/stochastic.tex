@@ -238,7 +238,7 @@ W_2^2\Big(\frac{1}{N}\sum_{k=1}^{N} \delta_{X_k},\frac{1}{N}\sum_{k=1}^{N} \delt
  In fact since the above system beyond the initial data is independent of $N$, we may consider the equation without particle index.
  This equation is called Mckean-Vlasov equation which is a non-linear non-local SDE.
 \subsection{Well-posedness of Mckean-Vlasov equation}
- We consider in this part the solvalbility of Makean-Vlasov Equation 
+ We consider in this part the solvability of Mckean-Vlasov Equation 
 \begin{align}\label{MVE}
     \text{(MVE)} \begin{cases}
       dY(t) &= b(Y(t) ,\mu(t) ) dt + \sigma(Y(t),\mu(t) )dW_t \\
@@ -320,7 +320,7 @@ With the above notation we have that for any measurable function $f$ on $\mathca
  .\end{align*}
  Since it is the same measure the Wasserstein distance is 0 and the above is true by \autoref{sde_solution_assumption_strong}.\\
  
-In the next, we will prove that $\phi $ has a fixpoint $\overline{\mu } $, then according to the definition of $\phi$, we know that $\overline{\mu } $ is the solution of \autoref{MVE}.
+In the next, we will prove that $\phi $ has a fix-point $\overline{\mu } $, then according to the definition of $\phi$, we know that $\overline{\mu } $ is the solution of \autoref{MVE}.
  
 We prove this fact by Picard iteration method. 
 
@@ -352,7 +352,7 @@ Therefore we obtained
  \begin{align*}
    \E\big[\|Y^{\mu } - Y^{\tilde{\mu } }\|_{\tau}^2\big] &\le C \int_0^{\tau } \E\big[\|Y^{\mu } - Y^{\tilde{\mu } }\|_s^2\big] ds + C \int_0^{\tau } \E\big[W_2^2(\mu(s),\tilde{\mu }(s) )\big]  ds  \\
  ,\end{align*}
- which implies, by Gronwall inequality, that
+ which implies, by Grönwall inequality, that
  \begin{align*}
    \E\big[\|Y^{\mu } - Y^{\tilde{\mu } }\|_{\tau}^2\big] &\le C(\tau )* \int_0^{\tau }  \E\big[W_2^2(\mu(s) ,\tilde{\mu }(s) )\big] ds \\                                               
                                                  &\le C(\tau )* \int_0^{\tau } \E\big[ \sup_{0\le t \le s} W_2^2(\mu(t) ,\tilde{\mu }(t) )\big] ds \\                                              
@@ -430,7 +430,7 @@ Similar to the previous cases in handling the stochastic term, we use the Doob's
   \begin{align*}
 \E\Big[\sup_{0\le r\le t} \abs{X_i^{N}(r) - Y_i(r) }^2\Big] &\le 2(8+2t) L^2 \E\Big[\int_0^{t}\sup_{0\le r\le s} \abs{X_i^{N}(r) - Y_i(r) }^2+ W_2^{2}(\mu_N(s),\mu(s))   ds\Big].
 \end{align*}
-The by Gronwall's inequality, we have
+The by Grönwall's inequality, we have
 \begin{align}\label{XYd}
       \E\Big[\sup_{0\le r\le t} \abs{X_i^{N}(r) - Y_i(r) }^2\Big]                                              &\le  C*\E\Big[\int_0^{t} d_r^2(\mu_N,\mu ) dr\Big]
 .\end{align}
